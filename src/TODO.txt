@@ -1,0 +1,32 @@
+
+Display any text on the screen;
+
+Display Bible text on the screen;
+Search Bible text by reference;
+Search Bible text by content;
+Support of cross references;
+Grouping for Bible;
+
+Display Songs text on the screen;
+Search Songs text by reference;
+Search Songs text by content;
+Grouping for Songs;
+Add/Remove/Edit songs;
+
+Support image background
+Support video background
+Support background color
+Text styles for rendering on the screen
+
+Save last FullScreen position of the Display and auto apply
+I18N
+Thematic reference groups
+Work with USFM/USFX/OSIS Bible formats
+Looping video
+Fade in/out text
+Song accords
+Song notes
+Song midi (listen)
+Autoupdate through the internet
+
+Place all the sources on the codeplex
