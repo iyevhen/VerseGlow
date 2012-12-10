@@ -120,6 +120,9 @@
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="textView1.TextString" xml:space="preserve">
+    <value>I have a lot of code in place to draw my cells, but I am having difficulty figuring out how to utilize the "scrollable" part of the ScrollableControl. It seems that ScrollableControl's designed to be a container of other controls, and it's "auto" scrolling features are oriented around child controls that are outside the bounds of the control.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

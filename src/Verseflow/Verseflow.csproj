@@ -76,6 +76,9 @@
     <Compile Include="Controls\VerseRect\VerseRect.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TextView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>

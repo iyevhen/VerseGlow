@@ -31,32 +31,17 @@ namespace VerseFlow
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			var values = new List<string>();
+			string longstring = string.Empty;
 
 
 			for (int i = 0; i < 200; i++)
 			{
-				string s = i.ToString(CultureInfo.InvariantCulture);
-				string res = string.Empty;
-
-				for (int j = 0; j < 50; j++)
-				{
-					res += s + " ";
-				}
-				values.Add(res);
+				longstring += textView1.TextString + "\r\n\r\n";
 			}
 
 
 			Stopwatch sw = Stopwatch.StartNew();
-			panelVerses.SuspendLayout();
-			panelVerses.Controls.Clear();
-
-			foreach (var value in values)
-			{
-				var verseRect = new VerseRect { Text = value, Dock = DockStyle.Top, Parent = panelVerses };
-				panelVerses.Controls.Add(verseRect);
-			}
-			panelVerses.ResumeLayout();
+			textView1.TextString = longstring;
 			sw.Stop();
 			label1.Text = sw.Elapsed.ToString();
 		}
