@@ -50,5 +50,10 @@ namespace VerseFlow.Lib.Import
 		{
 			get { return values.Length; }
 		}
+
+		public override void Parse(string line)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

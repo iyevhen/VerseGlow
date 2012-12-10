@@ -49,6 +49,7 @@
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\IDatabaseAdapter.cs" />
     <Compile Include="Database\IDatabaseFactory.cs" />
+    <Compile Include="Database\SQLite\SqliteCaseInsensitiveCollation .cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="Database\SQLite\SqliteDatabaseAdapter.cs" />
     <Compile Include="Database\SQLite\SqliteDatabaseFactory.cs" />

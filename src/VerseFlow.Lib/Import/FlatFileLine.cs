@@ -8,6 +8,8 @@ namespace VerseFlow.Lib.Import
 
 		public abstract int ValuesCount { get; }
 
+		public abstract void Parse(string line);
+
 		public void SetValues(string[] values)
 		{
 			if (values == null)

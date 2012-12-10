@@ -23,7 +23,7 @@ CREATE TABLE [BibleContent] (
 [bookid] INTEGER  NOT NULL,
 [chapternum] INTEGER  NOT NULL,
 [versenum] INTEGER  NOT NULL,
-[versetext] NVARCHAR(400)  NOT NULL,
+[versetext] NVARCHAR(400) NOT NULL COLLATE UTF8CI,
 PRIMARY KEY (bookid, chapternum, versenum)
 );
 
@@ -33,17 +33,7 @@ CREATE TABLE [BibleInfo] (
 [biblecode] VARCHAR(3)  NULL
 );
 
-";
-
-		private const string schema_words = @"
-CREATE TABLE [Words] (
-[word] NVARCHAR(100)  NULL,
-[wordCount] INTEGER  NULL
-);
-
-CREATE INDEX [IDX_WORDS_WORD] ON [Words](
-[word]  ASC
-);
+CREATE INDEX `IDX_BibleContent_versetext` ON `BibleContent` (`versetext` COLLATE UTF8CI)
 ";
 
 		static SqliteDatabaseFactory()
@@ -57,16 +47,6 @@ CREATE INDEX [IDX_WORDS_WORD] ON [Words](
 				throw new ArgumentNullException("databaseFilePath");
 
 			this.databaseFilePath = databaseFilePath;
-		}
-
-		public IDatabase NewWordsDatabase()
-		{
-			var db = new Database(new SqliteDatabaseAdapter(databaseFilePath));
-
-			if (!File.Exists(databaseFilePath) || new FileInfo(databaseFilePath).Length == 0)
-				db.ExecuteNonQuery(schema_words);
-
-			return db;
 		}
 
 		public IDatabase NewBibleDatabase()

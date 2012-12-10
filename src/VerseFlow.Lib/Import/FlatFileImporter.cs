@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
 using VerseFlow.Lib.Database;
 using VerseFlow.Lib.Database.SQLite;
 
@@ -8,38 +9,11 @@ namespace VerseFlow.Lib.Import
 {
 	public class FlatFileImporter
 	{
-		public void ImportWords(FlatFile<FlatBibleLine> flatFile)
+		private FlatFile<FlatBibleLine> file;
+
+		public FlatFileImporter(string filepath)
 		{
-			var words = new Dictionary<string, long>();
-			var separator = new[] { ' ' };
-
-			foreach (FlatBibleLine line in flatFile)
-			{
-				foreach (string word in line.VerseText.Split(separator, StringSplitOptions.RemoveEmptyEntries))
-				{
-					if (!words.ContainsKey(word))
-						words.Add(word, 0);
-
-					words[word] += 1;
-				}
-			}
-
-			IDatabase db = new SqliteDatabaseFactory(string.Format(@"D:\{0}_words.db", flatFile.Name)).NewWordsDatabase();
-
-			using (var con = db.GetNewConnection())
-			{
-				using (db.ExecuteInBulk(con))
-				{
-					IDbCommand cmd = con.CreateCommand();
-					cmd.CommandText = "INSERT INTO Words (word, wordCount) VALUES (?, ?)";
-					cmd.Prepare();
-
-					foreach (var pair in words)
-					{
-						db.ExecuteNonQuery(cmd, pair.Key, pair.Value);
-					}
-				}
-			}
+			file = new FlatFile<FlatBibleLine>(filepath, Encoding.Unicode, '\t');
 		}
 
 		public void ImportBible(FlatFile<FlatBibleLine> flatFile)
@@ -86,6 +60,5 @@ namespace VerseFlow.Lib.Import
 				bookLines.Add(line);
 			}
 		}
-
 	}
 }

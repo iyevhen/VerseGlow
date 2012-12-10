@@ -20,19 +20,15 @@ namespace VerseFlow.Controls.VerseRect
 
 	public class VerseRect : Control, IButtonControl, IHaveRoundCorners
 	{
+		public const int WM_PRINTCLIENT = 0x0318;
+		public const int PRF_CLIENT = 4;
 		private const string categoryAppearance = "Appearance";
 		private const string categoryBehavior = "Behavior";
 
-
 		private readonly Blend blend = new Blend
 			{
-//								Positions = new[] { .1f, .2f, .4f, .8f, .8f, .4f, .2f , .1f},
-//								Factors = new float[] { .0f, .1f, .2f, .4f, .6f, .8f, .9f, 1.0f }
-								Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1},
-								Factors = new float[] { 1, .8f, .4f, .4f, 0.8f, 1 }
-//				Positions = new[] { 0, 0.45F, 0.55F, 1 },
-//				Factors = new float[] { 0, 1, 1, 0 }
-
+				Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 },
+				Factors = new float[] { 1, .8f, .4f, .4f, 0.8f, 1 }
 			};
 
 		private Rectangle contentRect;
@@ -50,7 +46,8 @@ namespace VerseFlow.Controls.VerseRect
 		private Corners roundCorners;
 		private VerseRectStatus status = VerseRectStatus.Normal;
 
-		private ContentAlignment textAlign = ContentAlignment.MiddleCenter;
+		private bool needHeightUpdate;
+
 		private const TextFormatFlags textFormatFlags = TextFormatFlags.WordBreak
 			| TextFormatFlags.WordEllipsis
 			| TextFormatFlags.EndEllipsis;
@@ -65,6 +62,8 @@ namespace VerseFlow.Controls.VerseRect
 				| ControlStyles.DoubleBuffer
 				| ControlStyles.UserPaint
 				| ControlStyles.SupportsTransparentBackColor, true);
+
+			Resize += (sender, args) => needHeightUpdate = true;
 		}
 
 		#region IButtonControl Implementation
@@ -172,24 +171,6 @@ namespace VerseFlow.Controls.VerseRect
 					return;
 
 				imageAlign = value;
-				Invalidate();
-			}
-		}
-
-		[Category(categoryAppearance), DefaultValue(typeof(ContentAlignment), "MiddleCenter")]
-		[Description("The alignment of the text that will be displayed in the face of the button.")]
-		public ContentAlignment TextAlign
-		{
-			get { return textAlign; }
-			set
-			{
-				if (!Enum.IsDefined(typeof(ContentAlignment), value))
-					throw new InvalidEnumArgumentException("value", (int)value, typeof(ContentAlignment));
-
-				if (textAlign == value)
-					return;
-
-				textAlign = value;
 				Invalidate();
 			}
 		}
@@ -398,10 +379,16 @@ namespace VerseFlow.Controls.VerseRect
 
 		protected override void OnPaintBackground(PaintEventArgs pevent)
 		{
-			Size measured = TextRenderer.MeasureText(Text, Font, Size, textFormatFlags);
+//			if (!Visible)
+//			{
+//				Debug.WriteLine("invisble");
+//				return;
+//			}
 
-			Height = measured.Height;
-			Debug.WriteLine("Height = (int)measured.Height");
+			if (needHeightUpdate)
+			{
+				Height = TextRenderer.MeasureText(Text, Font, Size, textFormatFlags).Height;
+			}
 
 			//Simulate Transparency
 			GraphicsContainer g = pevent.Graphics.BeginContainer();
@@ -465,7 +452,20 @@ namespace VerseFlow.Controls.VerseRect
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			DrawImage(e.Graphics);
+//			if (GetStyle(ControlStyles.UserPaint))
+//			{
+//				var m = new Message
+//				{
+//					HWnd = Handle,
+//					Msg = WM_PRINTCLIENT,
+//					WParam = e.Graphics.GetHdc(),
+//					LParam = (IntPtr)PRF_CLIENT
+//				};
+//				DefWndProc(ref m);
+//				e.Graphics.ReleaseHdc(m.WParam);
+//			}
+
+//			DrawImage(e.Graphics);
 			DrawText(e.Graphics);
 			DrawFocus(e.Graphics);
 			//base.OnPaint(e);
@@ -567,8 +567,6 @@ namespace VerseFlow.Controls.VerseRect
 		{
 			using (var textBrush = new SolidBrush(ForeColor))
 			{
-				Rectangle R = contentRect;
-
 				if (!Enabled)
 					textBrush.Color = SystemColors.GrayText;
 
@@ -632,6 +630,7 @@ namespace VerseFlow.Controls.VerseRect
 
 				if (Enabled)
 				{
+					//					g.DrawString(Text, Font, textBrush, contentRect, sf);
 					TextRenderer.DrawText(g, Text, Font, contentRect, ForeColor, textFormatFlags);
 				}
 				else
@@ -733,6 +732,11 @@ namespace VerseFlow.Controls.VerseRect
 		}
 
 		#endregion
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+		}
 
 		private void OnStatusChange(EventArgs e)
 		{

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace VerseFlow.Lib.Import
 {
-	public abstract class FlatFile<T> : IEnumerable<T>
+	public class FlatFile<T> : IEnumerable<T>
 		where T : FlatFileLine, new()
 	{
 		readonly string filePath;
