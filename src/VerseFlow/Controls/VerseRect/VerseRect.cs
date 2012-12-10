@@ -26,10 +26,12 @@ namespace VerseFlow.Controls.VerseRect
 
 		private readonly Blend blend = new Blend
 			{
-				//				Positions = new[] { .1f, .2f, .4f, .8f, .8f, .4f, .2f , .1f},
-				//				Factors = new[] { .0f, .1f, .2f, .4f, .6f, .8f, .9f, 1.0f }
-				Positions = new[] { 0, 0.45F, 0.55F, 1 },
-				Factors = new float[] { 0, 1, 1, 0 }
+//								Positions = new[] { .1f, .2f, .4f, .8f, .8f, .4f, .2f , .1f},
+//								Factors = new float[] { .0f, .1f, .2f, .4f, .6f, .8f, .9f, 1.0f }
+								Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1},
+								Factors = new float[] { 1, .8f, .4f, .4f, 0.8f, 1 }
+//				Positions = new[] { 0, 0.45F, 0.55F, 1 },
+//				Factors = new float[] { 0, 1, 1, 0 }
 
 			};
 
@@ -415,7 +417,7 @@ namespace VerseFlow.Controls.VerseRect
 
 			Color shadeColor, fillColor;
 			//			Color darkColor = DarkenColor(BackColor, 5);
-			Color darkDarkColor = DarkenColor(BackColor, 10);
+			Color darkDarkColor = DarkenColor(BackColor, 15);
 			Color lightColor = LightenColor(BackColor, 10);
 			//			Color lightLightColor = LightenColor(BackColor, 60);
 
@@ -485,7 +487,7 @@ namespace VerseFlow.Controls.VerseRect
 
 		#region Internal Draw Methods
 
-		internal void DrawImage(Graphics g)
+		private void DrawImage(Graphics g)
 		{
 			int currentImageIndex;
 

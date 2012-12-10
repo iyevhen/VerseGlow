@@ -40,12 +40,12 @@
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.verseRect8 = new VerseFlow.Controls.VerseRect.VerseRect();
 			this.verseRect4 = new VerseFlow.Controls.VerseRect.VerseRect();
 			this.verseRect2 = new VerseFlow.Controls.VerseRect.VerseRect();
 			this.verseRect3 = new VerseFlow.Controls.VerseRect.VerseRect();
 			this.verseRect1 = new VerseFlow.Controls.VerseRect.VerseRect();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -64,7 +64,7 @@
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.menuStrip1.Size = new System.Drawing.Size(517, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(749, 24);
 			this.menuStrip1.TabIndex = 2;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -117,8 +117,8 @@
 			// splitContainer1.Panel1
 			// 
 			this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
-			this.splitContainer1.Size = new System.Drawing.Size(517, 497);
-			this.splitContainer1.SplitterDistance = 285;
+			this.splitContainer1.Size = new System.Drawing.Size(749, 459);
+			this.splitContainer1.SplitterDistance = 412;
 			this.splitContainer1.TabIndex = 4;
 			// 
 			// tabControl1
@@ -129,7 +129,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(285, 497);
+			this.tabControl1.Size = new System.Drawing.Size(412, 459);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tabPage1
@@ -138,7 +138,7 @@
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(277, 471);
+			this.tabPage1.Size = new System.Drawing.Size(404, 433);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -153,19 +153,30 @@
 			this.panel1.Controls.Add(this.verseRect1);
 			this.panel1.Cursor = System.Windows.Forms.Cursors.Default;
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.panel1.Location = new System.Drawing.Point(3, 3);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(271, 465);
+			this.panel1.Size = new System.Drawing.Size(398, 427);
 			this.panel1.TabIndex = 3;
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage2.Size = new System.Drawing.Size(277, 471);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "tabPage2";
+			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
 			// verseRect8
 			// 
 			this.verseRect8.CornerRadius = 12;
 			this.verseRect8.Dock = System.Windows.Forms.DockStyle.Top;
 			this.verseRect8.ForeColor = System.Drawing.Color.Black;
-			this.verseRect8.Location = new System.Drawing.Point(0, 247);
+			this.verseRect8.Location = new System.Drawing.Point(0, 289);
 			this.verseRect8.Name = "verseRect8";
-			this.verseRect8.Size = new System.Drawing.Size(271, 78);
+			this.verseRect8.Size = new System.Drawing.Size(398, 102);
 			this.verseRect8.TabIndex = 6;
 			this.verseRect8.Text = resources.GetString("verseRect8.Text");
 			// 
@@ -174,9 +185,9 @@
 			this.verseRect4.CornerRadius = 12;
 			this.verseRect4.Dock = System.Windows.Forms.DockStyle.Top;
 			this.verseRect4.ForeColor = System.Drawing.Color.Black;
-			this.verseRect4.Location = new System.Drawing.Point(0, 195);
+			this.verseRect4.Location = new System.Drawing.Point(0, 238);
 			this.verseRect4.Name = "verseRect4";
-			this.verseRect4.Size = new System.Drawing.Size(271, 52);
+			this.verseRect4.Size = new System.Drawing.Size(398, 51);
 			this.verseRect4.TabIndex = 5;
 			this.verseRect4.Text = "I think that this is really a minor problem, but you can always use the first met" +
     "hod, just don’t think that it is perfect, it has its own problems… What option w" +
@@ -187,9 +198,9 @@
 			this.verseRect2.CornerRadius = 12;
 			this.verseRect2.Dock = System.Windows.Forms.DockStyle.Top;
 			this.verseRect2.ForeColor = System.Drawing.Color.Black;
-			this.verseRect2.Location = new System.Drawing.Point(0, 169);
+			this.verseRect2.Location = new System.Drawing.Point(0, 204);
 			this.verseRect2.Name = "verseRect2";
-			this.verseRect2.Size = new System.Drawing.Size(271, 26);
+			this.verseRect2.Size = new System.Drawing.Size(398, 34);
 			this.verseRect2.TabIndex = 4;
 			this.verseRect2.Text = "The MeasureText is a static method of the TextRenderer class so it looks perfect." +
     " ";
@@ -199,9 +210,9 @@
 			this.verseRect3.CornerRadius = 12;
 			this.verseRect3.Dock = System.Windows.Forms.DockStyle.Top;
 			this.verseRect3.ForeColor = System.Drawing.Color.Black;
-			this.verseRect3.Location = new System.Drawing.Point(0, 91);
+			this.verseRect3.Location = new System.Drawing.Point(0, 102);
 			this.verseRect3.Name = "verseRect3";
-			this.verseRect3.Size = new System.Drawing.Size(271, 78);
+			this.verseRect3.Size = new System.Drawing.Size(398, 102);
 			this.verseRect3.TabIndex = 3;
 			this.verseRect3.Text = resources.GetString("verseRect3.Text");
 			// 
@@ -213,25 +224,15 @@
 			this.verseRect1.ForeColor = System.Drawing.Color.Black;
 			this.verseRect1.Location = new System.Drawing.Point(0, 0);
 			this.verseRect1.Name = "verseRect1";
-			this.verseRect1.Size = new System.Drawing.Size(271, 91);
+			this.verseRect1.Size = new System.Drawing.Size(398, 102);
 			this.verseRect1.TabIndex = 1;
 			this.verseRect1.Text = resources.GetString("verseRect1.Text");
-			// 
-			// tabPage2
-			// 
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(176, 471);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "tabPage2";
-			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(517, 521);
+			this.ClientSize = new System.Drawing.Size(749, 483);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.menuStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
