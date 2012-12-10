@@ -141,9 +141,6 @@
 			this.verseRect3.Dock = System.Windows.Forms.DockStyle.Top;
 			this.verseRect3.Location = new System.Drawing.Point(0, 213);
 			this.verseRect3.Name = "verseRect3";
-			this.verseRect3.RoundCorners = ((VerseFlow.Controls.Corners)((((VerseFlow.Controls.Corners.TopLeft | VerseFlow.Controls.Corners.TopRight) 
-            | VerseFlow.Controls.Corners.BottomLeft) 
-            | VerseFlow.Controls.Corners.BottomRight)));
 			this.verseRect3.Size = new System.Drawing.Size(354, 198);
 			this.verseRect3.TabIndex = 3;
 			this.verseRect3.Text = "verseRect3";
@@ -154,9 +151,6 @@
 			this.verseRect2.Dock = System.Windows.Forms.DockStyle.Top;
 			this.verseRect2.Location = new System.Drawing.Point(0, 100);
 			this.verseRect2.Name = "verseRect2";
-			this.verseRect2.RoundCorners = ((VerseFlow.Controls.Corners)((((VerseFlow.Controls.Corners.TopLeft | VerseFlow.Controls.Corners.TopRight) 
-            | VerseFlow.Controls.Corners.BottomLeft) 
-            | VerseFlow.Controls.Corners.BottomRight)));
 			this.verseRect2.Size = new System.Drawing.Size(354, 113);
 			this.verseRect2.TabIndex = 2;
 			this.verseRect2.Text = "verseRect2";
@@ -167,9 +161,6 @@
 			this.verseRect1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.verseRect1.Location = new System.Drawing.Point(0, 0);
 			this.verseRect1.Name = "verseRect1";
-			this.verseRect1.RoundCorners = ((VerseFlow.Controls.Corners)((((VerseFlow.Controls.Corners.TopLeft | VerseFlow.Controls.Corners.TopRight) 
-            | VerseFlow.Controls.Corners.BottomLeft) 
-            | VerseFlow.Controls.Corners.BottomRight)));
 			this.verseRect1.Size = new System.Drawing.Size(354, 100);
 			this.verseRect1.TabIndex = 1;
 			this.verseRect1.Text = "verseRect1";
