@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace VerseFlow.Controls.VerseRect
 {
-	public enum ButtonStatus
+	public enum VerseRectStatus
 	{
 		Normal = 1,
 		Hot,
@@ -22,10 +22,11 @@ namespace VerseFlow.Controls.VerseRect
 		private const string categoryAppearance = "Appearance";
 		private const string categoryBehavior = "Behavior";
 
+
 		private readonly Blend blend = new Blend
 			{
-//				Positions = new[] { .1f, .2f, .4f, .8f, .8f, .4f, .2f , .1f},
-//				Factors = new[] { .0f, .1f, .2f, .4f, .6f, .8f, .9f, 1.0f }
+				//				Positions = new[] { .1f, .2f, .4f, .8f, .8f, .4f, .2f , .1f},
+				//				Factors = new[] { .0f, .1f, .2f, .4f, .6f, .8f, .9f, 1.0f }
 				Positions = new[] { 0, 0.45F, 0.55F, 1 },
 				Factors = new float[] { 0, 1, 1, 0 }
 
@@ -33,7 +34,7 @@ namespace VerseFlow.Controls.VerseRect
 
 		private Rectangle contentRect;
 		private int cornerRadius = 8;
-		private ButtonStatus currentStatus;
+		private VerseRectStatus currentStatus;
 		private DialogResult dialogResult;
 		private ContentAlignment imageAlign = ContentAlignment.MiddleCenter;
 		private int imageIndex = -1;
@@ -41,9 +42,10 @@ namespace VerseFlow.Controls.VerseRect
 		private ImageList imageList;
 		private bool isDefault;
 		private bool keyPressed;
+		private bool selected;
 
 		private Corners roundCorners;
-		private ButtonStatus status = ButtonStatus.Normal;
+		private VerseRectStatus status = VerseRectStatus.Normal;
 
 		private ContentAlignment textAlign = ContentAlignment.MiddleCenter;
 		private Color textShadowColor = Color.Transparent;
@@ -84,6 +86,8 @@ namespace VerseFlow.Controls.VerseRect
 
 		public void PerformClick()
 		{
+			selected = !selected;
+
 			if (CanSelect)
 				base.OnClick(EventArgs.Empty);
 		}
@@ -93,7 +97,7 @@ namespace VerseFlow.Controls.VerseRect
 		#region Properties
 
 		[Browsable(false)]
-		public ButtonStatus Status
+		public VerseRectStatus Status
 		{
 			get { return status; }
 		}
@@ -244,7 +248,7 @@ namespace VerseFlow.Controls.VerseRect
 			if (e.KeyCode == Keys.Space)
 			{
 				keyPressed = true;
-				status = ButtonStatus.Pressed;
+				status = VerseRectStatus.Pressed;
 			}
 
 			OnStatusChange(EventArgs.Empty);
@@ -256,11 +260,11 @@ namespace VerseFlow.Controls.VerseRect
 
 			if (e.KeyCode == Keys.Space)
 			{
-				if (Status == ButtonStatus.Pressed)
+				if (Status == VerseRectStatus.Pressed)
 					PerformClick();
 
 				keyPressed = false;
-				status = ButtonStatus.Focused;
+				status = VerseRectStatus.Focused;
 			}
 
 			OnStatusChange(EventArgs.Empty);
@@ -271,7 +275,7 @@ namespace VerseFlow.Controls.VerseRect
 			base.OnMouseEnter(e);
 
 			if (!keyPressed)
-				status = ButtonStatus.Hot;
+				status = VerseRectStatus.Hot;
 
 			OnStatusChange(EventArgs.Empty);
 		}
@@ -282,7 +286,7 @@ namespace VerseFlow.Controls.VerseRect
 
 			if (!keyPressed)
 			{
-				status = IsDefault ? ButtonStatus.Focused : ButtonStatus.Normal;
+				status = IsDefault ? VerseRectStatus.Focused : VerseRectStatus.Normal;
 			}
 
 			OnStatusChange(EventArgs.Empty);
@@ -295,7 +299,7 @@ namespace VerseFlow.Controls.VerseRect
 			if (e.Button == MouseButtons.Left)
 			{
 				Focus();
-				status = ButtonStatus.Pressed;
+				status = VerseRectStatus.Pressed;
 			}
 
 			OnStatusChange(EventArgs.Empty);
@@ -305,7 +309,7 @@ namespace VerseFlow.Controls.VerseRect
 		{
 			base.OnMouseUp(e);
 
-			status = ButtonStatus.Focused;
+			status = VerseRectStatus.Focused;
 			OnStatusChange(EventArgs.Empty);
 		}
 
@@ -316,14 +320,14 @@ namespace VerseFlow.Controls.VerseRect
 			if (new Rectangle(Point.Empty, Size).Contains(e.X, e.Y)
 				&& e.Button == MouseButtons.Left)
 			{
-				status = ButtonStatus.Pressed;
+				status = VerseRectStatus.Pressed;
 			}
 			else
 			{
 				if (keyPressed)
 					return;
 
-				status = ButtonStatus.Hot;
+				status = VerseRectStatus.Hot;
 			}
 
 			OnStatusChange(EventArgs.Empty);
@@ -333,7 +337,7 @@ namespace VerseFlow.Controls.VerseRect
 		{
 			base.OnGotFocus(e);
 
-			status = ButtonStatus.Focused;
+			status = VerseRectStatus.Focused;
 			NotifyDefault(true);
 		}
 
@@ -346,21 +350,21 @@ namespace VerseFlow.Controls.VerseRect
 			if (findForm != null && findForm.Focused)
 				NotifyDefault(false);
 
-			status = ButtonStatus.Normal;
+			status = VerseRectStatus.Normal;
 		}
 
 		protected override void OnEnabledChanged(EventArgs e)
 		{
 			base.OnEnabledChanged(e);
 
-			status = Enabled ? ButtonStatus.Normal : ButtonStatus.Disabled;
+			status = Enabled ? VerseRectStatus.Normal : VerseRectStatus.Disabled;
 			OnStatusChange(EventArgs.Empty);
 		}
 
 		protected override void OnClick(EventArgs e)
 		{
 			//Click gets fired before MouseUp which is handy
-			if (Status == ButtonStatus.Pressed)
+			if (Status == VerseRectStatus.Pressed)
 			{
 				Focus();
 				PerformClick();
@@ -378,7 +382,7 @@ namespace VerseFlow.Controls.VerseRect
 
 		protected override void OnDoubleClick(EventArgs e)
 		{
-			if (Status == ButtonStatus.Pressed)
+			if (Status == VerseRectStatus.Pressed)
 			{
 				Focus();
 				PerformClick();
@@ -422,12 +426,12 @@ namespace VerseFlow.Controls.VerseRect
 			Color lightColor = LightenColor(BackColor, 10);
 			//			Color lightLightColor = LightenColor(BackColor, 60);
 
-			if (Status == ButtonStatus.Hot)
+			if (Status == VerseRectStatus.Hot || Status == VerseRectStatus.Focused)
 			{
 				fillColor = lightColor;
 				shadeColor = darkDarkColor;
 			}
-			else if (Status == ButtonStatus.Pressed)
+			else if (Status == VerseRectStatus.Pressed)
 			{
 				fillColor = BackColor;
 				shadeColor = BackColor;
@@ -435,8 +439,15 @@ namespace VerseFlow.Controls.VerseRect
 			else
 			{
 				fillColor = BackColor;
-				shadeColor = darkDarkColor;
-//								shadeColor = lightColor;
+				shadeColor = BackColor;
+				//								shadeColor = lightColor;
+			}
+
+			if (selected)
+			{
+				fillColor = SystemColors.Highlight;
+				shadeColor = SystemColors.Highlight;
+				ForeColor = SystemColors.HighlightText;
 			}
 
 			Rectangle r = ClientRectangle;
@@ -446,15 +457,15 @@ namespace VerseFlow.Controls.VerseRect
 				using (var paintBrush = new LinearGradientBrush(r, fillColor, shadeColor, LinearGradientMode.Vertical))
 				{
 					//We want a sharp change in the colors so define a Blend for the brush
-//					paintBrush.Blend = blend;
+					paintBrush.Blend = blend;
 
 					//Draw the Button Background
 					pevent.Graphics.FillPath(paintBrush, path);
 				}
 
 				//...and border
-//				using (var drawingPen = new Pen(darkDarkColor))
-//					pevent.Graphics.DrawPath(drawingPen, path);
+				//				using (var drawingPen = new Pen(darkDarkColor))
+				//					pevent.Graphics.DrawPath(drawingPen, path);
 
 
 				//Get the Rectangle to be used for Content
@@ -502,7 +513,7 @@ namespace VerseFlow.Controls.VerseRect
 		{
 			int currentImageIndex;
 
-			if (Status == ButtonStatus.Hot || Status == ButtonStatus.Pressed)
+			if (Status == VerseRectStatus.Hot || Status == VerseRectStatus.Pressed)
 				currentImageIndex = (ImageIndexHot != -1) ? ImageIndexHot : ImageIndex;
 			else
 				currentImageIndex = ImageIndex;
@@ -565,7 +576,7 @@ namespace VerseFlow.Controls.VerseRect
 					break;
 			}
 
-			if (Status == ButtonStatus.Pressed)
+			if (Status == VerseRectStatus.Pressed)
 				pt.Offset(1, 1);
 
 			if (Enabled)
@@ -638,7 +649,7 @@ namespace VerseFlow.Controls.VerseRect
 						break;
 				}
 
-				if (Status == ButtonStatus.Pressed)
+				if (Status == VerseRectStatus.Pressed)
 					R.Offset(1, 1);
 
 				if (Enabled)
