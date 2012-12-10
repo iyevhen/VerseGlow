@@ -120,8 +120,14 @@
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="verseRect8.Text" xml:space="preserve">
+    <value>Sometimes we need to know the width of a given string in pixels, do you know how to compute it? Before writing some long code, please notice that the .NET framework class library provides such a method. When Googling about this issue, we find the Graphics.MeasureString Method, here is how to use it:</value>
+  </data>
+  <data name="verseRect3.Text" xml:space="preserve">
+    <value>Nice isn’t it? Well, there is one little problem here, how is the Graphics object created? The written code is a Windows Forms code, so the this is the Form itself. You can’t create the Graphics object by simply allocating it because it has no public constructor. The Control class contains a method for creating Graphics object</value>
+  </data>
   <data name="verseRect1.Text" xml:space="preserve">
-    <value>m is similar to this one: How can I dynamically change auto ... Yes, you surely can... but it needs some work to make it work seamles Here is my final solution. It works fine with a large amount of data. I use Timer to make sure the user want find current value. It looks like complex but it doesn't. Thanks to Max Lambertini for the idea.</value>
+    <value>Is similar to this one: How can I dynamically change auto ... Yes, you surely can... but it needs some work to make it work seamles Here is my final solution. It works fine with a large amount of data. I use Timer to make sure the user want find current value. It looks like complex but it doesn't. Thanks to Max Lambertini for the idea.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

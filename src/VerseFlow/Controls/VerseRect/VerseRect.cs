@@ -49,8 +49,7 @@ namespace VerseFlow.Controls.VerseRect
 		private VerseRectStatus status = VerseRectStatus.Normal;
 
 		private ContentAlignment textAlign = ContentAlignment.MiddleCenter;
-		private Color textShadowColor = Color.Transparent;
-		private const TextFormatFlags textFormatFlags = TextFormatFlags.WordBreak 
+		private const TextFormatFlags textFormatFlags = TextFormatFlags.WordBreak
 			| TextFormatFlags.WordEllipsis
 			| TextFormatFlags.EndEllipsis;
 
@@ -189,21 +188,6 @@ namespace VerseFlow.Controls.VerseRect
 					return;
 
 				textAlign = value;
-				Invalidate();
-			}
-		}
-
-		[Category(categoryAppearance), DefaultValue(typeof(Color), "Transparent")]
-		[Description("Use shadow for text on button.")]
-		public Color TextShadowColor
-		{
-			get { return textShadowColor; }
-			set
-			{
-				if (textShadowColor == value)
-					return;
-
-				textShadowColor = value;
 				Invalidate();
 			}
 		}
@@ -455,7 +439,7 @@ namespace VerseFlow.Controls.VerseRect
 			if (selected)
 			{
 				fillColor = SystemColors.Highlight;
-				shadeColor = LightenColor(SystemColors.Highlight, 15);
+				shadeColor = LightenColor(SystemColors.Highlight, 25);
 				ForeColor = SystemColors.HighlightText;
 			}
 			else
@@ -465,36 +449,13 @@ namespace VerseFlow.Controls.VerseRect
 
 			Rectangle r = ClientRectangle;
 
-			
-
-//			using (GraphicsPath path = RoundRectangle(r, CornerRadius, RoundCorners))
+			using (var paintBrush = new LinearGradientBrush(r, fillColor, shadeColor, LinearGradientMode.Vertical))
 			{
-				using (var paintBrush = new LinearGradientBrush(r, fillColor, shadeColor, LinearGradientMode.Vertical))
-				{
-					//We want a sharp change in the colors so define a Blend for the brush
-					paintBrush.Blend = blend;
+				//We want a sharp change in the colors so define a Blend for the brush
+				paintBrush.Blend = blend;
 
-					//Draw the Button Background
-					pevent.Graphics.FillRectangle(paintBrush, r);
-				}
-
-				//...and border
-				//				using (var drawingPen = new Pen(darkDarkColor))
-				//					pevent.Graphics.DrawPath(drawingPen, path);
-
-
-				//Get the Rectangle to be used for Content
-//				bool inBounds = false;
-				//We could use some Math to get this from the radius but I'm 
-				//not great at Math so for the example this hack will suffice.
-//				while (!inBounds && r.Width >= 1 && r.Height >= 1)
-//				{
-//					inBounds = path.IsVisible(r.Left, r.Top) &&
-//							   path.IsVisible(r.Right, r.Top) &&
-//							   path.IsVisible(r.Left, r.Bottom) &&
-//							   path.IsVisible(r.Right, r.Bottom);
-//					r.Inflate(-1, -1);
-//				}
+				//Draw the Button Background
+				pevent.Graphics.FillRectangle(paintBrush, r);
 			}
 
 			contentRect = r;
@@ -609,79 +570,71 @@ namespace VerseFlow.Controls.VerseRect
 				if (!Enabled)
 					textBrush.Color = SystemColors.GrayText;
 
-//				var sf = new StringFormat(StringFormatFlags.NoWrap | StringFormatFlags.NoClip);
-//
-//				if (ShowKeyboardCues)
-//					sf.HotkeyPrefix = HotkeyPrefix.Show;
-//				else
-//					sf.HotkeyPrefix = HotkeyPrefix.Hide;
+				//				var sf = new StringFormat(StringFormatFlags.NoWrap | StringFormatFlags.NoClip);
+				//
+				//				if (ShowKeyboardCues)
+				//					sf.HotkeyPrefix = HotkeyPrefix.Show;
+				//				else
+				//					sf.HotkeyPrefix = HotkeyPrefix.Hide;
 
-//				switch (TextAlign)
-//				{
-//					case ContentAlignment.TopLeft:
-//						sf.Alignment = StringAlignment.Near;
-//						sf.LineAlignment = StringAlignment.Near;
-//						break;
-//
-//					case ContentAlignment.TopCenter:
-//						sf.Alignment = StringAlignment.Center;
-//						sf.LineAlignment = StringAlignment.Near;
-//						break;
-//
-//					case ContentAlignment.TopRight:
-//						sf.Alignment = StringAlignment.Far;
-//						sf.LineAlignment = StringAlignment.Near;
-//						break;
-//
-//					case ContentAlignment.MiddleLeft:
-//						sf.Alignment = StringAlignment.Near;
-//						sf.LineAlignment = StringAlignment.Center;
-//						break;
-//
-//					case ContentAlignment.MiddleCenter:
-//						sf.Alignment = StringAlignment.Center;
-//						sf.LineAlignment = StringAlignment.Center;
-//						break;
-//
-//					case ContentAlignment.MiddleRight:
-//						sf.Alignment = StringAlignment.Far;
-//						sf.LineAlignment = StringAlignment.Center;
-//						break;
-//
-//					case ContentAlignment.BottomLeft:
-//						sf.Alignment = StringAlignment.Near;
-//						sf.LineAlignment = StringAlignment.Far;
-//						break;
-//
-//					case ContentAlignment.BottomCenter:
-//						sf.Alignment = StringAlignment.Center;
-//						sf.LineAlignment = StringAlignment.Far;
-//						break;
-//
-//					case ContentAlignment.BottomRight:
-//						sf.Alignment = StringAlignment.Far;
-//						sf.LineAlignment = StringAlignment.Far;
-//						break;
-//				}
-//
-//				if (Status == VerseRectStatus.Pressed)
-//					R.Offset(1, 1);
+				//				switch (TextAlign)
+				//				{
+				//					case ContentAlignment.TopLeft:
+				//						sf.Alignment = StringAlignment.Near;
+				//						sf.LineAlignment = StringAlignment.Near;
+				//						break;
+				//
+				//					case ContentAlignment.TopCenter:
+				//						sf.Alignment = StringAlignment.Center;
+				//						sf.LineAlignment = StringAlignment.Near;
+				//						break;
+				//
+				//					case ContentAlignment.TopRight:
+				//						sf.Alignment = StringAlignment.Far;
+				//						sf.LineAlignment = StringAlignment.Near;
+				//						break;
+				//
+				//					case ContentAlignment.MiddleLeft:
+				//						sf.Alignment = StringAlignment.Near;
+				//						sf.LineAlignment = StringAlignment.Center;
+				//						break;
+				//
+				//					case ContentAlignment.MiddleCenter:
+				//						sf.Alignment = StringAlignment.Center;
+				//						sf.LineAlignment = StringAlignment.Center;
+				//						break;
+				//
+				//					case ContentAlignment.MiddleRight:
+				//						sf.Alignment = StringAlignment.Far;
+				//						sf.LineAlignment = StringAlignment.Center;
+				//						break;
+				//
+				//					case ContentAlignment.BottomLeft:
+				//						sf.Alignment = StringAlignment.Near;
+				//						sf.LineAlignment = StringAlignment.Far;
+				//						break;
+				//
+				//					case ContentAlignment.BottomCenter:
+				//						sf.Alignment = StringAlignment.Center;
+				//						sf.LineAlignment = StringAlignment.Far;
+				//						break;
+				//
+				//					case ContentAlignment.BottomRight:
+				//						sf.Alignment = StringAlignment.Far;
+				//						sf.LineAlignment = StringAlignment.Far;
+				//						break;
+				//				}
+				//
+				//				if (Status == VerseRectStatus.Pressed)
+				//					R.Offset(1, 1);
 
 				if (Enabled)
 				{
-					if (TextShadowColor != Color.Transparent)
-					{
-//						g.DrawString(Text, Font, new SolidBrush(TextShadowColor),
-//									 new RectangleF(R.X + 1, R.Y + 1, R.Width, R.Height), sf);
-					}
-
-//					g.DrawString(Text, Font, textBrush, R, sf);
-
 					TextRenderer.DrawText(g, Text, Font, contentRect, ForeColor, textFormatFlags);
 				}
 				else
 				{
-//					ControlPaint.DrawStringDisabled(g, Text, Font, BackColor, R, sf);
+					ControlPaint.DrawStringDisabled(g, Text, Font, BackColor, contentRect, textFormatFlags);
 				}
 			}
 		}
