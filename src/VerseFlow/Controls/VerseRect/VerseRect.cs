@@ -442,7 +442,7 @@ namespace VerseFlow.Controls.VerseRect
 				using (var paintBrush = new LinearGradientBrush(r, fillColor, shadeColor, LinearGradientMode.Vertical))
 				{
 					//We want a sharp change in the colors so define a Blend for the brush
-					paintBrush.Blend = blend;
+//					paintBrush.Blend = blend;
 
 					//Draw the Button Background
 					pevent.Graphics.FillPath(paintBrush, path);
