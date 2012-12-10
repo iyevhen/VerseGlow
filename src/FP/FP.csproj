@@ -8,8 +8,8 @@
     <ProjectGuid>{6A21DEA0-F304-489C-8B35-D5F2E37D1A86}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FreePresenter</RootNamespace>
-    <AssemblyName>fp</AssemblyName>
+    <RootNamespace>VerseFlow</RootNamespace>
+    <AssemblyName>VerseFlow</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>pid.ico</ApplicationIcon>

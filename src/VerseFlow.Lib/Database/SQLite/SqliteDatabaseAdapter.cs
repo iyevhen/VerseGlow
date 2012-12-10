@@ -1,9 +1,8 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
-using SOSOnlineBackup.Common.DB;
 
-namespace Verseflow.Database
+namespace VerseFlow.Lib.Database.SQLite
 {
 	// to get table info execute query "PRAGMA table_info(table_name)" where table_name - name of the interested table;
 

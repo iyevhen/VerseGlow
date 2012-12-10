@@ -1,6 +1,6 @@
 using System;
 
-namespace Verseflow.Database
+namespace VerseFlow.Lib
 {
 	public interface ILog
 	{

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace Verseflow.Database
+namespace VerseFlow.Lib.Database.SQLite
 {
 	public class SqliteDatabaseFactory : IDatabaseFactory
 	{

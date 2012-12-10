@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("VerseFlow")]
-[assembly: AssemblyCopyright("VerseFlow Copyright © 2012")]
+[assembly: AssemblyCopyright("VerseFlow Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a896b103-bbb4-4dde-9699-c60352605236")]
+[assembly: Guid("bcdff86b-51ad-4684-994a-033d1efd208f")]
 
 // Version information for an assembly consists of the following four values:
 //
