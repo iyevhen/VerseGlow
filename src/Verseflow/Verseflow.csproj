@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\Corners.cs" />
+    <Compile Include="Controls\VerseRect\BibleBookRect.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +104,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\1355132176_ru.png" />
+    <None Include="Resources\1355132156_ua.png" />
     <Content Include="verseflow.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,7 +11,7 @@ namespace VerseFlow
 
 		private void decreaseFontToolStripMenuItem_Click(object sender, System.EventArgs e)
 		{
-
+			
 		}
 	}
 }
