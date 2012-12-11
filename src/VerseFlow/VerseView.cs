@@ -18,7 +18,6 @@ namespace VerseFlow
 			SetStyle(ControlStyles.DoubleBuffer
 					 | ControlStyles.ResizeRedraw
 					 | ControlStyles.AllPaintingInWmPaint
-					 | ControlStyles.ContainerControl
 					 | ControlStyles.UserPaint, true);
 
 			HorizontalScroll.Enabled = false;
@@ -62,13 +61,15 @@ namespace VerseFlow
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
-			const int scrollwidth = 20;
-
 			graph.FillRectangle(SystemBrushes.Control, rect);
 
 			if (refreshVerseHeight)
 			{
-				int width = Width - scrollwidth;
+				int width = Width;
+
+				if (VScroll)
+					width -= SystemInformation.VerticalScrollBarWidth;
+
 				int heigth = 0;
 
 				foreach (VerseBox vb in verses)
@@ -76,6 +77,8 @@ namespace VerseFlow
 					vb.SizeF = new SizeF(width, graph.MeasureString(vb.Text, Font, width, stringFormat).Height);
 					heigth += vb.AproxHeight;
 				}
+
+				refreshVerseHeight = false;
 
 				AutoScrollMinSize = new Size(width, heigth);
 			}

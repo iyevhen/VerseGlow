@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.Text;
 using System.Windows.Forms;
 using VerseFlow.Controls.VerseRect;
 
@@ -34,12 +35,11 @@ namespace VerseFlow
 			var strings = new List<string>();
 
 
-			int count = 30;
-			string args = "In this case, FocusPoint is a PointF structure that holds the coordinates in the bitmap which the user is focused on (for example, when they mouse wheel to zoom in they are focusing on the current mouse location at that time). This functionality works for the most part.";
+			int count = 10;
 
 			for (int i = 0; i < count; i++)
 			{
-				strings.Add(string.Format("{0}  {1}", i, args));
+				strings.Add(string.Format("{0}{1}", i, RandomString(random.Next(2, 300))));
 			}
 
 
@@ -50,6 +50,25 @@ namespace VerseFlow
 			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString());
 			//			("mm':'ss':'fff");
 			//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("hh:mm:ss.fffffff"));
+		}
+
+		private static readonly Random random = new Random((int)DateTime.Now.Ticks);//thanks to McAden
+
+		private string RandomString(int size)
+		{
+			var builder = new StringBuilder();
+			for (int i = 0; i < size; i++)
+			{
+				char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+				builder.Append(ch);
+
+				if ((i % random.Next(1, 20)) == 0)
+				{
+					builder.Append(' ');
+				}
+			}
+
+			return builder.ToString();
 		}
 	}
 }
