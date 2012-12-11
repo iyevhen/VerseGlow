@@ -34,21 +34,22 @@ namespace VerseFlow
 			var strings = new List<string>();
 
 
-			int count = 300;
+			int count = 30;
+			string args = "In this case, FocusPoint is a PointF structure that holds the coordinates in the bitmap which the user is focused on (for example, when they mouse wheel to zoom in they are focusing on the current mouse location at that time). This functionality works for the most part.";
 
 			for (int i = 0; i < count; i++)
 			{
-				strings.Add(i + "   " + "In this case, FocusPoint is a PointF structure that holds the coordinates in the bitmap which the user is focused on (for example, when they mouse wheel to zoom in they are focusing on the current mouse location at that time). This functionality works for the most part.");
+				strings.Add(string.Format("{0}  {1}", i, args));
 			}
 
 
 			Stopwatch sw = Stopwatch.StartNew();
 			verseView1.Populate(strings);
 			sw.Stop();
-//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("h'h 'm'm 's's' 'fff"));
+			//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("h'h 'm'm 's's' 'fff"));
 			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString());
-//			("mm':'ss':'fff");
-//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("hh:mm:ss.fffffff"));
+			//			("mm':'ss':'fff");
+			//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("hh:mm:ss.fffffff"));
 		}
- 	}
+	}
 }

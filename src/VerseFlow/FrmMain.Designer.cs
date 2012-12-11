@@ -39,10 +39,10 @@
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.verseView1 = new VerseFlow.VerseView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.label1 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
-			this.verseView1 = new VerseFlow.VerseView();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -121,7 +121,7 @@
 			this.splitContainer1.Panel2.Controls.Add(this.button1);
 			this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
 			this.splitContainer1.Size = new System.Drawing.Size(781, 684);
-			this.splitContainer1.SplitterDistance = 235;
+			this.splitContainer1.SplitterDistance = 312;
 			this.splitContainer1.TabIndex = 4;
 			// 
 			// tabControl1
@@ -132,7 +132,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(235, 684);
+			this.tabControl1.Size = new System.Drawing.Size(312, 684);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tabPage1
@@ -141,10 +141,22 @@
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(227, 658);
+			this.tabPage1.Size = new System.Drawing.Size(304, 658);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// verseView1
+			// 
+			this.verseView1.AutoScroll = true;
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(220, 117);
+			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
+			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.verseView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
+			this.verseView1.Location = new System.Drawing.Point(3, 3);
+			this.verseView1.Name = "verseView1";
+			this.verseView1.Size = new System.Drawing.Size(298, 652);
+			this.verseView1.TabIndex = 0;
 			// 
 			// tabPage2
 			// 
@@ -174,18 +186,6 @@
 			this.button1.Text = "Populate";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// verseView1
-			// 
-			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(220, 117);
-			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
-			this.verseView1.Location = new System.Drawing.Point(3, 3);
-			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(221, 652);
-			this.verseView1.TabIndex = 0;
 			// 
 			// FrmMain
 			// 

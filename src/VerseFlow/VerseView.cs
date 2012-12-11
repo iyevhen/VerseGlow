@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace VerseFlow
@@ -8,8 +9,9 @@ namespace VerseFlow
 	public class VerseView : ScrollableControl
 	{
 		private List<VerseBox> verses = new List<VerseBox>();
-		private static StringFormat stringFormat;
-
+		private static readonly StringFormat stringFormat = new StringFormat();
+		private readonly object candy = new object();
+		private bool refreshVerseHeight;
 
 		public VerseView()
 		{
@@ -18,75 +20,100 @@ namespace VerseFlow
 					 | ControlStyles.AllPaintingInWmPaint
 					 | ControlStyles.ContainerControl
 					 | ControlStyles.UserPaint, true);
+
+			HorizontalScroll.Enabled = false;
+			HorizontalScroll.Visible = false;
+
+			VerticalScroll.Enabled = true;
+			VerticalScroll.Visible = true;
 		}
 
 
-		public void Populate(IList<string> strings)
+		public void Populate(List<string> strings)
 		{
 			if (strings == null)
 				throw new ArgumentNullException("strings");
 
-			verses = new List<VerseBox>();
-			int heigth = 0;
-
-			Size proposedSize = ClientRectangle.Size;
-
-			using (Graphics graph = CreateGraphics())
-			{
-				for (int i = 0; i < strings.Count; i++)
-				{
-					Size size = TextRenderer.MeasureText(graph, strings[i], Font, proposedSize);
-					verses.Add(new VerseBox(strings[i], size, heigth));
-
-					heigth += size.Height;
-				}
-
-				AutoScrollMinSize = new Size(proposedSize.Width, heigth);
-
-				Invalidate();
-			}
+			verses = strings.ConvertAll(s => new VerseBox(s));
+			refreshVerseHeight = true;
+			Invalidate();
 		}
 
 		protected override void OnPaintBackground(PaintEventArgs e)
 		{
-			e.Graphics.FillRectangle(Brushes.LightGray, e.ClipRectangle);
-			//			base.OnPaintBackground(e);
+			//						base.OnPaintBackground(e);
 		}
+
+		protected override void OnSizeChanged(EventArgs e)
+		{
+			base.OnSizeChanged(e);
+			ShowScrollBar(this.Handle, SB_HORZ, false);
+			refreshVerseHeight = true;
+		}
+
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			DoPaint(e.Graphics, e.ClipRectangle);
+			lock (candy)
+			{
+				DoPaint(e.Graphics, e.ClipRectangle);
+			}
 		}
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
+			const int scrollwidth = 20;
+
+			graph.FillRectangle(SystemBrushes.Control, rect);
+
+			if (refreshVerseHeight)
+			{
+				int width = Width - scrollwidth;
+				int heigth = 0;
+
+				foreach (VerseBox vb in verses)
+				{
+					vb.SizeF = new SizeF(width, graph.MeasureString(vb.Text, Font, width, stringFormat).Height);
+					heigth += vb.AproxHeight;
+				}
+
+				AutoScrollMinSize = new Size(width, heigth);
+			}
+
+			int yPosition = AutoScrollPosition.Y;
+			graph.TranslateTransform(0, yPosition);
+
 			float y = 0;
 
 			foreach (VerseBox vbox in verses)
 			{
 				if (y > rect.Height)
 					return;
-				var size = MeasureDisplayString(graph, vbox.Text, Font, rect.Width);
-				var rr = new RectangleF(new PointF(0, y), size);
 
-				graph.DrawString(vbox.Text, Font, Brushes.Black, rr, stringFormat);
-				graph.DrawRectangles(Pens.Blue, new[] { rr });
+				//				var size = graph.MeasureString(vbox.Text, Font, rect.Width, stringFormat);
+				var rr = new RectangleF(new PointF(0, y), vbox.SizeF);
+
+				graph.DrawString(vbox.Text, Font, SystemBrushes.ControlText, rr, stringFormat);
+				graph.DrawRectangles(SystemPens.Highlight, new[] { rr });
 				y += rr.Height;
 			}
 		}
 
-		private static SizeF MeasureDisplayString(Graphics graphics, string text, Font font, int width)
+		protected override void OnMouseWheel(MouseEventArgs e)
 		{
-			stringFormat = new StringFormat(StringFormatFlags.MeasureTrailingSpaces);
-			var rect = new RectangleF(0, 0, width, 1000);
-			CharacterRange[] ranges = { new CharacterRange(0, text.Length) };
-
-			stringFormat.SetMeasurableCharacterRanges(ranges);
-
-			Region[] regions = graphics.MeasureCharacterRanges(text, font, rect, stringFormat);
-			rect = regions[0].GetBounds(graphics);
-
-			return rect.Size;
+			base.OnMouseWheel(e);
+			//			VScroll;
+			//
+			//			if (e.Delta > 0)
+			//			{
+			//				VScrollBar.Value = (int)Math.Max(VScrollBar.Value - (VScrollBar.SmallChange * e.Delta), 0);
+			//				OnScroll(new ScrollEventArgs(ScrollEventType.ThumbPosition, xOldValue, VScrollBar.Value, ScrollOrientation.VerticalScroll));
+			//			}
+			//			else
+			//			{
+			//				VScrollBar.Value = (int)Math.Min(VScrollBar.Value - (VScrollBar.SmallChange * e.Delta), VScrollBar.Maximum - (VScrollBar.LargeChange - 1));
+			//				OnScroll(new ScrollEventArgs(ScrollEventType.ThumbPosition, xOldValue, VScrollBar.Value, ScrollOrientation.VerticalScroll));
+			//			}
 		}
 
 		protected override void OnScroll(ScrollEventArgs se)
@@ -94,24 +121,23 @@ namespace VerseFlow
 			base.OnScroll(se);
 			Invalidate();
 		}
+
+
+		private const int SB_HORZ = 0;
+
+		[DllImport("user32.dll")]
+		static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
 	}
 
 	internal class VerseBox
 	{
-		private readonly int position;
-		private readonly Size size;
 		private readonly string text;
+		private SizeF sizeF;
+		private int height;
 
-		public VerseBox(string text, Size size, int position)
+		public VerseBox(string text)
 		{
 			this.text = text;
-			this.size = size;
-			this.position = position;
-		}
-
-		public int Position
-		{
-			get { return position; }
 		}
 
 		public string Text
@@ -119,9 +145,19 @@ namespace VerseFlow
 			get { return text; }
 		}
 
-		public Size Size
+		public SizeF SizeF
 		{
-			get { return size; }
+			get { return sizeF; }
+			set
+			{
+				sizeF = value;
+				height = (int)(sizeF.Height + .5f); // hack for rounding to ceiling Int32
+			}
+		}
+
+		public int AproxHeight
+		{
+			get { return height; }
 		}
 	}
 }
