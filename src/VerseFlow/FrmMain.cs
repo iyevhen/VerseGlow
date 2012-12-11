@@ -31,19 +31,24 @@ namespace VerseFlow
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			string longstring = string.Empty;
+			var strings = new List<string>();
 
 
-			for (int i = 0; i < 200; i++)
+			int count = 300;
+
+			for (int i = 0; i < count; i++)
 			{
-				longstring += textView1.TextString + "\r\n\r\n";
+				strings.Add(i + "   " + "In this case, FocusPoint is a PointF structure that holds the coordinates in the bitmap which the user is focused on (for example, when they mouse wheel to zoom in they are focusing on the current mouse location at that time). This functionality works for the most part.");
 			}
 
 
 			Stopwatch sw = Stopwatch.StartNew();
-			textView1.TextString = longstring;
+			verseView1.Populate(strings);
 			sw.Stop();
-			label1.Text = sw.Elapsed.ToString();
+//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("h'h 'm'm 's's' 'fff"));
+			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString());
+//			("mm':'ss':'fff");
+//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("hh:mm:ss.fffffff"));
 		}
-	}
+ 	}
 }

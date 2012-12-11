@@ -42,7 +42,7 @@
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.label1 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
-			this.textView1 = new VerseFlow.TextView();
+			this.verseView1 = new VerseFlow.VerseView();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -68,13 +68,13 @@
 			// bibleToolStripMenuItem
 			// 
 			this.bibleToolStripMenuItem.Name = "bibleToolStripMenuItem";
-			this.bibleToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+			this.bibleToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
 			this.bibleToolStripMenuItem.Text = "Bibles";
 			// 
 			// songToolStripMenuItem
 			// 
 			this.songToolStripMenuItem.Name = "songToolStripMenuItem";
-			this.songToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+			this.songToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
 			this.songToolStripMenuItem.Text = "Psalms";
 			// 
 			// toolsToolStripMenuItem
@@ -84,25 +84,25 @@
             this.exportToToolStripMenuItem,
             this.settingsToolStripMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
 			this.toolsToolStripMenuItem.Text = "Tools";
 			// 
 			// importFromToolStripMenuItem
 			// 
 			this.importFromToolStripMenuItem.Name = "importFromToolStripMenuItem";
-			this.importFromToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+			this.importFromToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
 			this.importFromToolStripMenuItem.Text = "Import from";
 			// 
 			// exportToToolStripMenuItem
 			// 
 			this.exportToToolStripMenuItem.Name = "exportToToolStripMenuItem";
-			this.exportToToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+			this.exportToToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
 			this.exportToToolStripMenuItem.Text = "Export to";
 			// 
 			// settingsToolStripMenuItem
 			// 
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
 			this.settingsToolStripMenuItem.Text = "Settings";
 			// 
 			// splitContainer1
@@ -137,7 +137,7 @@
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.Add(this.textView1);
+			this.tabPage1.Controls.Add(this.verseView1);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -151,7 +151,7 @@
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(372, 658);
+			this.tabPage2.Size = new System.Drawing.Size(227, 658);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "tabPage2";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -175,18 +175,17 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// textView1
+			// verseView1
 			// 
-			this.textView1.AutoScroll = true;
-			this.textView1.AutoScrollMinSize = new System.Drawing.Size(220, 117);
-			this.textView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.textView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.textView1.Location = new System.Drawing.Point(3, 3);
-			this.textView1.Name = "textView1";
-			this.textView1.Size = new System.Drawing.Size(221, 652);
-			this.textView1.TabIndex = 1;
-			this.textView1.Text = "sdf";
-			this.textView1.TextString = resources.GetString("textView1.TextString");
+			this.verseView1.AutoScroll = true;
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(220, 117);
+			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
+			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.verseView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
+			this.verseView1.Location = new System.Drawing.Point(3, 3);
+			this.verseView1.Name = "verseView1";
+			this.verseView1.Size = new System.Drawing.Size(221, 652);
+			this.verseView1.TabIndex = 0;
 			// 
 			// FrmMain
 			// 
@@ -229,7 +228,7 @@
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Label label1;
-		private TextView textView1;
+		private VerseView verseView1;
 
 	}
 }
