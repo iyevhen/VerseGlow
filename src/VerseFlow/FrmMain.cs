@@ -32,24 +32,40 @@ namespace VerseFlow
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+
+
+			int count;
+			if (!int.TryParse(textBox1.Text, out count))
+				textBox1.Text = "NOT VALID VALUE";
+
+			int maxVerse;
+			if (!int.TryParse(textBox2.Text, out maxVerse))
+				textBox1.Text = "NOT VALID VALUE";
+
 			var strings = new List<string>();
-
-
-			int count = 10;
+			long totalCharacters = 0;
 
 			for (int i = 0; i < count; i++)
 			{
-				strings.Add(string.Format("{0}{1}", i, RandomString(random.Next(2, 300))));
+				string randomString = RandomString(random.Next(2, maxVerse));
+				totalCharacters += randomString.Length;
+				strings.Add(string.Format("{0}_{1}", i, randomString));
 			}
 
+			Populate(strings, totalCharacters);
+		}
 
+		private void button2_Click(object sender, EventArgs e)
+		{
+			Populate(new List<string>());
+		}
+
+		private void Populate(List<string> strings, long total = 0)
+		{
 			Stopwatch sw = Stopwatch.StartNew();
 			verseView1.Populate(strings);
 			sw.Stop();
-			//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("h'h 'm'm 's's' 'fff"));
-			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString());
-			//			("mm':'ss':'fff");
-			//			label1.Text = string.Format("Populated {0} verses in {1}", count, sw.Elapsed.ToString("hh:mm:ss.fffffff"));
+			label1.Text = string.Format("In={0}; Chars={1}", sw.Elapsed.ToString(), total);
 		}
 
 		private static readonly Random random = new Random((int)DateTime.Now.Ticks);//thanks to McAden
@@ -62,11 +78,12 @@ namespace VerseFlow
 				char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
 				builder.Append(ch);
 
-				if ((i % random.Next(1, 20)) == 0)
+				if ((i % random.Next(1, 30)) == 0)
 				{
 					builder.Append(' ');
 				}
 			}
+			builder.Append('.');
 
 			return builder.ToString();
 		}
