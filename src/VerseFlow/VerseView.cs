@@ -77,16 +77,17 @@ namespace VerseFlow
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
+			Debug.WriteLine("DoPaint rect={0}", rect);
+
 			graph.FillRectangle(SystemBrushes.Control, rect);
 
 			if (refreshVerseHeight)
 			{
-				int visibleWidth = Width - 1;
-
-				if (VScroll)
-					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
+				Debug.WriteLine("refreshVerseHeight");
 
 				int visibleHeigth = 0;
+				int visibleWidth = Width - 1;
+				bool vScrollExcluded = false;
 
 				for (int i = 0; i < verses.Count; i++)
 				{
@@ -94,11 +95,20 @@ namespace VerseFlow
 					vb.SizeF = new SizeF(visibleWidth, graph.MeasureString(vb.Text, Font, visibleWidth, stringFormat).Height);
 
 					visibleHeigth += vb.HeightInt32;
+
+					if (!vScrollExcluded && visibleHeigth > rect.Height)
+					{
+						i = -1;
+						visibleHeigth = 0;
+						visibleWidth -= SystemInformation.VerticalScrollBarWidth;
+						vScrollExcluded = true;
+					}
 				}
 
 				AutoScrollMinSize = new Size(visibleWidth, visibleHeigth);
 
 				refreshVerseHeight = false;
+				Debug.WriteLine("refreshVerseHeight DONE");
 			}
 
 			int yPosition = AutoScrollPosition.Y;
@@ -109,7 +119,7 @@ namespace VerseFlow
 			foreach (VerseBox vbox in verses)
 			{
 				if (y > rect.Height)
-					return;
+					break;
 
 				var rr = new RectangleF(new PointF(0, y), vbox.SizeF);
 				graph.DrawString(vbox.Text, Font, SystemBrushes.ControlText, rr, stringFormat);
@@ -117,6 +127,8 @@ namespace VerseFlow
 
 				y += rr.Height;
 			}
+
+			Debug.WriteLine("DoPaint rect={0} DONE", rect);
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
