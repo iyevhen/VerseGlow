@@ -71,19 +71,23 @@ namespace VerseFlow
 			lock (candy)
 			{
 				width = Size.Width;
+
+				var sw = Stopwatch.StartNew();
+				Debug.WriteLine("DoPaint rect={0}----------------------------------------------{1}", e.ClipRectangle, DateTime.Now);
 				DoPaint(e.Graphics, e.ClipRectangle);
+				sw.Stop();
+				Debug.WriteLine("DoPaint rect={0} DONE in {1}", e.ClipRectangle, sw.Elapsed);
 			}
 		}
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
-			Debug.WriteLine("DoPaint rect={0}", rect);
-
 			graph.FillRectangle(SystemBrushes.Control, rect);
 
 			if (refreshVerseHeight)
 			{
 				Debug.WriteLine("refreshVerseHeight");
+				var sw = Stopwatch.StartNew();
 
 				int visibleHeigth = 0;
 				int visibleWidth = Width - 1;
@@ -108,8 +112,14 @@ namespace VerseFlow
 				AutoScrollMinSize = new Size(visibleWidth, visibleHeigth);
 
 				refreshVerseHeight = false;
-				Debug.WriteLine("refreshVerseHeight DONE");
+
+				sw.Stop();
+				Debug.WriteLine("refreshVerseHeight DONE in {0}", sw.Elapsed);
 			}
+
+			Debug.WriteLine("drawing");
+			var sw2 = Stopwatch.StartNew();
+
 
 			int yPosition = AutoScrollPosition.Y;
 			graph.TranslateTransform(0, yPosition);
@@ -128,7 +138,8 @@ namespace VerseFlow
 				y += rr.Height;
 			}
 
-			Debug.WriteLine("DoPaint rect={0} DONE", rect);
+			sw2.Stop();
+			Debug.WriteLine("drawing DONE in {0}", sw2.Elapsed);
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
