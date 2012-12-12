@@ -62,10 +62,8 @@ namespace VerseFlow
 
 		private void Populate(List<string> strings, long total = 0)
 		{
-			Stopwatch sw = Stopwatch.StartNew();
 			verseView1.Populate(strings);
-			sw.Stop();
-			label1.Text = string.Format("In={0}; Chars={1}", sw.Elapsed.ToString(), total);
+			label1.Text = string.Format("Total Strings={0}, Chars={1}", strings.Count.ToString("N0"), total.ToString("N0"));
 		}
 
 		private static readonly Random random = new Random((int)DateTime.Now.Ticks);//thanks to McAden

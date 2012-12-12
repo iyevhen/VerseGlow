@@ -37,14 +37,14 @@
 			this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.verseView1 = new VerseFlow.VerseView();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.button2 = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.verseView1 = new VerseFlow.VerseView();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -130,6 +130,62 @@
 			this.splitContainer1.SplitterDistance = 312;
 			this.splitContainer1.TabIndex = 4;
 			// 
+			// verseView1
+			// 
+			this.verseView1.AutoScroll = true;
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(311, 0);
+			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
+			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.verseView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.verseView1.Location = new System.Drawing.Point(0, 0);
+			this.verseView1.Name = "verseView1";
+			this.verseView1.Size = new System.Drawing.Size(312, 662);
+			this.verseView1.TabIndex = 1;
+			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(300, 79);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(57, 20);
+			this.textBox2.TabIndex = 6;
+			this.textBox2.Text = "300";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(34, 43);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(60, 13);
+			this.label3.TabIndex = 5;
+			this.label3.Text = "Painted in :";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(176, 82);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(127, 13);
+			this.label2.TabIndex = 4;
+			this.label2.Text = "Verses with max length = ";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(113, 77);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(57, 20);
+			this.textBox1.TabIndex = 3;
+			this.textBox1.Text = "10000";
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(32, 106);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(75, 23);
+			this.button2.TabIndex = 2;
+			this.button2.Text = "Clear";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
@@ -148,62 +204,6 @@
 			this.button1.Text = "Populate";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// button2
-			// 
-			this.button2.Location = new System.Drawing.Point(32, 106);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(75, 23);
-			this.button2.TabIndex = 2;
-			this.button2.Text = "Clear";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
-			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(113, 77);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(57, 20);
-			this.textBox1.TabIndex = 3;
-			this.textBox1.Text = "5000";
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(176, 82);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(127, 13);
-			this.label2.TabIndex = 4;
-			this.label2.Text = "Verses with max length = ";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(34, 43);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(60, 13);
-			this.label3.TabIndex = 5;
-			this.label3.Text = "Painted in :";
-			// 
-			// textBox2
-			// 
-			this.textBox2.Location = new System.Drawing.Point(300, 79);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(57, 20);
-			this.textBox2.TabIndex = 6;
-			this.textBox2.Text = "300";
-			// 
-			// verseView1
-			// 
-			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(311, 0);
-			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.verseView1.Location = new System.Drawing.Point(0, 0);
-			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(312, 662);
-			this.verseView1.TabIndex = 1;
 			// 
 			// statusStrip1
 			// 

@@ -20,7 +20,8 @@ namespace VerseFlow
 			SetStyle(ControlStyles.DoubleBuffer
 					 | ControlStyles.ResizeRedraw
 					 | ControlStyles.AllPaintingInWmPaint
-					 | ControlStyles.UserPaint, true);
+					 | ControlStyles.UserPaint
+					 | ControlStyles.UserMouse, true);
 
 			HorizontalScroll.Enabled = false;
 			HorizontalScroll.Visible = false;
@@ -145,6 +146,8 @@ namespace VerseFlow
 		protected override void OnMouseWheel(MouseEventArgs e)
 		{
 			base.OnMouseWheel(e);
+			Debug.WriteLine("OnMouseWheel={0}", e.Delta);
+			Invalidate(ClientRectangle);
 			//			VScroll;
 			//
 			//			if (e.Delta > 0)
