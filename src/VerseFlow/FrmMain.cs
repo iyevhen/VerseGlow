@@ -32,7 +32,7 @@ namespace VerseFlow
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-
+			delim = 0;
 
 			int count;
 			if (!int.TryParse(textBox1.Text, out count))
@@ -66,7 +66,9 @@ namespace VerseFlow
 			label1.Text = string.Format("Total Strings={0}, Chars={1}", strings.Count.ToString("N0"), total.ToString("N0"));
 		}
 
-		private static readonly Random random = new Random((int)DateTime.Now.Ticks);//thanks to McAden
+		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
+		private static readonly string[] delimiters = new[] { " ", "\r\n", "- ", "\t", ": ", "; ", ", ", ". " };
+		private static long delim = 0;
 
 		private string RandomString(int size)
 		{
@@ -76,12 +78,20 @@ namespace VerseFlow
 				char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
 				builder.Append(ch);
 
-				if ((i % random.Next(1, 30)) == 0)
+				int _break = random.Next(1, 30);
+				if ((i % _break) == 0)
 				{
-					builder.Append(' ');
+					delim++;
+
+					builder.Append(delimiters[delim % (delimiters.Length - 1)]);
+
+					//					if ((_break % 2) == 0)
+					//						builder.Append(' ');
+					//					else
+					//						builder.Append('\n');
 				}
 			}
-			builder.Append('.');
+			builder.Append(" END!");
 
 			return builder.ToString();
 		}

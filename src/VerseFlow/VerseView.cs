@@ -100,22 +100,12 @@ namespace VerseFlow
 				visibleWidth = Width - 1;
 				bool vScrollExcluded = false;
 
-				SizeF charSize = graph.MeasureString("A", Font, visibleWidth, stringFormat);
-				float charsInLen = 1;
-
 				for (int i = 0; i < verses.Count; i++)
 				{
-					if (i == 0)
-						charsInLen = (int)(visibleWidth / charSize.Width);
-
 					VerseBox vb = verses[i];
-					vb.NeedsRefresh = true;
-					//					vb.SizeF = new SizeF(visibleWidth, graph.MeasureString(vb.Text, Font, visibleWidth, stringFormat).Height);
+					vb.SizeF = new SizeF(visibleWidth, graph.MeasureString(vb.Text, Font, visibleWidth, stringFormat).Height);
 
-					float possibleHeight = vb.Text.Length < charsInLen ? charSize.Height : ((vb.Text.Length / charsInLen) * charSize.Height);
-					visibleHeigth += possibleHeight;
-
-					vb.PossibleSizeF = new SizeF(visibleWidth, possibleHeight);
+					visibleHeigth += vb.SizeF.Height;
 
 					if (!vScrollExcluded && visibleHeigth > rect.Height)
 					{
@@ -142,12 +132,6 @@ namespace VerseFlow
 
 			foreach (VerseBox vbox in verses)
 			{
-				if (vbox.NeedsRefresh)
-				{
-					vbox.SizeF = new SizeF(visibleWidth, graph.MeasureString(vbox.Text, Font, visibleWidth, stringFormat).Height);
-					vbox.NeedsRefresh = false;
-				}
-
 				if (!scrollReached)
 				{
 					if ((yCursor + vbox.SizeF.Height) < yPosition)
@@ -164,13 +148,13 @@ namespace VerseFlow
 					break;
 
 				var rr = new RectangleF(new PointF(0, yDraw), vbox.SizeF);
-				var rr2 = new RectangleF(new PointF(0, yDraw), vbox.PossibleSizeF);
+//				var rr2 = new RectangleF(new PointF(0, yDraw), vbox.PossibleSizeF);
 				graph.DrawString(vbox.Text, Font, SystemBrushes.ControlText, rr, stringFormat);
 				graph.DrawRectangles(SystemPens.Highlight, new[] { rr });
 
-				using (var brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.BurlyWood))
-				using (var pen = new Pen(brush))
-					graph.DrawRectangles(pen, new[] { rr2 });
+//				using (var brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.BurlyWood))
+//				using (var pen = new Pen(brush))
+//					graph.DrawRectangles(pen, new[] { rr2 });
 
 				yDraw += rr.Height;
 			}
@@ -221,10 +205,6 @@ namespace VerseFlow
 			get { return text; }
 		}
 
-		public bool NeedsRefresh { get; set; }
-
 		public SizeF SizeF { get; set; }
-
-		public SizeF PossibleSizeF { get; set; }
 	}
 }
