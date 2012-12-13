@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -16,6 +17,13 @@ namespace VerseFlow
 		private bool refreshVerseHeight;
 		private int width;
 		private int visibleWidth;
+		private SolidBrush backColorBrush;
+
+		private readonly Blend blend = new Blend
+		{
+			Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 },
+			Factors = new float[] { 1, .8f, .4f, .4f, 0.8f, 1 }
+		};
 
 		public VerseView()
 		{
@@ -30,6 +38,9 @@ namespace VerseFlow
 
 			VerticalScroll.Enabled = true;
 			VerticalScroll.Visible = true;
+
+			stringFormat.FormatFlags = StringFormatFlags.MeasureTrailingSpaces;
+			stringFormat.LineAlignment = StringAlignment.Center;
 		}
 
 
@@ -43,10 +54,10 @@ namespace VerseFlow
 			Invalidate();
 		}
 
-		protected override void OnPaintBackground(PaintEventArgs e)
-		{
-			//						base.OnPaintBackground(e);
-		}
+		//		protected override void OnPaintBackground(PaintEventArgs e)
+		//		{
+		//			//						base.OnPaintBackground(e);
+		//		}
 
 		protected override void OnSizeChanged(EventArgs e)
 		{
@@ -71,29 +82,47 @@ namespace VerseFlow
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
+
 			lock (candy)
 			{
 				width = Size.Width;
 
 				var sw = Stopwatch.StartNew();
-				Debug.WriteLine("DoPaint rect={0}----------------------------------------------{1}", e.ClipRectangle, DateTime.Now);
-				DoPaint(e.Graphics, e.ClipRectangle);
+				Debug.WriteLine("Paint START{0}----------------------------------------------{1}", e.ClipRectangle, DateTime.Now);
+				DoPaint(e.Graphics, ClientRectangle);
 				sw.Stop();
-				Debug.WriteLine("DoPaint rect={0} DONE in {1}", e.ClipRectangle, sw.Elapsed);
+				Debug.WriteLine("Paint DONE in {0}", sw.Elapsed);
 			}
+
+			base.OnPaint(e);
+		}
+
+		protected override void OnBackColorChanged(EventArgs e)
+		{
+			base.OnBackColorChanged(e);
+			backColorBrush = null;
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			if (backColorBrush != null)
+				backColorBrush.Dispose();
 		}
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
 			int yPosition = AutoScrollPosition.Y * -1;
 
-			//			graph.TranslateTransform(0, yPosition);
-			graph.FillRectangle(Brushes.GhostWhite, rect);
+			if (backColorBrush == null)
+				backColorBrush = new SolidBrush(BackColor);
 
+			graph.FillRectangle(backColorBrush, rect);
 
 			if (refreshVerseHeight)
 			{
-				Debug.WriteLine("refreshVerseHeight");
+				Debug.WriteLine("REFRESH heights");
 				var sw = Stopwatch.StartNew();
 
 				double visibleHeigth = 0;
@@ -120,15 +149,20 @@ namespace VerseFlow
 				refreshVerseHeight = false;
 
 				sw.Stop();
-				Debug.WriteLine("refreshVerseHeight DONE in {0}", sw.Elapsed);
+				Debug.WriteLine("REFRESH heights DONE in {0}", sw.Elapsed);
 			}
-
-			Debug.WriteLine("drawing");
-			var sw2 = Stopwatch.StartNew();
 
 			float yCursor = 0;
 			float yDraw = 0;
 			bool scrollReached = false;
+
+			//			graph.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+			//			graph.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+			//			graph.CompositingQuality = CompositingQuality.HighQuality;
+			//			graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+			//			graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
+			//			graph.CompositingQuality = CompositingQuality.HighQuality;
+			//			graph.CompositingMode = CompositingMode.SourceOver;
 
 			foreach (VerseBox vbox in verses)
 			{
@@ -148,19 +182,24 @@ namespace VerseFlow
 					break;
 
 				var rr = new RectangleF(new PointF(0, yDraw), vbox.SizeF);
-//				var rr2 = new RectangleF(new PointF(0, yDraw), vbox.PossibleSizeF);
-				graph.DrawString(vbox.Text, Font, SystemBrushes.ControlText, rr, stringFormat);
-				graph.DrawRectangles(SystemPens.Highlight, new[] { rr });
 
-//				using (var brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.BurlyWood))
-//				using (var pen = new Pen(brush))
-//					graph.DrawRectangles(pen, new[] { rr2 });
+
+				//				using (var paintBrush = new LinearGradientBrush(rr, LightenColor(BackColor, 50), BackColor, LinearGradientMode.Vertical))
+				//				{
+				//					//We want a sharp change in the colors so define a Blend for the brush
+				//					paintBrush.Blend = blend;
+				//
+				//					//Draw the Button Background
+				//					graph.FillRectangle(paintBrush, rr);
+				//				}
+
+				//				TextRenderer.DrawText(graph, vbox.Text, Font, rr, ForeColor, textFormatFlags);
+
+				graph.DrawString(vbox.Text, Font, SystemBrushes.ControlText, rr, stringFormat);
+				graph.DrawRectangles(SystemPens.ControlDarkDark, new[] { rr });
 
 				yDraw += rr.Height;
 			}
-
-			sw2.Stop();
-			Debug.WriteLine("drawing DONE in {0}", sw2.Elapsed);
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
@@ -189,6 +228,72 @@ namespace VerseFlow
 			if (se.ScrollOrientation == ScrollOrientation.VerticalScroll)
 				Invalidate(ClientRectangle);
 		}
+
+
+
+		private Color LightenColor(Color colorIn, int percent)
+		{
+			//This method returns White if you lighten by 100%
+
+			if (percent < 0 || percent > 100)
+				throw new ArgumentOutOfRangeException("percent");
+
+			int a, r, g, b;
+
+			a = colorIn.A;
+			r = colorIn.R + (int)(((255f - colorIn.R) / 100f) * percent);
+			g = colorIn.G + (int)(((255f - colorIn.G) / 100f) * percent);
+			b = colorIn.B + (int)(((255f - colorIn.B) / 100f) * percent);
+
+			return Color.FromArgb(a, r, g, b);
+		}
+
+
+
+
+		private void DrawText(string text)
+		{
+			using (Graphics g = this.CreateGraphics())
+			{
+				float width = this.ClientRectangle.Width;
+				float height = this.ClientRectangle.Width;
+
+				float emSize = height;
+
+				using (var font = new Font(FontFamily.GenericSansSerif, emSize, FontStyle.Regular))
+				{
+					using (Font fitFont = FindBestFitFont(g, text, font, ClientRectangle.Size))
+					{
+						SizeF fitSize = g.MeasureString(text, font);
+						g.DrawString(text, fitFont, new SolidBrush(Color.Black), (width - fitSize.Width) / 2, 0);
+					}
+				}
+			}
+		}
+
+		private Font FindBestFitFont(Graphics g, String text, Font font, Size proposedSize)
+		{
+			// Compute actual size, shrink if needed
+			while (true)
+			{
+				SizeF size = g.MeasureString(text, font);
+
+				// It fits, back out
+				if (size.Height <= proposedSize.Height &&
+					 size.Width <= proposedSize.Width) { return font; }
+
+				// Try a smaller font (90% of old size)
+				Font oldFont = font;
+				font = new Font(font.Name, (float)(font.Size * .9), font.Style);
+				oldFont.Dispose();
+			}
+		}
+
+
+
+
+
+
 	}
 
 	internal class VerseBox
