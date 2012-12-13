@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -14,6 +15,7 @@ namespace VerseFlow
 		private readonly object candy = new object();
 		private bool refreshVerseHeight;
 		private int width;
+		private int visibleWidth;
 
 		public VerseView()
 		{
@@ -83,23 +85,37 @@ namespace VerseFlow
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
-			graph.FillRectangle(SystemBrushes.Control, rect);
+			int yPosition = AutoScrollPosition.Y * -1;
+
+			//			graph.TranslateTransform(0, yPosition);
+			graph.FillRectangle(Brushes.GhostWhite, rect);
+
 
 			if (refreshVerseHeight)
 			{
 				Debug.WriteLine("refreshVerseHeight");
 				var sw = Stopwatch.StartNew();
 
-				int visibleHeigth = 0;
-				int visibleWidth = Width - 1;
+				double visibleHeigth = 0;
+				visibleWidth = Width - 1;
 				bool vScrollExcluded = false;
+
+				SizeF charSize = graph.MeasureString("A", Font, visibleWidth, stringFormat);
+				float charsInLen = 1;
 
 				for (int i = 0; i < verses.Count; i++)
 				{
-					VerseBox vb = verses[i];
-					vb.SizeF = new SizeF(visibleWidth, graph.MeasureString(vb.Text, Font, visibleWidth, stringFormat).Height);
+					if (i == 0)
+						charsInLen = (int)(visibleWidth / charSize.Width);
 
-					visibleHeigth += vb.HeightInt32;
+					VerseBox vb = verses[i];
+					vb.NeedsRefresh = true;
+					//					vb.SizeF = new SizeF(visibleWidth, graph.MeasureString(vb.Text, Font, visibleWidth, stringFormat).Height);
+
+					float possibleHeight = vb.Text.Length < charsInLen ? charSize.Height : ((vb.Text.Length / charsInLen) * charSize.Height);
+					visibleHeigth += possibleHeight;
+
+					vb.PossibleSizeF = new SizeF(visibleWidth, possibleHeight);
 
 					if (!vScrollExcluded && visibleHeigth > rect.Height)
 					{
@@ -110,8 +126,7 @@ namespace VerseFlow
 					}
 				}
 
-				AutoScrollMinSize = new Size(visibleWidth, visibleHeigth);
-
+				AutoScrollMinSize = new Size(visibleWidth, (int)(visibleHeigth + 1));
 				refreshVerseHeight = false;
 
 				sw.Stop();
@@ -121,22 +136,43 @@ namespace VerseFlow
 			Debug.WriteLine("drawing");
 			var sw2 = Stopwatch.StartNew();
 
-
-			int yPosition = AutoScrollPosition.Y;
-			graph.TranslateTransform(0, yPosition);
-
-			float y = 0;
+			float yCursor = 0;
+			float yDraw = 0;
+			bool scrollReached = false;
 
 			foreach (VerseBox vbox in verses)
 			{
-				if (y > rect.Height)
+				if (vbox.NeedsRefresh)
+				{
+					vbox.SizeF = new SizeF(visibleWidth, graph.MeasureString(vbox.Text, Font, visibleWidth, stringFormat).Height);
+					vbox.NeedsRefresh = false;
+				}
+
+				if (!scrollReached)
+				{
+					if ((yCursor + vbox.SizeF.Height) < yPosition)
+					{
+						yCursor += vbox.SizeF.Height;
+						continue;
+					}
+
+					yDraw = yCursor - yPosition;
+					scrollReached = true;
+				}
+
+				if (yDraw > rect.Height)
 					break;
 
-				var rr = new RectangleF(new PointF(0, y), vbox.SizeF);
+				var rr = new RectangleF(new PointF(0, yDraw), vbox.SizeF);
+				var rr2 = new RectangleF(new PointF(0, yDraw), vbox.PossibleSizeF);
 				graph.DrawString(vbox.Text, Font, SystemBrushes.ControlText, rr, stringFormat);
 				graph.DrawRectangles(SystemPens.Highlight, new[] { rr });
 
-				y += rr.Height;
+				using (var brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.BurlyWood))
+				using (var pen = new Pen(brush))
+					graph.DrawRectangles(pen, new[] { rr2 });
+
+				yDraw += rr.Height;
 			}
 
 			sw2.Stop();
@@ -174,8 +210,6 @@ namespace VerseFlow
 	internal class VerseBox
 	{
 		private readonly string text;
-		private SizeF sizeF;
-		private int heightInt32;
 
 		public VerseBox(string text)
 		{
@@ -187,19 +221,10 @@ namespace VerseFlow
 			get { return text; }
 		}
 
-		public SizeF SizeF
-		{
-			get { return sizeF; }
-			set
-			{
-				sizeF = value;
-				heightInt32 = (int)(sizeF.Height + 1f); // hack for rounding to ceiling Int32
-			}
-		}
+		public bool NeedsRefresh { get; set; }
 
-		public int HeightInt32
-		{
-			get { return heightInt32; }
-		}
+		public SizeF SizeF { get; set; }
+
+		public SizeF PossibleSizeF { get; set; }
 	}
 }
