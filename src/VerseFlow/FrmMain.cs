@@ -80,7 +80,10 @@ namespace VerseFlow
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			Populate(new List<string>());
+			Populate(new List<string>() { "Ελληνική Καινή Διαθήκη", 
+				"新約全書", 
+				"«алдыњда кубанычка бљлљйсєњ турасыњар Силердин жаныњардан асманга кљтљрєлєп кеткен бул Ыйса, љзєњљр кљргљндљй, асманга кандай кљтљрєлєп кетсе, ошондой эле кайра келет»",
+			"Покај се, дакле! Ако ли не, доћи ћу ти скоро и војеваћу с њима мачем уста својих."});
 		}
 
 		private void Populate(List<string> strings, long total = 0)
