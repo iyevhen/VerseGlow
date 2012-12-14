@@ -15,7 +15,8 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>verseflow.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -60,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\Corners.cs" />
+    <Compile Include="Controls\VerseItem.cs" />
     <Compile Include="Controls\VerseRect\BibleBookRect.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -70,13 +72,14 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\IHaveRoundCorners.cs" />
+    <Compile Include="Controls\GraphicsTools.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\RoundCornersEditor.cs" />
     <Compile Include="Controls\VerseRect\VerseRect.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="VerseView.cs">
+    <Compile Include="Controls\VerseView.cs">
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="FrmMain.resx">
@@ -112,7 +115,6 @@
   <ItemGroup>
     <None Include="Resources\1355132176_ru.png" />
     <None Include="Resources\1355132156_ua.png" />
-    <Content Include="verseflow.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

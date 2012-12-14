@@ -1,4 +1,6 @@
-﻿namespace VerseFlow
+﻿using VerseFlow.Controls;
+
+namespace VerseFlow
 {
 	partial class FrmMain
 	{
@@ -28,7 +30,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.bibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.songToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +48,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-			this.verseView1 = new VerseFlow.VerseView();
+			this.verseView1 = new VerseFlow.Controls.VerseView();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -227,8 +228,9 @@
 			this.verseView1.AutoScroll = true;
 			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(311, 1);
 			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
+			this.verseView1.BackColor = System.Drawing.Color.LightGray;
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = new System.Drawing.Font("Segoe UI", 10F);
+			this.verseView1.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.verseView1.Location = new System.Drawing.Point(0, 0);
 			this.verseView1.Name = "verseView1";
 			this.verseView1.Size = new System.Drawing.Size(312, 411);
@@ -242,7 +244,6 @@
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.menuStrip1);
 			this.Controls.Add(this.statusStrip1);
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "FrmMain";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
