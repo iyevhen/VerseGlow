@@ -1,4 +1,5 @@
 using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Reflection;
 
@@ -6,7 +7,7 @@ namespace VerseFlow.Lib.Database.SQLite
 {
 	public class SqliteDatabaseFactory : IDatabaseFactory
 	{
-		private readonly string databaseFilePath;
+		private readonly string databaseFolderPath;
 
 		private const string schema = @"
 
@@ -39,21 +40,22 @@ CREATE INDEX `IDX_BibleContent_versetext` ON `BibleContent` (`versetext` COLLATE
 		static SqliteDatabaseFactory()
 		{
 			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+			SQLiteFunction.RegisterFunction(typeof(SqliteCaseInsensitiveCollation));
 		}
 
-		public SqliteDatabaseFactory(string databaseFilePath)
+		public SqliteDatabaseFactory(string databaseFolderPath)
 		{
-			if (string.IsNullOrEmpty(databaseFilePath))
-				throw new ArgumentNullException("databaseFilePath");
+			if (string.IsNullOrEmpty(databaseFolderPath))
+				throw new ArgumentNullException("databaseFolderPath");
 
-			this.databaseFilePath = databaseFilePath;
+			this.databaseFolderPath = databaseFolderPath;
 		}
 
 		public IDatabase NewBibleDatabase()
 		{
-			var db = new Database(new SqliteDatabaseAdapter(databaseFilePath));
+			var db = new Database(new SqliteDatabaseAdapter(databaseFolderPath));
 
-			if (!File.Exists(databaseFilePath) || new FileInfo(databaseFilePath).Length == 0)
+			if (!File.Exists(databaseFolderPath) || new FileInfo(databaseFolderPath).Length == 0)
 				db.ExecuteNonQuery(schema);
 
 			return db;

@@ -66,16 +66,19 @@ namespace VerseFlow
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			Populate(new List<string>() { "Ελληνική Καινή Διαθήκη", 
+			Populate(new List<string>
+			{ 
+				"Ελληνική Καινή Διαθήκη", 
 				"新約全書", 
 				"«алдыњда кубанычка бљлљйсєњ турасыњар Силердин жаныњардан асманга кљтљрєлєп кеткен бул Ыйса, љзєњљр кљргљндљй, асманга кандай кљтљрєлєп кетсе, ошондой эле кайра келет»",
-			"Покај се, дакле! Ако ли не, доћи ћу ти скоро и војеваћу с њима мачем уста својих."});
+				"Покај се, дакле! Ако ли не, доћи ћу ти скоро и војеваћу с њима мачем уста својих.",
+				"בְּרֵאשִׁית  7225 בָּרָא  1254 אֱלֹהִים  430 אֵת  853 הַשָּׁמַיִם  8064 וְאֵת  853 הָאָרֶץ  776 "
+			});
 		}
 
 		private void Populate(List<string> strings, long total = 0)
 		{
 			verseView1.Populate(strings);
-			label1.Text = string.Format("Total Strings={0}, Chars={1}", strings.Count.ToString("N0"), total.ToString("N0"));
 		}
 
 		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden

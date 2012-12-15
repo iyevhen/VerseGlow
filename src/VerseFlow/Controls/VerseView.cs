@@ -173,11 +173,14 @@ namespace VerseFlow.Controls
 
 				if (vbox.Selected)
 				{
-					using (var brush = new LinearGradientBrush(vrect, SystemColors.Highlight, lightenColor, LinearGradientMode.Vertical))
-					{
-						brush.Blend = blend;
-						graph.FillRectangle(brush, vrect);
-					}
+					//					using (var brush = new LinearGradientBrush(vrect, SystemColors.Highlight, lightenColor, LinearGradientMode.Vertical))
+					//					{
+					//						brush.Blend = blend;
+					//						graph.FillRectangle(brush, vrect);
+					//					}
+
+
+					graph.FillRectangle(SystemBrushes.Highlight, vrect);
 					graph.DrawString(vbox.Text, Font, SystemBrushes.HighlightText, vrect, stringFormat);
 					graph.DrawRectangles(SystemPens.Highlight, new[] { vrect });
 				}

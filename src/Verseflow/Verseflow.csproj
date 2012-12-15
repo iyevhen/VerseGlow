@@ -33,6 +33,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -50,17 +51,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\VerseFlow.Lib\x64\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\Corners.cs" />
+    <Compile Include="Controls\GControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Globals.cs" />
+    <Compile Include="Controls\GMarkupLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\VerseItem.cs" />
     <Compile Include="Controls\VerseRect\BibleBookRect.cs">
       <SubType>Component</SubType>
@@ -73,6 +76,95 @@
     </Compile>
     <Compile Include="Controls\IHaveRoundCorners.cs" />
     <Compile Include="Controls\GraphicsTools.cs" />
+    <Compile Include="GFramework\DataStructure\GBitVector64.cs" />
+    <Compile Include="GFramework\DataStructure\GEventStorage.cs" />
+    <Compile Include="GFramework\DataStructure\GPropertyStorage.cs" />
+    <Compile Include="GFramework\Drawing\Brushes\BrushType.cs" />
+    <Compile Include="GFramework\Drawing\Brushes\GBrush.cs" />
+    <Compile Include="GFramework\Drawing\Brushes\GSolidBrush.cs" />
+    <Compile Include="GFramework\Drawing\DeviceContexts\GBitmap.cs" />
+    <Compile Include="GFramework\Drawing\DeviceContexts\GDeviceContext.cs" />
+    <Compile Include="GFramework\Drawing\DeviceContexts\GFontDecorationInfo.cs" />
+    <Compile Include="GFramework\Drawing\DeviceContexts\GGdiPlusDeviceContext.cs" />
+    <Compile Include="GFramework\Drawing\DeviceContexts\GGdiPlusFontInfo.cs" />
+    <Compile Include="GFramework\Drawing\Fonts\GCharInfo.cs" />
+    <Compile Include="GFramework\Drawing\Fonts\GFont.cs" />
+    <Compile Include="GFramework\Drawing\Fonts\GFontDeviceMetric.cs" />
+    <Compile Include="GFramework\Drawing\Fonts\GFontMetric.cs" />
+    <Compile Include="GFramework\Drawing\Fonts\GKerningPair.cs" />
+    <Compile Include="GFramework\Drawing\GDrawingAttribute.cs" />
+    <Compile Include="GFramework\Drawing\GLine.cs" />
+    <Compile Include="GFramework\Drawing\GShadow.cs" />
+    <Compile Include="GFramework\Drawing\Pens\GPen.cs" />
+    <Compile Include="GFramework\Events\GEventHandler.cs" />
+    <Compile Include="GFramework\Events\EventResult.cs" />
+    <Compile Include="GFramework\Events\EventPropagation.cs" />
+    <Compile Include="GFramework\Events\GEventArgs.cs" />
+    <Compile Include="GFramework\Events\GEventData.cs" />
+    <Compile Include="GFramework\Events\GPropertyChangingEventData.cs" />
+    <Compile Include="GFramework\Events\GPropertyEventData.cs" />
+    <Compile Include="GFramework\Interop\GGdi32.cs" />
+    <Compile Include="GFramework\Interop\GHdcWrapper.cs" />
+    <Compile Include="GFramework\Model\AnchorDecoration.cs" />
+    <Compile Include="GFramework\Model\CollectionNotification.cs" />
+    <Compile Include="GFramework\Model\Collections\GAttributeCollection.cs" />
+    <Compile Include="GFramework\Model\Collections\GCollection.cs" />
+    <Compile Include="GFramework\Model\Collections\GCollectionEventData.cs" />
+    <Compile Include="GFramework\Model\Collections\GNodeCollection.cs" />
+    <Compile Include="GFramework\Model\Collections\GNodeCollectionBase.cs" />
+    <Compile Include="GFramework\Model\Collections\GNodeCollectionEnumerator.cs" />
+    <Compile Include="GFramework\Model\PropertyType.cs" />
+    <Compile Include="GFramework\Model\GDisposableObject.cs" />
+    <Compile Include="GFramework\Model\GObject.cs" />
+    <Compile Include="GFramework\Model\Nodes\GAttribute.cs" />
+    <Compile Include="GFramework\Model\Nodes\GElement.cs" />
+    <Compile Include="GFramework\Model\Nodes\GNode.cs" />
+    <Compile Include="GFramework\Model\Nodes\GRootElement.cs" />
+    <Compile Include="GFramework\Model\Nodes\IGEventListener.cs" />
+    <Compile Include="GFramework\Model\ParagraphAlign.cs" />
+    <Compile Include="GFramework\Model\PredefinedCursors.cs" />
+    <Compile Include="GFramework\Model\ShadowStyle.cs" />
+    <Compile Include="GFramework\Model\TextWrap.cs" />
+    <Compile Include="GFramework\Model\Text\GAnchorElement.cs" />
+    <Compile Include="GFramework\Model\Text\GBoldElement.cs" />
+    <Compile Include="GFramework\Model\Text\GFontElement.cs" />
+    <Compile Include="GFramework\Model\Text\GItalicElement.cs" />
+    <Compile Include="GFramework\Model\Text\GLineBreakElement.cs" />
+    <Compile Include="GFramework\Model\Text\GParagraphElement.cs" />
+    <Compile Include="GFramework\Model\Text\GRootElement.cs" />
+    <Compile Include="GFramework\Model\Text\GShadowElement.cs" />
+    <Compile Include="GFramework\Model\Text\GStringElement.cs" />
+    <Compile Include="GFramework\Model\Text\GStrokeElement.cs" />
+    <Compile Include="GFramework\Model\Text\GTextDocument.cs" />
+    <Compile Include="GFramework\Model\Text\GTextDocumentParseContext.cs" />
+    <Compile Include="GFramework\Model\Text\GTextElement.cs" />
+    <Compile Include="GFramework\Model\Text\GTextElementFactory.cs" />
+    <Compile Include="GFramework\Model\Text\GUnderlineElement.cs" />
+    <Compile Include="GFramework\Model\Text\GWhitespaceElement.cs" />
+    <Compile Include="GFramework\Utils\GLayoutHelper.cs" />
+    <Compile Include="GFramework\View\MouseEvent.cs" />
+    <Compile Include="GFramework\View\Events\GInvalidatedEventData.cs" />
+    <Compile Include="GFramework\View\Events\GMouseEventData.cs" />
+    <Compile Include="GFramework\View\GInputElement.cs" />
+    <Compile Include="GFramework\View\GPaintContext.cs" />
+    <Compile Include="GFramework\View\GVisualElement.cs" />
+    <Compile Include="GFramework\View\InputElementMouseState.cs" />
+    <Compile Include="GFramework\View\Text\TextViewClipMode.cs" />
+    <Compile Include="GFramework\View\Text\GAnchor.cs" />
+    <Compile Include="GFramework\View\Text\GAnchorClickEventData.cs" />
+    <Compile Include="GFramework\View\Text\GParagraph.cs" />
+    <Compile Include="GFramework\View\Text\GTextBlock.cs" />
+    <Compile Include="GFramework\View\Text\GTextDocumentParser.cs" />
+    <Compile Include="GFramework\View\Text\GTextLine.cs" />
+    <Compile Include="GFramework\View\Text\GTextStyle.cs" />
+    <Compile Include="GFramework\View\Text\GTextView.cs" />
+    <Compile Include="GFramework\View\Text\GTextViewLayoutContext.cs" />
+    <Compile Include="GFramework\View\Text\GTextViewLayoutContextState.cs" />
+    <Compile Include="GFramework\View\Text\GTextViewPaintContext.cs" />
+    <Compile Include="GFramework\View\Text\GTextVisual.cs" />
+    <Compile Include="GFramework\View\Text\GWhitespace.cs" />
+    <Compile Include="GFramework\View\Text\GWord.cs" />
+    <Compile Include="GFramework\View\Text\GWordMetric.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\RoundCornersEditor.cs" />
@@ -83,9 +175,6 @@
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="FrmMain.resx">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMain.ru-RU.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
