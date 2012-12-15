@@ -15,9 +15,12 @@ namespace VerseFlow.GFramework.Model.Collections
 		[NonSerialized]
 		internal GElement ownerElement;
 
-		public GNodeCollectionBase(GElement ownerElement)
+		protected GNodeCollectionBase(GElement ownerElement)
 		{
-			ownerElement = ownerElement;
+			if (ownerElement == null)
+				throw new ArgumentNullException("ownerElement");
+
+			this.ownerElement = ownerElement;
 			gnodes = new List<GNode>();
 		}
 

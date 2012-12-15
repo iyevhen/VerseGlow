@@ -11,17 +11,13 @@ namespace VerseFlow.GFramework.View.Text
     /// </summary>
     public class GTextBlock : GTextVisual
     {
-        #region Constructor
-
-        public GTextBlock()
+	    public GTextBlock()
         {
             m_Lines = new LinkedList<GTextLine>();
             m_Words = new LinkedList<GWord>();
         }
 
-        #endregion
-
-        #region Protected Overrides
+	    #region Protected Overrides
 
         protected override void LayoutCore(GTextViewLayoutContext context)
         {
@@ -35,8 +31,7 @@ namespace VerseFlow.GFramework.View.Text
             }
 
             //get text wrapping from the parent paragraph
-            GParagraph ownerParagraph = (GParagraph)parent;
-            m_MaxWidth = context.AvailableSize.Width - context.X - context.Right;
+	        maxWidth = context.AvailableSize.Width - context.X - context.Right;
             //layout words in lines
             BuildLines(context);
             LayoutLines(context);
@@ -76,7 +71,7 @@ namespace VerseFlow.GFramework.View.Text
                 }
 
                 GWord firstWord = currLine.m_Words.First.Value;
-                RectangleF lineBounds = new RectangleF(firstWord.m_Location.X, currLine.m_Top, m_MaxWidth, lineHeight);
+                RectangleF lineBounds = new RectangleF(firstWord.m_Location.X, currLine.m_Top, maxWidth, lineHeight);
 
                 if (lineBounds.IntersectsWith(clipBounds))
                 {
@@ -115,7 +110,7 @@ namespace VerseFlow.GFramework.View.Text
                 lineWidth += wordWidth;
 
                 //check whether we need a line break
-                if (lineWidth > m_MaxWidth && context.Wrap == TextWrap.Word && currLine.m_Words.Count > 0)
+                if (lineWidth > maxWidth && context.Wrap == TextWrap.Word && currLine.m_Words.Count > 0)
                 {
                     currLine = new GTextLine();
                     m_Lines.AddLast(currLine);
@@ -143,14 +138,10 @@ namespace VerseFlow.GFramework.View.Text
 
         #endregion
 
-        #region Fields
-
-        internal float m_MaxWidth;
+	    internal float maxWidth;
         internal GFont m_LineBreakFont;
         //using linked list for dynamic sequential storage is times better than List
         internal LinkedList<GTextLine> m_Lines;
         internal LinkedList<GWord> m_Words;
-
-        #endregion
     }
 }

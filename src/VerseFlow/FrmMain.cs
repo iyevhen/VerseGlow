@@ -110,5 +110,10 @@ namespace VerseFlow
 
 			return builder.ToString();
 		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			gMarkupLabel1.Text = textBox3.Text;
+		}
 	}
 }

@@ -4,19 +4,13 @@ namespace VerseFlow.GFramework.View.Text
 {
     public class GAnchorClickEventData : GEventData
     {
-        #region Constructor
-
-        public GAnchorClickEventData(string text, string href)
+	    public GAnchorClickEventData(string text, string href)
         {
             m_Text = text;
             m_Href = href;
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
+	    /// <summary>
         /// Gets the display text of the clicked anchor.
         /// </summary>
         public string Text
@@ -37,13 +31,7 @@ namespace VerseFlow.GFramework.View.Text
             }
         }
 
-        #endregion
-
-        #region Fields
-
-        internal string m_Href;
+	    internal string m_Href;
         internal string m_Text;
-
-        #endregion
     }
 }

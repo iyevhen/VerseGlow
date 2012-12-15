@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
+using System.Text;
 using VerseFlow.GFramework.Drawing;
 using VerseFlow.GFramework.Drawing.Brushes;
 using VerseFlow.GFramework.Drawing.DeviceContexts;
@@ -12,392 +12,369 @@ using VerseFlow.GFramework.Model.Text;
 
 namespace VerseFlow.GFramework.View.Text
 {
-    /// <summary>
-    /// A context passed in text building processes.
-    /// </summary>
-    internal class GTextDocumentParser
-    {
-        #region Constructor
+	internal class GTextDocumentParser
+	{
+		private GAnchor currentAnchor;
+		private GTextBlock currentTextBlock;
+		private readonly GDeviceContext deviceContext;
+		private readonly Stack<GParagraph> paragraphs;
+		private readonly Stack<GTextStyle> textStyles;
+		private readonly GTextView textView;
 
-        internal GTextDocumentParser(GDeviceContext deviceContext, GTextView view)
-        {
-            m_DeviceContext = deviceContext;
-            m_View = view;
-            m_Styles = new Stack<GTextStyle>();
-            m_Paragraphs = new Stack<GParagraph>();
+		internal GTextDocumentParser(GDeviceContext deviceContext, GTextView view)
+		{
+			this.deviceContext = deviceContext;
+			textView = view;
+			textStyles = new Stack<GTextStyle>();
+			paragraphs = new Stack<GParagraph>();
 
-            m_Styles.Push(GTextStyle.NewDefaultStyle());
+			textStyles.Push(GTextStyle.NewDefaultStyle());
 
-            //create default paragraph and add it to the view
-            GParagraph defaultParagraph = new GParagraph();
-            m_Paragraphs.Push(defaultParagraph);
-            m_View.children.Add(defaultParagraph);
-        }
+			//create default paragraph and add it to the view
+			var defaultParagraph = new GParagraph();
+			paragraphs.Push(defaultParagraph);
+			textView.children.Add(defaultParagraph);
+		}
 
-        #endregion
+		private GTextBlock CurrentTextBlock
+		{
+			get
+			{
+				if (currentTextBlock == null)
+				{
+					currentTextBlock = new GTextBlock();
+					paragraphs.Peek().children.Add(currentTextBlock);
+				}
 
-        #region Implementation
+				return currentTextBlock;
+			}
+		}
 
-        internal void ProcessCollection(GNodeCollection modelElements)
-        {
-            int count = modelElements.Count;
-            if (count == 0)
-            {
-                return;
-            }
+		internal void ProcessCollection(GNodeCollection modelElements)
+		{
+			int count = modelElements.Count;
+			if (count == 0)
+			{
+				return;
+			}
 
-            GTextElement current;
+			for (int i = 0; i < count; i++)
+			{
+				var current = (GTextElement)modelElements[i];
+				ProcessElement(current);
+			}
+		}
 
-            for (int i = 0; i < count; i++)
-            {
-                current = (GTextElement)modelElements[i];
-                ProcessElement(current);
-            }
-        }
-        internal void ProcessElement(GTextElement element)
-        {
-            GTextStyle currentStyle = m_Styles.Peek();
-            GTextStyle newStyle = null;
-            bool newParagraph = false;
-            bool newAnchor = false;
+		private void ProcessElement(GTextElement element)
+		{
+			GTextStyle currentStyle = textStyles.Peek();
+			GTextStyle newStyle = null;
+			bool newParagraph = false;
+			bool newAnchor = false;
 
-            switch (element.TagName)
-            {
-                    //anchor element
-                case GTextDocument.AnchorNodeName:
-                    //open anchor and create new style for all anchor words
-                    newStyle = OpenAnchor((GAnchorElement)element, currentStyle);
-                    newAnchor = true;
-                    break;
-                    //paragraph element
-                case GTextDocument.ParagraphNodeName:
-                    newParagraph = true;
-                    break;
-                    //bold element
-                case GTextDocument.BoldNodeName:
-                    //we have a currently bold font, no need to create new one
-                    if (currentStyle.m_Font.Bold)
-                    {
-                        break;
-                    }
-                    //we need a new style to reflect the "Bold"
-                    newStyle = new GTextStyle(currentStyle);
-                    newStyle.m_Font = NewBoldFont(currentStyle.m_Font);
-                    break;
-                    //italic element
-                case GTextDocument.ItalicNodeName:
-                    //we have a currently italic font, no need to create new one
-                    if (currentStyle.m_Font.Italic)
-                    {
-                        break;
-                    }
-                    //we need a new style to reflect the "Italic"
-                    newStyle = new GTextStyle(currentStyle);
-                    newStyle.m_Font = NewItalicFont(currentStyle.m_Font);
-                    break;
-                    //underline element
-                case GTextDocument.UnderlineNodeName:
-                    //we have a currently italic font, no need to create new one
-                    if (currentStyle.m_Font.Underline)
-                    {
-                        break;
-                    }
-                    //we need a new style to reflect the "Underline"
-                    newStyle = new GTextStyle(currentStyle);
-                    newStyle.m_Font = NewUnderlineFont(currentStyle.m_Font);
-                    break;
-                    //font element
-                case GTextDocument.FontNodeName:
-                    //we need a new style to reflect the "Font" element
-                    newStyle = new GTextStyle(currentStyle);
-                    GFontElement fontElement = (GFontElement)element;
-                    newStyle.m_Font = NewFont(fontElement, currentStyle.m_Font);
-                    if (fontElement.ContainsLocalProperty(GFontElement.ColorPropertyKey))
-                    {
-                        newStyle.m_Brush = new GSolidBrush(fontElement.Color);
-                    }
-                    newStyle.m_ScaleX = fontElement.ScaleX;
-                    newStyle.m_ScaleY = fontElement.ScaleY;
-                    break;
-                    //outline
-                case GTextDocument.StrokeNodeName:
-                    GStrokeElement strokeElement = (GStrokeElement)element;
-                    if (strokeElement.Width > 0)
-                    {
-                        newStyle = new GTextStyle(currentStyle);
-                        newStyle.m_Pen = new GPen(strokeElement.Color, strokeElement.Width);
-                    }
-                    break;
-                case GTextDocument.ShadowNodeName:
-                    GShadowElement shadowElement = (GShadowElement)element;
-                    newStyle = new GTextStyle(currentStyle);
-                    newStyle.m_Shadow = NewShadow(shadowElement);
-                    break;
-                    //new line
-                case GTextDocument.LineBreakNodeName:
-                    BreakLine();
-                    break;
-                    //whitespace
-                case GTextDocument.WhitespaceNodeName:
-                    int length = ((GWhitespaceElement)element).Length;
-                    GWhitespace whiteSpace = new GWhitespace(m_Styles.Peek(), length);
-                    whiteSpace.Initialize(m_DeviceContext);
-                    m_CurrentTextBlock.m_Words.AddLast(whiteSpace);
-                    break;
-                    //a string element
-                case GTextDocument.TextNodeName:
-                    string text = ((GStringElement)element).Text;
-                    ProcessText(text);
-                    break;
-            }
+			switch (element.TagName)
+			{
+				case GTextDocument.AnchorNodeName:
+					{
+						//open anchor and create new style for all anchor words
+						newStyle = OpenAnchor((GAnchorElement)element, currentStyle);
+						newAnchor = true;
+						break;
+					}
+				case GTextDocument.ParagraphNodeName:
+					{
+						newParagraph = true;
+						break;
+					}
+				case GTextDocument.BoldNodeName:
+					{
+						if (!currentStyle.m_Font.Bold)
+							newStyle = new GTextStyle(currentStyle) { m_Font = NewBoldFont(currentStyle.m_Font) };
 
-            //push the new style (if any)
-            if (newStyle != null)
-            {
-                m_Styles.Push(newStyle);
-            }
-            if (newParagraph)
-            {
-                PushParagraph(element);
-            }
+						break;
+					}
+				case GTextDocument.ItalicNodeName:
+					{
+						if (!currentStyle.m_Font.Italic)
+							newStyle = new GTextStyle(currentStyle) { m_Font = NewItalicFont(currentStyle.m_Font) };
 
-            ProcessCollection(element.children);
+						break;
+					}
+				case GTextDocument.UnderlineNodeName:
+					{
+						if (!currentStyle.m_Font.Underline)
+							newStyle = new GTextStyle(currentStyle) { m_Font = NewUnderlineFont(currentStyle.m_Font) };
 
-            //pop previuosly pushed style
-            if (newStyle != null)
-            {
-                m_Styles.Pop();
-            }
-            if (newParagraph)
-            {
-                PopParagraph();
-            }
-            if (newAnchor)
-            {
-                CloseAnchor();
-            }
-        }
+						break;
+					}
+				case GTextDocument.FontNodeName:
+					{
+						var fontElement = (GFontElement)element;
+						newStyle = new GTextStyle(currentStyle) { m_Font = NewFont(fontElement, currentStyle.m_Font) };
 
-        internal void ProcessText(string text)
-        {
-            //remove escape characters
-            text = text.Replace("\r\n", "");
-            text = text.Replace("\t", "");
-            text = text.Replace("\n", "");
-            if (string.IsNullOrEmpty(text))
-            {
-                return;
-            }
+						if (fontElement.ContainsLocalProperty(GFontElement.ColorPropertyKey))
+						{
+							newStyle.m_Brush = new GSolidBrush(fontElement.Color);
+						}
+						newStyle.m_ScaleX = fontElement.ScaleX;
+						newStyle.m_ScaleY = fontElement.ScaleY;
+						break;
+					}
+				case GTextDocument.StrokeNodeName:
+					{
+						var strokeElement = (GStrokeElement)element;
 
-            GTextStyle current = m_Styles.Peek();
-            GTextBlock textBlock = CurrentTextBlock;
+						if (strokeElement.Width > 0)
+						{
+							newStyle = new GTextStyle(currentStyle) { m_Pen = new GPen(strokeElement.Color, strokeElement.Width) };
+						}
+						break;
+					}
+				case GTextDocument.ShadowNodeName:
+					{
+						var shadowElement = (GShadowElement)element;
+						newStyle = new GTextStyle(currentStyle) { m_Shadow = NewShadow(shadowElement) };
+						break;
+					}
+				case GTextDocument.LineBreakNodeName:
+					{
+						BreakLine();
+						break;
+					}
+				case GTextDocument.WhitespaceNodeName:
+					{
+						int length = ((GWhitespaceElement)element).Length;
+						var whiteSpace = new GWhitespace(textStyles.Peek(), length);
+						whiteSpace.Initialize(deviceContext);
+						currentTextBlock.m_Words.AddLast(whiteSpace);
+						break;
+					}
+				case GTextDocument.TextNodeName:
+					{
+						string text = ((GStringElement)element).Text;
+						ProcessText(text);
+						break;
+					}
+			}
 
-            StringBuilder sb = new StringBuilder();
-            int length = text.Length;
-            GWhitespace whiteSpace = null;
+			if (newStyle != null)
+				textStyles.Push(newStyle);
 
-            for (int i = 0; i < length; i++)
-            {
-                char currChar = text[i];
+			if (newParagraph)
+				PushParagraph(element);
 
-                if (currChar == ' ')
-                {
-                    if (sb.Length > 0)
-                    {
-                        CreateWord(sb, current, textBlock);
-                    }
-                    if (whiteSpace == null)
-                    {
-                        whiteSpace = CreateWhitespace(current, textBlock);
-                    }
-                    else
-                    {
-                        whiteSpace.m_Length++;
-                    }
-                }
-                else
-                {
-                    if (whiteSpace != null)
-                    {
-                        whiteSpace.Initialize(m_DeviceContext);
-                    }
-                    whiteSpace = null;
-                    sb.Append(currChar);
-                }
-            }
+			ProcessCollection(element.children);
 
-            if (sb.Length > 0)
-            {
-                CreateWord(sb, current, textBlock);
-            }
-            if (whiteSpace != null)
-            {
-                whiteSpace.Initialize(m_DeviceContext);
-            }
-        }
-        internal GWord CreateWord(StringBuilder sb, GTextStyle style, GTextBlock block)
-        {
-            GWord word = new GWord(style, sb.ToString());
-            word.Initialize(m_DeviceContext);
-            block.m_Words.AddLast(word);
-            if (m_CurrentAnchor != null)
-            {
-                m_CurrentAnchor.AddWord(word);
-            }
+			if (newStyle != null)
+				textStyles.Pop();
 
-            sb.Remove(0, sb.Length);
 
-            return word;
-        }
-        internal GWhitespace CreateWhitespace(GTextStyle style, GTextBlock block)
-        {
-            GWhitespace whitespace = new GWhitespace(style, 1);
-            block.m_Words.AddLast(whitespace);
+			if (newParagraph)
+				PopParagraph();
 
-            if (m_CurrentAnchor != null)
-            {
-                m_CurrentAnchor.AddWord(whitespace);
-            }
+			if (newAnchor)
+				CloseAnchor();
+		}
 
-            return whitespace;
-        }
+		private void ProcessText(string text)
+		{
+			if (string.IsNullOrEmpty(text))
+				return;
 
-        internal GFont NewFont(GFontElement element, GFont current)
-        {
-            GFont font = new GFont(current);
+			text = text.Replace("\r\n", "");
+			text = text.Replace("\t", "");
+			text = text.Replace("\n", "");
 
-            object face = element.GetLocalPropertyValue(GFontElement.FacePropertyKey);
-            if (face != null)
-            {
-                font.Face = (string)face;
-            }
-            object size = element.GetLocalPropertyValue(GFontElement.SizePropertyKey);
-            if (size != null)
-            {
-                font.Size = (float)size;
-            }
+			if (string.IsNullOrEmpty(text))
+				return;
 
-            return font;
-        }
-        internal GFont NewBoldFont(GFont prototype)
-        {
-            GFont font = new GFont(prototype);
-            font.Bold = true;
+			GTextStyle current = textStyles.Peek();
+			GTextBlock textBlock = CurrentTextBlock;
 
-            return font;
-        }
-        internal GFont NewItalicFont(GFont prototype)
-        {
-            GFont font = new GFont(prototype);
-            font.Italic = true;
+			var sb = new StringBuilder();
+			int length = text.Length;
+			GWhitespace whiteSpace = null;
 
-            return font;
-        }
-        internal GFont NewUnderlineFont(GFont prototype)
-        {
-            GFont font = new GFont(prototype);
-            font.Underline = true;
+			for (int i = 0; i < length; i++)
+			{
+				char currChar = text[i];
 
-            return font;
-        }
-        internal GShadow NewShadow(GShadowElement model)
-        {
-            GShadow shadow = new GShadow();
-            shadow.m_Style = model.Style;
-            shadow.m_Color = model.Color;
-            shadow.m_Offset = model.Offset;
-            shadow.m_Strength = model.Strength;
+				if (currChar == ' ')
+				{
+					if (sb.Length > 0)
+					{
+						CreateWord(sb, current, textBlock);
+					}
+					if (whiteSpace == null)
+					{
+						whiteSpace = CreateWhitespace(current, textBlock);
+					}
+					else
+					{
+						whiteSpace.m_Length++;
+					}
+				}
+				else
+				{
+					if (whiteSpace != null)
+					{
+						whiteSpace.Initialize(deviceContext);
+					}
+					whiteSpace = null;
+					sb.Append(currChar);
+				}
+			}
 
-            return shadow;
-        }
+			if (sb.Length > 0)
+			{
+				CreateWord(sb, current, textBlock);
+			}
+			if (whiteSpace != null)
+			{
+				whiteSpace.Initialize(deviceContext);
+			}
+		}
 
-        internal void PushParagraph(GTextElement model)
-        {
-            GParagraph currentParagraph = m_Paragraphs.Peek();
-            GParagraph paragraph = new GParagraph();
-            paragraph.InitFromTextElement(model);
+		private GWord CreateWord(StringBuilder sb, GTextStyle style, GTextBlock block)
+		{
+			var word = new GWord(style, sb.ToString());
+			word.Initialize(deviceContext);
+			block.m_Words.AddLast(word);
+			if (currentAnchor != null)
+			{
+				currentAnchor.AddWord(word);
+			}
 
-            currentParagraph.children.Add(paragraph);
-            m_Paragraphs.Push(paragraph);
-            m_CurrentTextBlock = null;
-        }
-        internal void PopParagraph()
-        {
-            m_Paragraphs.Pop();
-            m_CurrentTextBlock = null;
-        }
-        internal void BreakLine()
-        {
-            //the current text block is null, we have a line break which should be treated as advancing the Y value of the text
-            //this is done by creating an empty text block and specifying its linebreak font.
-            if (m_CurrentTextBlock == null)
-            {
-                m_CurrentTextBlock = CurrentTextBlock;
-                m_CurrentTextBlock.m_LineBreakFont = m_Styles.Peek().m_Font;
-            }
+			sb.Remove(0, sb.Length);
 
-            m_CurrentTextBlock = null;
-        }
-        internal GTextBlock CurrentTextBlock
-        {
-            get
-            {
-                if (m_CurrentTextBlock == null)
-                {
-                    m_CurrentTextBlock = new GTextBlock();
-                    m_Paragraphs.Peek().children.Add(m_CurrentTextBlock);
-                }
+			return word;
+		}
 
-                return m_CurrentTextBlock;
-            }
-        }
+		private GWhitespace CreateWhitespace(GTextStyle style, GTextBlock block)
+		{
+			var whitespace = new GWhitespace(style, 1);
+			block.m_Words.AddLast(whitespace);
 
-        internal GTextStyle OpenAnchor(GAnchorElement anchor, GTextStyle currStyle)
-        {
-            if (m_CurrentAnchor != null)
-            {
-                return null;
-            }
+			if (currentAnchor != null)
+			{
+				currentAnchor.AddWord(whitespace);
+			}
 
-            m_CurrentAnchor = new GAnchor(anchor);
-            GParagraph currParagraph = m_Paragraphs.Peek();
-            currParagraph.anchors.AddLast(m_CurrentAnchor);
+			return whitespace;
+		}
 
-            //update the style
-            GTextStyle newStyle = new GTextStyle(currStyle);
-            switch (anchor.Decoration)
-            {
-                case AnchorDecoration.Underline:
-                    newStyle.m_Font.Underline = true;
-                    break;
-                case AnchorDecoration.None:
-                    newStyle.m_Font.Underline = false;
-                    break;
-            }
+		private GFont NewFont(GFontElement element, GFont current)
+		{
+			var font = new GFont(current);
 
-            if (anchor.ForeColor != Color.Empty)
-            {
-                newStyle.m_Brush = new GSolidBrush(anchor.ForeColor);
-            }
+			object face = element.GetLocalPropertyValue(GFontElement.FacePropertyKey);
 
-            return newStyle;
-        }
-        internal void CloseAnchor()
-        {
-            m_CurrentAnchor = null;
-        }
+			if (face != null)
+			{
+				font.Face = (string)face;
+			}
 
-        #endregion
+			object size = element.GetLocalPropertyValue(GFontElement.SizePropertyKey);
+			if (size != null)
+			{
+				font.Size = (float)size;
+			}
 
-        #region Fields
+			return font;
+		}
 
-        internal GTextView m_View;
-        internal GDeviceContext m_DeviceContext;
-        internal Stack<GTextStyle> m_Styles;
-        internal Stack<GParagraph> m_Paragraphs;
-        internal GTextBlock m_CurrentTextBlock;
-        internal GAnchor m_CurrentAnchor;
+		private GFont NewBoldFont(GFont prototype)
+		{
+			return new GFont(prototype) { Bold = true };
+		}
 
-        #endregion
-    }
+		private GFont NewItalicFont(GFont prototype)
+		{
+			return new GFont(prototype) { Italic = true };
+		}
+
+		private GFont NewUnderlineFont(GFont prototype)
+		{
+			return new GFont(prototype) { Underline = true };
+		}
+
+		private GShadow NewShadow(GShadowElement model)
+		{
+			var shadow = new GShadow
+				{
+					m_Style = model.Style,
+					m_Color = model.Color,
+					m_Offset = model.Offset,
+					m_Strength = model.Strength
+				};
+
+			return shadow;
+		}
+
+		private void PushParagraph(GTextElement model)
+		{
+			GParagraph currentParagraph = paragraphs.Peek();
+			var paragraph = new GParagraph();
+			paragraph.InitFromTextElement(model);
+
+			currentParagraph.children.Add(paragraph);
+			paragraphs.Push(paragraph);
+			currentTextBlock = null;
+		}
+
+		private void PopParagraph()
+		{
+			paragraphs.Pop();
+			currentTextBlock = null;
+		}
+
+		private void BreakLine()
+		{
+			//the current text block is null, we have a line break which should be treated as advancing the Y value of the text
+			//this is done by creating an empty text block and specifying its linebreak font.
+			if (currentTextBlock == null)
+			{
+				currentTextBlock = CurrentTextBlock;
+				currentTextBlock.m_LineBreakFont = textStyles.Peek().m_Font;
+			}
+
+			currentTextBlock = null;
+		}
+
+		private GTextStyle OpenAnchor(GAnchorElement anchor, GTextStyle currStyle)
+		{
+			if (currentAnchor != null)
+			{
+				return null;
+			}
+
+			currentAnchor = new GAnchor(anchor);
+			GParagraph currParagraph = paragraphs.Peek();
+			currParagraph.anchors.AddLast(currentAnchor);
+
+			//update the style
+			var newStyle = new GTextStyle(currStyle);
+			switch (anchor.Decoration)
+			{
+				case AnchorDecoration.Underline:
+					newStyle.m_Font.Underline = true;
+					break;
+				case AnchorDecoration.None:
+					newStyle.m_Font.Underline = false;
+					break;
+			}
+
+			if (anchor.ForeColor != Color.Empty)
+			{
+				newStyle.m_Brush = new GSolidBrush(anchor.ForeColor);
+			}
+
+			return newStyle;
+		}
+
+		private void CloseAnchor()
+		{
+			currentAnchor = null;
+		}
+	}
 }

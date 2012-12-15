@@ -23,13 +23,6 @@ namespace VerseFlow.GFramework.Model.Nodes
 
             m_Owner = parent as GElement;
         }
-        protected override void OnPropertyValueChanged(int propertyKey)
-        {
-            if (m_Owner != null)
-            {
-                m_Owner.OnAttributePropertyValueChanged(this, propertyKey);
-            }
-        }
 
         #endregion
 
@@ -48,11 +41,7 @@ namespace VerseFlow.GFramework.Model.Nodes
 
         #endregion
 
-        #region Fields
-
-        [NonSerialized]
+	    [NonSerialized]
         internal GElement m_Owner;
-
-        #endregion
     }
 }

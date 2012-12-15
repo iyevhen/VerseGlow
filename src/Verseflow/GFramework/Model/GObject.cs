@@ -9,15 +9,14 @@ namespace VerseFlow.GFramework.Model
 	public abstract class GObject
 	{
 		internal const ulong StateCanRaiseEvents = 1;
-		public const int PropertyChangingEventKey = 1;
-		public const int PropertyChangedEventKey = PropertyChangingEventKey + 1;
+		private const int PropertyChangingEventKey = 1;
+		private const int PropertyChangedEventKey = PropertyChangingEventKey + 1;
 		internal const int DefaultEventRange = 100;
 		internal const int GObjectLastEventKey = DefaultEventRange;
-		[NonSerialized] internal GBitVector64 bitStates;
-		[NonSerialized] internal int eventLocks;
-		[NonSerialized] internal GEventStorage events;
-		internal GPropertyStorage propertyStorage;
-		[NonSerialized] internal object tag;
+		internal GBitVector64 bitStates;
+		private int eventLocks;
+		internal GEventStorage events;
+		private GPropertyStorage propertyStorage;
 
 		protected GObject()
 		{
@@ -46,13 +45,8 @@ namespace VerseFlow.GFramework.Model
 		/// <summary>
 		///     Gets or sets the additional data associated with the object.
 		/// </summary>
-		[Browsable(false)]
-		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public object Tag
-		{
-			get { return tag; }
-			set { tag = value; }
-		}
+		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public object Tag { get; set; }
 
 		public event GEventHandler PropertyChanging
 		{

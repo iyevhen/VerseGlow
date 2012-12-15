@@ -8,7 +8,7 @@ namespace VerseFlow.GFramework.View.Text
 	public class GParagraph : GTextVisual
 	{
 		internal readonly LinkedList<GAnchor> anchors;
-		internal GParagraphElement paragraphElement;
+		private GParagraphElement paragraphElement;
 
 		public GParagraph()
 		{
@@ -40,7 +40,7 @@ namespace VerseFlow.GFramework.View.Text
 
 		protected override void LayoutCore(GTextViewLayoutContext context)
 		{
-			GTextViewLayoutContextState state = context.Save();
+			GTextViewLayoutContextState state = context.GetState();
 
 			var myLocation = new PointF(context.X, context.Y);
 			float thisWidth = context.AvailableSize.Width - (context.X + context.Right);
@@ -60,12 +60,12 @@ namespace VerseFlow.GFramework.View.Text
 
 			for (int i = 0; i < count; i++)
 			{
-				var visual = (GTextVisual)children[i];
-				visual.InvalidateLayout();
-				visual.Layout(context);
+				var child = (GTextVisual)children[i];
+				child.InvalidateLayout();
+				child.Layout(context);
 			}
 
-			context.Restore(state);
+			context.SetState(state);
 
 			//advance the Y value of the context
 			context.Y += padding.Bottom;

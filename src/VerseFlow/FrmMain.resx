@@ -123,4 +123,7 @@
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
+  <data name="textBox3.Text" xml:space="preserve">
+    <value>The &lt;font color='brown' size='15'&gt;GMarkupLabel&lt;/font&gt; allows you to display &lt;b&gt;XML-formatted&lt;/b&gt; text with ease. There is also &lt;a href='sample href'&gt;anchor support&lt;/a&gt; with hover effect and Click event. Some effects like shadow - either &lt;shadow color='silver'&gt;&lt;font color='blue'&gt;SOLID&lt;/font&gt;&lt;/shadow&gt; or &lt;shadow style='blurred'&gt;&lt;font color='brown'&gt;&lt;b&gt;BLURRED&lt;/b&gt;&lt;/font&gt;&lt;/shadow&gt; are also available.</value>
+  </data>
 </root>

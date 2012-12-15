@@ -170,7 +170,7 @@ namespace VerseFlow.Controls
 
 		protected virtual void OnTextViewInvalidated(GEventArgs args)
 		{
-			var data = (GInvalidatedEventData) args.Data;
+			var data = (GInvalidatedEventData)args.Data;
 			foreach (RectangleF rect in data.InvalidRects)
 			{
 				Invalidate(Rectangle.Ceiling(rect));
@@ -183,7 +183,7 @@ namespace VerseFlow.Controls
 			return new RectangleF(padding.Left, padding.Top, Width - padding.Horizontal, Height - padding.Vertical);
 		}
 
-		internal void DelegateMouseEvent(MouseEvent mouseEvent, MouseEventArgs e)
+		private void DelegateMouseEvent(MouseEvent mouseEvent, MouseEventArgs e)
 		{
 			var eventData = new GMouseEventData(mouseEvent, e.Delta, e.Clicks, new Point(e.X, e.Y), e.Button);
 			var args = new GEventArgs(this, eventData, GInputElement.MouseEventKey, EventPropagation.Both);
@@ -197,7 +197,7 @@ namespace VerseFlow.Controls
 
 		private void OnTextViewPropertyChanged(GEventArgs args)
 		{
-			var data = (GPropertyEventData) args.Data;
+			var data = (GPropertyEventData)args.Data;
 			if (data.Key == GInputElement.CursorPropertyKey)
 			{
 				UpdateCursor();
@@ -216,7 +216,7 @@ namespace VerseFlow.Controls
 
 		private void UpdateCursor()
 		{
-			switch (m_TextView.Cursor)
+			switch (m_TextView.CursorOnMouseHover)
 			{
 				case PredefinedCursors.Hand:
 					Cursor = Cursors.Hand;

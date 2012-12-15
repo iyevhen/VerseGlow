@@ -6,234 +6,213 @@ using VerseFlow.GFramework.View.Events;
 
 namespace VerseFlow.GFramework.View
 {
-    /// <summary>
-    /// Represents a visual element which may receive user input.
-    /// </summary>
-    public abstract class GInputElement : GVisualElement
-    {
-        #region Public Overridables
+	/// <summary>
+	///     Represents a visual element which may receive user input.
+	/// </summary>
+	public abstract class GInputElement : GVisualElement
+	{
+		private const int EnabledPropertyKey = VisiblePropertyKey + 1;
+		public const int CursorPropertyKey = EnabledPropertyKey + 1;
 
-        public virtual void OnMouseEvent(GEventArgs args)
-        {
-            GMouseEventData mouseData = args.m_Data as GMouseEventData;
-            if (mouseData == null)
-            {
-                return;
-            }
+		internal const int GInputElementLastPropKey = CursorPropertyKey;
 
-            switch (mouseData.m_Event)
-            {
-                case MouseEvent.ButtonDown:
-                    OnMouseDown(args, mouseData);
-                    break;
-                case MouseEvent.ButtonUp:
-                    OnMouseUp(args, mouseData);
-                    break;
-                case MouseEvent.ButtonClick:
-                    OnMouseClick(args, mouseData);
-                    break;
-                case MouseEvent.Enter:
-                    OnMouseEnter(args, mouseData);
-                    break;
-                case MouseEvent.Leave:
-                    OnMouseLeave(args, mouseData);
-                    break;
-                case MouseEvent.Hover:
-                    OnMouseHover(args, mouseData);
-                    break;
-                case MouseEvent.Move:
-                    OnMouseMove(args, mouseData);
-                    break;
-                case MouseEvent.Wheel:
-                    OnMouseWheel(args, mouseData);
-                    break;
-            }
-        }
-        public virtual void PreviewMouseEvent(GEventArgs args)
-        {
-            GMouseEventData mouseData = args.m_Data as GMouseEventData;
-            if (mouseData == null)
-            {
-                args.m_Result = EventResult.Cancel;
-                return;
-            }
+		public const int MouseEventKey = GVisualElementLastEventKey + 1;
 
-            if (WantsMouseEvent(mouseData))
-            {
-                args.m_Result = EventResult.Process;
-            }
-        }
-        public virtual GVisualElement ChildFromPoint(PointF point, bool nestedChildren)
-        {
-            int count = children.Count;
-            GVisualElement visualChild;
+		internal const int GInputElementLastEventKey = MouseEventKey + DefaultEventRange;
+		private InputElementMouseState m_MouseState;
 
-            for (int i = 0; i < count; i++)
-            {
-                GNode child = children[i];
+		public virtual bool Enabled
+		{
+			get
+			{
+				var parent = (this).parent as GInputElement;
+				if (parent != null && parent.Enabled == false)
+				{
+					return false;
+				}
 
-                if (nestedChildren)
-                {
-                    GInputElement inputChild = child as GInputElement;
-                    if (inputChild != null)
-                    {
-                        visualChild = inputChild.ChildFromPoint(point, nestedChildren);
-                        if (visualChild != null)
-                        {
-                            return visualChild;
-                        }
-                    }
-                }
+				return (bool) GetPropertyValue(EnabledPropertyKey);
+			}
+			set
+			{
+				if (Enabled == value)
+				{
+					return;
+				}
 
-                visualChild = child as GVisualElement;
-                if (visualChild != null && visualChild.HitTest(point))
-                {
-                    return visualChild;
-                }
-            }
+				SetPropertyValue(EnabledPropertyKey, value);
+			}
+		}
+		
+		public PredefinedCursors CursorOnMouseHover
+		{
+			get { return (PredefinedCursors) GetPropertyValue(CursorPropertyKey); }
+			set
+			{
+				if (CursorOnMouseHover == value)
+				{
+					return;
+				}
 
-            return null;
-        }
+				SetPropertyValue(CursorPropertyKey, value);
+			}
+		}
 
-        #endregion
+		public virtual void OnMouseEvent(GEventArgs args)
+		{
+			var mouseData = args.m_Data as GMouseEventData;
 
-        #region Protected Overridables
+			if (mouseData == null)
+			{
+				return;
+			}
 
-        protected virtual bool WantsMouseEvent(GMouseEventData mouseData)
-        {
-            return false;
-        }
-        protected virtual void OnMouseDown(GEventArgs args, GMouseEventData mouseData)
-        {
-            SetMouseState(InputElementMouseState.Pressed);
-        }
-        protected virtual void OnMouseUp(GEventArgs args, GMouseEventData mouseData)
-        {
-            InputElementMouseState state = HitTest(mouseData.m_HitPoint) ? InputElementMouseState.Hot : InputElementMouseState.None;
-            SetMouseState(state);
-        }
-        protected virtual void OnMouseClick(GEventArgs args, GMouseEventData mouseData)
-        {
-        }
-        protected virtual void OnMouseEnter(GEventArgs args, GMouseEventData mouseData)
-        {
-            SetMouseState(InputElementMouseState.Hot);
-        }
-        protected virtual void OnMouseLeave(GEventArgs args, GMouseEventData mouseData)
-        {
-            SetMouseState(InputElementMouseState.None);
-        }
-        protected virtual void OnMouseHover(GEventArgs args, GMouseEventData mouseData)
-        {
-        }
-        protected virtual void OnMouseMove(GEventArgs args, GMouseEventData mouseData)
-        {
-        }
-        protected virtual void OnMouseWheel(GEventArgs args, GMouseEventData mouseData)
-        {
-        }
+			switch (mouseData.m_Event)
+			{
+				case MouseEvent.ButtonDown:
+					OnMouseDown(args, mouseData);
+					break;
+				case MouseEvent.ButtonUp:
+					OnMouseUp(args, mouseData);
+					break;
+				case MouseEvent.ButtonClick:
+					OnMouseClick(args, mouseData);
+					break;
+				case MouseEvent.Enter:
+					OnMouseEnter(args, mouseData);
+					break;
+				case MouseEvent.Leave:
+					OnMouseLeave(args, mouseData);
+					break;
+				case MouseEvent.Hover:
+					OnMouseHover(args, mouseData);
+					break;
+				case MouseEvent.Move:
+					OnMouseMove(args, mouseData);
+					break;
+				case MouseEvent.Wheel:
+					OnMouseWheel(args, mouseData);
+					break;
+			}
+		}
 
-        protected virtual void SetMouseState(InputElementMouseState state)
-        {
-            if (m_MouseState == state)
-            {
-                return;
-            }
+		public virtual void PreviewMouseEvent(GEventArgs args)
+		{
+			var mouseData = args.m_Data as GMouseEventData;
+			if (mouseData == null)
+			{
+				args.m_Result = EventResult.Cancel;
+				return;
+			}
 
-            m_MouseState = state;
-            OnMouseStateChanged();
-        }
+			if (WantsMouseEvent(mouseData))
+			{
+				args.m_Result = EventResult.Process;
+			}
+		}
 
-        protected virtual void OnMouseStateChanged()
-        {
-        }
+		public virtual GVisualElement ChildFromPoint(PointF point, bool nestedChildren)
+		{
+			int count = children.Count;
 
-        #endregion
+			for (int i = 0; i < count; i++)
+			{
+				GNode child = children[i];
 
-        #region Public Overrides
+				GVisualElement visualChild;
+				if (nestedChildren)
+				{
+					var inputChild = child as GInputElement;
+					if (inputChild != null)
+					{
+						visualChild = inputChild.ChildFromPoint(point, nestedChildren);
+						if (visualChild != null)
+						{
+							return visualChild;
+						}
+					}
+				}
 
-	    protected override object GetDefaultPropertyValue(int propertyKey)
-        {
-            switch (propertyKey)
-            {
-                case EnabledPropertyKey:
-                    return true;
-                case CursorPropertyKey:
-                    return PredefinedCursors.Default;
-            }
+				visualChild = child as GVisualElement;
+				if (visualChild != null && visualChild.HitTest(point))
+				{
+					return visualChild;
+				}
+			}
 
-            return base.GetDefaultPropertyValue(propertyKey);
-        }
+			return null;
+		}
 
-        #endregion
+		protected virtual bool WantsMouseEvent(GMouseEventData mouseData)
+		{
+			return false;
+		}
 
-        #region Properties
+		protected virtual void OnMouseDown(GEventArgs args, GMouseEventData mouseData)
+		{
+			SetMouseState(InputElementMouseState.Pressed);
+		}
 
-        public virtual bool Enabled
-        {
-            get
-            {
-                GInputElement parent = ((GNode) this).parent as GInputElement;
-                if (parent != null && parent.Enabled == false)
-                {
-                    return false;
-                }
+		protected virtual void OnMouseUp(GEventArgs args, GMouseEventData mouseData)
+		{
+			InputElementMouseState state = HitTest(mouseData.m_HitPoint)
+				                               ? InputElementMouseState.Hot
+				                               : InputElementMouseState.None;
+			SetMouseState(state);
+		}
 
-                return (bool)GetPropertyValue(EnabledPropertyKey);
-            }
-            set
-            {
-                if (Enabled == value)
-                {
-                    return;
-                }
+		protected virtual void OnMouseClick(GEventArgs args, GMouseEventData mouseData)
+		{
+		}
 
-                SetPropertyValue(EnabledPropertyKey, value);
-            }
-        }
-        /// <summary>
-        /// Gets or sets the cursor to be displayed when the mouse hovers this element.
-        /// </summary>
-        public PredefinedCursors Cursor
-        {
-            get
-            {
-                return (PredefinedCursors)GetPropertyValue(CursorPropertyKey);
-            }
-            set
-            {
-                if (Cursor == value)
-                {
-                    return;
-                }
+		protected virtual void OnMouseEnter(GEventArgs args, GMouseEventData mouseData)
+		{
+			SetMouseState(InputElementMouseState.Hot);
+		}
 
-                SetPropertyValue(CursorPropertyKey, value);
-            }
-        }
+		protected virtual void OnMouseLeave(GEventArgs args, GMouseEventData mouseData)
+		{
+			SetMouseState(InputElementMouseState.None);
+		}
 
-        #endregion
+		protected virtual void OnMouseHover(GEventArgs args, GMouseEventData mouseData)
+		{
+		}
 
-        #region Fields
+		protected virtual void OnMouseMove(GEventArgs args, GMouseEventData mouseData)
+		{
+		}
 
-        internal InputElementMouseState m_MouseState;
+		protected virtual void OnMouseWheel(GEventArgs args, GMouseEventData mouseData)
+		{
+		}
 
-        #endregion
+		protected virtual void SetMouseState(InputElementMouseState state)
+		{
+			if (m_MouseState == state)
+			{
+				return;
+			}
 
-        #region Property Constants
+			m_MouseState = state;
+			OnMouseStateChanged();
+		}
 
-        public const int EnabledPropertyKey = VisiblePropertyKey + 1;
-        public const int CursorPropertyKey = EnabledPropertyKey + 1;
+		protected virtual void OnMouseStateChanged()
+		{
+		}
 
-        internal const int GInputElementLastPropKey = CursorPropertyKey;
+		protected override object GetDefaultPropertyValue(int propertyKey)
+		{
+			switch (propertyKey)
+			{
+				case EnabledPropertyKey:
+					return true;
+				case CursorPropertyKey:
+					return PredefinedCursors.Default;
+			}
 
-        #endregion
-
-        #region Event Constants
-
-        public const int MouseEventKey = GVisualElement.GVisualElementLastEventKey + 1;
-
-        internal const int GInputElementLastEventKey = MouseEventKey + DefaultEventRange;
-
-        #endregion
-    }
+			return base.GetDefaultPropertyValue(propertyKey);
+		}
+	}
 }

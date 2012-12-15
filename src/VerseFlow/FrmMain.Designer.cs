@@ -30,6 +30,7 @@ namespace VerseFlow
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
 			this.label4 = new System.Windows.Forms.Label();
 			this.textBoxPath = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
@@ -50,6 +51,8 @@ namespace VerseFlow
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.verseView1 = new VerseFlow.Controls.VerseView();
 			this.gMarkupLabel1 = new VerseFlow.Controls.GMarkupLabel();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.button3 = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -218,17 +221,47 @@ namespace VerseFlow
 			// 
 			// gMarkupLabel1
 			// 
-			this.gMarkupLabel1.Location = new System.Drawing.Point(404, 118);
+			this.gMarkupLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gMarkupLabel1.Location = new System.Drawing.Point(436, 171);
 			this.gMarkupLabel1.Name = "gMarkupLabel1";
-			this.gMarkupLabel1.Size = new System.Drawing.Size(448, 456);
+			this.gMarkupLabel1.Size = new System.Drawing.Size(521, 219);
 			this.gMarkupLabel1.TabIndex = 10;
 			this.gMarkupLabel1.Text = "gMarkupLabel1";
+			// 
+			// textBox3
+			// 
+			this.textBox3.AcceptsReturn = true;
+			this.textBox3.AcceptsTab = true;
+			this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox3.Font = new System.Drawing.Font("Trebuchet MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.textBox3.Location = new System.Drawing.Point(436, 396);
+			this.textBox3.Multiline = true;
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(521, 193);
+			this.textBox3.TabIndex = 11;
+			this.textBox3.Text = resources.GetString("textBox3.Text");
+			// 
+			// button3
+			// 
+			this.button3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.button3.Location = new System.Drawing.Point(436, 595);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 12;
+			this.button3.Text = "Set GMarkLabel";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(983, 659);
+			this.Controls.Add(this.button3);
+			this.Controls.Add(this.textBox3);
 			this.Controls.Add(this.gMarkupLabel1);
 			this.Controls.Add(this.splitter1);
 			this.Controls.Add(this.label4);
@@ -274,7 +307,8 @@ namespace VerseFlow
 		private System.Windows.Forms.ToolStripMenuItem гимныХвалыToolStripMenuItem;
 		private System.Windows.Forms.Splitter splitter1;
 		private GMarkupLabel gMarkupLabel1;
-
+		private System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.Button button3;
 	}
 }
 

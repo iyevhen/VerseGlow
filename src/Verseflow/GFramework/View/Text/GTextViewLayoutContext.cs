@@ -4,36 +4,28 @@ using VerseFlow.GFramework.Model;
 
 namespace VerseFlow.GFramework.View.Text
 {
-    /// <summary>
-    /// Encapsulates layout information for a GTextView.
-    /// </summary>
     public class GTextViewLayoutContext
     {
-        #region Constructor
-
-        internal GTextViewLayoutContext(GDeviceContext deviceContext)
+	    internal GTextViewLayoutContext(GDeviceContext deviceContext)
         {
             DeviceContext = deviceContext;
         }
 
-        #endregion
-
-        #region Methods
-
-        public GTextViewLayoutContextState Save()
+	    public GTextViewLayoutContextState GetState()
         {
-            GTextViewLayoutContextState state = new GTextViewLayoutContextState();
+            var state = new GTextViewLayoutContextState
+	            {
+		            Indent = Indent,
+		            Right = Right,
+		            Wrap = Wrap,
+		            X = X,
+		            Align = Align
+	            };
 
-            state.Indent = Indent;
-            state.Right = Right;
-            state.Wrap = Wrap;
-            state.X = X;
-            state.Align = Align;
-
-            return state;
+		    return state;
         }
 
-        public void Restore(GTextViewLayoutContextState state)
+        public void SetState(GTextViewLayoutContextState state)
         {
             Indent = state.Indent;
             Right = state.Right;
@@ -42,9 +34,7 @@ namespace VerseFlow.GFramework.View.Text
             Align = state.Align;
         }
 
-        #endregion
-
-        #region Fields
+	    #region Fields
 
         public GDeviceContext DeviceContext;
         public SizeF AvailableSize;

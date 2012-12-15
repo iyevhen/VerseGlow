@@ -1,74 +1,49 @@
 namespace VerseFlow.GFramework.DataStructure
 {
-    public struct GBitVector64
-    {
-        #region Constructor
+	public struct GBitVector64
+	{
+		private ulong data;
 
-        public GBitVector64(GBitVector64 source)
-        {
-            m_Data = source.m_Data;
-        }
+		public bool this[ulong key]
+		{
+			get { return (data & key) == key; }
+			set
+			{
+				if (value)
+				{
+					data |= key;
+				}
+				else
+				{
+					data &= ~key;
+				}
+			}
+		}
 
-        #endregion
+		public bool Equals(GBitVector64 other)
+		{
+			return data == other.data;
+		}
 
-        #region Public Methods
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			return obj is GBitVector64 && Equals((GBitVector64) obj);
+		}
 
-        public bool this[ulong key]
-        {
-            get
-            {
-                return (m_Data & key) == key;
-            }
-            set
-            {
-                if (value)
-                {
-                    m_Data |= key;
-                }
-                else
-                {
-                    m_Data &= ~key;
-                }
-            }
-        }
+		public override int GetHashCode()
+		{
+			return data.GetHashCode();
+		}
 
-        #endregion
+		public static bool operator ==(GBitVector64 left, GBitVector64 right)
+		{
+			return left.Equals(right);
+		}
 
-        #region Public Overrides
-
-        public override bool Equals(object obj)
-        {
-            if ((obj is GBitVector64) == false)
-            {
-                return false;
-            }
-
-            return (GBitVector64)obj == this;
-        }
-        public override int GetHashCode()
-        {
-            return m_Data.GetHashCode();
-        }
-
-        #endregion
-
-        #region Operators
-
-        public static bool operator ==(GBitVector64 vector1, GBitVector64 vector2)
-        {
-            return vector1.m_Data == vector2.m_Data;
-        }
-        public static bool operator !=(GBitVector64 vector1, GBitVector64 vector2)
-        {
-            return vector1.m_Data != vector2.m_Data;
-        }
-
-        #endregion
-
-        #region Fields
-
-        internal ulong m_Data;
-
-        #endregion
-    }
+		public static bool operator !=(GBitVector64 left, GBitVector64 right)
+		{
+			return !left.Equals(right);
+		}
+	}
 }
