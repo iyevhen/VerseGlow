@@ -68,7 +68,7 @@ namespace VerseFlow
 			this.textBoxPath.Name = "textBoxPath";
 			this.textBoxPath.Size = new System.Drawing.Size(255, 20);
 			this.textBoxPath.TabIndex = 7;
-			this.textBoxPath.Text = "d:\\rus_Bible.txt";
+			this.textBoxPath.Text = "e:\\biblerus.txt";
 			// 
 			// textBox2
 			// 
@@ -209,7 +209,7 @@ namespace VerseFlow
 			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
 			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.verseView1.Font = new System.Drawing.Font("Arial Unicode MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.verseView1.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.verseView1.Location = new System.Drawing.Point(0, 24);
 			this.verseView1.Name = "verseView1";
 			this.verseView1.Size = new System.Drawing.Size(381, 558);

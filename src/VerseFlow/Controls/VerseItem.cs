@@ -7,6 +7,7 @@ namespace VerseFlow.Controls
 		private readonly string text;
 		private PointF rectFrom;
 		private RectangleF rect;
+		private int lines;
 
 		public VerseItem(string text)
 		{
@@ -31,6 +32,21 @@ namespace VerseFlow.Controls
 		{
 			rect = new RectangleF(location, SizeF);
 			return rect;
+		}
+
+		public void NewLine(int index, int count)
+		{
+			lines++;
+		}
+
+		public int Lines
+		{
+			get { return lines; }
+		}
+
+		public void DropLines()
+		{
+			lines = 0;
 		}
 	}
 }

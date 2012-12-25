@@ -72,8 +72,12 @@ namespace VerseFlow.Controls
 
 				//clac size
 				SizeF size = GetCharSize(base.Font, 'M');
-				CharWidth = (int)Math.Round(size.Width * 1f /*0.85*/) - 1 /*0*/;
-				CharHeight = lineInterval + (int)Math.Round(size.Height * 1f /*0.9*/) - 1 /*0*/;
+
+				CharWidth = (int)(size.Width);
+				CharHeight = lineInterval + (int)(size.Height);
+
+//				CharWidth = (int)Math.Round(size.Width * 1f /*0.85*/) - 1 /*0*/;
+//				CharHeight = lineInterval + (int)Math.Round(size.Height * 1f /*0.9*/) - 1 /*0*/;
 				//
 				needRecalc = true;
 				Invalidate();
@@ -125,7 +129,8 @@ namespace VerseFlow.Controls
 			Size sz2 = TextRenderer.MeasureText("<" + c.ToString() + ">", font);
 			Size sz3 = TextRenderer.MeasureText("<>", font);
 
-			return new SizeF(sz2.Width - sz3.Width + 1, /*sz2.Height*/font.Height);
+//			return new SizeF(sz2.Width - sz3.Width + 1, /*sz2.Height*/font.Height);
+			return new SizeF(sz2.Width - sz3.Width, /*sz2.Height*/font.Height);
 		}
 
 		private void Recalc()
@@ -139,26 +144,26 @@ namespace VerseFlow.Controls
 
 			needRecalc = false;
 			//calc min left indent
-//			LeftIndent = LeftPadding;
-//			long maxLineNumber = LinesCount + lineNumberStartValue - 1;
-//			int charsForLineNumber = 2 + (maxLineNumber > 0 ? (int)Math.Log10(maxLineNumber) : 0);
-//			if (Created)
-//			{
-//				if (ShowLineNumbers)
-//					LeftIndent += charsForLineNumber * CharWidth + minLeftIndent + 1;
-//			}
-//			else
-//				needRecalc = true;
-//			//calc max line length and count of wordWrapLines
-//			wordWrapLinesCount = 0;
-//
-//			maxLineLength = RecalcMaxLineLength();
-//
-//			//adjust AutoScrollMinSize
-//			int minWidth;
-//			CalcMinAutosizeWidth(out minWidth, ref maxLineLength);
-//
-//			AutoScrollMinSize = new Size(minWidth, wordWrapLinesCount * CharHeight + Paddings.Top + Paddings.Bottom);
+			//			LeftIndent = LeftPadding;
+			//			long maxLineNumber = LinesCount + lineNumberStartValue - 1;
+			//			int charsForLineNumber = 2 + (maxLineNumber > 0 ? (int)Math.Log10(maxLineNumber) : 0);
+			//			if (Created)
+			//			{
+			//				if (ShowLineNumbers)
+			//					LeftIndent += charsForLineNumber * CharWidth + minLeftIndent + 1;
+			//			}
+			//			else
+			//				needRecalc = true;
+			//			//calc max line length and count of wordWrapLines
+			//			wordWrapLinesCount = 0;
+			//
+			//			maxLineLength = RecalcMaxLineLength();
+			//
+			//			//adjust AutoScrollMinSize
+			//			int minWidth;
+			//			CalcMinAutosizeWidth(out minWidth, ref maxLineLength);
+			//
+			//			AutoScrollMinSize = new Size(minWidth, wordWrapLinesCount * CharHeight + Paddings.Top + Paddings.Bottom);
 
 #if debug
             sw.Stop();
@@ -262,7 +267,9 @@ namespace VerseFlow.Controls
 				refreshVerses = false;
 
 				sw.Stop();
-				Debug.WriteLine("REFRESHED in {0}", sw.Elapsed);
+				Debug.WriteLine("REFRESHED_OLD in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
+
+				REFRESH_NEW(verses, rect);
 			}
 
 			float yCursor = 0;
@@ -312,6 +319,62 @@ namespace VerseFlow.Controls
 				visibleVerses.Add(vbox);
 				yDraw += vrect.Height;
 			}
+		}
+
+		private void REFRESH_NEW(List<VerseItem> verseItems, Rectangle rect)
+		{
+			Stopwatch sw = Stopwatch.StartNew();
+
+			int charsInLine = visibleWidth / CharWidth;
+
+			double visibleHeigth = 0;
+			visibleWidth = Width - 1;
+			bool vScrollExcluded = false;
+
+			for (int i = 0; i < verseItems.Count; i++)
+			{
+				VerseItem vb = verseItems[i];
+				vb.DropLines();
+
+				int start = 0;
+				int end = vb.Text.Length;
+				int marker = charsInLine;
+
+				do
+				{
+					if (marker >= end)
+					{
+						vb.NewLine(start, end - start);
+						break;
+					}
+
+					int idx = vb.Text.LastIndexOf(' ', marker, charsInLine);
+					int count = idx > -1 ? (idx - start) : charsInLine;
+
+					vb.NewLine(start, count);
+
+					start += count;
+					marker += count;
+
+				} while (true);
+
+				visibleHeigth += vb.Lines * CharHeight;
+
+				if (!vScrollExcluded && visibleHeigth > rect.Height)
+				{
+					i = -1;
+					visibleHeigth = 0;
+					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
+					charsInLine = visibleWidth / CharWidth;
+					vScrollExcluded = true;
+				}
+			}
+
+			AutoScrollMinSize = new Size(visibleWidth, (int)(visibleHeigth + 1));
+			refreshVerses = false;
+
+			sw.Stop();
+			Debug.WriteLine("REFRESHED_NEW in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
