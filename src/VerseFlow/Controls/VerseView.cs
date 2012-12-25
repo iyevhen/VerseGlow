@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -10,6 +11,7 @@ namespace VerseFlow.Controls
 {
 	public class VerseView : ScrollableControl
 	{
+		private const int minLeftIndent = 8;
 		private static readonly StringFormat stringFormat = new StringFormat();
 
 		private readonly Blend blend = new Blend
@@ -27,6 +29,9 @@ namespace VerseFlow.Controls
 		private List<VerseItem> verses = new List<VerseItem>();
 		private int visibleWidth;
 		private int width;
+		private int charHeight;
+		private int lineInterval;
+		private bool needRecalc;
 
 		public VerseView()
 		{
@@ -45,6 +50,120 @@ namespace VerseFlow.Controls
 			stringFormat.FormatFlags = StringFormatFlags.MeasureTrailingSpaces;
 			stringFormat.LineAlignment = StringAlignment.Center;
 			lightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 20);
+		}
+
+		/// <summary>
+		/// Font
+		/// </summary>
+		/// <remarks>Use only monospaced font</remarks>
+		[DefaultValue(typeof(Font), "Courier New, 9.75")]
+		public override Font Font
+		{
+			get { return base.Font; }
+			set
+			{
+				base.Font = value;
+				//check monospace font
+				SizeF sizeM = GetCharSize(base.Font, 'M');
+				SizeF sizeDot = GetCharSize(base.Font, '.');
+
+				if (sizeM != sizeDot)
+					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
+
+				//clac size
+				SizeF size = GetCharSize(base.Font, 'M');
+				CharWidth = (int)Math.Round(size.Width * 1f /*0.85*/) - 1 /*0*/;
+				CharHeight = lineInterval + (int)Math.Round(size.Height * 1f /*0.9*/) - 1 /*0*/;
+				//
+				needRecalc = true;
+				Invalidate();
+			}
+		}
+
+		/// <summary>
+		/// Width of char in pixels
+		/// </summary>
+		[Description("Width of char in pixels")]
+		public int CharWidth { get; private set; }
+
+		[Description("Height of char in pixels")]
+		public int CharHeight
+		{
+			get { return charHeight; }
+			private set
+			{
+				charHeight = value;
+				OnCharSizeChanged();
+			}
+		}
+
+		/// <summary>
+		/// Interval between lines (in pixels)
+		/// </summary>
+		[Description("Interval between lines in pixels")]
+		[DefaultValue(0)]
+		public int LineInterval
+		{
+			get { return lineInterval; }
+			set
+			{
+				lineInterval = value;
+				Font = Font;
+				Invalidate();
+			}
+		}
+
+		protected virtual void OnCharSizeChanged()
+		{
+			VerticalScroll.SmallChange = charHeight;
+			VerticalScroll.LargeChange = 10 * charHeight;
+			HorizontalScroll.SmallChange = CharWidth;
+		}
+
+		public static SizeF GetCharSize(Font font, char c)
+		{
+			Size sz2 = TextRenderer.MeasureText("<" + c.ToString() + ">", font);
+			Size sz3 = TextRenderer.MeasureText("<>", font);
+
+			return new SizeF(sz2.Width - sz3.Width + 1, /*sz2.Height*/font.Height);
+		}
+
+		private void Recalc()
+		{
+			if (!needRecalc)
+				return;
+
+#if debug
+            var sw = Stopwatch.StartNew();
+#endif
+
+			needRecalc = false;
+			//calc min left indent
+//			LeftIndent = LeftPadding;
+//			long maxLineNumber = LinesCount + lineNumberStartValue - 1;
+//			int charsForLineNumber = 2 + (maxLineNumber > 0 ? (int)Math.Log10(maxLineNumber) : 0);
+//			if (Created)
+//			{
+//				if (ShowLineNumbers)
+//					LeftIndent += charsForLineNumber * CharWidth + minLeftIndent + 1;
+//			}
+//			else
+//				needRecalc = true;
+//			//calc max line length and count of wordWrapLines
+//			wordWrapLinesCount = 0;
+//
+//			maxLineLength = RecalcMaxLineLength();
+//
+//			//adjust AutoScrollMinSize
+//			int minWidth;
+//			CalcMinAutosizeWidth(out minWidth, ref maxLineLength);
+//
+//			AutoScrollMinSize = new Size(minWidth, wordWrapLinesCount * CharHeight + Paddings.Top + Paddings.Bottom);
+
+#if debug
+            sw.Stop();
+            Console.WriteLine("Recalc: " + sw.ElapsedMilliseconds);
+#endif
 		}
 
 		public void Populate(List<string> strings)

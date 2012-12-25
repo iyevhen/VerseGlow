@@ -15,6 +15,7 @@ namespace VerseFlow
 		public FrmMain()
 		{
 			InitializeComponent();
+			verseView1.Font = new Font(FontFamily.GenericMonospace, 10.75f);
 		}
 
 		private void button1_Click(object sender, EventArgs e)

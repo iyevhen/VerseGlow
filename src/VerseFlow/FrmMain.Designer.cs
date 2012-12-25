@@ -49,7 +49,6 @@ namespace VerseFlow
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.verseView1 = new VerseFlow.Controls.VerseView();
-			this.gMarkupLabel1 = new VerseFlow.Controls.GMarkupLabel();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -128,7 +127,7 @@ namespace VerseFlow
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.menuStrip1.Size = new System.Drawing.Size(983, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(1004, 24);
 			this.menuStrip1.TabIndex = 2;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -137,7 +136,7 @@ namespace VerseFlow
 			this.bibleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.импортToolStripMenuItem});
 			this.bibleToolStripMenuItem.Name = "bibleToolStripMenuItem";
-			this.bibleToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+			this.bibleToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
 			this.bibleToolStripMenuItem.Text = "Bibles";
 			// 
 			// импортToolStripMenuItem
@@ -157,7 +156,7 @@ namespace VerseFlow
 			this.songToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.гимныХвалыToolStripMenuItem});
 			this.songToolStripMenuItem.Name = "songToolStripMenuItem";
-			this.songToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+			this.songToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
 			this.songToolStripMenuItem.Text = "Psalms";
 			// 
 			// гимныХвалыToolStripMenuItem
@@ -171,26 +170,26 @@ namespace VerseFlow
             this.exportToToolStripMenuItem,
             this.settingsToolStripMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
 			this.toolsToolStripMenuItem.Text = "Tools";
 			// 
 			// exportToToolStripMenuItem
 			// 
 			this.exportToToolStripMenuItem.Name = "exportToToolStripMenuItem";
-			this.exportToToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+			this.exportToToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
 			this.exportToToolStripMenuItem.Text = "Export to";
 			// 
 			// settingsToolStripMenuItem
 			// 
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
 			this.settingsToolStripMenuItem.Text = "Settings";
 			// 
 			// statusStrip1
 			// 
-			this.statusStrip1.Location = new System.Drawing.Point(0, 637);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 582);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(983, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(1004, 22);
 			this.statusStrip1.TabIndex = 5;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
@@ -199,7 +198,7 @@ namespace VerseFlow
 			this.splitter1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.splitter1.Location = new System.Drawing.Point(381, 24);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 613);
+			this.splitter1.Size = new System.Drawing.Size(3, 558);
 			this.splitter1.TabIndex = 9;
 			this.splitter1.TabStop = false;
 			// 
@@ -210,26 +209,17 @@ namespace VerseFlow
 			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
 			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.verseView1.Font = new System.Drawing.Font("Trebuchet MS", 10.25F);
+			this.verseView1.Font = new System.Drawing.Font("Arial Unicode MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.verseView1.Location = new System.Drawing.Point(0, 24);
 			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(381, 613);
+			this.verseView1.Size = new System.Drawing.Size(381, 558);
 			this.verseView1.TabIndex = 1;
-			// 
-			// gMarkupLabel1
-			// 
-			this.gMarkupLabel1.Location = new System.Drawing.Point(404, 118);
-			this.gMarkupLabel1.Name = "gMarkupLabel1";
-			this.gMarkupLabel1.Size = new System.Drawing.Size(448, 456);
-			this.gMarkupLabel1.TabIndex = 10;
-			this.gMarkupLabel1.Text = "gMarkupLabel1";
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(983, 659);
-			this.Controls.Add(this.gMarkupLabel1);
+			this.ClientSize = new System.Drawing.Size(1004, 604);
 			this.Controls.Add(this.splitter1);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.verseView1);
@@ -273,7 +263,6 @@ namespace VerseFlow
 		private System.Windows.Forms.ToolStripMenuItem bibleQuoteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem гимныХвалыToolStripMenuItem;
 		private System.Windows.Forms.Splitter splitter1;
-		private GMarkupLabel gMarkupLabel1;
 
 	}
 }

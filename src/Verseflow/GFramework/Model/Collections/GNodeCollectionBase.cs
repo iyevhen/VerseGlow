@@ -17,7 +17,7 @@ namespace VerseFlow.GFramework.Model.Collections
 
 		public GNodeCollectionBase(GElement ownerElement)
 		{
-			ownerElement = ownerElement;
+			this.ownerElement = ownerElement;
 			gnodes = new List<GNode>();
 		}
 
