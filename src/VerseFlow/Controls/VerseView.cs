@@ -27,7 +27,7 @@ namespace VerseFlow.Controls
 		private Pen linePen;
 		private bool refreshVerses;
 		private List<VerseItem> verses = new List<VerseItem>();
-		private int visibleWidth;
+		private int versesWidth;
 		private int width;
 		private int charHeight;
 		private int lineInterval;
@@ -227,8 +227,6 @@ namespace VerseFlow.Controls
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
-//			graph.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
 			if (backColorBrush == null)
 				backColorBrush = new SolidBrush(BackColor);
 
@@ -241,7 +239,7 @@ namespace VerseFlow.Controls
 
 			if (refreshVerses)
 			{
-				RefreshVerses(rect.Height);
+				RecalcVerses(rect.Height);
 				refreshVerses = false;
 			}
 
@@ -293,7 +291,7 @@ namespace VerseFlow.Controls
 						point.Y += charHeight;
 					}
 
-					graph.DrawLine(linePen, point.X, point.Y, visibleWidth, point.Y);
+					graph.DrawLine(linePen, point.X, point.Y, versesWidth, point.Y);
 				}
 
 				visibleVerses.Add(vbox);
@@ -301,14 +299,14 @@ namespace VerseFlow.Controls
 			}
 		}
 
-		private void RefreshVerses(int availableHeight)
+		private void RecalcVerses(int visibleHeight)
 		{
 			Stopwatch sw = Stopwatch.StartNew();
 
-			int visibleHeigth = 0;
-			visibleWidth = Width - 1;
+			int versesHeigth = 0;
+			versesWidth = Width - 1;
 			bool verticalScrollExcluded = false;
-			int charsInLine = (visibleWidth / CharWidth) - 1;
+			int charsInLine = (versesWidth / CharWidth) - 1;
 
 			for (int i = 0; i < verses.Count; i++)
 			{
@@ -333,19 +331,19 @@ namespace VerseFlow.Controls
 				if (end > start)
 					vb.NewLine(start, end - start, charHeight);
 
-				visibleHeigth += vb.Height;
+				versesHeigth += vb.Height;
 
-				if (!verticalScrollExcluded && visibleHeigth > availableHeight)
+				if (!verticalScrollExcluded && versesHeigth > visibleHeight)
 				{
 					i = -1;
-					visibleHeigth = 0;
-					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
-					charsInLine = (visibleWidth / CharWidth) - 1;
+					versesHeigth = 0;
+					versesWidth -= SystemInformation.VerticalScrollBarWidth;
+					charsInLine = (versesWidth / CharWidth) - 1;
 					verticalScrollExcluded = true;
 				}
 			}
 
-			AutoScrollMinSize = new Size(visibleWidth, visibleHeigth + 1);
+			AutoScrollMinSize = new Size(versesWidth, versesHeigth + 1);
 
 			sw.Stop();
 			Debug.WriteLine("REFRESHED in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
