@@ -7,9 +7,10 @@ namespace VerseFlow.Controls
 	internal class VerseItem
 	{
 		private readonly string text;
-//		private RectangleF rect;
-		private List<int> lineIdx = new List<int>();
-		private List<int> lineLen = new List<int>();
+		private readonly List<int> lineIdx = new List<int>();
+		private readonly List<int> lineLen = new List<int>();
+		private int y;
+		private int height;
 
 		public VerseItem(string text)
 		{
@@ -21,31 +22,28 @@ namespace VerseFlow.Controls
 			get { return text; }
 		}
 
-		public SizeF SizeF { get; set; }
-
 		public bool Selected { get; set; }
 
 		public bool In(Point location)
 		{
-//			return rect.Y <= location.Y && rect.Bottom >= location.Y;
-			return false;
+			return y <= location.Y && y + height >= location.Y;
 		}
 
-//		public RectangleF RectFrom(PointF location)
-//		{
-//			rect = new RectangleF(location, SizeF);
-//			return rect;
-//		}
+		public int Height
+		{
+			get { return height; }
+		}
 
-		public void NewLine(int index, int count)
+		public void NewLine(int index, int count, int lineHeight)
 		{
 			lineIdx.Add(index);
 			lineLen.Add(count);
+			height += lineHeight;
 		}
 
 		public IEnumerable<string> EnumLines()
 		{
-			return lineIdx.Select((t, i) => text.Substring(t, lineLen[i]));
+			return lineIdx.Select((index, i) => text.Substring(index, lineLen[i]));
 		}
 
 		public int LinesCount
@@ -53,10 +51,22 @@ namespace VerseFlow.Controls
 			get { return lineIdx.Count; }
 		}
 
+		public int Y
+		{
+			get { return y; }
+			set { y = value; }
+		}
+
 		public void DropLines()
 		{
 			lineIdx.Clear();
 			lineLen.Clear();
+			height = 0;
+		}
+
+		public Rectangle Rect(int width)
+		{
+			return new Rectangle(0, y, width, height);
 		}
 	}
 }

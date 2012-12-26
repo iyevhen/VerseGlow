@@ -227,23 +227,22 @@ namespace VerseFlow.Controls
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
-			graph.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+//			graph.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 
 			if (backColorBrush == null)
 				backColorBrush = new SolidBrush(BackColor);
 
 			if (linePen == null)
-//				linePen = new Pen(GraphicsTools.DarkenColor(BackColor, 10));
-				linePen = new Pen(Color.Blue);
+				linePen = new Pen(GraphicsTools.DarkenColor(BackColor, 15));
 
-			int yPosition = AutoScrollPosition.Y * -1;
+			int scrollPosY = AutoScrollPosition.Y * -1;
 
 			graph.FillRectangle(backColorBrush, rect);
 
 			if (refreshVerses)
 			{
-				//				REFRESH_OLD(graph, rect);
-				REFRESH_NEW(verses, rect);
+				RefreshVerses(rect.Height);
+				refreshVerses = false;
 			}
 
 			int yCursor = 0;
@@ -256,94 +255,64 @@ namespace VerseFlow.Controls
 			{
 				if (!scrollReached)
 				{
-					int verHeight = vbox.LinesCount * CharHeight;
+					int verHeight = vbox.Height;
 
-					if ((yCursor + verHeight) < yPosition)
+					if ((yCursor + verHeight) < scrollPosY)
 					{
 						yCursor += verHeight;
 						continue;
 					}
 
-					yDraw = yCursor - yPosition;
+					yDraw = yCursor - scrollPosY;
 					scrollReached = true;
 				}
 
 				if (yDraw > rect.Height)
 					break;
 
-				var fromPoint = new Point(0, yDraw);
-				//				RectangleF vrect = vbox.RectFrom(fromPoint);
+				var point = new Point(0, yDraw);
 
 				if (vbox.Selected)
 				{
-					//					graph.FillRectangle(SystemBrushes.Highlight, vrect);
-					//					graph.DrawString(vbox.Text, Font, SystemBrushes.HighlightText, vrect, stringFormat);
-					//					graph.DrawRectangles(SystemPens.Highlight, new[] { vrect });
-				}
-				else
-				{
-					var p1 = fromPoint;
-//					graph.DrawLine(Pens.Red, p1.X, p1.Y, visibleWidth, p1.Y);
+					vbox.Y = point.Y;
+					graph.FillRectangle(SystemBrushes.Highlight, vbox.Rect(rect.Width));
 
 					foreach (string line in vbox.EnumLines())
 					{
-						TextRenderer.DrawText(graph, line, Font, fromPoint, SystemColors.ControlText);
-						fromPoint.Y += CharHeight;
+						TextRenderer.DrawText(graph, line, Font, point, SystemColors.HighlightText);
+						point.Y += charHeight;
+					}
+				}
+				else
+				{
+					vbox.Y = point.Y;
+
+					foreach (string line in vbox.EnumLines())
+					{
+						TextRenderer.DrawText(graph, line, Font, point, SystemColors.ControlText);
+						point.Y += charHeight;
 					}
 
-					var p2 = fromPoint;
-					graph.DrawLine(Pens.Green, p2.X, p2.Y, visibleWidth, p2.Y);
+					graph.DrawLine(linePen, point.X, point.Y, visibleWidth, point.Y);
 				}
 
 				visibleVerses.Add(vbox);
-				yDraw = fromPoint.Y;
+				yDraw = point.Y;
 			}
 		}
 
-		private void REFRESH_OLD(Graphics graph, Rectangle rect)
+		private void RefreshVerses(int availableHeight)
 		{
 			Stopwatch sw = Stopwatch.StartNew();
 
-			double visibleHeigth = 0;
+			int visibleHeigth = 0;
 			visibleWidth = Width - 1;
-			bool vScrollExcluded = false;
+			bool verticalScrollExcluded = false;
+			int charsInLine = (visibleWidth / CharWidth) - 1;
 
 			for (int i = 0; i < verses.Count; i++)
 			{
 				VerseItem vb = verses[i];
-				vb.SizeF = new SizeF(visibleWidth, graph.MeasureString(vb.Text, Font, visibleWidth, stringFormat).Height);
-
-				visibleHeigth += vb.SizeF.Height;
-
-				if (!vScrollExcluded && visibleHeigth > rect.Height)
-				{
-					i = -1;
-					visibleHeigth = 0;
-					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
-					vScrollExcluded = true;
-				}
-			}
-
-			AutoScrollMinSize = new Size(visibleWidth, (int)(visibleHeigth + 1));
-			refreshVerses = false;
-
-			sw.Stop();
-			Debug.WriteLine("REFRESHED_OLD in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
-		}
-
-		private void REFRESH_NEW(List<VerseItem> verseItems, Rectangle rect)
-		{
-			Stopwatch sw = Stopwatch.StartNew();
-
-			double visibleHeigth = 0;
-			visibleWidth = Width - 1;
-
-			bool vScrollExcluded = false;
-			int charsInLine = (visibleWidth / CharWidth) - 1;
-
-			for (int i = 0; i < verseItems.Count; i++)
-			{
-				VerseItem vb = verseItems[i];
 				vb.DropLines();
 
 				int start = 0;
@@ -355,32 +324,31 @@ namespace VerseFlow.Controls
 					int idx = vb.Text.LastIndexOf(' ', marker, charsInLine);
 					int count = idx > -1 ? (idx - start) : charsInLine;
 
-					vb.NewLine(start, count);
+					vb.NewLine(start, count, charHeight);
 
 					start += count;
 					marker += count;
 				}
 
 				if (end > start)
-					vb.NewLine(start, end - start);
+					vb.NewLine(start, end - start, charHeight);
 
-				visibleHeigth += vb.LinesCount * CharHeight;
+				visibleHeigth += vb.Height;
 
-				if (!vScrollExcluded && visibleHeigth > rect.Height)
+				if (!verticalScrollExcluded && visibleHeigth > availableHeight)
 				{
 					i = -1;
 					visibleHeigth = 0;
 					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
 					charsInLine = (visibleWidth / CharWidth) - 1;
-					vScrollExcluded = true;
+					verticalScrollExcluded = true;
 				}
 			}
 
-			AutoScrollMinSize = new Size(visibleWidth, (int)(visibleHeigth + 1));
-			refreshVerses = false;
+			AutoScrollMinSize = new Size(visibleWidth, visibleHeigth + 1);
 
 			sw.Stop();
-			Debug.WriteLine("REFRESHED_NEW in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
+			Debug.WriteLine("REFRESHED in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
@@ -415,46 +383,5 @@ namespace VerseFlow.Controls
 			if (se.ScrollOrientation == ScrollOrientation.VerticalScroll)
 				Invalidate(ClientRectangle);
 		}
-
-		//		private void DrawText(string text)
-		//		{
-		//			using (Graphics g = CreateGraphics())
-		//			{
-		//				float width = ClientRectangle.Width;
-		//				float height = ClientRectangle.Width;
-		//
-		//				float emSize = height;
-		//
-		//				using (var font = new Font(FontFamily.GenericSansSerif, emSize, FontStyle.Regular))
-		//				{
-		//					using (Font fitFont = FindBestFitFont(g, text, font, ClientRectangle.Size))
-		//					{
-		//						SizeF fitSize = g.MeasureString(text, font);
-		//						g.DrawString(text, fitFont, new SolidBrush(Color.Black), (width - fitSize.Width)/2, 0);
-		//					}
-		//				}
-		//			}
-		//		}
-		//
-		//		private Font FindBestFitFont(Graphics g, String text, Font font, Size proposedSize)
-		//		{
-		//			// Compute actual size, shrink if needed
-		//			while (true)
-		//			{
-		//				SizeF size = g.MeasureString(text, font);
-		//
-		//				// It fits, back out
-		//				if (size.Height <= proposedSize.Height &&
-		//				    size.Width <= proposedSize.Width)
-		//				{
-		//					return font;
-		//				}
-		//
-		//				// Try a smaller font (90% of old size)
-		//				Font oldFont = font;
-		//				font = new Font(font.Name, (float) (font.Size*.9), font.Style);
-		//				oldFont.Dispose();
-		//			}
-		//		}
 	}
 }

@@ -82,7 +82,7 @@ namespace VerseFlow
 		}
 
 		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
-		private static readonly string[] delimiters = new[] { " ", "\r\n", "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
+		private static readonly string[] delimiters = new[] { " ",  "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
 		private static long delim = 0;
 
 		private string RandomString(int size)
