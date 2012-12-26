@@ -76,8 +76,8 @@ namespace VerseFlow.Controls
 				CharWidth = (int)(size.Width);
 				CharHeight = lineInterval + (int)(size.Height);
 
-//				CharWidth = (int)Math.Round(size.Width * 1f /*0.85*/) - 1 /*0*/;
-//				CharHeight = lineInterval + (int)Math.Round(size.Height * 1f /*0.9*/) - 1 /*0*/;
+				//				CharWidth = (int)Math.Round(size.Width * 1f /*0.85*/) - 1 /*0*/;
+				//				CharHeight = lineInterval + (int)Math.Round(size.Height * 1f /*0.9*/) - 1 /*0*/;
 				//
 				needRecalc = true;
 				Invalidate();
@@ -129,7 +129,7 @@ namespace VerseFlow.Controls
 			Size sz2 = TextRenderer.MeasureText("<" + c.ToString() + ">", font);
 			Size sz3 = TextRenderer.MeasureText("<>", font);
 
-//			return new SizeF(sz2.Width - sz3.Width + 1, /*sz2.Height*/font.Height);
+			//			return new SizeF(sz2.Width - sz3.Width + 1, /*sz2.Height*/font.Height);
 			return new SizeF(sz2.Width - sz3.Width, /*sz2.Height*/font.Height);
 		}
 
@@ -233,7 +233,8 @@ namespace VerseFlow.Controls
 				backColorBrush = new SolidBrush(BackColor);
 
 			if (linePen == null)
-				linePen = new Pen(GraphicsTools.DarkenColor(BackColor, 10));
+//				linePen = new Pen(GraphicsTools.DarkenColor(BackColor, 10));
+				linePen = new Pen(Color.Blue);
 
 			int yPosition = AutoScrollPosition.Y * -1;
 
@@ -241,39 +242,12 @@ namespace VerseFlow.Controls
 
 			if (refreshVerses)
 			{
-				Stopwatch sw = Stopwatch.StartNew();
-
-				double visibleHeigth = 0;
-				visibleWidth = Width - 1;
-				bool vScrollExcluded = false;
-
-				for (int i = 0; i < verses.Count; i++)
-				{
-					VerseItem vb = verses[i];
-					vb.SizeF = new SizeF(visibleWidth, graph.MeasureString(vb.Text, Font, visibleWidth, stringFormat).Height);
-
-					visibleHeigth += vb.SizeF.Height;
-
-					if (!vScrollExcluded && visibleHeigth > rect.Height)
-					{
-						i = -1;
-						visibleHeigth = 0;
-						visibleWidth -= SystemInformation.VerticalScrollBarWidth;
-						vScrollExcluded = true;
-					}
-				}
-
-				AutoScrollMinSize = new Size(visibleWidth, (int)(visibleHeigth + 1));
-				refreshVerses = false;
-
-				sw.Stop();
-				Debug.WriteLine("REFRESHED_OLD in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
-
+				//				REFRESH_OLD(graph, rect);
 				REFRESH_NEW(verses, rect);
 			}
 
-			float yCursor = 0;
-			float yDraw = 0;
+			int yCursor = 0;
+			int yDraw = 0;
 			bool scrollReached = false;
 
 			visibleVerses.Clear();
@@ -282,9 +256,11 @@ namespace VerseFlow.Controls
 			{
 				if (!scrollReached)
 				{
-					if ((yCursor + vbox.SizeF.Height) < yPosition)
+					int verHeight = vbox.LinesCount * CharHeight;
+
+					if ((yCursor + verHeight) < yPosition)
 					{
-						yCursor += vbox.SizeF.Height;
+						yCursor += verHeight;
 						continue;
 					}
 
@@ -295,41 +271,75 @@ namespace VerseFlow.Controls
 				if (yDraw > rect.Height)
 					break;
 
-				RectangleF vrect = vbox.RectFrom(new PointF(0, yDraw));
+				var fromPoint = new Point(0, yDraw);
+				//				RectangleF vrect = vbox.RectFrom(fromPoint);
 
 				if (vbox.Selected)
 				{
-					//					using (var brush = new LinearGradientBrush(vrect, SystemColors.Highlight, lightenColor, LinearGradientMode.Vertical))
-					//					{
-					//						brush.Blend = blend;
-					//						graph.FillRectangle(brush, vrect);
-					//					}
-
-
-					graph.FillRectangle(SystemBrushes.Highlight, vrect);
-					graph.DrawString(vbox.Text, Font, SystemBrushes.HighlightText, vrect, stringFormat);
-					graph.DrawRectangles(SystemPens.Highlight, new[] { vrect });
+					//					graph.FillRectangle(SystemBrushes.Highlight, vrect);
+					//					graph.DrawString(vbox.Text, Font, SystemBrushes.HighlightText, vrect, stringFormat);
+					//					graph.DrawRectangles(SystemPens.Highlight, new[] { vrect });
 				}
 				else
 				{
-					graph.DrawString(vbox.Text, Font, SystemBrushes.ControlText, vrect, stringFormat);
-					graph.DrawLine(linePen, vrect.Left + 5, vrect.Bottom, vrect.Left + vrect.Width - 5, vrect.Bottom);
+					var p1 = fromPoint;
+//					graph.DrawLine(Pens.Red, p1.X, p1.Y, visibleWidth, p1.Y);
+
+					foreach (string line in vbox.EnumLines())
+					{
+						TextRenderer.DrawText(graph, line, Font, fromPoint, SystemColors.ControlText);
+						fromPoint.Y += CharHeight;
+					}
+
+					var p2 = fromPoint;
+					graph.DrawLine(Pens.Green, p2.X, p2.Y, visibleWidth, p2.Y);
 				}
 
 				visibleVerses.Add(vbox);
-				yDraw += vrect.Height;
+				yDraw = fromPoint.Y;
 			}
+		}
+
+		private void REFRESH_OLD(Graphics graph, Rectangle rect)
+		{
+			Stopwatch sw = Stopwatch.StartNew();
+
+			double visibleHeigth = 0;
+			visibleWidth = Width - 1;
+			bool vScrollExcluded = false;
+
+			for (int i = 0; i < verses.Count; i++)
+			{
+				VerseItem vb = verses[i];
+				vb.SizeF = new SizeF(visibleWidth, graph.MeasureString(vb.Text, Font, visibleWidth, stringFormat).Height);
+
+				visibleHeigth += vb.SizeF.Height;
+
+				if (!vScrollExcluded && visibleHeigth > rect.Height)
+				{
+					i = -1;
+					visibleHeigth = 0;
+					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
+					vScrollExcluded = true;
+				}
+			}
+
+			AutoScrollMinSize = new Size(visibleWidth, (int)(visibleHeigth + 1));
+			refreshVerses = false;
+
+			sw.Stop();
+			Debug.WriteLine("REFRESHED_OLD in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
 		}
 
 		private void REFRESH_NEW(List<VerseItem> verseItems, Rectangle rect)
 		{
 			Stopwatch sw = Stopwatch.StartNew();
 
-			int charsInLine = visibleWidth / CharWidth;
-
 			double visibleHeigth = 0;
 			visibleWidth = Width - 1;
+
 			bool vScrollExcluded = false;
+			int charsInLine = (visibleWidth / CharWidth) - 1;
 
 			for (int i = 0; i < verseItems.Count; i++)
 			{
@@ -340,14 +350,8 @@ namespace VerseFlow.Controls
 				int end = vb.Text.Length;
 				int marker = charsInLine;
 
-				do
+				while (marker < end)
 				{
-					if (marker >= end)
-					{
-						vb.NewLine(start, end - start);
-						break;
-					}
-
 					int idx = vb.Text.LastIndexOf(' ', marker, charsInLine);
 					int count = idx > -1 ? (idx - start) : charsInLine;
 
@@ -355,17 +359,19 @@ namespace VerseFlow.Controls
 
 					start += count;
 					marker += count;
+				}
 
-				} while (true);
+				if (end > start)
+					vb.NewLine(start, end - start);
 
-				visibleHeigth += vb.Lines * CharHeight;
+				visibleHeigth += vb.LinesCount * CharHeight;
 
 				if (!vScrollExcluded && visibleHeigth > rect.Height)
 				{
 					i = -1;
 					visibleHeigth = 0;
 					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
-					charsInLine = visibleWidth / CharWidth;
+					charsInLine = (visibleWidth / CharWidth) - 1;
 					vScrollExcluded = true;
 				}
 			}

@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace VerseFlow.Controls
 {
 	internal class VerseItem
 	{
 		private readonly string text;
-		private PointF rectFrom;
-		private RectangleF rect;
-		private int lines;
+//		private RectangleF rect;
+		private List<int> lineIdx = new List<int>();
+		private List<int> lineLen = new List<int>();
 
 		public VerseItem(string text)
 		{
@@ -25,28 +27,36 @@ namespace VerseFlow.Controls
 
 		public bool In(Point location)
 		{
-			return rect.Y <= location.Y && rect.Bottom >= location.Y;
+//			return rect.Y <= location.Y && rect.Bottom >= location.Y;
+			return false;
 		}
 
-		public RectangleF RectFrom(PointF location)
-		{
-			rect = new RectangleF(location, SizeF);
-			return rect;
-		}
+//		public RectangleF RectFrom(PointF location)
+//		{
+//			rect = new RectangleF(location, SizeF);
+//			return rect;
+//		}
 
 		public void NewLine(int index, int count)
 		{
-			lines++;
+			lineIdx.Add(index);
+			lineLen.Add(count);
 		}
 
-		public int Lines
+		public IEnumerable<string> EnumLines()
 		{
-			get { return lines; }
+			return lineIdx.Select((t, i) => text.Substring(t, lineLen[i]));
+		}
+
+		public int LinesCount
+		{
+			get { return lineIdx.Count; }
 		}
 
 		public void DropLines()
 		{
-			lines = 0;
+			lineIdx.Clear();
+			lineLen.Clear();
 		}
 	}
 }
