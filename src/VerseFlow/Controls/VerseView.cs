@@ -121,54 +121,15 @@ namespace VerseFlow.Controls
 		{
 			VerticalScroll.SmallChange = charHeight;
 			VerticalScroll.LargeChange = 10 * charHeight;
-			HorizontalScroll.SmallChange = CharWidth;
 		}
 
-		public static SizeF GetCharSize(Font font, char c)
+		private static SizeF GetCharSize(Font font, char c)
 		{
 			Size sz2 = TextRenderer.MeasureText("<" + c.ToString() + ">", font);
 			Size sz3 = TextRenderer.MeasureText("<>", font);
 
 			//			return new SizeF(sz2.Width - sz3.Width + 1, /*sz2.Height*/font.Height);
 			return new SizeF(sz2.Width - sz3.Width, /*sz2.Height*/font.Height);
-		}
-
-		private void Recalc()
-		{
-			if (!needRecalc)
-				return;
-
-#if debug
-            var sw = Stopwatch.StartNew();
-#endif
-
-			needRecalc = false;
-			//calc min left indent
-			//			LeftIndent = LeftPadding;
-			//			long maxLineNumber = LinesCount + lineNumberStartValue - 1;
-			//			int charsForLineNumber = 2 + (maxLineNumber > 0 ? (int)Math.Log10(maxLineNumber) : 0);
-			//			if (Created)
-			//			{
-			//				if (ShowLineNumbers)
-			//					LeftIndent += charsForLineNumber * CharWidth + minLeftIndent + 1;
-			//			}
-			//			else
-			//				needRecalc = true;
-			//			//calc max line length and count of wordWrapLines
-			//			wordWrapLinesCount = 0;
-			//
-			//			maxLineLength = RecalcMaxLineLength();
-			//
-			//			//adjust AutoScrollMinSize
-			//			int minWidth;
-			//			CalcMinAutosizeWidth(out minWidth, ref maxLineLength);
-			//
-			//			AutoScrollMinSize = new Size(minWidth, wordWrapLinesCount * CharHeight + Paddings.Top + Paddings.Bottom);
-
-#if debug
-            sw.Stop();
-            Console.WriteLine("Recalc: " + sw.ElapsedMilliseconds);
-#endif
 		}
 
 		public void Populate(List<string> strings)
@@ -198,10 +159,10 @@ namespace VerseFlow.Controls
 				width = Size.Width;
 
 				Stopwatch sw = Stopwatch.StartNew();
-				//				Debug.WriteLine("Paint START{0}----------------------------------------------{1}", e.ClipRectangle, DateTime.Now);
+				Debug.WriteLine("Paint START{0}----------------------------------------------{1}", e.ClipRectangle, DateTime.Now);
 				DoPaint(e.Graphics, ClientRectangle);
 				sw.Stop();
-				//				Debug.WriteLine("Paint DONE in {0}", sw.Elapsed);
+				Debug.WriteLine("Paint DONE in {0}", sw.Elapsed);
 			}
 
 			base.OnPaint(e);
@@ -243,39 +204,42 @@ namespace VerseFlow.Controls
 				refreshVerses = false;
 			}
 
-			int yCursor = 0;
-			int yDraw = 0;
-			bool scrollReached = false;
+			int cursor = 0;
+			int y = 0;
+			bool visible = false;
 
 			visibleVerses.Clear();
 
-			foreach (VerseItem vbox in verses)
+			foreach (VerseItem verse in verses)
 			{
-				if (!scrollReached)
+				if (!visible)
 				{
-					int verHeight = vbox.Height;
+					int verHeight = verse.Height;
 
-					if ((yCursor + verHeight) < scrollPosY)
+					if ((cursor + verHeight) < scrollPosY)
 					{
-						yCursor += verHeight;
+						cursor += verHeight;
 						continue;
 					}
 
-					yDraw = yCursor - scrollPosY;
-					scrollReached = true;
+					y = cursor - scrollPosY;
+					visible = true;
 				}
 
-				if (yDraw > rect.Height)
-					break;
-
-				var point = new Point(0, yDraw);
-
-				if (vbox.Selected)
+				if (y > rect.Height)
 				{
-					vbox.Y = point.Y;
-					graph.FillRectangle(SystemBrushes.Highlight, vbox.Rect(rect.Width));
+					// do not draw not visible area
+					break;
+				}
 
-					foreach (string line in vbox.EnumLines())
+				var point = new Point(0, y);
+
+				if (verse.Selected)
+				{
+					verse.Y = point.Y;
+					graph.FillRectangle(SystemBrushes.Highlight, verse.Rect(rect.Width));
+
+					foreach (string line in verse.EnumLines())
 					{
 						TextRenderer.DrawText(graph, line, Font, point, SystemColors.HighlightText);
 						point.Y += charHeight;
@@ -283,9 +247,9 @@ namespace VerseFlow.Controls
 				}
 				else
 				{
-					vbox.Y = point.Y;
+					verse.Y = point.Y;
 
-					foreach (string line in vbox.EnumLines())
+					foreach (string line in verse.EnumLines())
 					{
 						TextRenderer.DrawText(graph, line, Font, point, SystemColors.ControlText);
 						point.Y += charHeight;
@@ -294,8 +258,8 @@ namespace VerseFlow.Controls
 					graph.DrawLine(linePen, point.X, point.Y, versesWidth, point.Y);
 				}
 
-				visibleVerses.Add(vbox);
-				yDraw = point.Y;
+				visibleVerses.Add(verse);
+				y = point.Y;
 			}
 		}
 
@@ -352,7 +316,7 @@ namespace VerseFlow.Controls
 		protected override void OnMouseWheel(MouseEventArgs e)
 		{
 			base.OnMouseWheel(e);
-			//			Debug.WriteLine("OnMouseWheel={0}", e.Delta);
+			Debug.WriteLine("OnMouseWheel={0}", e.Delta);
 			Invalidate(ClientRectangle);
 		}
 
