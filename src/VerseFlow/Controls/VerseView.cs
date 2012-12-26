@@ -25,13 +25,14 @@ namespace VerseFlow.Controls
 		private readonly List<VerseItem> visibleVerses = new List<VerseItem>();
 		private SolidBrush backColorBrush;
 		private Pen linePen;
-		private bool refreshVerses;
+		private bool recalcVerses;
 		private List<VerseItem> verses = new List<VerseItem>();
 		private int versesWidth;
 		private int width;
 		private int charHeight;
 		private int lineInterval;
 		private bool needRecalc;
+		private int charWidth;
 
 		public VerseView()
 		{
@@ -52,17 +53,14 @@ namespace VerseFlow.Controls
 			lightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 20);
 		}
 
-		/// <summary>
-		/// Font
-		/// </summary>
-		/// <remarks>Use only monospaced font</remarks>
-		[DefaultValue(typeof(Font), "Courier New, 9.75")]
+		[DefaultValue(typeof(Font), "Courier New, 10.75")]
 		public override Font Font
 		{
 			get { return base.Font; }
 			set
 			{
 				base.Font = value;
+
 				//check monospace font
 				SizeF sizeM = GetCharSize(base.Font, 'M');
 				SizeF sizeDot = GetCharSize(base.Font, '.');
@@ -70,57 +68,14 @@ namespace VerseFlow.Controls
 				if (sizeM != sizeDot)
 					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
 
-				//clac size
 				SizeF size = GetCharSize(base.Font, 'M');
 
-				CharWidth = (int)(size.Width);
-				CharHeight = lineInterval + (int)(size.Height);
+				charWidth = (int)(size.Width);
+				charHeight = lineInterval + (int)(size.Height);
 
-				//				CharWidth = (int)Math.Round(size.Width * 1f /*0.85*/) - 1 /*0*/;
-				//				CharHeight = lineInterval + (int)Math.Round(size.Height * 1f /*0.9*/) - 1 /*0*/;
-				//
-				needRecalc = true;
+				recalcVerses = true;
 				Invalidate();
 			}
-		}
-
-		/// <summary>
-		/// Width of char in pixels
-		/// </summary>
-		[Description("Width of char in pixels")]
-		public int CharWidth { get; private set; }
-
-		[Description("Height of char in pixels")]
-		public int CharHeight
-		{
-			get { return charHeight; }
-			private set
-			{
-				charHeight = value;
-				OnCharSizeChanged();
-			}
-		}
-
-		/// <summary>
-		/// Interval between lines (in pixels)
-		/// </summary>
-		[Description("Interval between lines in pixels")]
-		[DefaultValue(0)]
-		public int LineInterval
-		{
-			get { return lineInterval; }
-			set
-			{
-				lineInterval = value;
-				Font = Font;
-				Invalidate();
-			}
-		}
-
-		protected virtual void OnCharSizeChanged()
-		{
-			VerticalScroll.SmallChange = charHeight;
-			VerticalScroll.LargeChange = 10 * charHeight;
 		}
 
 		private static SizeF GetCharSize(Font font, char c)
@@ -128,8 +83,7 @@ namespace VerseFlow.Controls
 			Size sz2 = TextRenderer.MeasureText("<" + c.ToString() + ">", font);
 			Size sz3 = TextRenderer.MeasureText("<>", font);
 
-			//			return new SizeF(sz2.Width - sz3.Width + 1, /*sz2.Height*/font.Height);
-			return new SizeF(sz2.Width - sz3.Width, /*sz2.Height*/font.Height);
+			return new SizeF(sz2.Width - sz3.Width, font.Height);
 		}
 
 		public void Populate(List<string> strings)
@@ -138,7 +92,8 @@ namespace VerseFlow.Controls
 				throw new ArgumentNullException("strings");
 
 			verses = strings.ConvertAll(s => new VerseItem(s));
-			refreshVerses = true;
+
+			recalcVerses = true;
 			Invalidate();
 		}
 
@@ -148,21 +103,43 @@ namespace VerseFlow.Controls
 		{
 			base.OnSizeChanged(e);
 
-			if (Size.Width != width)
-				refreshVerses = true;
+			if (Width != width)
+			{
+				recalcVerses = true;
+			}
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			lock (candy)
 			{
-				width = Size.Width;
+				width = Width;
 
-				Stopwatch sw = Stopwatch.StartNew();
-				Debug.WriteLine("Paint START{0}----------------------------------------------{1}", e.ClipRectangle, DateTime.Now);
-				DoPaint(e.Graphics, ClientRectangle);
-				sw.Stop();
-				Debug.WriteLine("Paint DONE in {0}", sw.Elapsed);
+				if (backColorBrush == null)
+					backColorBrush = new SolidBrush(BackColor);
+
+				if (linePen == null)
+					linePen = new Pen(GraphicsTools.DarkenColor(BackColor, 15));
+
+				Rectangle rect = ClientRectangle;
+
+				if (recalcVerses)
+				{
+					Stopwatch sw1 = Stopwatch.StartNew();
+
+					RecalcVerses(rect.Height);
+					recalcVerses = false;
+
+					sw1.Stop();
+					Debug.WriteLine("REFRESHED in {0} - Size - {1}", sw1.Elapsed, AutoScrollMinSize);
+				}
+
+				Stopwatch sw2 = Stopwatch.StartNew();
+
+				DoPaint(e.Graphics, rect);
+
+				sw2.Stop();
+				Debug.WriteLine("Painted in {0}", sw2.Elapsed);
 			}
 
 			base.OnPaint(e);
@@ -188,21 +165,9 @@ namespace VerseFlow.Controls
 
 		private void DoPaint(Graphics graph, Rectangle rect)
 		{
-			if (backColorBrush == null)
-				backColorBrush = new SolidBrush(BackColor);
-
-			if (linePen == null)
-				linePen = new Pen(GraphicsTools.DarkenColor(BackColor, 15));
-
 			int scrollPosY = AutoScrollPosition.Y * -1;
 
 			graph.FillRectangle(backColorBrush, rect);
-
-			if (refreshVerses)
-			{
-				RecalcVerses(rect.Height);
-				refreshVerses = false;
-			}
 
 			int cursor = 0;
 			int y = 0;
@@ -214,15 +179,12 @@ namespace VerseFlow.Controls
 			{
 				if (!visible)
 				{
-					int verHeight = verse.Height;
+					cursor += verse.Height;
 
-					if ((cursor + verHeight) < scrollPosY)
-					{
-						cursor += verHeight;
+					if (cursor < scrollPosY)
 						continue;
-					}
 
-					y = cursor - scrollPosY;
+					y = cursor - verse.Height - scrollPosY;
 					visible = true;
 				}
 
@@ -237,6 +199,7 @@ namespace VerseFlow.Controls
 				if (verse.Selected)
 				{
 					verse.Y = point.Y;
+
 					graph.FillRectangle(SystemBrushes.Highlight, verse.Rect(rect.Width));
 
 					foreach (string line in verse.EnumLines())
@@ -265,12 +228,10 @@ namespace VerseFlow.Controls
 
 		private void RecalcVerses(int visibleHeight)
 		{
-			Stopwatch sw = Stopwatch.StartNew();
-
 			int versesHeigth = 0;
 			versesWidth = Width - 1;
 			bool verticalScrollExcluded = false;
-			int charsInLine = (versesWidth / CharWidth) - 1;
+			int charsInLine = (versesWidth / charWidth) - 1;
 
 			for (int i = 0; i < verses.Count; i++)
 			{
@@ -302,21 +263,17 @@ namespace VerseFlow.Controls
 					i = -1;
 					versesHeigth = 0;
 					versesWidth -= SystemInformation.VerticalScrollBarWidth;
-					charsInLine = (versesWidth / CharWidth) - 1;
+					charsInLine = (versesWidth / charWidth) - 1;
 					verticalScrollExcluded = true;
 				}
 			}
 
 			AutoScrollMinSize = new Size(versesWidth, versesHeigth + 1);
-
-			sw.Stop();
-			Debug.WriteLine("REFRESHED in {0} - Size - {1}", sw.Elapsed, AutoScrollMinSize);
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
 		{
 			base.OnMouseWheel(e);
-			Debug.WriteLine("OnMouseWheel={0}", e.Delta);
 			Invalidate(ClientRectangle);
 		}
 
