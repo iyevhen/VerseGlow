@@ -78,7 +78,7 @@ namespace VerseFlow
 
 		private void Populate(List<string> strings, long total = 0)
 		{
-			verseView1.Populate(strings);
+			verseView1.Fill(strings);
 		}
 
 		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
@@ -109,6 +109,11 @@ namespace VerseFlow
 			builder.Append(" END!");
 
 			return builder.ToString();
+		}
+
+		private void buttonHightlihght_Click(object sender, EventArgs e)
+		{
+			verseView1.HighlightText = textBoxHighlight.Text;
 		}
 	}
 }

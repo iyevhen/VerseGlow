@@ -36,6 +36,9 @@ namespace VerseFlow.Controls
 
 		public void NewLine(int index, int count, int lineHeight)
 		{
+			if (index == 0 && count == 0)
+				return;
+
 			lineIdx.Add(index);
 			lineLen.Add(count);
 			height += lineHeight;

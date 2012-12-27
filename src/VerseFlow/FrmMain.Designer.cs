@@ -40,6 +40,8 @@ namespace VerseFlow
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.verseView1 = new VerseFlow.Controls.VerseView();
+			this.textBoxHighlight = new System.Windows.Forms.TextBox();
+			this.buttonHightlihght = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// label4
@@ -138,11 +140,31 @@ namespace VerseFlow
 			this.verseView1.Size = new System.Drawing.Size(381, 582);
 			this.verseView1.TabIndex = 1;
 			// 
+			// textBoxHighlight
+			// 
+			this.textBoxHighlight.Location = new System.Drawing.Point(545, 121);
+			this.textBoxHighlight.Name = "textBoxHighlight";
+			this.textBoxHighlight.Size = new System.Drawing.Size(255, 20);
+			this.textBoxHighlight.TabIndex = 10;
+			// 
+			// buttonHightlihght
+			// 
+			this.buttonHightlihght.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.buttonHightlihght.Location = new System.Drawing.Point(461, 121);
+			this.buttonHightlihght.Name = "buttonHightlihght";
+			this.buttonHightlihght.Size = new System.Drawing.Size(75, 23);
+			this.buttonHightlihght.TabIndex = 11;
+			this.buttonHightlihght.Text = "Highlight";
+			this.buttonHightlihght.UseVisualStyleBackColor = true;
+			this.buttonHightlihght.Click += new System.EventHandler(this.buttonHightlihght_Click);
+			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1004, 604);
+			this.Controls.Add(this.buttonHightlihght);
+			this.Controls.Add(this.textBoxHighlight);
 			this.Controls.Add(this.splitter1);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.verseView1);
@@ -173,6 +195,8 @@ namespace VerseFlow
 		private System.Windows.Forms.TextBox textBoxPath;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Splitter splitter1;
+		private System.Windows.Forms.TextBox textBoxHighlight;
+		private System.Windows.Forms.Button buttonHightlihght;
 
 	}
 }
