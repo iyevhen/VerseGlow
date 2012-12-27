@@ -7,18 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerseFlow", "VerseFlow\Vers
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EB1736A5-B75A-435A-8A13-95569124059A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB1736A5-B75A-435A-8A13-95569124059A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB1736A5-B75A-435A-8A13-95569124059A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB1736A5-B75A-435A-8A13-95569124059A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB1736A5-B75A-435A-8A13-95569124059A}.Debug|x86.ActiveCfg = Debug|x86
+		{EB1736A5-B75A-435A-8A13-95569124059A}.Debug|x86.Build.0 = Debug|x86
+		{EB1736A5-B75A-435A-8A13-95569124059A}.Release|x86.ActiveCfg = Release|x86
+		{EB1736A5-B75A-435A-8A13-95569124059A}.Release|x86.Build.0 = Release|x86
+		{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}.Debug|x86.ActiveCfg = Debug|x86
+		{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}.Debug|x86.Build.0 = Debug|x86
+		{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}.Release|x86.ActiveCfg = Release|x86
+		{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

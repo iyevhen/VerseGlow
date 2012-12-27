@@ -10,11 +10,11 @@ namespace VerseFlow.Controls
 {
 	public class VerseView : ScrollableControl
 	{
-//		private readonly Blend blend = new Blend
-//			{
-//				Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 },
-//				Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 }
-//			};
+		//		private readonly Blend blend = new Blend
+		//			{
+		//				Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 },
+		//				Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 }
+		//			};
 
 		private readonly object candy = new object();
 		private readonly Color lightenColor;
@@ -22,9 +22,7 @@ namespace VerseFlow.Controls
 		private SolidBrush backColorBrush;
 		private int charHeight;
 		private int charWidth;
-		private int lineInterval;
 		private Pen linePen;
-		private bool needRecalc;
 		private bool recalcVerses;
 		private List<VerseItem> verses = new List<VerseItem>();
 		private int versesWidth;
@@ -45,7 +43,7 @@ namespace VerseFlow.Controls
 
 			VerticalScroll.Enabled = true;
 			VerticalScroll.Visible = true;
-		
+
 			lightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 20);
 		}
 
@@ -334,7 +332,7 @@ namespace VerseFlow.Controls
 				SizeF size = GetCharSize(base.Font, 'M');
 
 				charWidth = (int)(size.Width);
-				charHeight = lineInterval + (int)(size.Height);
+				charHeight = (int)(size.Height);
 
 				recalcVerses = true;
 				Invalidate();
