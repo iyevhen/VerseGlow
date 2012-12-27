@@ -10,14 +10,11 @@ namespace VerseFlow.Controls
 {
 	public class VerseView : ScrollableControl
 	{
-		private const int minLeftIndent = 8;
-		private static readonly StringFormat stringFormat = new StringFormat();
-
-		private readonly Blend blend = new Blend
-			{
-				Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 },
-				Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 }
-			};
+//		private readonly Blend blend = new Blend
+//			{
+//				Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 },
+//				Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 }
+//			};
 
 		private readonly object candy = new object();
 		private readonly Color lightenColor;
@@ -48,9 +45,7 @@ namespace VerseFlow.Controls
 
 			VerticalScroll.Enabled = true;
 			VerticalScroll.Visible = true;
-
-			stringFormat.FormatFlags = StringFormatFlags.MeasureTrailingSpaces;
-			stringFormat.LineAlignment = StringAlignment.Center;
+		
 			lightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 20);
 		}
 
@@ -193,12 +188,12 @@ namespace VerseFlow.Controls
 					{
 						if (isHighlight)
 						{
-							int len = line.Length;
+							int linelen = line.Length;
 							int lightlen = highlightText.Length;
 							int lightwidth = lightlen * charWidth;
 							int cur = 0;
 
-							while (cur < len)
+							while (cur < linelen)
 							{
 								int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
 
@@ -209,7 +204,6 @@ namespace VerseFlow.Controls
 									point.X += (normal * charWidth);
 
 									TextRenderer.DrawText(graph, line.Substring(found, lightlen), Font, point, Color.Red, Color.LightPink);
-
 									point.X += lightwidth;
 
 									cur = found + lightlen;
@@ -217,7 +211,7 @@ namespace VerseFlow.Controls
 								else
 								{
 									TextRenderer.DrawText(graph, line.Substring(cur), Font, point, SystemColors.ControlText);
-									cur = len;
+									cur = linelen;
 								}
 							}
 
