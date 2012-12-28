@@ -10,25 +10,21 @@ namespace VerseFlow.Controls
 {
 	public class VerseView : ScrollableControl
 	{
-		//		private readonly Blend blend = new Blend
-		//			{
-		//				Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 },
-		//				Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 }
-		//			};
-
 		private readonly object candy = new object();
-		private readonly Color lightenColor;
+
+		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 } };
 		private readonly List<VerseItem> visibleVerses = new List<VerseItem>();
+		private List<VerseItem> allverses = new List<VerseItem>();
+
+		private readonly Color highlightLightenColor;
 		private SolidBrush backColorBrush;
 		private int charHeight;
 		private int charWidth;
 		private Pen linePen;
 		private bool recalcVerses;
-		private List<VerseItem> verses = new List<VerseItem>();
-		private int versesWidth;
-		private int width;
+		private int paintedWidth;
 		private string highlightText;
-		private bool isHighlight;
+		private bool highlight;
 
 		public VerseView()
 		{
@@ -44,7 +40,7 @@ namespace VerseFlow.Controls
 			VerticalScroll.Enabled = true;
 			VerticalScroll.Visible = true;
 
-			lightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 20);
+			highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 15);
 		}
 
 		public void Fill(List<string> strings)
@@ -52,8 +48,7 @@ namespace VerseFlow.Controls
 			if (strings == null)
 				throw new ArgumentNullException("strings");
 
-			verses = strings.ConvertAll(s => new VerseItem(s));
-
+			allverses = strings.ConvertAll(s => new VerseItem(s));
 			recalcVerses = true;
 			Invalidate();
 		}
@@ -72,7 +67,7 @@ namespace VerseFlow.Controls
 		{
 			base.OnSizeChanged(e);
 
-			if (Width != width)
+			if (Width != paintedWidth)
 			{
 				recalcVerses = true;
 			}
@@ -82,7 +77,7 @@ namespace VerseFlow.Controls
 		{
 			lock (candy)
 			{
-				width = Width;
+				paintedWidth = Width;
 
 				if (backColorBrush == null)
 					backColorBrush = new SolidBrush(BackColor);
@@ -96,7 +91,7 @@ namespace VerseFlow.Controls
 				{
 					Stopwatch sw1 = Stopwatch.StartNew();
 
-					RecalcVerses(rect.Height);
+					RecalcVerses(rect.Height, Width - 1);
 					recalcVerses = false;
 
 					sw1.Stop();
@@ -145,7 +140,7 @@ namespace VerseFlow.Controls
 
 			visibleVerses.Clear();
 
-			foreach (VerseItem verse in verses)
+			foreach (VerseItem verse in allverses)
 			{
 				if (!visible)
 				{
@@ -166,17 +161,25 @@ namespace VerseFlow.Controls
 
 				var point = new Point(0, y);
 
-				if (verse.Selected)
+				if (verse.IsSelected)
 				{
 					verse.Y = point.Y;
 
-					graph.FillRectangle(SystemBrushes.Highlight, verse.Rect(rect.Width));
+					Rectangle r = verse.Rect(rect.Width);
+
+					using (var brush = new LinearGradientBrush(r, SystemColors.Highlight, highlightLightenColor, LinearGradientMode.Vertical))
+					{
+						brush.Blend = blend;
+						graph.FillRectangle(brush, r);
+					}
 
 					foreach (string line in verse.EnumLines())
 					{
 						TextRenderer.DrawText(graph, line, Font, point, SystemColors.HighlightText);
 						point.Y += charHeight;
 					}
+
+					graph.DrawRectangle(SystemPens.Highlight, r);
 				}
 				else
 				{
@@ -184,7 +187,7 @@ namespace VerseFlow.Controls
 
 					foreach (string line in verse.EnumLines())
 					{
-						if (isHighlight)
+						if (highlight)
 						{
 							int linelen = line.Length;
 							int lightlen = highlightText.Length;
@@ -223,7 +226,7 @@ namespace VerseFlow.Controls
 						}
 					}
 
-					graph.DrawLine(linePen, point.X, point.Y, versesWidth - 10, point.Y);
+					graph.DrawLine(linePen, point.X, point.Y, paintedWidth, point.Y);
 				}
 
 				visibleVerses.Add(verse);
@@ -231,55 +234,68 @@ namespace VerseFlow.Controls
 			}
 		}
 
-		private void RecalcVerses(int visibleHeight)
+		private void RecalcVerses(int visibleHeight, int visibleWidth)
 		{
-			int versesHeigth = 0;
-			versesWidth = Width - 1;
-			bool verticalScrollExcluded = false;
-			int charsInLine = (versesWidth / charWidth) - 1;
+			bool scrolled = false;
+			int versesHeigth;
+			bool recalc;
 
-			if (charsInLine == 0)
-				return;
-
-			for (int i = 0; i < verses.Count; i++)
+			do
 			{
-				VerseItem vb = verses[i];
-				vb.DropLines();
+				recalc = false;
+				versesHeigth = 0;
+				int charsInLine = (visibleWidth / charWidth) - 1;
 
-				int start = 0;
-				int end = vb.Text.Length;
-				int marker = charsInLine;
+				if (charsInLine == 0)
+					return;
 
-				while (marker < end)
+				for (int i = 0; i < allverses.Count; i++)
 				{
-					int idx = vb.Text.LastIndexOf(' ', marker, charsInLine);
-					int count = idx > -1 ? (idx - start) : charsInLine;
+					VerseItem verse = allverses[i];
+					verse.DropLines();
 
-					vb.NewLine(start, count, charHeight);
+					int start = 0;
+					int end = verse.Text.Length;
+					int marker = charsInLine;
 
-					start += count;
-					marker += count;
+					while (marker < end)
+					{
+						int idx = verse.Text.LastIndexOf(' ', marker, charsInLine);
+
+						if (idx > -1)
+						{
+							int count = (idx - start);
+
+							verse.NewLine(start, count, charHeight);
+							count++;
+							start += count;
+							marker += count;
+						}
+						else
+						{
+							verse.NewLine(start, charsInLine, charHeight);
+							start += charsInLine;
+							marker += charsInLine;
+						}
+					}
+
+					if (end > start)
+						verse.NewLine(start, end - start, charHeight);
+
+					versesHeigth += verse.Height;
+
+					if (!scrolled && versesHeigth > visibleHeight)
+					{
+						visibleWidth -= SystemInformation.VerticalScrollBarWidth;
+						scrolled = true;
+						recalc = true;
+						break;
+					}
 				}
 
-				if (end > start)
-					vb.NewLine(start, end - start, charHeight);
+			} while (recalc);
 
-				versesHeigth += vb.Height;
-
-				if (!verticalScrollExcluded && versesHeigth > visibleHeight)
-				{
-					i = -1;
-					versesHeigth = 0;
-					versesWidth -= SystemInformation.VerticalScrollBarWidth;
-					charsInLine = (versesWidth / charWidth) - 1;
-					verticalScrollExcluded = true;
-
-					if (charsInLine == 0)
-						return;
-				}
-			}
-
-			AutoScrollMinSize = new Size(versesWidth, versesHeigth + 1);
+			AutoScrollMinSize = new Size(visibleWidth, versesHeigth);
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
@@ -296,11 +312,11 @@ namespace VerseFlow.Controls
 			{
 				foreach (VerseItem vb in visibleVerses)
 				{
-					if (vb.In(e.Location))
+					if (vb.IsInside(e.Location))
 					{
-						vb.Selected = !vb.Selected;
+						vb.IsSelected = !vb.IsSelected;
 						Invalidate();
-						break;
+						return;
 					}
 				}
 			}
@@ -345,8 +361,7 @@ namespace VerseFlow.Controls
 			set
 			{
 				highlightText = value;
-
-				isHighlight = !string.IsNullOrEmpty(value);
+				highlight = !string.IsNullOrEmpty(value);
 				Invalidate();
 			}
 		}
