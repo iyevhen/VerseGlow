@@ -12,15 +12,14 @@ namespace VerseFlow
 		private static string appName;
 		private static Version appVersion;
 		private static string biblesFolder;
+		private static IDatabaseFactory dbFactory;
 
 		public static string AppName
 		{
 			get
 			{
 				if (string.IsNullOrEmpty(appName))
-				{
 					PupulateAppNameAndVersion();
-				}
 
 				return appName;
 			}
@@ -31,9 +30,7 @@ namespace VerseFlow
 			get
 			{
 				if (appVersion == null)
-				{
 					PupulateAppNameAndVersion();
-				}
 
 				return appVersion;
 			}
@@ -53,9 +50,7 @@ namespace VerseFlow
 			get
 			{
 				if (string.IsNullOrEmpty(appDataFolder))
-				{
 					appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), AppName);
-				}
 
 				return appDataFolder;
 			}
@@ -66,9 +61,7 @@ namespace VerseFlow
 			get
 			{
 				if (string.IsNullOrEmpty(biblesFolder))
-				{
 					biblesFolder = Path.Combine(AppDataFolder, "Bibles");
-				}
 
 				return biblesFolder;
 			}
@@ -79,16 +72,9 @@ namespace VerseFlow
 			get { return Directory.Exists(BiblesFolder); }
 		}
 
-		private static IDatabaseFactory dbFactory;
-
 		public static IDatabaseFactory DatabaseFactory()
 		{
-			if (dbFactory == null)
-			{
-				string databaseFolderPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "VerseFlow");
-				dbFactory = new SqliteDatabaseFactory(databaseFolderPath);
-			}
-			return dbFactory;
+			return dbFactory ?? (dbFactory = new SqliteDatabaseFactory(AppDataFolder));
 		}
 	}
 }

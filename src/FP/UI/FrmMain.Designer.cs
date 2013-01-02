@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using FreePresenter.UI.Controls;
+using VerseFlow.Properties;
 
 namespace FreePresenter.UI
 {
@@ -76,7 +77,7 @@ namespace FreePresenter.UI
 			// 
 			// btnOpen
 			// 
-			this.btnOpen.Image = global::FreePresenter.Properties.Resources.book16;
+			this.btnOpen.Image = Resources.book16;
 			resources.ApplyResources(this.btnOpen, "btnOpen");
 			this.btnOpen.Margin = new System.Windows.Forms.Padding(2);
 			this.btnOpen.Name = "btnOpen";

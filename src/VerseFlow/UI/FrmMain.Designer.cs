@@ -39,12 +39,11 @@ namespace VerseFlow.UI
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.statLblDebug = new System.Windows.Forms.ToolStripStatusLabel();
+			this.statBugLnk = new System.Windows.Forms.ToolStripStatusLabel();
 			this.textBoxHighlight = new System.Windows.Forms.TextBox();
 			this.buttonHightlihght = new System.Windows.Forms.Button();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.tsSplit = new System.Windows.Forms.ToolStripSeparator();
-			this.statLblDebug = new System.Windows.Forms.ToolStripStatusLabel();
-			this.statBugLnk = new System.Windows.Forms.ToolStripStatusLabel();
 			this.tsBibles = new System.Windows.Forms.ToolStripDropDownButton();
 			this.tsBiblesImport = new System.Windows.Forms.ToolStripMenuItem();
 			this.cSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,9 +55,12 @@ namespace VerseFlow.UI
 			this.bibleQuotePsalmsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.downloadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsText = new System.Windows.Forms.ToolStripSplitButton();
+			this.tsSplit = new System.Windows.Forms.ToolStripSeparator();
 			this.tsSettings = new System.Windows.Forms.ToolStripButton();
 			this.tsAbout = new System.Windows.Forms.ToolStripButton();
-			this.verseView1 = new VerseView();
+			this.button3 = new System.Windows.Forms.Button();
+			this.button4 = new System.Windows.Forms.Button();
+			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
 			this.statusStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -134,11 +136,26 @@ namespace VerseFlow.UI
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statLblDebug,
             this.statBugLnk});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 439);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 540);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(795, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(886, 22);
 			this.statusStrip1.TabIndex = 5;
 			this.statusStrip1.Text = "statusStrip1";
+			// 
+			// statLblDebug
+			// 
+			this.statLblDebug.Name = "statLblDebug";
+			this.statLblDebug.Size = new System.Drawing.Size(0, 17);
+			// 
+			// statBugLnk
+			// 
+			this.statBugLnk.ActiveLinkColor = System.Drawing.Color.DeepSkyBlue;
+			this.statBugLnk.Image = global::VerseFlow.Properties.Resources._1357144059_bug;
+			this.statBugLnk.IsLink = true;
+			this.statBugLnk.LinkColor = System.Drawing.Color.DimGray;
+			this.statBugLnk.Name = "statBugLnk";
+			this.statBugLnk.Size = new System.Drawing.Size(100, 17);
+			this.statBugLnk.Text = "I found a bug...";
 			// 
 			// textBoxHighlight
 			// 
@@ -170,29 +187,9 @@ namespace VerseFlow.UI
             this.tsAbout});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(795, 52);
+			this.toolStrip1.Size = new System.Drawing.Size(886, 52);
 			this.toolStrip1.TabIndex = 12;
 			this.toolStrip1.Text = "toolStrip1";
-			// 
-			// tsSplit
-			// 
-			this.tsSplit.Name = "tsSplit";
-			this.tsSplit.Size = new System.Drawing.Size(6, 52);
-			// 
-			// statLblDebug
-			// 
-			this.statLblDebug.Name = "statLblDebug";
-			this.statLblDebug.Size = new System.Drawing.Size(0, 17);
-			// 
-			// statBugLnk
-			// 
-			this.statBugLnk.ActiveLinkColor = System.Drawing.Color.DeepSkyBlue;
-			this.statBugLnk.Image = global::VerseFlow.Properties.Resources._1357144059_bug;
-			this.statBugLnk.IsLink = true;
-			this.statBugLnk.LinkColor = System.Drawing.Color.DimGray;
-			this.statBugLnk.Name = "statBugLnk";
-			this.statBugLnk.Size = new System.Drawing.Size(100, 17);
-			this.statBugLnk.Text = "I found a bug...";
 			// 
 			// tsBibles
 			// 
@@ -215,25 +212,26 @@ namespace VerseFlow.UI
             this.cSVToolStripMenuItem,
             this.bibleQuoteBibleToolStripMenuItem});
 			this.tsBiblesImport.Name = "tsBiblesImport";
-			this.tsBiblesImport.Size = new System.Drawing.Size(121, 22);
+			this.tsBiblesImport.Size = new System.Drawing.Size(152, 22);
 			this.tsBiblesImport.Text = "Import";
 			// 
 			// cSVToolStripMenuItem
 			// 
 			this.cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
-			this.cSVToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+			this.cSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.cSVToolStripMenuItem.Text = "CSV";
 			// 
 			// bibleQuoteBibleToolStripMenuItem
 			// 
 			this.bibleQuoteBibleToolStripMenuItem.Name = "bibleQuoteBibleToolStripMenuItem";
-			this.bibleQuoteBibleToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+			this.bibleQuoteBibleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.bibleQuoteBibleToolStripMenuItem.Text = "BibleQuote Bible";
+			this.bibleQuoteBibleToolStripMenuItem.Click += new System.EventHandler(this.bibleQuoteBibleToolStripMenuItem_Click);
 			// 
 			// downloadToolStripMenuItem
 			// 
 			this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
-			this.downloadToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+			this.downloadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.downloadToolStripMenuItem.Text = "Download";
 			// 
 			// tsPsalms
@@ -289,6 +287,11 @@ namespace VerseFlow.UI
 			this.tsText.Text = "Text";
 			this.tsText.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
+			// tsSplit
+			// 
+			this.tsSplit.Name = "tsSplit";
+			this.tsSplit.Size = new System.Drawing.Size(6, 52);
+			// 
 			// tsSettings
 			// 
 			this.tsSettings.AutoToolTip = false;
@@ -313,10 +316,32 @@ namespace VerseFlow.UI
 			this.tsAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.tsAbout.Click += new System.EventHandler(this.tsAbout_Click);
 			// 
+			// button3
+			// 
+			this.button3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.button3.Location = new System.Drawing.Point(420, 227);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 13;
+			this.button3.Text = "Show";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
+			// button4
+			// 
+			this.button4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.button4.Location = new System.Drawing.Point(504, 227);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(75, 23);
+			this.button4.TabIndex = 14;
+			this.button4.Text = "Hide";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
 			// verseView1
 			// 
 			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(304, 0);
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(357, 0);
 			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
 			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -324,15 +349,17 @@ namespace VerseFlow.UI
 			this.verseView1.HighlightText = null;
 			this.verseView1.Location = new System.Drawing.Point(0, 52);
 			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(305, 387);
+			this.verseView1.Size = new System.Drawing.Size(358, 488);
 			this.verseView1.TabIndex = 1;
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(795, 461);
+			this.ClientSize = new System.Drawing.Size(886, 562);
 			this.Controls.Add(this.verseView1);
+			this.Controls.Add(this.button4);
+			this.Controls.Add(this.button3);
 			this.Controls.Add(this.buttonHightlihght);
 			this.Controls.Add(this.textBoxHighlight);
 			this.Controls.Add(this.label4);
@@ -388,6 +415,8 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripStatusLabel statBugLnk;
+		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button button4;
 
 	}
 }

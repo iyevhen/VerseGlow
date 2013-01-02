@@ -89,5 +89,54 @@ namespace VerseFlow.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1357145973_font {
+            get {
+                object obj = ResourceManager.GetObject("1357145973_font", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1357146137_color_swatch {
+            get {
+                object obj = ResourceManager.GetObject("1357146137_color_swatch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1357146159_billiard_marker {
+            get {
+                object obj = ResourceManager.GetObject("1357146159_billiard_marker", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1357146337_find {
+            get {
+                object obj = ResourceManager.GetObject("1357146337_find", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select folder where BibleQuote Bible module is located.
+        /// </summary>
+        internal static string SelectBibleQuoteBibleFolder {
+            get {
+                return ResourceManager.GetString("SelectBibleQuoteBibleFolder", resourceCulture);
+            }
+        }
     }
 }

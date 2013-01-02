@@ -5,7 +5,7 @@ using System.Text;
 using VerseFlow.Core.Database;
 using VerseFlow.Core.Database.SQLite;
 
-namespace VerseFlow.Core.Import
+namespace VerseFlow.Core.Import.CSV
 {
 	public class FlatFileImporter
 	{
@@ -22,7 +22,7 @@ namespace VerseFlow.Core.Import
 			int bookid = 0;
 			int chapters = 0;
 
-			IDatabase db = new SqliteDatabaseFactory(string.Format(@"D:\{0}.db", flatFile.Name)).NewBibleDatabase();
+			IDatabase db = AppGlobal.DatabaseFactory().NewBibleDatabase();
 			var bookLines = new List<FlatBibleLine>();
 
 			foreach (FlatBibleLine line in flatFile)

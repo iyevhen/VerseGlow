@@ -2,10 +2,8 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using FreePresenter.Render;
-using FreePresenter.UI;
 
-namespace FreePresenter.UI
+namespace VerseFlow.UI
 {
 	public partial class FrmDisplay : Form, IDisplay
 	{
@@ -35,7 +33,6 @@ namespace FreePresenter.UI
 					 ControlStyles.DoubleBuffer |
 					 ControlStyles.ResizeRedraw, true);
 
-			currentText = "Free Presenter";
 		}
 
 		protected override bool ShowWithoutActivation
@@ -143,7 +140,7 @@ namespace FreePresenter.UI
 					WindowState = FormWindowState.Maximized;
 					FormBorderStyle = FormBorderStyle.None;
 					TopMost = true;
-					NativeInterop.SetWinFullScreen(Handle);
+					WindowsAPI.SetFullScreen(this);
 				}
 				else
 				{
@@ -217,6 +214,11 @@ namespace FreePresenter.UI
 			//			{
 			//				NativeInterop.HandlerMouseDown(Handle);
 			//			}
+		}
+
+		private void FrmDisplay_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

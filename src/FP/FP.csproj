@@ -176,21 +176,9 @@
     <None Include="Revival.snk" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Песнь Возрождения.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="BookCodes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Content\English %28KJB%29.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Русская Библия.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Украинская Библия.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

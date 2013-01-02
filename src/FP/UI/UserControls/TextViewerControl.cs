@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using FreePresenter.Properties;
 using FreePresenter.Core;
-using FreePresenter.UI;
+using VerseFlow.Properties;
 
 namespace FreePresenter.UI.UserControls
 {

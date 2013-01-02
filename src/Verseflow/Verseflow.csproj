@@ -64,6 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppGlobal.cs" />
+    <Compile Include="Core\Database\SQLite\Schemas.cs" />
+    <Compile Include="Core\Import\BibleQuote\BibleQuoteBibleImporter.cs" />
+    <Compile Include="Core\Import\BibleQuote\BibleQuoteBook.cs" />
+    <Compile Include="Core\Import\BibleQuote\BibleQuoteBookChapter.cs" />
+    <Compile Include="Core\Import\BibleQuote\BibleQuoteImporter.cs" />
+    <Compile Include="Core\Import\BibleQuote\BibleQuoteImportException.cs" />
+    <Compile Include="Core\Import\BibleQuote\BibleQuoteIni.cs" />
     <Compile Include="UI\Controls\Corners.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
     <Compile Include="UI\Controls\VerseRect\BibleBookRect.cs">
@@ -82,6 +89,12 @@
     <Compile Include="UI\FrmAbout.Designer.cs">
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FrmDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmDisplay.Designer.cs">
+      <DependentUpon>FrmDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,10 +104,10 @@
     <Compile Include="UI\Controls\IHaveRoundCorners.cs" />
     <Compile Include="UI\Controls\GraphicsTools.cs" />
     <Compile Include="ILog.cs" />
-    <Compile Include="Core\Import\FlatBibleLine.cs" />
-    <Compile Include="Core\Import\FlatFile.cs" />
-    <Compile Include="Core\Import\FlatFileImporter.cs" />
-    <Compile Include="Core\Import\FlatFileLine.cs" />
+    <Compile Include="Core\Import\CSV\FlatBibleLine.cs" />
+    <Compile Include="Core\Import\CSV\FlatFile.cs" />
+    <Compile Include="Core\Import\CSV\FlatFileImporter.cs" />
+    <Compile Include="Core\Import\CSV\FlatFileLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Controls\RoundCornersEditor.cs" />
@@ -104,8 +117,17 @@
     <Compile Include="UI\Controls\VerseView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="NetInterface.cs" />
+    <Compile Include="UI\IDisplay.cs" />
+    <Compile Include="UI\WindowsAPI.cs" />
+    <Compile Include="UI\StringWrap.cs" />
+    <Compile Include="UI\TextCursor.cs" />
+    <Compile Include="UI\UserRect.cs" />
     <EmbeddedResource Include="UI\FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmDisplay.resx">
+      <DependentUpon>FrmDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -137,9 +159,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\1357146159_billiard_marker.png" />
+    <None Include="Resources\1357146337_find.png" />
+    <None Include="Resources\1357146137_color_swatch.png" />
+    <None Include="Resources\1357145973_font.png" />
     <None Include="Resources\1357144059_bug.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\Download\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

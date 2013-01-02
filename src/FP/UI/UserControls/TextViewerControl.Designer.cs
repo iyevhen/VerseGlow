@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using FreePresenter.UI.Controls;
+using VerseFlow.Properties;
 
 namespace FreePresenter.UI.UserControls
 {
@@ -127,7 +128,7 @@ namespace FreePresenter.UI.UserControls
 			// 
 			this.tsBtnSearchResults.CheckOnClick = true;
 			this.tsBtnSearchResults.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsBtnSearchResults.Image = Properties.Resources.toggle_plus;
+			this.tsBtnSearchResults.Image = Resources.toggle_plus;
 			this.tsBtnSearchResults.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsBtnSearchResults.Name = "tsBtnSearchResults";
 			this.tsBtnSearchResults.Size = new System.Drawing.Size(23, 23);

@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using VerseFlow.Core.Import.BibleQuote;
+using VerseFlow.Properties;
 
 namespace VerseFlow.UI
 {
@@ -82,7 +84,8 @@ namespace VerseFlow.UI
 
 		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
 		private static readonly string[] delimiters = new[] { " ", "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
-		private static long delim = 0;
+		private static long delim;
+		private IDisplay display;
 
 		private string RandomString(int size)
 		{
@@ -141,6 +144,41 @@ namespace VerseFlow.UI
 				f.Icon = Icon;
 				f.Text = AppGlobal.AppName;
 				f.ShowDialog(this);
+			}
+		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			display = new FrmDisplay { Icon = Icon };
+			display.Activate();
+		}
+
+		private void button4_Click(object sender, EventArgs e)
+		{
+			display.Deactivate();
+			((Form)display).Dispose();
+		}
+
+		private void bibleQuoteBibleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			string folder;
+			using (var fb = new FolderBrowserDialog())
+			{
+				fb.Description = Resources.SelectBibleQuoteBibleFolder;
+
+				if (DialogResult.OK != fb.ShowDialog(this))
+					return;
+
+				folder = fb.SelectedPath;
+			}
+
+			try
+			{
+				new BibleQuoteBibleImporter().Import(folder);
+			}
+			catch (Exception exception)
+			{
+				MessageBox.Show(this, exception.Message, AppGlobal.AppName, MessageBoxButtons.OK);
 			}
 		}
 	}

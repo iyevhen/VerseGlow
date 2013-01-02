@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FP.Html", "FP.Html\FP.Html.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FP.Render", "FP.Render\FP.Render.csproj", "{12BCB746-6A29-40C2-B2C7-28A3A55CACF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verseflow", "Verseflow\Verseflow.csproj", "{CAC26F1C-24B2-4E8C-A008-2B6E1ED9C80A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +37,6 @@ Global
 		{12BCB746-6A29-40C2-B2C7-28A3A55CACF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12BCB746-6A29-40C2-B2C7-28A3A55CACF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12BCB746-6A29-40C2-B2C7-28A3A55CACF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CAC26F1C-24B2-4E8C-A008-2B6E1ED9C80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAC26F1C-24B2-4E8C-A008-2B6E1ED9C80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAC26F1C-24B2-4E8C-A008-2B6E1ED9C80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CAC26F1C-24B2-4E8C-A008-2B6E1ED9C80A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
