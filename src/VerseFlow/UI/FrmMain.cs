@@ -181,5 +181,11 @@ namespace VerseFlow.UI
 				MessageBox.Show(this, exception.Message, AppGlobal.AppName, MessageBoxButtons.OK);
 			}
 		}
+
+		private void button5_Click(object sender, EventArgs e)
+		{
+			statLblDebug.Text = NetInterface.MAC();
+
+		}
 	}
 }

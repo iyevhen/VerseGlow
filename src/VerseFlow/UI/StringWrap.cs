@@ -30,15 +30,15 @@ namespace VerseFlow.UI
 			breakable['.'] = 40;
 			breakable['?'] = 40;
 
-			format = new StringFormat {Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center};
+			format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 		}
 
 		public GraphicsPath GeneratePath(string text, RectangleF dest)
 		{
 			// draw a default path of a given size 
 			var p = new GraphicsPath();
-			p.AddString(text, FontFamily.GenericSansSerif, (int) FontStyle.Regular, 24.0f, new Point(0, 0), format);
-//			p.AddString(text, FontFamily.GenericSansSerif, (int)FontStyle.Regular, 24.0f, dest, format);
+			p.AddString(text, FontFamily.GenericSansSerif, (int)FontStyle.Regular, 24.0f, new Point(0, 0), format);
+			//			p.AddString(text, FontFamily.GenericSansSerif, (int)FontStyle.Regular, 24.0f, dest, format);
 
 			// calculate best ratio for stretching
 			RectangleF bound = p.GetBounds();
@@ -69,11 +69,11 @@ namespace VerseFlow.UI
 			string wrap = "";
 			text = Cleanse(text);
 
-			int rows = (int) Math.Sqrt(targetRatio * text.Length / fontRatio),
-			    cols = text.Length / rows,
-			    start = cols,
-			    index = 0,
-			    last;
+			int rows = (int)Math.Sqrt(targetRatio * text.Length / fontRatio),
+				cols = text.Length / rows,
+				start = cols,
+				index = 0,
+				last;
 
 			for (int i = 0; i < rows - 1; i++)
 			{
@@ -134,7 +134,7 @@ namespace VerseFlow.UI
 				if (o == null)
 					continue;
 
-				examWeight = (int) o / (float) Math.Abs(start - i);
+				examWeight = (int)o / (float)Math.Abs(start - i);
 
 				if (examWeight > bestWeight)
 				{

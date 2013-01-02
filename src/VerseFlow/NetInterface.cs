@@ -10,7 +10,7 @@ namespace VerseFlow
 			foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
 			{
 				if (ni.OperationalStatus == OperationalStatus.Up)
-					return BitConverter.ToString(ni.GetPhysicalAddress().GetAddressBytes());
+					return BitConverter.ToString(ni.GetPhysicalAddress().GetAddressBytes()).Replace("-", "");
 			}
 
 			return null;
