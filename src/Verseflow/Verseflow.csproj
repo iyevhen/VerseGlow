@@ -95,6 +95,12 @@
     <Compile Include="UI\FrmDisplay.Designer.cs">
       <DependentUpon>FrmDisplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FrmImportBibleQuote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmImportBibleQuote.Designer.cs">
+      <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmDisplay.resx">
       <DependentUpon>FrmDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmImportBibleQuote.resx">
+      <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>

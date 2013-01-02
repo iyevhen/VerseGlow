@@ -73,13 +73,7 @@ namespace VerseFlow.UI
 
 		private void Populate(List<string> strings)
 		{
-			var sw = Stopwatch.StartNew();
-
 			verseView1.Fill(strings);
-
-			sw.Stop();
-
-			statLblDebug.Text = "Pupulated in " + sw.Elapsed;
 		}
 
 		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
@@ -161,31 +155,11 @@ namespace VerseFlow.UI
 
 		private void bibleQuoteBibleToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			string folder;
-			using (var fb = new FolderBrowserDialog())
+			using (var fb = new FrmImportBibleQuote())
 			{
-				fb.Description = Resources.SelectBibleQuoteBibleFolder;
-
-				if (DialogResult.OK != fb.ShowDialog(this))
-					return;
-
-				folder = fb.SelectedPath;
+				fb.Icon = Icon;
+				fb.ShowDialog(this);
 			}
-
-			try
-			{
-				new BibleQuoteBibleImporter().Import(folder);
-			}
-			catch (Exception exception)
-			{
-				MessageBox.Show(this, exception.Message, AppGlobal.AppName, MessageBoxButtons.OK);
-			}
-		}
-
-		private void button5_Click(object sender, EventArgs e)
-		{
-			statLblDebug.Text = NetInterface.MAC();
-
 		}
 	}
 }

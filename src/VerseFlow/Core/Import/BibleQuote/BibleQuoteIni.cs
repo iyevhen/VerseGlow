@@ -16,7 +16,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 		private readonly Dictionary<string, string> values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		private readonly string filePath;
 
-		public BibleQuoteIni(string filePath)
+		public BibleQuoteIni(string filePath, Encoding encoding)
 		{
 			if (string.IsNullOrEmpty(filePath))
 				throw new ArgumentNullException("filePath");
@@ -25,7 +25,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 
 			BibleQuoteBook book = null;
 
-			foreach (string line in File.ReadLines(filePath, Encoding.Default))
+			foreach (string line in File.ReadLines(filePath, encoding))
 			{
 				string li = line.Trim();
 

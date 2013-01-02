@@ -8,7 +8,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 {
 	public abstract class BibleQuoteImporter
 	{
-		public string Import(string fromFolderPath)
+		public string Import(string fromFolderPath, Encoding encoding)
 		{
 			if (string.IsNullOrEmpty(fromFolderPath))
 				throw new ArgumentNullException("fromFolderPath");
@@ -22,7 +22,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (string.IsNullOrEmpty(inifile))
 				throw new BibleQuoteImportException(string.Format("Expected to find '{0}' file in '{1}'", BibleQuoteIni.INI, fromFolderPath));
 
-			var ini = new BibleQuoteIni(inifile);
+			var ini = new BibleQuoteIni(inifile, encoding);
 
 			return ImportImpl(ini);
 		}
