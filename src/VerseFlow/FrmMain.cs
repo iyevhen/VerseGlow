@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using VerseFlow.Controls.VerseRect;
 
 namespace VerseFlow
 {
@@ -21,7 +18,6 @@ namespace VerseFlow
 		{
 			delim = 0;
 			var strings = new List<string>();
-			long totalCharacters = 0;
 
 			if (!string.IsNullOrEmpty(textBoxPath.Text) && File.Exists(textBoxPath.Text))
 			{
@@ -34,7 +30,6 @@ namespace VerseFlow
 						string line = reader.ReadLine();
 						if (line != null)
 						{
-							totalCharacters += line.Length;
 							strings.Add(string.Format("{0}. {1}", i, line));
 							i++;
 						}
@@ -55,13 +50,11 @@ namespace VerseFlow
 				for (int i = 0; i < count; i++)
 				{
 					string randomString = RandomString(random.Next(2, maxVerse));
-					totalCharacters += randomString.Length;
 					strings.Add(string.Format("{0}_{1}", i, randomString));
 				}
 			}
 
-			Populate(strings, totalCharacters);
-
+			Populate(strings);
 		}
 
 		private void button2_Click(object sender, EventArgs e)
@@ -76,13 +69,19 @@ namespace VerseFlow
 			});
 		}
 
-		private void Populate(List<string> strings, long total = 0)
+		private void Populate(List<string> strings)
 		{
+			var sw = Stopwatch.StartNew();
+
 			verseView1.Fill(strings);
+
+			sw.Stop();
+
+			statLblDebug.Text = "Pupulated in " + sw.Elapsed;
 		}
 
 		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
-		private static readonly string[] delimiters = new[] { " ",  "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
+		private static readonly string[] delimiters = new[] { " ", "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
 		private static long delim = 0;
 
 		private string RandomString(int size)
@@ -114,6 +113,35 @@ namespace VerseFlow
 		private void buttonHightlihght_Click(object sender, EventArgs e)
 		{
 			verseView1.HighlightText = textBoxHighlight.Text;
+		}
+
+		private void FrmMain_Load(object sender, EventArgs e)
+		{
+			Text = string.Format("{0} - v{1}", AppGlobal.AppName, AppGlobal.AppVersion);
+
+			if (AppGlobal.BiblesFolderExists)
+			{
+				foreach (string file in Directory.GetFiles(AppGlobal.BiblesFolder))
+				{
+					var item = tsBibles.DropDownItems.Add(Path.GetFileNameWithoutExtension(file));
+					item.Click += OpenBibleHandler;
+				}
+			}
+		}
+
+		private void OpenBibleHandler(object sender, EventArgs e)
+		{
+			MessageBox.Show("Open bible");
+		}
+
+		private void tsAbout_Click(object sender, EventArgs e)
+		{
+			using (var f = new FrmAbout())
+			{
+				f.Icon = Icon;
+				f.Text = AppGlobal.AppName;
+				f.ShowDialog(this);
+			}
 		}
 	}
 }
