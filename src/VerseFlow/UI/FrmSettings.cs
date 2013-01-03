@@ -56,7 +56,6 @@ namespace VerseFlow.UI
 
 		private void FrmSettings_Load(object sender, EventArgs e)
 		{
-			treeSettings.ExpandAll();
 			treeSettings.SelectedNode = treeSettings.Nodes[0];
 		}
 	}

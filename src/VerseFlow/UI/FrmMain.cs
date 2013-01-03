@@ -77,6 +77,7 @@ namespace VerseFlow.UI
 		private static readonly string[] delimiters = new[] { " ", "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
 		private static long delim;
 		private IDisplay display;
+		private bool biblesLoaded;
 
 		private string RandomString(int size)
 		{
@@ -161,6 +162,19 @@ namespace VerseFlow.UI
 
 		private void button5_Click(object sender, EventArgs e)
 		{
+		}
+
+		private void tsBibles_DropDownOpening(object sender, EventArgs e)
+		{
+			if (!biblesLoaded)
+			{
+				foreach (string bibleName in AppGlobal.Bibles())
+				{
+					tsBibles.DropDownItems.Add(new ToolStripMenuItem(bibleName));
+				}
+
+				biblesLoaded = true;
+			}
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (!ini.IsBible)
 				return null;
 
-			string path = Path.Combine(AppGlobal.AppDataFolder, string.Format("{0}.xml", ini.BibleShortName));
+			string path = Path.Combine(AppGlobal.AppDataFolder, string.Format("Bible_{0}.xml", ini.BibleShortName));
 
 			string folder = Path.GetDirectoryName(path);
 

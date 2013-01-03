@@ -188,6 +188,7 @@ namespace VerseFlow.UI
 			this.tsBibles.Text = "Bibles";
 			this.tsBibles.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.tsBibles.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.tsBibles.DropDownOpening += new System.EventHandler(this.tsBibles_DropDownOpening);
 			// 
 			// tsPsalms
 			// 

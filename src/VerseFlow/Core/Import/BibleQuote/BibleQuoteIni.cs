@@ -230,7 +230,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 					skip = false;
 			}
 
-			return sb.ToString();
+			return sb.ToString().TrimEnd();
 		}
 
 		static class Tags

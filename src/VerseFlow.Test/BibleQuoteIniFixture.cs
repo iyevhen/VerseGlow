@@ -33,9 +33,15 @@ namespace VerseFlow.Test
 		}
 
 		[Test]
-		public void Verse_removes_non_letters_from_the_beginning()
+		public void Verse_trimmes_non_letters_from_the_beginning()
 		{
 			Assert.AreEqual("verse text goes here", ini.Verse(@"123.@ # verse text goes here"));
+		}
+
+		[Test]
+		public void Verse_trimmes_end()
+		{
+			Assert.AreEqual("verse text goes here", ini.Verse(@"123.@ # verse text goes here		"));
 		}
 	}
 }
