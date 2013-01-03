@@ -16,9 +16,6 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (verseNum <= 0)
 				throw new ArgumentException("verseNum cannot be negative or equals zero");
 
-			if (string.IsNullOrEmpty(text))
-				throw new ArgumentNullException("text");
-
 			this.chapter = chapter;
 			this.verseNum = verseNum;
 			this.text = text;

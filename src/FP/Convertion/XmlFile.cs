@@ -64,7 +64,7 @@ namespace FreePresenter.Convertion
 				var settings = new XmlWriterSettings
 								{
 									Indent = true,
-									IndentChars = "\t",
+									IndentChars = " ",
 									NewLineChars = Environment.NewLine
 								};
 

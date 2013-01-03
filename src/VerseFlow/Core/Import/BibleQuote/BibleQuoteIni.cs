@@ -189,7 +189,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (string.IsNullOrEmpty(line))
 				return false;
 
-			return line.StartsWith(ChapterSign, StringComparison.OrdinalIgnoreCase);
+			return line.IndexOf(ChapterSign, StringComparison.OrdinalIgnoreCase) > -1;
 		}
 
 		public bool IsVerse(string line)
@@ -197,7 +197,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (string.IsNullOrEmpty(line))
 				return false;
 
-			return line.StartsWith(VerseSign, StringComparison.OrdinalIgnoreCase);
+			return line.IndexOf(VerseSign, StringComparison.OrdinalIgnoreCase) > -1;
 		}
 
 		public string Verse(string line)
@@ -205,26 +205,32 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (string.IsNullOrEmpty(line))
 				throw new ArgumentNullException("line");
 
+			bool trimmed = false;
+			bool skip = false;
 			var sb = new StringBuilder();
 
-			int i = 0;
-			int copy = 0;
-			int len = line.Length;
-
-			while ((i = line.IndexOf('<', i)) >= 0)
+			foreach (char c in line)
 			{
-				if (copy > 0)
-					copy++;
+				if (!skip)
+				{
+					if (c == '<')
+					{
+						skip = true;
+					}
+					else
+					{
+						if (!trimmed)
+							trimmed = Char.IsLetter(c);
 
-				sb.Append(line.Substring(copy, i - copy));
-				i = line.IndexOf('>', i);
-				copy = i;
+						if (trimmed)
+							sb.Append(c);
+					}
+				}
+				else if (c == '>')
+					skip = false;
 			}
 
-			sb.Append(line.Substring(copy != len ? copy + 1 : copy));
-
 			return sb.ToString();
-
 		}
 
 		static class Tags

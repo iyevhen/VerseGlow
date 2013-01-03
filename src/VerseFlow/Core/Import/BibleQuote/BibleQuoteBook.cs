@@ -96,8 +96,11 @@ namespace VerseFlow.Core.Import.BibleQuote
 						}
 						else if (ini.IsVerse(line))
 						{
-							verseNum++;
-							yield return new BibleQuoteVerse(chapter, verseNum, ini.Verse(line));
+							if (chapter > 0)
+							{
+								verseNum++;
+								yield return new BibleQuoteVerse(chapter, verseNum, ini.Verse(line));
+							}
 						}
 					}
 				}
