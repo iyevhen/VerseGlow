@@ -13,10 +13,26 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (!ini.IsBible)
 				return null;
 
+			IDatabase db = AppGlobal.DatabaseFactory().NewBibleDatabase();
+
 			foreach (BibleQuoteBook book in ini.Books)
 			{
-				foreach (BibleQuoteBookChapter chapter in book.Chapters)
+				db.ExecuteNonQuery("INSERT INTO Bible (bookname, chapterscount) VALUES (?, ?)", book.FullName, book.ChapterQty);
+				int bookid = db.GetRowID<int>("Bible");
+
+				using (var con = db.GetNewConnection())
 				{
+					using (db.ExecuteInBulk(con))
+					{
+						IDbCommand cmd = con.CreateCommand();
+						cmd.CommandText = "INSERT INTO BibleContent (bookid, chapternum, versenum, versetext) VALUES (?, ?, ?, ?)";
+						cmd.Prepare();
+
+						foreach (BibleQuoteVerse verse in book.Verses)
+						{
+							db.ExecuteNonQuery(cmd, bookid, verse.Chapter, verse.VerseNum, verse.Text);
+						}
+					}
 				}
 			}
 

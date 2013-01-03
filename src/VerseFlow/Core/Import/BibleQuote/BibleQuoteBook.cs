@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace VerseFlow.Core.Import.BibleQuote
 {
+	[DebuggerDisplay("{FullName}, {ChapterQty}")]
 	public class BibleQuoteBook
 	{
 		private readonly BibleQuoteIni ini;
@@ -11,7 +13,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 		private string fullName;
 		private string shortName;
 		private string chapterQty;
-		private readonly List<BibleQuoteBookChapter> chapters = new List<BibleQuoteBookChapter>();
+		private IEnumerable<BibleQuoteVerse> verses;
 
 		public BibleQuoteBook(BibleQuoteIni ini)
 		{
@@ -19,6 +21,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 				throw new ArgumentNullException("ini");
 
 			this.ini = ini;
+			
 		}
 
 		public static bool IsNewBook(string key)
@@ -33,7 +36,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 		{
 			if (key.Equals(Tags.PathName, StringComparison.OrdinalIgnoreCase))
 			{
-				pathName = value;
+				pathName = Path.Combine(ini.ParentFolder, value);
 				return true;
 			}
 
@@ -73,9 +76,32 @@ namespace VerseFlow.Core.Import.BibleQuote
 			get { return chapterQty; }
 		}
 
-		public IEnumerable<BibleQuoteBookChapter> Chapters
+		public IEnumerable<BibleQuoteVerse> Verses
 		{
-			get { return chapters.ToArray(); }
+			get
+			{
+				int chapter = 0;
+				int verseNum = 0;
+
+				using (var reader = new StreamReader(pathName, ini.Encoding))
+				{
+					while (!reader.EndOfStream)
+					{
+						string line = reader.ReadLine();
+
+						if (ini.IsChapter(line))
+						{
+							chapter++;
+							verseNum = 0;
+						}
+						else if (ini.IsVerse(line))
+						{
+							verseNum++;
+							yield return new BibleQuoteVerse(chapter, verseNum, ini.Verse(line));
+						}
+					}
+				}
+			}
 		}
 
 		static class Tags

@@ -22,7 +22,10 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (string.IsNullOrEmpty(inifile))
 				throw new BibleQuoteImportException(string.Format("Expected to find '{0}' file in '{1}'", BibleQuoteIni.INI, fromFolderPath));
 
-			var ini = new BibleQuoteIni(inifile, encoding);
+			var ini = new BibleQuoteIni(
+					Path.GetDirectoryName(inifile),
+					encoding,
+					File.ReadLines(inifile, encoding));
 
 			return ImportImpl(ini);
 		}

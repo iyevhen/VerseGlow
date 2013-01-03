@@ -14,18 +14,23 @@ namespace VerseFlow.Core.Import.BibleQuote
 
 		private readonly List<BibleQuoteBook> books = new List<BibleQuoteBook>();
 		private readonly Dictionary<string, string> values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-		private readonly string filePath;
+		private readonly string parentFolder;
+		private readonly Encoding encoding;
 
-		public BibleQuoteIni(string filePath, Encoding encoding)
+		public BibleQuoteIni(string parentFolder, Encoding encoding, IEnumerable<string> lines)
 		{
-			if (string.IsNullOrEmpty(filePath))
-				throw new ArgumentNullException("filePath");
+			if (string.IsNullOrEmpty(parentFolder))
+				throw new ArgumentNullException("parentFolder");
 
-			this.filePath = filePath;
+			if (encoding == null)
+				throw new ArgumentNullException("encoding");
+
+			this.parentFolder = parentFolder;
+			this.encoding = encoding;
 
 			BibleQuoteBook book = null;
 
-			foreach (string line in File.ReadLines(filePath, encoding))
+			foreach (string line in lines)
 			{
 				string li = line.Trim();
 
@@ -64,9 +69,9 @@ namespace VerseFlow.Core.Import.BibleQuote
 			get { return books.ToArray(); }
 		}
 
-		public string FilePath
+		public string ParentFolder
 		{
-			get { return filePath; }
+			get { return parentFolder; }
 		}
 
 		public string BibleName
@@ -84,9 +89,19 @@ namespace VerseFlow.Core.Import.BibleQuote
 			get { return GetBool(Tags.Bible); }
 		}
 
+		public Encoding Encoding
+		{
+			get { return encoding; }
+		}
+
 		public bool HasOldTestament
 		{
 			get { return GetBool(Tags.OldTestament); }
+		}
+
+		public bool HasChapterZero
+		{
+			get { return GetBool(Tags.ChapterZero); }
 		}
 
 		public bool HasNewTestament
@@ -129,12 +144,12 @@ namespace VerseFlow.Core.Import.BibleQuote
 			get { return GetInt32(Tags.DesiredFontCharset); }
 		}
 
-		public string ChapterSign
+		private string ChapterSign
 		{
 			get { return GetString(Tags.ChapterSign); }
 		}
 
-		public string VerseSign
+		private string VerseSign
 		{
 			get { return GetString(Tags.VerseSign); }
 		}
@@ -169,6 +184,49 @@ namespace VerseFlow.Core.Import.BibleQuote
 			return values.TryGetValue(tag, out value) ? value : null;
 		}
 
+		public bool IsChapter(string line)
+		{
+			if (string.IsNullOrEmpty(line))
+				return false;
+
+			return line.StartsWith(ChapterSign, StringComparison.OrdinalIgnoreCase);
+		}
+
+		public bool IsVerse(string line)
+		{
+			if (string.IsNullOrEmpty(line))
+				return false;
+
+			return line.StartsWith(VerseSign, StringComparison.OrdinalIgnoreCase);
+		}
+
+		public string Verse(string line)
+		{
+			if (string.IsNullOrEmpty(line))
+				throw new ArgumentNullException("line");
+
+			var sb = new StringBuilder();
+
+			int i = 0;
+			int copy = 0;
+			int len = line.Length;
+
+			while ((i = line.IndexOf('<', i)) >= 0)
+			{
+				if (copy > 0)
+					copy++;
+
+				sb.Append(line.Substring(copy, i - copy));
+				i = line.IndexOf('>', i);
+				copy = i;
+			}
+
+			sb.Append(line.Substring(copy != len ? copy + 1 : copy));
+
+			return sb.ToString();
+
+		}
+
 		static class Tags
 		{
 			public const string BibleName = "BibleName";
@@ -184,6 +242,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			public const string DesiredFontName = "DesiredFontName";
 			public const string DesiredFontCharset = "DesiredFontCharset";
 			public const string ChapterSign = "ChapterSign";
+			public const string ChapterZero = "ChapterZero";
 			public const string VerseSign = "VerseSign";
 			public const string BookQty = "BookQty";
 		}

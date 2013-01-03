@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,17 +12,17 @@ using VerseFlow.Properties;
 
 namespace VerseFlow.UI
 {
-	public partial class FrmImportBibleQuote : Form
+	public partial class ImportBibleQuote : UserControl
 	{
 		private string inifile;
 
-		public FrmImportBibleQuote()
+		public ImportBibleQuote()
 		{
 			InitializeComponent();
 			btnImport.Enabled = false;
 		}
 
-		private void FrmImportBibleQuote_Load(object sender, EventArgs e)
+		private void ImportBibleQuote_Load(object sender, EventArgs e)
 		{
 			EncodingInfo[] infos = Encoding.GetEncodings();
 			EncodingInfoEx[] infos2 = new EncodingInfoEx[infos.Length];
@@ -36,10 +40,10 @@ namespace VerseFlow.UI
 			foreach (EncodingInfoEx ei in infos2)
 				ei.SetPadding(padding);
 
-			Array.Sort(infos2, (i1, i2) => String.Compare(i1.DisplayNameEx, i2.DisplayNameEx, StringComparison.Ordinal));
+			//			Array.Sort(infos2, (i1, i2) => String.Compare(i1.DisplayNameEx, i2.DisplayNameEx, StringComparison.Ordinal));
 
-//			cmbEnc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-//			cmbEnc.AutoCompleteSource = AutoCompleteSource.ListItems;
+			//			cmbEnc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			//			cmbEnc.AutoCompleteSource = AutoCompleteSource.ListItems;
 
 			cmbEnc.DataSource = infos2;
 			cmbEnc.DisplayMember = "DisplayNameEx";
@@ -47,17 +51,45 @@ namespace VerseFlow.UI
 			cmbEnc.Enabled = !cboxDefault.Checked;
 		}
 
-		private void btnBrowse_Click(object sender, EventArgs e)
+		private void btnImport_Click(object sender, EventArgs e)
 		{
-			using (var fb = new FolderBrowserDialog())
+			try
 			{
-				fb.Description = Resources.SelectBibleQuoteBibleFolder;
-
-				if (DialogResult.OK != fb.ShowDialog(this))
-					return;
-
-				txtFolder.Text = fb.SelectedPath;
+				new BibleQuoteBibleImporter().Import(txtFolder.Text, GetEncoding());
+				MessageBox.Show(this, "Imported", AppGlobal.AppName, MessageBoxButtons.OK);
 			}
+			catch (Exception exception)
+			{
+				MessageBox.Show(this, exception.Message, AppGlobal.AppName, MessageBoxButtons.OK);
+			}
+		}
+
+		private Encoding GetEncoding()
+		{
+			if (cboxDefault.Checked || cmbEnc.SelectedItem == null)
+				return Encoding.Default;
+
+			return ((EncodingInfoEx)cmbEnc.SelectedItem).Encoding;
+		}
+
+		private void cmbEnc_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (!cboxDefault.Checked)
+			{
+				Preview();
+			}
+		}
+
+		private void Preview()
+		{
+			if (!string.IsNullOrEmpty(inifile))
+				txtPreview.Text = File.ReadAllText(inifile, GetEncoding());
+		}
+
+		private void cboxDefault_CheckedChanged(object sender, EventArgs e)
+		{
+			cmbEnc.Enabled = !cboxDefault.Checked;
+			Preview();
 		}
 
 		private void txtFolder_TextChanged(object sender, EventArgs e)
@@ -82,44 +114,17 @@ namespace VerseFlow.UI
 			}
 		}
 
-		private void cboxDefault_CheckedChanged(object sender, EventArgs e)
+		private void btnBrowse_Click(object sender, EventArgs e)
 		{
-			cmbEnc.Enabled = !cboxDefault.Checked;
-			Preview();
-		}
-
-		private void cmbEnc_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (!cboxDefault.Checked)
+			using (var fb = new FolderBrowserDialog())
 			{
-				Preview();
+				fb.Description = Resources.SelectBibleQuoteBibleFolder;
+
+				if (DialogResult.OK != fb.ShowDialog(this))
+					return;
+
+				txtFolder.Text = fb.SelectedPath;
 			}
-		}
-
-		private void Preview()
-		{
-			if (!string.IsNullOrEmpty(inifile))
-				txtPreview.Text = File.ReadAllText(inifile, GetEncoding());
-		}
-
-		private void btnImport_Click(object sender, EventArgs e)
-		{
-			try
-			{
-				new BibleQuoteBibleImporter().Import(txtFolder.Text, GetEncoding());
-			}
-			catch (Exception exception)
-			{
-				MessageBox.Show(this, exception.Message, AppGlobal.AppName, MessageBoxButtons.OK);
-			}
-		}
-
-		private Encoding GetEncoding()
-		{
-			if (cboxDefault.Checked || cmbEnc.SelectedItem == null)
-				return Encoding.Default;
-
-			return ((EncodingInfoEx)cmbEnc.SelectedItem).Encoding;
 		}
 
 		class EncodingInfoEx

@@ -67,10 +67,10 @@
     <Compile Include="Core\Database\SQLite\Schemas.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteBibleImporter.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteBook.cs" />
-    <Compile Include="Core\Import\BibleQuote\BibleQuoteBookChapter.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteImporter.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteImportException.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteIni.cs" />
+    <Compile Include="Core\Import\BibleQuote\BibleQuoteVerse.cs" />
     <Compile Include="UI\Controls\Corners.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
     <Compile Include="UI\Controls\VerseRect\BibleBookRect.cs">
@@ -95,12 +95,6 @@
     <Compile Include="UI\FrmDisplay.Designer.cs">
       <DependentUpon>FrmDisplay.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmImportBibleQuote.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FrmImportBibleQuote.Designer.cs">
-      <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,7 +118,19 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NetInterface.cs" />
+    <Compile Include="UI\FrmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmSettings.Designer.cs">
+      <DependentUpon>FrmSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\IDisplay.cs" />
+    <Compile Include="UI\ImportBibleQuote.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ImportBibleQuote.Designer.cs">
+      <DependentUpon>ImportBibleQuote.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\WindowsAPI.cs" />
     <Compile Include="UI\StringWrap.cs" />
     <Compile Include="UI\TextCursor.cs" />
@@ -134,9 +140,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmDisplay.resx">
       <DependentUpon>FrmDisplay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmImportBibleQuote.resx">
-      <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -151,6 +154,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\FrmSettings.resx">
+      <DependentUpon>FrmSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ImportBibleQuote.resx">
+      <DependentUpon>ImportBibleQuote.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

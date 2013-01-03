@@ -44,13 +44,7 @@ namespace VerseFlow.UI
 			this.buttonHightlihght = new System.Windows.Forms.Button();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.tsBibles = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tsBiblesImport = new System.Windows.Forms.ToolStripMenuItem();
-			this.bibleQuoteBibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.cSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsPsalms = new System.Windows.Forms.ToolStripDropDownButton();
-			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.bibleQuotePsalmsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.cSVToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsText = new System.Windows.Forms.ToolStripSplitButton();
 			this.tsSplit = new System.Windows.Forms.ToolStripSeparator();
 			this.tsSettings = new System.Windows.Forms.ToolStripButton();
@@ -133,7 +127,7 @@ namespace VerseFlow.UI
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statBugLnk});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 365);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 445);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(812, 22);
 			this.statusStrip1.TabIndex = 5;
@@ -145,7 +139,7 @@ namespace VerseFlow.UI
 			this.statBugLnk.IsLink = true;
 			this.statBugLnk.LinkColor = System.Drawing.Color.DimGray;
 			this.statBugLnk.Name = "statBugLnk";
-			this.statBugLnk.Size = new System.Drawing.Size(87, 17);
+			this.statBugLnk.Size = new System.Drawing.Size(84, 17);
 			this.statBugLnk.Text = "I found a bug...";
 			// 
 			// textBoxHighlight
@@ -178,80 +172,33 @@ namespace VerseFlow.UI
             this.tsAbout});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(812, 54);
+			this.toolStrip1.Size = new System.Drawing.Size(812, 52);
 			this.toolStrip1.TabIndex = 12;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
 			// tsBibles
 			// 
 			this.tsBibles.AutoToolTip = false;
-			this.tsBibles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsBiblesImport});
 			this.tsBibles.Image = ((System.Drawing.Image)(resources.GetObject("tsBibles.Image")));
 			this.tsBibles.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.tsBibles.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsBibles.Name = "tsBibles";
-			this.tsBibles.Size = new System.Drawing.Size(51, 51);
+			this.tsBibles.Size = new System.Drawing.Size(47, 49);
 			this.tsBibles.Text = "Bibles";
 			this.tsBibles.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.tsBibles.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// tsBiblesImport
-			// 
-			this.tsBiblesImport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bibleQuoteBibleToolStripMenuItem,
-            this.cSVToolStripMenuItem});
-			this.tsBiblesImport.Name = "tsBiblesImport";
-			this.tsBiblesImport.Size = new System.Drawing.Size(110, 22);
-			this.tsBiblesImport.Text = "Import";
-			// 
-			// bibleQuoteBibleToolStripMenuItem
-			// 
-			this.bibleQuoteBibleToolStripMenuItem.Name = "bibleQuoteBibleToolStripMenuItem";
-			this.bibleQuoteBibleToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.bibleQuoteBibleToolStripMenuItem.Text = "BibleQuote";
-			this.bibleQuoteBibleToolStripMenuItem.Click += new System.EventHandler(this.bibleQuoteBibleToolStripMenuItem_Click);
-			// 
-			// cSVToolStripMenuItem
-			// 
-			this.cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
-			this.cSVToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.cSVToolStripMenuItem.Text = "CSV";
-			// 
 			// tsPsalms
 			// 
 			this.tsPsalms.AutoToolTip = false;
-			this.tsPsalms.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem});
 			this.tsPsalms.Image = ((System.Drawing.Image)(resources.GetObject("tsPsalms.Image")));
 			this.tsPsalms.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.tsPsalms.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsPsalms.Name = "tsPsalms";
-			this.tsPsalms.Size = new System.Drawing.Size(57, 51);
+			this.tsPsalms.Size = new System.Drawing.Size(52, 49);
 			this.tsPsalms.Text = "Psalms";
 			this.tsPsalms.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.tsPsalms.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// importToolStripMenuItem
-			// 
-			this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bibleQuotePsalmsToolStripMenuItem,
-            this.cSVToolStripMenuItem1});
-			this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-			this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-			this.importToolStripMenuItem.Text = "Import";
-			// 
-			// bibleQuotePsalmsToolStripMenuItem
-			// 
-			this.bibleQuotePsalmsToolStripMenuItem.Name = "bibleQuotePsalmsToolStripMenuItem";
-			this.bibleQuotePsalmsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.bibleQuotePsalmsToolStripMenuItem.Text = "BibleQuote";
-			// 
-			// cSVToolStripMenuItem1
-			// 
-			this.cSVToolStripMenuItem1.Name = "cSVToolStripMenuItem1";
-			this.cSVToolStripMenuItem1.Size = new System.Drawing.Size(133, 22);
-			this.cSVToolStripMenuItem1.Text = "CSV";
 			// 
 			// tsText
 			// 
@@ -260,14 +207,14 @@ namespace VerseFlow.UI
 			this.tsText.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.tsText.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsText.Name = "tsText";
-			this.tsText.Size = new System.Drawing.Size(48, 51);
+			this.tsText.Size = new System.Drawing.Size(48, 49);
 			this.tsText.Text = "Text";
 			this.tsText.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// tsSplit
 			// 
 			this.tsSplit.Name = "tsSplit";
-			this.tsSplit.Size = new System.Drawing.Size(6, 54);
+			this.tsSplit.Size = new System.Drawing.Size(6, 52);
 			// 
 			// tsSettings
 			// 
@@ -276,9 +223,10 @@ namespace VerseFlow.UI
 			this.tsSettings.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.tsSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsSettings.Name = "tsSettings";
-			this.tsSettings.Size = new System.Drawing.Size(53, 51);
+			this.tsSettings.Size = new System.Drawing.Size(50, 49);
 			this.tsSettings.Text = "Settings";
 			this.tsSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.tsSettings.Click += new System.EventHandler(this.tsSettings_Click);
 			// 
 			// tsAbout
 			// 
@@ -288,7 +236,7 @@ namespace VerseFlow.UI
 			this.tsAbout.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.tsAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsAbout.Name = "tsAbout";
-			this.tsAbout.Size = new System.Drawing.Size(44, 51);
+			this.tsAbout.Size = new System.Drawing.Size(40, 49);
 			this.tsAbout.Text = "About";
 			this.tsAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.tsAbout.Click += new System.EventHandler(this.tsAbout_Click);
@@ -334,16 +282,16 @@ namespace VerseFlow.UI
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Left;
 			this.verseView1.Font = new System.Drawing.Font("Consolas", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.verseView1.HighlightText = null;
-			this.verseView1.Location = new System.Drawing.Point(0, 54);
+			this.verseView1.Location = new System.Drawing.Point(0, 52);
 			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(391, 311);
+			this.verseView1.Size = new System.Drawing.Size(391, 393);
 			this.verseView1.TabIndex = 1;
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(812, 387);
+			this.ClientSize = new System.Drawing.Size(812, 467);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.verseView1);
 			this.Controls.Add(this.button4);
@@ -390,12 +338,6 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.ToolStripDropDownButton tsBibles;
 		private System.Windows.Forms.ToolStripDropDownButton tsPsalms;
 		private System.Windows.Forms.ToolStripButton tsSettings;
-		private System.Windows.Forms.ToolStripMenuItem tsBiblesImport;
-		private System.Windows.Forms.ToolStripMenuItem cSVToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem bibleQuoteBibleToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem cSVToolStripMenuItem1;
-		private System.Windows.Forms.ToolStripMenuItem bibleQuotePsalmsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSplitButton tsText;
 		private System.Windows.Forms.ToolStripButton tsAbout;
 		private System.Windows.Forms.ToolStripSeparator tsSplit;

@@ -153,9 +153,9 @@ namespace VerseFlow.UI
 			((Form)display).Dispose();
 		}
 
-		private void bibleQuoteBibleToolStripMenuItem_Click(object sender, EventArgs e)
+		private void tsSettings_Click(object sender, EventArgs e)
 		{
-			using (var fb = new FrmImportBibleQuote())
+			using (var fb = new FrmSettings())
 			{
 				fb.Icon = Icon;
 				fb.ShowDialog(this);
