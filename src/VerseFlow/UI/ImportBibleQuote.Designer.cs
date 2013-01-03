@@ -49,18 +49,18 @@
 			this.gbFolder.Margin = new System.Windows.Forms.Padding(10);
 			this.gbFolder.Name = "gbFolder";
 			this.gbFolder.Padding = new System.Windows.Forms.Padding(10, 3, 10, 10);
-			this.gbFolder.Size = new System.Drawing.Size(408, 48);
+			this.gbFolder.Size = new System.Drawing.Size(414, 48);
 			this.gbFolder.TabIndex = 13;
 			this.gbFolder.TabStop = false;
-			this.gbFolder.Text = "Please specify folder where BibleQuote module is located";
+			this.gbFolder.Text = "Path to BibleQuote module";
 			// 
 			// txtFolder
 			// 
 			this.txtFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtFolder.Font = new System.Drawing.Font("Courier New", 9.25F);
+			this.txtFolder.Font = new System.Drawing.Font("Courier New", 8.25F);
 			this.txtFolder.Location = new System.Drawing.Point(10, 16);
 			this.txtFolder.Name = "txtFolder";
-			this.txtFolder.Size = new System.Drawing.Size(366, 21);
+			this.txtFolder.Size = new System.Drawing.Size(372, 20);
 			this.txtFolder.TabIndex = 4;
 			this.txtFolder.WordWrap = false;
 			this.txtFolder.TextChanged += new System.EventHandler(this.txtFolder_TextChanged);
@@ -68,7 +68,7 @@
 			// btnBrowse
 			// 
 			this.btnBrowse.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnBrowse.Location = new System.Drawing.Point(376, 16);
+			this.btnBrowse.Location = new System.Drawing.Point(382, 16);
 			this.btnBrowse.Margin = new System.Windows.Forms.Padding(0);
 			this.btnBrowse.Name = "btnBrowse";
 			this.btnBrowse.Size = new System.Drawing.Size(22, 22);
@@ -88,34 +88,34 @@
 			this.gbEnc.Location = new System.Drawing.Point(5, 53);
 			this.gbEnc.Name = "gbEnc";
 			this.gbEnc.Padding = new System.Windows.Forms.Padding(10);
-			this.gbEnc.Size = new System.Drawing.Size(408, 142);
+			this.gbEnc.Size = new System.Drawing.Size(414, 131);
 			this.gbEnc.TabIndex = 12;
 			this.gbEnc.TabStop = false;
-			this.gbEnc.Text = "Specify Encoding BibleQuote module is using";
+			this.gbEnc.Text = "Encoding";
 			// 
 			// txtPreview
 			// 
 			this.txtPreview.AcceptsReturn = true;
 			this.txtPreview.AcceptsTab = true;
 			this.txtPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtPreview.Font = new System.Drawing.Font("Courier New", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.txtPreview.Location = new System.Drawing.Point(10, 68);
+			this.txtPreview.Font = new System.Drawing.Font("Courier New", 8.25F);
+			this.txtPreview.Location = new System.Drawing.Point(10, 67);
 			this.txtPreview.Multiline = true;
 			this.txtPreview.Name = "txtPreview";
 			this.txtPreview.ReadOnly = true;
 			this.txtPreview.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtPreview.Size = new System.Drawing.Size(388, 64);
+			this.txtPreview.Size = new System.Drawing.Size(394, 54);
 			this.txtPreview.TabIndex = 0;
 			// 
 			// cmbEnc
 			// 
 			this.cmbEnc.Dock = System.Windows.Forms.DockStyle.Top;
 			this.cmbEnc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbEnc.Font = new System.Drawing.Font("Courier New", 9.25F);
+			this.cmbEnc.Font = new System.Drawing.Font("Courier New", 8.25F);
 			this.cmbEnc.FormattingEnabled = true;
 			this.cmbEnc.Location = new System.Drawing.Point(10, 45);
 			this.cmbEnc.Name = "cmbEnc";
-			this.cmbEnc.Size = new System.Drawing.Size(388, 23);
+			this.cmbEnc.Size = new System.Drawing.Size(394, 22);
 			this.cmbEnc.Sorted = true;
 			this.cmbEnc.TabIndex = 8;
 			this.cmbEnc.SelectedIndexChanged += new System.EventHandler(this.cmbEnc_SelectedIndexChanged);
@@ -129,7 +129,7 @@
 			this.cboxDefault.Location = new System.Drawing.Point(10, 23);
 			this.cboxDefault.Name = "cboxDefault";
 			this.cboxDefault.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-			this.cboxDefault.Size = new System.Drawing.Size(388, 22);
+			this.cboxDefault.Size = new System.Drawing.Size(394, 22);
 			this.cboxDefault.TabIndex = 10;
 			this.cboxDefault.Text = "Use Default Encoding";
 			this.cboxDefault.UseVisualStyleBackColor = true;
@@ -138,7 +138,7 @@
 			// btnImport
 			// 
 			this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnImport.Location = new System.Drawing.Point(338, 202);
+			this.btnImport.Location = new System.Drawing.Point(344, 191);
 			this.btnImport.Name = "btnImport";
 			this.btnImport.Size = new System.Drawing.Size(75, 22);
 			this.btnImport.TabIndex = 14;
@@ -155,7 +155,7 @@
 			this.Controls.Add(this.gbFolder);
 			this.Name = "ImportBibleQuote";
 			this.Padding = new System.Windows.Forms.Padding(5);
-			this.Size = new System.Drawing.Size(418, 232);
+			this.Size = new System.Drawing.Size(424, 221);
 			this.Load += new System.EventHandler(this.ImportBibleQuote_Load);
 			this.gbFolder.ResumeLayout(false);
 			this.gbFolder.PerformLayout();

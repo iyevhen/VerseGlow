@@ -55,16 +55,16 @@ namespace VerseFlow.Core.Database
 			return adapter.InBulk(connection);
 		}
 
-		public DataRow ExecuteQueryOne(string sql, params object[] parameters)
+		public DatabaseRow ExecuteQueryOne(string sql, params object[] parameters)
 		{
-			List<DataRow> rows = ExecuteQueryImpl(sql, true, parameters);
+			List<DatabaseRow> rows = ExecuteQueryImpl(sql, true, parameters);
 			return rows.Count > 0 ? rows[0] : null;
 		}
 
-		public DataRow ExecuteOne(string table, string pkName, object pkValue)
+		public DatabaseRow ExecuteOne(string table, string pkName, object pkValue)
 		{
 			string sql = string.Format("SELECT * FROM {0} WHERE {1} = ?", table, pkName);
-			List<DataRow> rows = ExecuteQueryImpl(sql, true, pkValue);
+			List<DatabaseRow> rows = ExecuteQueryImpl(sql, true, pkValue);
 			return rows.Count > 0 ? rows[0] : null;
 		}
 
@@ -150,12 +150,12 @@ namespace VerseFlow.Core.Database
 			}
 		}
 
-		public List<DataRow> ExecuteQuery(string sql)
+		public List<DatabaseRow> ExecuteQuery(string sql)
 		{
 			return ExecuteQueryImpl(sql, false, null);
 		}
 
-		public List<DataRow> ExecuteQuery(string sql, params object[] parameters)
+		public List<DatabaseRow> ExecuteQuery(string sql, params object[] parameters)
 		{
 			return ExecuteQueryImpl(sql, false, parameters);
 		}
@@ -236,7 +236,7 @@ namespace VerseFlow.Core.Database
 			return default(T);
 		}
 
-		public IEnumerable<DataRow> ExecuteReader(string sql, params object[] parameters)
+		public IEnumerable<DatabaseRow> ExecuteReader(string sql, params object[] parameters)
 		{
 			using (IDbConnection connection = GetNewConnection())
 			{
@@ -279,9 +279,9 @@ namespace VerseFlow.Core.Database
 			}
 		}
 
-		private List<DataRow> ExecuteQueryImpl(string sql, bool topOne, params object[] parameters)
+		private List<DatabaseRow> ExecuteQueryImpl(string sql, bool topOne, params object[] parameters)
 		{
-			var rows = new List<DataRow>();
+			var rows = new List<DatabaseRow>();
 
 			try
 			{
@@ -307,13 +307,14 @@ namespace VerseFlow.Core.Database
 
 						while (reader.Read())
 						{
-							var fields = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+							var row = new DatabaseRow();
+							rows.Add(row);
 
 							for (int i = 0; i < reader.FieldCount; i++)
 							{
 								object value = reader[i];
 								string name = reader.GetName(i);
-								fields.Add(name, value);
+								row.Add(name, value);
 							}
 
 							if (topOne)

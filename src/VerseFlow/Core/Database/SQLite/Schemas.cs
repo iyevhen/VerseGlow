@@ -27,7 +27,7 @@ CREATE TABLE [BibleInfo] (
 [biblecode] VARCHAR(3)  NULL
 );
 
-CREATE INDEX `IDX_BibleContent_versetext` ON `BibleContent` (`versetext` COLLATE UTF8CI)
+--CREATE INDEX `IDX_BibleContent_versetext` ON `BibleContent` (`versetext` COLLATE UTF8CI)
 ";
 	}
 }

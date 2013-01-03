@@ -52,6 +52,7 @@ namespace VerseFlow.UI
 			this.button3 = new System.Windows.Forms.Button();
 			this.button4 = new System.Windows.Forms.Button();
 			this.button5 = new System.Windows.Forms.Button();
+			this.textBoxSQL = new System.Windows.Forms.TextBox();
 			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
 			this.statusStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
@@ -270,8 +271,19 @@ namespace VerseFlow.UI
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(75, 23);
 			this.button5.TabIndex = 15;
-			this.button5.Text = "MAC";
+			this.button5.Text = "Select";
 			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
+			// textBoxSQL
+			// 
+			this.textBoxSQL.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.textBoxSQL.Location = new System.Drawing.Point(504, 282);
+			this.textBoxSQL.Multiline = true;
+			this.textBoxSQL.Name = "textBoxSQL";
+			this.textBoxSQL.Size = new System.Drawing.Size(281, 84);
+			this.textBoxSQL.TabIndex = 16;
+			this.textBoxSQL.Text = "SELECT versetext FROM BibleContent WHERE versetext LIKE \'%ибо%\'\r\n";
 			// 
 			// verseView1
 			// 
@@ -292,6 +304,7 @@ namespace VerseFlow.UI
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(812, 467);
+			this.Controls.Add(this.textBoxSQL);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.verseView1);
 			this.Controls.Add(this.button4);
@@ -345,6 +358,7 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Button button5;
+		private System.Windows.Forms.TextBox textBoxSQL;
 
 	}
 }
