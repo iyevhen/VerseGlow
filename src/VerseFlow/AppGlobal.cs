@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using VerseFlow.Core.Database;
-using VerseFlow.Core.Database.SQLite;
 
 namespace VerseFlow
 {
@@ -12,7 +10,6 @@ namespace VerseFlow
 		private static string appName;
 		private static Version appVersion;
 		private static string biblesFolder;
-		private static IDatabaseFactory dbFactory;
 
 		public static string AppName
 		{
@@ -70,11 +67,6 @@ namespace VerseFlow
 		public static bool BiblesFolderExists
 		{
 			get { return Directory.Exists(BiblesFolder); }
-		}
-
-		public static IDatabaseFactory DatabaseFactory()
-		{
-			return dbFactory ?? (dbFactory = new SqliteDatabaseFactory(AppDataFolder));
 		}
 	}
 }

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using VerseFlow.Core.Database;
-using VerseFlow.Core.Import.BibleQuote;
-using VerseFlow.Properties;
 
 namespace VerseFlow.UI
 {
@@ -165,15 +161,6 @@ namespace VerseFlow.UI
 
 		private void button5_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				IDatabase db = AppGlobal.DatabaseFactory().NewBibleDatabase();
-				Populate(db.ExecuteQuery(textBoxSQL.Text).ConvertAll(dr => dr["versetext"].ToString()));
-			}
-			catch (Exception exception)
-			{
-				MessageBox.Show(exception.Message);
-			}
 		}
 	}
 }
