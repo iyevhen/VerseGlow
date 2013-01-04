@@ -342,8 +342,8 @@ namespace VerseFlow.UI.Controls
 				SizeF sizeM = GetCharSize(base.Font, 'M');
 				SizeF sizeDot = GetCharSize(base.Font, '.');
 
-				if (sizeM != sizeDot)
-					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
+//				if (sizeM != sizeDot)
+//					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
 
 				SizeF size = GetCharSize(base.Font, 'M');
 

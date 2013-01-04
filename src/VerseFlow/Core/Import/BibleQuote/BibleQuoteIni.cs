@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Web;
 
 namespace VerseFlow.Core.Import.BibleQuote
 {
@@ -209,7 +210,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			bool skip = false;
 			var sb = new StringBuilder();
 
-			foreach (char c in line)
+			foreach (char c in line.Replace(@"&quot;", "\""))
 			{
 				if (!skip)
 				{
@@ -218,13 +219,18 @@ namespace VerseFlow.Core.Import.BibleQuote
 						skip = true;
 					}
 					else
-					{
-						if (!trimmed)
-							trimmed = Char.IsLetter(c);
+//						if (c == '&')
+//						{
+//
+//						}
+//						else
+						{
+							if (!trimmed)
+								trimmed = Char.IsLetter(c);
 
-						if (trimmed)
-							sb.Append(c);
-					}
+							if (trimmed)
+								sb.Append(c);
+						}
 				}
 				else if (c == '>')
 					skip = false;

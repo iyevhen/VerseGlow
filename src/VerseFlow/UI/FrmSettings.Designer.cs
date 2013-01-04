@@ -39,7 +39,6 @@
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.treeSettings = new System.Windows.Forms.TreeView();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			this.SuspendLayout();
@@ -47,7 +46,7 @@
 			// btnOK
 			// 
 			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnOK.Location = new System.Drawing.Point(402, 417);
+			this.btnOK.Location = new System.Drawing.Point(402, 409);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(75, 23);
 			this.btnOK.TabIndex = 0;
@@ -58,7 +57,7 @@
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(483, 417);
+			this.btnCancel.Location = new System.Drawing.Point(483, 409);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 1;
@@ -74,7 +73,7 @@
 			this.groupBox1.Location = new System.Drawing.Point(4, 4);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Padding = new System.Windows.Forms.Padding(5);
-			this.groupBox1.Size = new System.Drawing.Size(554, 407);
+			this.groupBox1.Size = new System.Drawing.Size(554, 399);
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Categories";
@@ -92,7 +91,7 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(5);
-			this.splitContainer1.Size = new System.Drawing.Size(544, 384);
+			this.splitContainer1.Size = new System.Drawing.Size(544, 376);
 			this.splitContainer1.SplitterDistance = 224;
 			this.splitContainer1.TabIndex = 1;
 			// 
@@ -135,7 +134,7 @@
             treeNode10,
             treeNode11});
 			this.treeSettings.ShowLines = false;
-			this.treeSettings.Size = new System.Drawing.Size(224, 384);
+			this.treeSettings.Size = new System.Drawing.Size(224, 376);
 			this.treeSettings.TabIndex = 0;
 			this.treeSettings.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeSettings_AfterSelect);
 			// 
@@ -145,7 +144,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(560, 452);
+			this.ClientSize = new System.Drawing.Size(560, 444);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnOK);
@@ -158,7 +157,6 @@
 			this.Load += new System.EventHandler(this.FrmSettings_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.splitContainer1.Panel1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			this.ResumeLayout(false);
 

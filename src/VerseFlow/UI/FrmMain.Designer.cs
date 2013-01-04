@@ -51,10 +51,8 @@ namespace VerseFlow.UI
 			this.tsAbout = new System.Windows.Forms.ToolStripButton();
 			this.button3 = new System.Windows.Forms.Button();
 			this.button4 = new System.Windows.Forms.Button();
-			this.button5 = new System.Windows.Forms.Button();
-			this.textBoxSQL = new System.Windows.Forms.TextBox();
-			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
 			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
 			this.statusStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -266,41 +264,6 @@ namespace VerseFlow.UI
 			this.button4.UseVisualStyleBackColor = true;
 			this.button4.Click += new System.EventHandler(this.button4_Click);
 			// 
-			// button5
-			// 
-			this.button5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.button5.Location = new System.Drawing.Point(420, 279);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(75, 23);
-			this.button5.TabIndex = 15;
-			this.button5.Text = "Select";
-			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
-			// 
-			// textBoxSQL
-			// 
-			this.textBoxSQL.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.textBoxSQL.Location = new System.Drawing.Point(504, 282);
-			this.textBoxSQL.Multiline = true;
-			this.textBoxSQL.Name = "textBoxSQL";
-			this.textBoxSQL.Size = new System.Drawing.Size(281, 84);
-			this.textBoxSQL.TabIndex = 16;
-			this.textBoxSQL.Text = "SELECT versetext FROM BibleContent WHERE versetext LIKE \'%ибо%\'\r\n";
-			// 
-			// verseView1
-			// 
-			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(390, 0);
-			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.verseView1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.verseView1.Font = new System.Drawing.Font("Consolas", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.verseView1.HighlightText = null;
-			this.verseView1.Location = new System.Drawing.Point(0, 52);
-			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(391, 393);
-			this.verseView1.TabIndex = 1;
-			// 
 			// splitter1
 			// 
 			this.splitter1.Location = new System.Drawing.Point(391, 52);
@@ -309,14 +272,26 @@ namespace VerseFlow.UI
 			this.splitter1.TabIndex = 17;
 			this.splitter1.TabStop = false;
 			// 
+			// verseView1
+			// 
+			this.verseView1.AutoScroll = true;
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(390, 0);
+			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
+			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.verseView1.Dock = System.Windows.Forms.DockStyle.Left;
+			this.verseView1.Font = new System.Drawing.Font("Trebuchet MS", 11F);
+			this.verseView1.HighlightText = null;
+			this.verseView1.Location = new System.Drawing.Point(0, 52);
+			this.verseView1.Name = "verseView1";
+			this.verseView1.Size = new System.Drawing.Size(391, 393);
+			this.verseView1.TabIndex = 1;
+			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(812, 467);
 			this.Controls.Add(this.splitter1);
-			this.Controls.Add(this.textBoxSQL);
-			this.Controls.Add(this.button5);
 			this.Controls.Add(this.verseView1);
 			this.Controls.Add(this.button4);
 			this.Controls.Add(this.button3);
@@ -368,8 +343,6 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.ToolStripStatusLabel statBugLnk;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
-		private System.Windows.Forms.Button button5;
-		private System.Windows.Forms.TextBox textBoxSQL;
 		private System.Windows.Forms.Splitter splitter1;
 
 	}

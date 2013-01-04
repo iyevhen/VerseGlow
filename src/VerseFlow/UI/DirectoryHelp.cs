@@ -15,7 +15,7 @@ namespace VerseFlow.UI
 				var name = Path.GetFileName(file);
 
 				if (name != null && name.Equals(fileName, StringComparison.OrdinalIgnoreCase))
-					return name;
+					return file;
 			}
 
 			return null;
