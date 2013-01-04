@@ -106,6 +106,8 @@
 			this.txtPreview.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.txtPreview.Size = new System.Drawing.Size(394, 54);
 			this.txtPreview.TabIndex = 0;
+			this.txtPreview.Text = "You can download modules from:\r\n\r\n1. http://bqt.ru/Katalog\r\n2. http://www.ph4.ru/" +
+    "b4_index.ph4";
 			// 
 			// cmbEnc
 			// 

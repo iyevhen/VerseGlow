@@ -170,6 +170,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\1357332757_cctv_camera.png" />
+    <None Include="Resources\1357332601_find.png" />
+    <None Include="Resources\1357332308_resultset_next.png" />
+    <None Include="Resources\1357332164_resultset_previous.png" />
+    <None Include="Resources\1357332100_bullet_back.png" />
+    <None Include="Resources\1357332047_text_list_bullets.png" />
+    <None Include="Resources\1357330836_cctv_camera.png" />
     <None Include="Resources\1357146159_billiard_marker.png" />
     <None Include="Resources\1357146337_find.png" />
     <None Include="Resources\1357146137_color_swatch.png" />

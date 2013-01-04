@@ -8,6 +8,12 @@ namespace VerseFlow.UI
 {
 	public partial class FrmMain : Form
 	{
+		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
+		private static readonly string[] delimiters = new[] { " ", "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
+		private static long delim;
+		private IDisplay display;
+		private bool biblesLoaded;
+
 		public FrmMain()
 		{
 			InitializeComponent();
@@ -18,39 +24,19 @@ namespace VerseFlow.UI
 			delim = 0;
 			var strings = new List<string>();
 
-			if (!string.IsNullOrEmpty(textBoxPath.Text) && File.Exists(textBoxPath.Text))
+
+			int count;
+			if (!int.TryParse(textBox1.Text, out count))
+				textBox1.Text = "NOT VALID VALUE";
+
+			int maxVerse;
+			if (!int.TryParse(textBox2.Text, out maxVerse))
+				textBox1.Text = "NOT VALID VALUE";
+
+			for (int i = 0; i < count; i++)
 			{
-
-				using (var reader = new StreamReader(textBoxPath.Text))
-				{
-					int i = 1;
-					while (!reader.EndOfStream)
-					{
-						string line = reader.ReadLine();
-						if (line != null)
-						{
-							strings.Add(string.Format("{0}. {1}", i, line));
-							i++;
-						}
-					}
-				}
-
-			}
-			else
-			{
-				int count;
-				if (!int.TryParse(textBox1.Text, out count))
-					textBox1.Text = "NOT VALID VALUE";
-
-				int maxVerse;
-				if (!int.TryParse(textBox2.Text, out maxVerse))
-					textBox1.Text = "NOT VALID VALUE";
-
-				for (int i = 0; i < count; i++)
-				{
-					string randomString = RandomString(random.Next(2, maxVerse));
-					strings.Add(string.Format("{0}_{1}", i, randomString));
-				}
+				string randomString = RandomString(random.Next(2, maxVerse));
+				strings.Add(string.Format("{0}_{1}", i, randomString));
 			}
 
 			Populate(strings);
@@ -64,7 +50,8 @@ namespace VerseFlow.UI
 				"新約全書", 
 				"«алдыњда кубанычка бљлљйсєњ турасыњар Силердин жаныњардан асманга кљтљрєлєп кеткен бул Ыйса, љзєњљр кљргљндљй, асманга кандай кљтљрєлєп кетсе, ошондой эле кайра келет»",
 				"Покај се, дакле! Ако ли не, доћи ћу ти скоро и војеваћу с њима мачем уста својих.",
-				"הָאַהֲבָה לֹא־תֶחְדַּל לָנֶצַח אַף כִּי־נְבוּאוֹת תִּכְלֶינָה וּלְשֹׁנוֹת תִּכָּחַדְנָה וְדַעַת אֵין־עוֹד"
+				"הָאַהֲבָה לֹא־תֶחְדַּל לָנֶצַח אַף כִּי־נְבוּאוֹת תִּכְלֶינָה וּלְשֹׁנוֹת תִּכָּחַדְנָה וְדַעַת אֵין־עוֹד",
+				"ԱՍՏՈՒԱԾԱՇՈՒՆՉ"
 			});
 		}
 
@@ -73,15 +60,10 @@ namespace VerseFlow.UI
 			verseView1.Fill(strings);
 		}
 
-		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
-		private static readonly string[] delimiters = new[] { " ", "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
-		private static long delim;
-		private IDisplay display;
-		private bool biblesLoaded;
-
 		private string RandomString(int size)
 		{
 			var builder = new StringBuilder();
+
 			for (int i = 0; i < size; i++)
 			{
 				char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
@@ -93,13 +75,9 @@ namespace VerseFlow.UI
 					delim++;
 
 					builder.Append(delimiters[delim % (delimiters.Length - 1)]);
-
-					//					if ((_break % 2) == 0)
-					//						builder.Append(' ');
-					//					else
-					//						builder.Append('\n');
 				}
 			}
+
 			builder.Append(" END!");
 
 			return builder.ToString();
@@ -113,20 +91,6 @@ namespace VerseFlow.UI
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
 			Text = string.Format("{0} - v{1}", AppGlobal.AppName, AppGlobal.AppVersion);
-
-			if (AppGlobal.BiblesFolderExists)
-			{
-				foreach (string file in Directory.GetFiles(AppGlobal.BiblesFolder))
-				{
-					var item = tsBibles.DropDownItems.Add(Path.GetFileNameWithoutExtension(file));
-					item.Click += OpenBibleHandler;
-				}
-			}
-		}
-
-		private void OpenBibleHandler(object sender, EventArgs e)
-		{
-			MessageBox.Show("Open bible");
 		}
 
 		private void tsAbout_Click(object sender, EventArgs e)
@@ -160,10 +124,6 @@ namespace VerseFlow.UI
 			}
 		}
 
-		private void button5_Click(object sender, EventArgs e)
-		{
-		}
-
 		private void tsBibles_DropDownOpening(object sender, EventArgs e)
 		{
 			if (!biblesLoaded)
@@ -186,9 +146,9 @@ namespace VerseFlow.UI
 
 			if (item != null && item.Tag != null)
 			{
-				var bible = (Bible) item.Tag;
+				var bible = (Bible)item.Tag;
 				Populate(bible.ReadAllVerses());
-//				Populate(bible.ReadBookNames());
+//								Populate(bible.ReadBookNames());
 			}
 		}
 	}

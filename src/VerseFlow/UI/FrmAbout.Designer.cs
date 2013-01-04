@@ -28,23 +28,10 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.lblInfo = new System.Windows.Forms.Label();
 			this.btnOK = new System.Windows.Forms.Button();
 			this.lnkCheckNewVersion = new System.Windows.Forms.LinkLabel();
+			this.txtAbout = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
-			// 
-			// lblInfo
-			// 
-			this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblInfo.Location = new System.Drawing.Point(12, 22);
-			this.lblInfo.Name = "lblInfo";
-			this.lblInfo.Size = new System.Drawing.Size(388, 159);
-			this.lblInfo.TabIndex = 0;
-			this.lblInfo.Text = "This is a free software.\r\n\r\nIcons are taken from - http://www.fatcow.com/free-ico" +
-    "ns\r\n\r\nIf you some suggestions on how to make this app better please contact via " +
-    "verseflow@gmail.com\r\n\r\n";
 			// 
 			// btnOK
 			// 
@@ -67,15 +54,30 @@
 			this.lnkCheckNewVersion.TabStop = true;
 			this.lnkCheckNewVersion.Text = "Check for new version...";
 			// 
+			// txtAbout
+			// 
+			this.txtAbout.AcceptsReturn = true;
+			this.txtAbout.AcceptsTab = true;
+			this.txtAbout.Location = new System.Drawing.Point(15, 34);
+			this.txtAbout.Multiline = true;
+			this.txtAbout.Name = "txtAbout";
+			this.txtAbout.ReadOnly = true;
+			this.txtAbout.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.txtAbout.Size = new System.Drawing.Size(385, 108);
+			this.txtAbout.TabIndex = 3;
+			this.txtAbout.Text = "This is a free software.\r\n\r\nIcons are taken from - http://www.fatcow.com/free-ico" +
+    "ns\r\n\r\nIf you some suggestions on how to make this app better please contact via " +
+    "verseflow@gmail.com\r\n";
+			// 
 			// FrmAbout
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnOK;
 			this.ClientSize = new System.Drawing.Size(412, 231);
+			this.Controls.Add(this.txtAbout);
 			this.Controls.Add(this.lnkCheckNewVersion);
 			this.Controls.Add(this.btnOK);
-			this.Controls.Add(this.lblInfo);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -90,8 +92,8 @@
 
 		#endregion
 
-		private System.Windows.Forms.Label lblInfo;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.LinkLabel lnkCheckNewVersion;
+		private System.Windows.Forms.TextBox txtAbout;
 	}
 }

@@ -112,26 +112,32 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="1357332100_bullet_back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357332100_bullet_back.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1357330836_cctv_camera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357330836_cctv_camera.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="1357146337_find" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1357146337_find.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1357144059_bug" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1357144059_bug.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1355132176_ru" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1355132176_ru.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1357146137_color_swatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1357146137_color_swatch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1357332308_resultset_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357332308_resultset_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1357145973_font" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1357145973_font.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1357332047_text_list_bullets" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357332047_text_list_bullets.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1355132176_ru" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1355132176_ru.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1355132156_ua" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1355132156_ua.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,7 +145,23 @@
   <data name="1357146159_billiard_marker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1357146159_billiard_marker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-	<data name="SelectBibleQuoteBibleFolder" xml:space="preserve">
+  <data name="1357332601_find" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357332601_find.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1357332164_resultset_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357332164_resultset_previous.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectBibleQuoteBibleFolder" xml:space="preserve">
     <value>Please select folder where BibleQuote Bible module is located</value>
+  </data>
+  <data name="1357146137_color_swatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357146137_color_swatch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1357144059_bug" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357144059_bug.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="1357332757_cctv_camera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1357332757_cctv_camera.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
