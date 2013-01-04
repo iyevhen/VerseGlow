@@ -188,6 +188,7 @@ namespace VerseFlow.UI
 			{
 				var bible = (Bible) item.Tag;
 				Populate(bible.ReadAllVerses());
+//				Populate(bible.ReadBookNames());
 			}
 		}
 	}

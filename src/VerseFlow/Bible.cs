@@ -73,5 +73,31 @@ namespace VerseFlow
 
 			return result;
 		}
+
+		public List<string> ReadBookNames()
+		{
+			var result = new List<string>();
+
+			using (var stream = new StreamReader(file, false))
+			{
+				using (XmlReader reader = XmlReader.Create(stream))
+				{
+					while (reader.Read())
+					{
+						if (reader.IsStartElement())
+						{
+							if (reader.Name == "book")
+							{
+//								string id = reader["name"];
+								result.Add(reader["name"]);
+//								result.Add(reader["ref"].Substring(0, 3));
+							}
+						}
+					}
+				}
+			}
+
+			return result;
+		}
 	}
 }
