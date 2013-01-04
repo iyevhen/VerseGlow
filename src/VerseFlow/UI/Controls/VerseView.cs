@@ -95,7 +95,7 @@ namespace VerseFlow.UI.Controls
 					recalcVerses = false;
 
 					sw1.Stop();
-					Debug.WriteLine("REFRESHED in {0} - Size - {1}", sw1.Elapsed, AutoScrollMinSize);
+					Debug.WriteLine(string.Format("REFRESHED in {0} - Size - {1}", sw1.Elapsed, AutoScrollMinSize));
 				}
 
 				Stopwatch sw2 = Stopwatch.StartNew();
@@ -103,7 +103,7 @@ namespace VerseFlow.UI.Controls
 				DoPaint(e.Graphics, rect);
 
 				sw2.Stop();
-				Debug.WriteLine("Painted in {0}", sw2.Elapsed);
+				Debug.WriteLine(string.Format("Painted in {0}", sw2.Elapsed));
 			}
 
 			base.OnPaint(e);

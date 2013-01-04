@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VerseFlow</RootNamespace>
     <AssemblyName>VerseFlow</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>pid.ico</ApplicationIcon>
@@ -74,6 +75,7 @@
     <Compile Include="UI\Controls\VerseRect\BibleBookRect.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\DirectoryHelp.cs" />
     <Compile Include="UI\FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>

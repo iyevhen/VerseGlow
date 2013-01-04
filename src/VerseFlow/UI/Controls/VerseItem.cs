@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
+
 
 namespace VerseFlow.UI.Controls
 {
@@ -34,7 +34,10 @@ namespace VerseFlow.UI.Controls
 
 		public IEnumerable<string> EnumLines()
 		{
-			return lineIdx.Select((index, i) => text.Substring(index, lineLen[i]));
+			for (int i = 0; i < lineIdx.Count; i++)
+			{
+				yield return text.Substring(lineIdx[i], lineLen[i]);
+			}
 		}
 
 		public void DropLines()

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using VerseFlow.Core.Import.BibleQuote;
@@ -97,21 +92,19 @@ namespace VerseFlow.UI
 			string folder = txtFolder.Text;
 			inifile = null;
 
-			if (Directory.Exists(folder) &&
-				(inifile = Directory.EnumerateFiles(folder).FirstOrDefault(
-							  f =>
-							  {
-								  var name = Path.GetFileName(f);
-								  return name != null && name.Equals(BibleQuoteIni.INI, StringComparison.OrdinalIgnoreCase);
-							  })) != null)
+			if (Directory.Exists(folder))
 			{
-				btnImport.Enabled = true;
-				Preview();
+				inifile = DirectoryHelp.GetFile(folder, BibleQuoteIni.INI);
+
+				if (inifile != null)
+				{
+					btnImport.Enabled = true;
+					Preview();
+					return;
+				}
 			}
-			else
-			{
-				btnImport.Enabled = false;
-			}
+
+			btnImport.Enabled = false;
 		}
 
 		private void btnBrowse_Click(object sender, EventArgs e)

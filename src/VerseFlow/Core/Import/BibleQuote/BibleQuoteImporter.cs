@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
+using VerseFlow.UI;
 
 namespace VerseFlow.Core.Import.BibleQuote
 {
@@ -16,8 +15,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			if (!Directory.Exists(fromFolderPath))
 				throw new DirectoryNotFoundException(fromFolderPath);
 
-			string inifile = Directory.EnumerateFiles(fromFolderPath)
-									  .FirstOrDefault(file => Path.GetFileName(file).Equals(BibleQuoteIni.INI, StringComparison.OrdinalIgnoreCase));
+			string inifile = DirectoryHelp.GetFile(fromFolderPath, BibleQuoteIni.INI);
 
 			if (string.IsNullOrEmpty(inifile))
 				throw new BibleQuoteImportException(string.Format("Expected to find '{0}' file in '{1}'", BibleQuoteIni.INI, fromFolderPath));
@@ -25,7 +23,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			var ini = new BibleQuoteIni(
 					Path.GetDirectoryName(inifile),
 					encoding,
-					File.ReadLines(inifile, encoding));
+					File.ReadAllLines(inifile, encoding));
 
 			return ImportImpl(ini);
 		}

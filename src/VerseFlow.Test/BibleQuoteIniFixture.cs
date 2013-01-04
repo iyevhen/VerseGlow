@@ -43,5 +43,11 @@ namespace VerseFlow.Test
 		{
 			Assert.AreEqual("verse text goes here", ini.Verse(@"123.@ # verse text goes here		"));
 		}
+
+		[Test]
+		public void Verse_replaces_anpersant_quote()
+		{
+			Assert.AreEqual("\"verse\" text goes here		\"", ini.Verse(@"&quot;verse&quot; text goes here		&quot;"));
+		}
 	}
 }
