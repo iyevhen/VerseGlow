@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppGlobal.cs" />
+    <Compile Include="Bible.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteBibleImporter.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteBook.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteImporter.cs" />

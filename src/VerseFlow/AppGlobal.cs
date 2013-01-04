@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Xml;
 
 namespace VerseFlow
 {
@@ -71,32 +70,14 @@ namespace VerseFlow
 			get { return Directory.Exists(BiblesFolder); }
 		}
 
-		public static IEnumerable<string> Bibles()
+		public static IEnumerable<Bible> Bibles()
 		{
-			var names = new List<string>();
+			var bibles = new List<Bible>();
 
 			foreach (string file in Directory.EnumerateFiles(AppDataFolder, "Bible_*.xml"))
-			{
-				using (var s = new StreamReader(file, false))
-				{
-					using (XmlReader reader = XmlReader.Create(s))
-					{
-						while (reader.Read())
-						{
-							if (reader.IsStartElement())
-							{
-								if (reader.Name == "bible")
-								{
-									names.Add(reader["name"]);
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
+				bibles.Add(new Bible(file));
 
-			return names;
+			return bibles;
 		}
 	}
 }

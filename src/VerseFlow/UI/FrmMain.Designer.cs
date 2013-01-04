@@ -54,6 +54,7 @@ namespace VerseFlow.UI
 			this.button5 = new System.Windows.Forms.Button();
 			this.textBoxSQL = new System.Windows.Forms.TextBox();
 			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
+			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.statusStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -300,11 +301,20 @@ namespace VerseFlow.UI
 			this.verseView1.Size = new System.Drawing.Size(391, 393);
 			this.verseView1.TabIndex = 1;
 			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(391, 52);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(3, 393);
+			this.splitter1.TabIndex = 17;
+			this.splitter1.TabStop = false;
+			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(812, 467);
+			this.Controls.Add(this.splitter1);
 			this.Controls.Add(this.textBoxSQL);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.verseView1);
@@ -360,6 +370,7 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.TextBox textBoxSQL;
+		private System.Windows.Forms.Splitter splitter1;
 
 	}
 }

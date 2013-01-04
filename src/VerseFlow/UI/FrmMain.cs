@@ -168,12 +168,26 @@ namespace VerseFlow.UI
 		{
 			if (!biblesLoaded)
 			{
-				foreach (string bibleName in AppGlobal.Bibles())
+				foreach (Bible bible in AppGlobal.Bibles())
 				{
-					tsBibles.DropDownItems.Add(new ToolStripMenuItem(bibleName));
+					var item = new ToolStripMenuItem(bible.FullName) { Tag = bible };
+					item.Click += Bible_Click;
+
+					tsBibles.DropDownItems.Add(item);
 				}
 
 				biblesLoaded = true;
+			}
+		}
+
+		void Bible_Click(object sender, EventArgs e)
+		{
+			var item = sender as ToolStripMenuItem;
+
+			if (item != null && item.Tag != null)
+			{
+				var bible = (Bible) item.Tag;
+				Populate(bible.ReadAllVerses());
 			}
 		}
 	}
