@@ -90,12 +90,13 @@ namespace VerseFlow.UI.Controls
 				if (recalcVerses)
 				{
 					Stopwatch sw1 = Stopwatch.StartNew();
-
 					RecalcVerses(rect.Height, Width - 1);
-					recalcVerses = false;
-
 					sw1.Stop();
 					Debug.WriteLine(string.Format("REFRESHED in {0} - Size - {1}", sw1.Elapsed, AutoScrollMinSize));
+
+					RecalcVerses2(rect.Height, Width - 1, e.Graphics);
+
+					recalcVerses = false;
 				}
 
 				Stopwatch sw2 = Stopwatch.StartNew();
@@ -298,6 +299,42 @@ namespace VerseFlow.UI.Controls
 			AutoScrollMinSize = new Size(visibleWidth, versesHeigth);
 		}
 
+		private void RecalcVerses2(int visibleHeight, int visibleWidth, Graphics g)
+		{
+			bool scrolled = false;
+			int versesHeigth;
+			bool recalc;
+			var charWidthDict = new Dictionary<char, int>();
+
+			recalc = false;
+			versesHeigth = 0;
+
+			var sw = Stopwatch.StartNew();
+
+			for (int i = 0; i < allverses.Count; i++)
+			{
+				VerseItem verse = allverses[i];
+//				verse.DropLines();
+
+				foreach (Char c in verse.Text)
+				{
+					int cwidth;
+
+					if (!charWidthDict.TryGetValue(c, out cwidth))
+					{
+						cwidth = TextRenderer.MeasureText(g, new string(c, 1), Font).Width;
+						charWidthDict.Add(c, cwidth);
+					}
+				}
+			}
+
+			sw.Stop();
+
+			Debug.WriteLine(string.Format("Time taken to recalculate={0}, total chars={1}", sw.Elapsed, charWidthDict.Count));
+
+//			AutoScrollMinSize = new Size(visibleWidth, versesHeigth);
+		}
+
 		protected override void OnMouseWheel(MouseEventArgs e)
 		{
 			base.OnMouseWheel(e);
@@ -339,11 +376,11 @@ namespace VerseFlow.UI.Controls
 				base.Font = value;
 
 				//check monospace font
-				SizeF sizeM = GetCharSize(base.Font, 'M');
-				SizeF sizeDot = GetCharSize(base.Font, '.');
+//				SizeF sizeM = GetCharSize(base.Font, 'M');
+//				SizeF sizeDot = GetCharSize(base.Font, '.');
 
-//				if (sizeM != sizeDot)
-//					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
+				//				if (sizeM != sizeDot)
+				//					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
 
 				SizeF size = GetCharSize(base.Font, 'M');
 

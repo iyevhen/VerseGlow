@@ -35,11 +35,6 @@ namespace VerseFlow.UI
 			foreach (EncodingInfoEx ei in infos2)
 				ei.SetPadding(padding);
 
-			//			Array.Sort(infos2, (i1, i2) => String.Compare(i1.DisplayNameEx, i2.DisplayNameEx, StringComparison.Ordinal));
-
-			//			cmbEnc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-			//			cmbEnc.AutoCompleteSource = AutoCompleteSource.ListItems;
-
 			cmbEnc.DataSource = infos2;
 			cmbEnc.DisplayMember = "DisplayNameEx";
 

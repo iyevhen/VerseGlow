@@ -74,8 +74,11 @@ namespace VerseFlow
 		{
 			var bibles = new List<Bible>();
 
-			foreach (string file in Directory.GetFiles(AppDataFolder, "Bible_*.xml"))
-				bibles.Add(new Bible(file));
+			if (Directory.Exists(AppDataFolder))
+			{
+				foreach (string file in Directory.GetFiles(AppDataFolder, "Bible_*.xml"))
+					bibles.Add(new Bible(file));
+			}
 
 			return bibles;
 		}

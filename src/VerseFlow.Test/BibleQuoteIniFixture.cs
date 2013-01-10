@@ -39,6 +39,14 @@ namespace VerseFlow.Test
 		}
 
 		[Test]
+		public void Verse_trimmes_non_letters_from_the_beginning_except_for_specific()
+		{
+			Assert.AreEqual("«verse text goes here", ini.Verse(@" «verse text goes here"));
+			Assert.AreEqual("\"verse text goes here", ini.Verse(" \"verse text goes here"));
+			Assert.AreEqual("- verse text goes here", ini.Verse(" : verse text goes here"));
+		}
+
+		[Test]
 		public void Verse_trimmes_end()
 		{
 			Assert.AreEqual("verse text goes here", ini.Verse(@"123.@ # verse text goes here		"));
