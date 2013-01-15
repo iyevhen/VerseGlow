@@ -329,7 +329,7 @@ namespace VerseFlow.UI
 			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
 			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = new System.Drawing.Font("Consolas", 11F);
+			this.verseView1.Font = new System.Drawing.Font("Trebuchet MS", 12F);
 			this.verseView1.HighlightText = null;
 			this.verseView1.Location = new System.Drawing.Point(0, 25);
 			this.verseView1.Name = "verseView1";

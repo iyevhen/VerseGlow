@@ -18,8 +18,8 @@ namespace VerseFlow.UI.Controls
 
 		private readonly Color highlightLightenColor;
 		private SolidBrush backColorBrush;
-		private int charHeight;
-		private int charWidth;
+		private int monoCharHeight;
+		private int monoCharWidth;
 		private Pen linePen;
 		private bool recalcVerses;
 		private int paintedWidth;
@@ -94,7 +94,7 @@ namespace VerseFlow.UI.Controls
 					sw1.Stop();
 					Debug.WriteLine(string.Format("REFRESHED in {0} - Size - {1}", sw1.Elapsed, AutoScrollMinSize));
 
-					RecalcVerses2(rect.Height, Width - 1, e.Graphics);
+					RecalcVerses2(rect.Height, Width - 1 - SystemInformation.VerticalScrollBarWidth, e.Graphics);
 
 					recalcVerses = false;
 				}
@@ -177,7 +177,7 @@ namespace VerseFlow.UI.Controls
 					foreach (string line in verse.EnumLines())
 					{
 						TextRenderer.DrawText(graph, line, Font, point, SystemColors.HighlightText);
-						point.Y += charHeight;
+						point.Y += monoCharHeight;
 					}
 
 					graph.DrawRectangle(SystemPens.Highlight, r);
@@ -192,7 +192,7 @@ namespace VerseFlow.UI.Controls
 						{
 							int linelen = line.Length;
 							int lightlen = highlightText.Length;
-							int lightwidth = lightlen * charWidth;
+							int lightwidth = lightlen * monoCharWidth;
 							int cur = 0;
 
 							while (cur < linelen)
@@ -203,7 +203,7 @@ namespace VerseFlow.UI.Controls
 								{
 									int normal = found - cur;
 									TextRenderer.DrawText(graph, line.Substring(cur, normal), Font, point, SystemColors.ControlText);
-									point.X += (normal * charWidth);
+									point.X += (normal * monoCharWidth);
 
 									TextRenderer.DrawText(graph, line.Substring(found, lightlen), Font, point, Color.Red, Color.LightPink);
 									point.X += lightwidth;
@@ -217,13 +217,13 @@ namespace VerseFlow.UI.Controls
 								}
 							}
 
-							point.Y += charHeight;
+							point.Y += monoCharHeight;
 							point.X = 0;
 						}
 						else
 						{
 							TextRenderer.DrawText(graph, line, Font, point, SystemColors.ControlText);
-							point.Y += charHeight;
+							point.Y += monoCharHeight;
 						}
 					}
 
@@ -245,7 +245,7 @@ namespace VerseFlow.UI.Controls
 			{
 				recalc = false;
 				versesHeigth = 0;
-				int charsInLine = (visibleWidth / charWidth) - 1;
+				int charsInLine = (visibleWidth / monoCharWidth) - 1;
 
 				if (charsInLine == 0)
 					return;
@@ -267,21 +267,21 @@ namespace VerseFlow.UI.Controls
 						{
 							int count = (idx - start);
 
-							verse.NewLine(start, count, charHeight);
+							verse.NewLine(start, count, monoCharHeight);
 							count++;
 							start += count;
 							marker += count;
 						}
 						else
 						{
-							verse.NewLine(start, charsInLine, charHeight);
+							verse.NewLine(start, charsInLine, monoCharHeight);
 							start += charsInLine;
 							marker += charsInLine;
 						}
 					}
 
 					if (end > start)
-						verse.NewLine(start, end - start, charHeight);
+						verse.NewLine(start, end - start, monoCharHeight);
 
 					versesHeigth += verse.Height;
 
@@ -304,27 +304,81 @@ namespace VerseFlow.UI.Controls
 			bool scrolled = false;
 			int versesHeigth;
 			bool recalc;
+
 			var charWidthDict = new Dictionary<char, int>();
+			int lineHeight = 0;
+			int lineWidth = 0;
+
+			int spaceIndex = 0;
+			int lineWidthLastSpace = 0;
 
 			recalc = false;
 			versesHeigth = 0;
+
+			const TextFormatFlags tff = TextFormatFlags.NoClipping
+			                            | TextFormatFlags.NoFullWidthCharacterBreak
+			                            | TextFormatFlags.NoPadding
+			                            | TextFormatFlags.NoPrefix;
 
 			var sw = Stopwatch.StartNew();
 
 			for (int i = 0; i < allverses.Count; i++)
 			{
 				VerseItem verse = allverses[i];
-//				verse.DropLines();
+				verse.DropLines();
 
-				foreach (Char c in verse.Text)
+				int start = 0;
+				int end = verse.Text.Length;
+				int j;
+
+				for (j = 0; j < end; j++)
 				{
-					int cwidth;
+					char c = verse.Text[j];
+					int charWidth;
 
-					if (!charWidthDict.TryGetValue(c, out cwidth))
+					if (!charWidthDict.TryGetValue(c, out charWidth))
 					{
-						cwidth = TextRenderer.MeasureText(g, new string(c, 1), Font).Width;
-						charWidthDict.Add(c, cwidth);
+						Size size = TextRenderer.MeasureText(g, new string(c, 1), Font, new Size(), tff);
+
+						charWidth = size.Width;
+						charWidthDict.Add(c, charWidth);
+
+						if (lineHeight < size.Height)
+							lineHeight = size.Height;
 					}
+
+					if (c == ' ')
+					{
+						spaceIndex = j;
+					}
+
+					lineWidth += charWidth;
+
+					if (lineWidth >= visibleWidth)
+					{
+//						Size s = TextRenderer.MeasureText(g, verse.Text.Substring(start, j - start), Font);
+//						Debug.Assert(s.Width == lineWidth);
+
+						if (spaceIndex == 0)
+						{
+							verse.NewLine(start, j - start, lineHeight);
+							start = j;
+						}
+						else
+						{
+							verse.NewLine(start, spaceIndex - start, lineHeight);
+							j = spaceIndex;
+							start = spaceIndex;
+						}
+
+						spaceIndex = 0;
+						lineWidth = 0;
+					}
+				}
+
+				if (lineWidth > 0)
+				{
+					verse.NewLine(start, j - start, lineHeight);
 				}
 			}
 
@@ -332,7 +386,7 @@ namespace VerseFlow.UI.Controls
 
 			Debug.WriteLine(string.Format("Time taken to recalculate={0}, total chars={1}", sw.Elapsed, charWidthDict.Count));
 
-//			AutoScrollMinSize = new Size(visibleWidth, versesHeigth);
+			//			AutoScrollMinSize = new Size(visibleWidth, versesHeigth);
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
@@ -376,16 +430,16 @@ namespace VerseFlow.UI.Controls
 				base.Font = value;
 
 				//check monospace font
-//				SizeF sizeM = GetCharSize(base.Font, 'M');
-//				SizeF sizeDot = GetCharSize(base.Font, '.');
+				//				SizeF sizeM = GetCharSize(base.Font, 'M');
+				//				SizeF sizeDot = GetCharSize(base.Font, '.');
 
 				//				if (sizeM != sizeDot)
 				//					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
 
 				SizeF size = GetCharSize(base.Font, 'M');
 
-				charWidth = (int)(size.Width);
-				charHeight = (int)(size.Height);
+				monoCharWidth = (int)(size.Width);
+				monoCharHeight = (int)(size.Height);
 
 				recalcVerses = true;
 				Invalidate();

@@ -22,13 +22,13 @@ namespace VerseFlow.UI.Controls
 			return y <= point.Y && y + height >= point.Y;
 		}
 
-		public void NewLine(int index, int count, int lineHeight)
+		public void NewLine(int fromIndex, int lineLength, int lineHeight)
 		{
-			if (index == 0 && count == 0)
+			if (fromIndex == 0 && lineLength == 0)
 				return;
 
-			lineIdx.Add(index);
-			lineLen.Add(count);
+			lineIdx.Add(fromIndex);
+			lineLen.Add(lineLength);
 			height += lineHeight;
 		}
 
