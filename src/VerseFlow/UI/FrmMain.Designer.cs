@@ -55,13 +55,13 @@ namespace VerseFlow.UI
 			this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
 			this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripSplitButton();
-			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
 			this.pnlSource = new System.Windows.Forms.Panel();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.toolStrip3 = new System.Windows.Forms.ToolStrip();
 			this.toolStrip4 = new System.Windows.Forms.ToolStrip();
 			this.tsLive = new System.Windows.Forms.ToolStripButton();
+			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
 			this.statusStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.toolStrip2.SuspendLayout();
@@ -322,20 +322,6 @@ namespace VerseFlow.UI
 			this.toolStripSplitButton2.Size = new System.Drawing.Size(32, 22);
 			this.toolStripSplitButton2.Text = "toolStripSplitButton2";
 			// 
-			// verseView1
-			// 
-			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(378, 0);
-			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = new System.Drawing.Font("Trebuchet MS", 12F);
-			this.verseView1.HighlightText = null;
-			this.verseView1.Location = new System.Drawing.Point(0, 25);
-			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(379, 490);
-			this.verseView1.TabIndex = 1;
-			// 
 			// pnlSource
 			// 
 			this.pnlSource.Controls.Add(this.verseView1);
@@ -411,6 +397,20 @@ namespace VerseFlow.UI
 			this.tsLive.Name = "tsLive";
 			this.tsLive.Size = new System.Drawing.Size(48, 22);
 			this.tsLive.Text = "LIVE";
+			// 
+			// verseView1
+			// 
+			this.verseView1.AutoScroll = true;
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(347, 0);
+			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
+			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.verseView1.Font = new System.Drawing.Font("Segoe UI", 13F);
+			this.verseView1.HighlightText = null;
+			this.verseView1.Location = new System.Drawing.Point(0, 25);
+			this.verseView1.Name = "verseView1";
+			this.verseView1.Size = new System.Drawing.Size(379, 490);
+			this.verseView1.TabIndex = 1;
 			// 
 			// FrmMain
 			// 
