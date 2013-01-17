@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\1358435985_arrow_right.png" />
     <None Include="Resources\1357332757_cctv_camera.png" />
     <None Include="Resources\1357332601_find.png" />
     <None Include="Resources\1357332308_resultset_next.png" />

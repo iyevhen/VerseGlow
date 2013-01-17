@@ -47,9 +47,9 @@ namespace VerseFlow.UI.Controls
 			height = 0;
 		}
 
-		public Rectangle Rect(int width)
+		public Rectangle Rect(int width, int x)
 		{
-			return new Rectangle(0, y, width, height);
+			return new Rectangle(x, y, width, height);
 		}
 
 		public string Text

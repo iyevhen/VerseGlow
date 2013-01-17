@@ -201,6 +201,16 @@ namespace VerseFlow.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1358435985_arrow_right {
+            get {
+                object obj = ResourceManager.GetObject("1358435985_arrow_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select folder where BibleQuote Bible module is located.
         /// </summary>
         internal static string SelectBibleQuoteBibleFolder {

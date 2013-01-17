@@ -15,11 +15,12 @@ namespace VerseFlow.UI.Controls
 		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 } };
 		private readonly List<VerseItem> visibleVerses = new List<VerseItem>();
 		private List<VerseItem> allverses = new List<VerseItem>();
+		const int xPadding = 50;
+		const int xVersePadding = 5;
 
 		private readonly Color highlightLightenColor;
 		private SolidBrush backColorBrush;
-		//		private int monoCharHeight;
-		//		private int monoCharWidth;
+		private SolidBrush paddingColorBrush;
 		private Pen linePen;
 		private bool recalcVerses;
 		private int paintedWidth;
@@ -88,26 +89,27 @@ namespace VerseFlow.UI.Controls
 				if (backColorBrush == null)
 					backColorBrush = new SolidBrush(BackColor);
 
+				if (paddingColorBrush == null)
+					paddingColorBrush = new SolidBrush(GraphicsTools.DarkenColor(BackColor, 5));
+
 				if (linePen == null)
 					linePen = new Pen(GraphicsTools.DarkenColor(BackColor, 15));
 
 				Rectangle rect = ClientRectangle;
+				Stopwatch sw = Stopwatch.StartNew();
 
 				if (recalcVerses)
 				{
-					
-//					RecalcVerses(rect.Height, Width - 1);
-					RecalcVerses(rect.Height, Width - (SystemInformation.VerticalScrollBarWidth * 2), e.Graphics);
+					Debug.WriteLine("Recalculating verses");
 
+					RecalcVerses(rect.Height, Width - (SystemInformation.VerticalScrollBarWidth * 2) - xPadding - xVersePadding, e.Graphics);
 					recalcVerses = false;
 				}
 
-				Stopwatch sw2 = Stopwatch.StartNew();
-
 				DoPaint(e.Graphics, rect);
 
-				sw2.Stop();
-				Debug.WriteLine(string.Format("Painted in {0}", sw2.Elapsed));
+				sw.Stop();
+				Debug.WriteLine(string.Format("Painted in {0}", sw.Elapsed));
 			}
 
 			base.OnPaint(e);
@@ -135,12 +137,14 @@ namespace VerseFlow.UI.Controls
 		{
 			int scrollPosY = AutoScrollPosition.Y * -1;
 
-			graph.SmoothingMode = SmoothingMode.AntiAlias;
+//			graph.SmoothingMode = SmoothingMode.AntiAlias;
+
 			graph.FillRectangle(backColorBrush, rect);
+			graph.FillRectangle(paddingColorBrush, new Rectangle(0, 0, xPadding, rect.Height));
+
 
 			int cursor = 0;
 			int y = 0;
-			const int x = 5;
 			bool visible = false;
 
 			visibleVerses.Clear();
@@ -164,13 +168,13 @@ namespace VerseFlow.UI.Controls
 					break;
 				}
 
-				var point = new Point(x, y);
+				var point = new Point(xPadding + xVersePadding, y);
 
 				if (verse.IsSelected)
 				{
 					verse.Y = point.Y;
 
-					Rectangle r = verse.Rect(rect.Width);
+					Rectangle r = verse.Rect(rect.Width, xPadding);
 
 					using (var brush = new LinearGradientBrush(r, SystemColors.Highlight, highlightLightenColor, LinearGradientMode.Vertical))
 					{
@@ -194,35 +198,35 @@ namespace VerseFlow.UI.Controls
 					{
 						if (highlight)
 						{
-							//							int linelen = line.Length;
-							//							int lightlen = highlightText.Length;
+							int linelen = line.Length;
+							int lightlen = highlightText.Length;
 							//							int lightwidth = lightlen * monoCharWidth;
-							//							int cur = 0;
-							//
-							//							while (cur < linelen)
-							//							{
-							//								int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
-							//
-							//								if (found > -1)
-							//								{
-							//									int normal = found - cur;
-							//									TextRenderer.DrawText(graph, line.Substring(cur, normal), Font, point, SystemColors.ControlText);
-							//									point.X += (normal * monoCharWidth);
-							//
-							//									TextRenderer.DrawText(graph, line.Substring(found, lightlen), Font, point, Color.Red, Color.LightPink);
-							//									point.X += lightwidth;
-							//
-							//									cur = found + lightlen;
-							//								}
-							//								else
-							//								{
-							//									TextRenderer.DrawText(graph, line.Substring(cur), Font, point, SystemColors.ControlText);
-							//									cur = linelen;
-							//								}
-							//							}
-							//
-							//							point.Y += monoCharHeight;
-							//							point.X = 0;
+							int cur = 0;
+
+							while (cur < linelen)
+							{
+								int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
+
+								if (found > -1)
+								{
+									int normal = found - cur;
+									TextRenderer.DrawText(graph, line.Substring(cur, normal), Font, point, SystemColors.ControlText);
+									//									point.X += (normal * monoCharWidth);
+
+									TextRenderer.DrawText(graph, line.Substring(found, lightlen), Font, point, Color.Red, Color.LightPink);
+									//									point.X += lightwidth;
+
+									cur = found + lightlen;
+								}
+								else
+								{
+									TextRenderer.DrawText(graph, line.Substring(cur), Font, point, SystemColors.ControlText);
+									cur = linelen;
+								}
+							}
+
+							point.Y += lineHeight;
+							point.X = 0;
 						}
 						else
 						{
@@ -254,8 +258,6 @@ namespace VerseFlow.UI.Controls
 
 			recalc = false;
 			versesHeigth = 0;
-
-			var sw = Stopwatch.StartNew();
 
 			for (int i = 0; i < allverses.Count; i++)
 			{
@@ -321,9 +323,6 @@ namespace VerseFlow.UI.Controls
 				}
 			}
 
-			sw.Stop();
-			Debug.WriteLine(string.Format("REFRESHED in {0}, total chars={1}", sw.Elapsed, charWidthDict.Count));
-
 			AutoScrollMinSize = new Size(visibleWidth, versesHeigth);
 		}
 
@@ -374,7 +373,7 @@ namespace VerseFlow.UI.Controls
 				//				if (sizeM != sizeDot)
 				//					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
 
-//				SizeF size = GetCharSize(base.Font, 'M');
+				//				SizeF size = GetCharSize(base.Font, 'M');
 
 				//				monoCharWidth = (int)(size.Width);
 				//				monoCharHeight = (int)(size.Height);
