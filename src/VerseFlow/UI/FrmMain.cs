@@ -18,42 +18,7 @@ namespace VerseFlow.UI
 		{
 			InitializeComponent();
 		}
-
-		private void button1_Click(object sender, EventArgs e)
-		{
-			delim = 0;
-			var strings = new List<string>();
-
-
-			int count;
-			if (!int.TryParse(textBox1.Text, out count))
-				textBox1.Text = "NOT VALID VALUE";
-
-			int maxVerse;
-			if (!int.TryParse(textBox2.Text, out maxVerse))
-				textBox1.Text = "NOT VALID VALUE";
-
-			for (int i = 0; i < count; i++)
-			{
-				string randomString = RandomString(random.Next(2, maxVerse));
-				strings.Add(string.Format("{0}_{1}", i, randomString));
-			}
-
-			Populate(strings);
-		}
-
-		private void button2_Click(object sender, EventArgs e)
-		{
-			Populate(new List<string>
-			{ 
-				"Ελληνική Καινή Διαθήκη δωρεαν ελάβετε, δωρεαν δότε", 
-				"新約全書", 
-				"«алдыњда кубанычка бљлљйсєњ турасыњар Силердин жаныњардан асманга кљтљрєлєп кеткен бул Ыйса, љзєњљр кљргљндљй, асманга кандай кљтљрєлєп кетсе, ошондой эле кайра келет»",
-				"Покај се, дакле! Ако ли не, доћи ћу ти скоро и војеваћу с њима мачем уста својих.",
-				"אבגדהוזחטיכךלמםנןסעפףצץקרשת",
-				"ԱՍՏՈՒԱԾԱՇՈՒՆՉ"
-			});
-		}
+		
 
 		private void Populate(List<string> strings)
 		{

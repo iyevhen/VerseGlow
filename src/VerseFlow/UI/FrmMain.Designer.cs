@@ -31,11 +31,6 @@ namespace VerseFlow.UI
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.textBoxHighlight = new System.Windows.Forms.TextBox();
 			this.buttonHightlihght = new System.Windows.Forms.Button();
@@ -48,24 +43,15 @@ namespace VerseFlow.UI
 			this.tsAbout = new System.Windows.Forms.ToolStripButton();
 			this.button3 = new System.Windows.Forms.Button();
 			this.button4 = new System.Windows.Forms.Button();
-			this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-			this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-			this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripSplitButton();
-			this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
 			this.pnlSource = new System.Windows.Forms.Panel();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip4 = new System.Windows.Forms.ToolStrip();
 			this.tsLive = new System.Windows.Forms.ToolStripButton();
 			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
-			this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip1.SuspendLayout();
-			this.toolStrip2.SuspendLayout();
 			this.pnlSource.SuspendLayout();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -73,54 +59,6 @@ namespace VerseFlow.UI
 			this.toolStrip3.SuspendLayout();
 			this.toolStrip4.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// textBox2
-			// 
-			this.textBox2.Location = new System.Drawing.Point(324, 75);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(57, 20);
-			this.textBox2.TabIndex = 6;
-			this.textBox2.Text = "300";
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label2.Location = new System.Drawing.Point(200, 78);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(126, 13);
-			this.label2.TabIndex = 4;
-			this.label2.Text = "blocks with max length = ";
-			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(137, 73);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(57, 20);
-			this.textBox1.TabIndex = 3;
-			this.textBox1.Text = "10000";
-			// 
-			// button2
-			// 
-			this.button2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.button2.Location = new System.Drawing.Point(16, 102);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(141, 23);
-			this.button2.TabIndex = 2;
-			this.button2.Text = "Other Languages";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
-			// 
-			// button1
-			// 
-			this.button1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.button1.Location = new System.Drawing.Point(16, 73);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(111, 23);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "Populate";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// statusStrip1
 			// 
@@ -254,90 +192,18 @@ namespace VerseFlow.UI
 			this.button4.UseVisualStyleBackColor = true;
 			this.button4.Click += new System.EventHandler(this.button4_Click);
 			// 
-			// toolStrip2
-			// 
-			this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton2,
-            this.toolStripButton1,
-            this.toolStripSplitButton1,
-            this.toolStripDropDownButton1,
-            this.toolStripSplitButton2,
-            this.toolStripButton4});
-			this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip2.Name = "toolStrip2";
-			this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip2.Size = new System.Drawing.Size(379, 25);
-			this.toolStrip2.TabIndex = 18;
-			this.toolStrip2.Text = "toolStrip2";
-			// 
-			// toolStripButton2
-			// 
-			this.toolStripButton2.Image = global::VerseFlow.Properties.Resources._1357332601_find;
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(47, 22);
-			this.toolStripButton2.Text = "Find";
-			// 
-			// toolStripButton1
-			// 
-			this.toolStripButton1.Image = global::VerseFlow.Properties.Resources._1357332047_text_list_bullets;
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(71, 22);
-			this.toolStripButton1.Text = "Contents";
-			// 
-			// toolStripSplitButton1
-			// 
-			this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripSplitButton1.Image = global::VerseFlow.Properties.Resources._1357332164_resultset_previous;
-			this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-			this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
-			this.toolStripSplitButton1.Text = "toolStripSplitButton1";
-			// 
-			// toolStripDropDownButton1
-			// 
-			this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-			this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-			this.toolStripDropDownButton1.Size = new System.Drawing.Size(48, 22);
-			this.toolStripDropDownButton1.Text = "BOOK";
-			// 
-			// toolStripSplitButton2
-			// 
-			this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripSplitButton2.Image = global::VerseFlow.Properties.Resources._1357332308_resultset_next;
-			this.toolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripSplitButton2.Name = "toolStripSplitButton2";
-			this.toolStripSplitButton2.Size = new System.Drawing.Size(32, 22);
-			this.toolStripSplitButton2.Text = "toolStripSplitButton2";
-			// 
-			// toolStripButton4
-			// 
-			this.toolStripButton4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripButton4.Image = global::VerseFlow.Properties.Resources._1358435985_arrow_right;
-			this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton4.Name = "toolStripButton4";
-			this.toolStripButton4.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-			this.toolStripButton4.Size = new System.Drawing.Size(75, 22);
-			this.toolStripButton4.Text = "Preview";
-			// 
 			// pnlSource
 			// 
 			this.pnlSource.Controls.Add(this.verseView1);
-			this.pnlSource.Controls.Add(this.toolStrip2);
 			this.pnlSource.Dock = System.Windows.Forms.DockStyle.Left;
 			this.pnlSource.Location = new System.Drawing.Point(0, 52);
 			this.pnlSource.Name = "pnlSource";
-			this.pnlSource.Size = new System.Drawing.Size(379, 515);
+			this.pnlSource.Size = new System.Drawing.Size(300, 515);
 			this.pnlSource.TabIndex = 19;
 			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(379, 52);
+			this.splitter1.Location = new System.Drawing.Point(300, 52);
 			this.splitter1.Name = "splitter1";
 			this.splitter1.Size = new System.Drawing.Size(3, 515);
 			this.splitter1.TabIndex = 20;
@@ -346,51 +212,45 @@ namespace VerseFlow.UI
 			// splitContainer1
 			// 
 			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainer1.Location = new System.Drawing.Point(382, 52);
+			this.splitContainer1.Location = new System.Drawing.Point(303, 52);
 			this.splitContainer1.Name = "splitContainer1";
 			// 
 			// splitContainer1.Panel1
 			// 
 			this.splitContainer1.Panel1.Controls.Add(this.toolStrip3);
-			this.splitContainer1.Panel1.Controls.Add(this.button1);
-			this.splitContainer1.Panel1.Controls.Add(this.button2);
-			this.splitContainer1.Panel1.Controls.Add(this.textBox1);
 			this.splitContainer1.Panel1.Controls.Add(this.button4);
-			this.splitContainer1.Panel1.Controls.Add(this.label2);
 			this.splitContainer1.Panel1.Controls.Add(this.button3);
-			this.splitContainer1.Panel1.Controls.Add(this.textBox2);
 			this.splitContainer1.Panel1.Controls.Add(this.buttonHightlihght);
 			this.splitContainer1.Panel1.Controls.Add(this.textBoxHighlight);
 			// 
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.toolStrip4);
-			this.splitContainer1.Size = new System.Drawing.Size(459, 515);
-			this.splitContainer1.SplitterDistance = 327;
+			this.splitContainer1.Size = new System.Drawing.Size(538, 515);
+			this.splitContainer1.SplitterDistance = 285;
 			this.splitContainer1.TabIndex = 21;
 			// 
 			// toolStrip3
 			// 
 			this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton3,
             this.toolStripButton5});
 			this.toolStrip3.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip3.Name = "toolStrip3";
 			this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip3.Size = new System.Drawing.Size(327, 25);
+			this.toolStrip3.Size = new System.Drawing.Size(285, 25);
 			this.toolStrip3.TabIndex = 15;
 			this.toolStrip3.Text = "toolStrip3";
 			// 
-			// toolStripButton3
+			// toolStripButton5
 			// 
-			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton3.Image = global::VerseFlow.Properties.Resources._1357146137_color_swatch;
-			this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton3.Name = "toolStripButton3";
-			this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton3.Text = "toolStripButton3";
+			this.toolStripButton5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.toolStripButton5.Image = global::VerseFlow.Properties.Resources._1358435985_arrow_right;
+			this.toolStripButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton5.Name = "toolStripButton5";
+			this.toolStripButton5.Size = new System.Drawing.Size(62, 22);
+			this.toolStripButton5.Text = "Go Live";
 			// 
 			// toolStrip4
 			// 
@@ -400,7 +260,7 @@ namespace VerseFlow.UI
 			this.toolStrip4.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip4.Name = "toolStrip4";
 			this.toolStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip4.Size = new System.Drawing.Size(128, 25);
+			this.toolStrip4.Size = new System.Drawing.Size(249, 25);
 			this.toolStrip4.TabIndex = 16;
 			this.toolStrip4.Text = "toolStrip4";
 			// 
@@ -418,26 +278,15 @@ namespace VerseFlow.UI
 			// verseView1
 			// 
 			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(292, 0);
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(213, 0);
 			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.verseView1.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.verseView1.Font = new System.Drawing.Font("Ezra SIL SR", 14.25F);
 			this.verseView1.HighlightText = null;
-			this.verseView1.Location = new System.Drawing.Point(0, 25);
+			this.verseView1.Location = new System.Drawing.Point(0, 0);
 			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(379, 490);
+			this.verseView1.Size = new System.Drawing.Size(300, 515);
 			this.verseView1.TabIndex = 1;
-			// 
-			// toolStripButton5
-			// 
-			this.toolStripButton5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripButton5.Image = global::VerseFlow.Properties.Resources._1358435985_arrow_right;
-			this.toolStripButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton5.Name = "toolStripButton5";
-			this.toolStripButton5.Size = new System.Drawing.Size(62, 22);
-			this.toolStripButton5.Text = "Go Live";
 			// 
 			// FrmMain
 			// 
@@ -456,10 +305,7 @@ namespace VerseFlow.UI
 			this.Load += new System.EventHandler(this.FrmMain_Load);
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
-			this.toolStrip2.ResumeLayout(false);
-			this.toolStrip2.PerformLayout();
 			this.pnlSource.ResumeLayout(false);
-			this.pnlSource.PerformLayout();
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel1.PerformLayout();
 			this.splitContainer1.Panel2.ResumeLayout(false);
@@ -476,12 +322,7 @@ namespace VerseFlow.UI
 
 		#endregion
 
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.Button button2;
 		private VerseView verseView1;
-		private System.Windows.Forms.TextBox textBox2;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.TextBox textBoxHighlight;
 		private System.Windows.Forms.Button buttonHightlihght;
@@ -494,20 +335,12 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.ToolStripSeparator tsSplit;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
-		private System.Windows.Forms.ToolStrip toolStrip2;
-		private System.Windows.Forms.ToolStripButton toolStripButton1;
-		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-		private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
-		private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton2;
-		private System.Windows.Forms.ToolStripButton toolStripButton2;
 		private System.Windows.Forms.Panel pnlSource;
 		private System.Windows.Forms.Splitter splitter1;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.ToolStrip toolStrip3;
 		private System.Windows.Forms.ToolStrip toolStrip4;
 		private System.Windows.Forms.ToolStripButton tsLive;
-		private System.Windows.Forms.ToolStripButton toolStripButton3;
-		private System.Windows.Forms.ToolStripButton toolStripButton4;
 		private System.Windows.Forms.ToolStripButton toolStripButton5;
 
 	}

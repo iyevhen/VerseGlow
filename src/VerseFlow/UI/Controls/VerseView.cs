@@ -12,7 +12,7 @@ namespace VerseFlow.UI.Controls
 	{
 		private readonly object candy = new object();
 
-		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 } };
+//		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 } };
 		private readonly List<VerseItem> visibleVerses = new List<VerseItem>();
 		private List<VerseItem> allverses = new List<VerseItem>();
 		const int xPadding = 50;
@@ -176,10 +176,10 @@ namespace VerseFlow.UI.Controls
 
 					Rectangle r = verse.Rect(rect.Width, xPadding);
 
-					using (var brush = new LinearGradientBrush(r, SystemColors.Highlight, highlightLightenColor, LinearGradientMode.Vertical))
+//					using (var brush = new LinearGradientBrush(r, SystemColors.Highlight, highlightLightenColor, LinearGradientMode.Vertical))
 					{
-						brush.Blend = blend;
-						graph.FillRectangle(brush, r);
+//						brush.Blend = blend;
+						graph.FillRectangle(SystemBrushes.Highlight, r);
 					}
 
 					foreach (string line in verse.EnumLines())
