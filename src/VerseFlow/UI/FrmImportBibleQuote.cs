@@ -7,11 +7,11 @@ using VerseFlow.Properties;
 
 namespace VerseFlow.UI
 {
-	public partial class ImportBibleQuote : UserControl
+	public partial class FrmImportBibleQuote : Form
 	{
 		private string inifile;
 
-		public ImportBibleQuote()
+		public FrmImportBibleQuote()
 		{
 			InitializeComponent();
 			btnImport.Enabled = false;
@@ -45,12 +45,12 @@ namespace VerseFlow.UI
 		{
 			try
 			{
-				new BibleQuoteBibleImporter().Import(txtFolder.Text, GetEncoding());
-				MessageBox.Show(this, "Imported", AppGlobal.AppName, MessageBoxButtons.OK);
+				string name = new BibleQuoteBibleImporter().Import(txtFolder.Text, GetEncoding());
+				MessageBox.Show(this, string.Format("Successfully imported '{0}'.", name), AppGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			catch (Exception exception)
 			{
-				MessageBox.Show(this, exception.Message, AppGlobal.AppName, MessageBoxButtons.OK);
+				MessageBox.Show(this, exception.Message, AppGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 

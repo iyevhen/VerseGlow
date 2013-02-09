@@ -7,6 +7,16 @@
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+
+			base.Dispose(disposing);
+		}
+
 
 
 		#region Windows Form Designer generated code
@@ -23,7 +33,9 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(430, 317);
+			this.BackColor = System.Drawing.Color.Black;
+			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.ClientSize = new System.Drawing.Size(492, 355);
 			this.MinimizeBox = false;
 			this.Name = "FrmDisplay";
 			this.Text = "Double click to fullscreen";

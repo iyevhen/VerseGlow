@@ -25,9 +25,11 @@ namespace VerseFlow.Core.Import.BibleQuote
 					encoding,
 					File.ReadAllLines(inifile, encoding));
 
-			return ImportImpl(ini);
+			ImportImpl(ini);
+
+			return ini.BibleName;
 		}
 
-		protected abstract string ImportImpl(BibleQuoteIni ini);
+		protected abstract void ImportImpl(BibleQuoteIni ini);
 	}
 }

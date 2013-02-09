@@ -20,10 +20,10 @@ namespace VerseFlow.Core.Import.BibleQuote
 		private const string attributeRef = "ref";
 		private const string attributeChapters = "chapters";
 
-		protected override string ImportImpl(BibleQuoteIni ini)
+		protected override void ImportImpl(BibleQuoteIni ini)
 		{
 			if (!ini.IsBible)
-				return null;
+				return;
 
 			string path = Path.Combine(AppGlobal.AppDataFolder, string.Format("Bible_{0}.xml", ini.BibleShortName));
 
@@ -85,8 +85,6 @@ namespace VerseFlow.Core.Import.BibleQuote
 					writer.WriteEndElement();
 				}
 			}
-
-			return null;
 		}
 	}
 }

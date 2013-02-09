@@ -1,56 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace VerseFlow.UI
 {
 	public partial class FrmMain : Form
 	{
-		private static readonly Random random = new Random((int)DateTime.Now.Ticks); //thanks to McAden
-		private static readonly string[] delimiters = new[] { " ", "- ", "\t", ": ", "; ", ", ", ". ", " «", "» " };
-		private static long delim;
 		private IDisplay display;
-		private bool biblesLoaded;
+		private bool openLoaded;
+		private Bible bible;
+		private BibleBook bibleBook;
 
 		public FrmMain()
 		{
 			InitializeComponent();
-		}
-		
-
-		private void Populate(List<string> strings)
-		{
-			verseView1.Fill(strings);
-		}
-
-		private string RandomString(int size)
-		{
-			var builder = new StringBuilder();
-
-			for (int i = 0; i < size; i++)
-			{
-				char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
-				builder.Append(ch);
-
-				int _break = random.Next(1, 30);
-				if ((i % _break) == 0)
-				{
-					delim++;
-
-					builder.Append(delimiters[delim % (delimiters.Length - 1)]);
-				}
-			}
-
-			builder.Append(" END!");
-
-			return builder.ToString();
-		}
-
-		private void buttonHightlihght_Click(object sender, EventArgs e)
-		{
-			verseView1.HighlightText = textBoxHighlight.Text;
+			lblOpened.Text = "";
+			toolsLeftNavigation.Visible = false;
 		}
 
 		private void FrmMain_Load(object sender, EventArgs e)
@@ -68,52 +34,124 @@ namespace VerseFlow.UI
 			}
 		}
 
-		private void button3_Click(object sender, EventArgs e)
+		private void tsOpen_DropDownOpening(object sender, EventArgs e)
 		{
-			display = new FrmDisplay { Icon = Icon };
-			display.Activate();
-		}
-
-		private void button4_Click(object sender, EventArgs e)
-		{
-			display.Deactivate();
-			((Form)display).Dispose();
-		}
-
-		private void tsSettings_Click(object sender, EventArgs e)
-		{
-			using (var fb = new FrmSettings())
-			{
-				fb.Icon = Icon;
-				fb.ShowDialog(this);
-			}
-		}
-
-		private void tsBibles_DropDownOpening(object sender, EventArgs e)
-		{
-			if (!biblesLoaded)
+			if (!openLoaded)
 			{
 				foreach (Bible bible in AppGlobal.Bibles())
 				{
-					var item = new ToolStripMenuItem(bible.FullName) { Tag = bible };
-					item.Click += Bible_Click;
-
-					tsBibles.DropDownItems.Add(item);
+					tsOpen.DropDownItems.Add(new ToolStripMenuItem(bible.FullName) { Tag = bible });
 				}
 
-				biblesLoaded = true;
+				openLoaded = true;
 			}
 		}
 
-		void Bible_Click(object sender, EventArgs e)
+		private void tsOpen_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
 		{
-			var item = sender as ToolStripMenuItem;
+			var item = e.ClickedItem;
 
 			if (item != null && item.Tag != null)
 			{
-				var bible = (Bible)item.Tag;
-				Populate(bible.ReadAllVerses());
-//								Populate(bible.ReadBookNames());
+				bible = (Bible)item.Tag;
+				lblOpened.Text = bible.FullName;
+
+				if (!toolsLeftNavigation.Visible)
+					toolsLeftNavigation.Visible = true;
+
+				cmbContents.Items.Clear();
+
+				foreach (BibleBook book in bible.ReadBooks())
+				{
+					cmbContents.Items.Add(book);
+				}
+
+				cmbContents.SelectedIndex = 0;
+			}
+		}
+
+		private void cmbContents_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			bibleBook = cmbContents.SelectedItem as BibleBook;
+
+			if (bibleBook == null)
+			{
+				return;
+			}
+
+			cmbChapters.Items.Clear();
+
+			for (int i = 1; i <= bibleBook.ChaptersCount; i++)
+			{
+				cmbChapters.Items.Add(i);
+			}
+
+			cmbChapters.SelectedIndex = 0;
+		}
+
+		private void cmbChapters_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (bible == null || bibleBook == null)
+			{
+				return;
+			}
+
+			List<BibleVerse> verses = bible.ReadChapter(bibleBook, cmbChapters.SelectedIndex + 1);
+			verseView1.Fill(verses.ConvertAll(v => v.Text));
+		}
+
+		private void tsFont_Click(object sender, EventArgs e)
+		{
+			using (var fd = new FontDialog())
+			{
+				fd.Font = verseView1.Font;
+
+				if (DialogResult.OK == fd.ShowDialog(this))
+				{
+					verseView1.Font = fd.Font;
+				}
+			}
+		}
+
+		private void bibleFromBibleQuoteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (var f = new FrmImportBibleQuote { Icon = Icon })
+			{
+				f.ShowDialog(this);
+				openLoaded = false;
+			}
+		}
+
+		private void tsColor_Click(object sender, EventArgs e)
+		{
+			using (var cd = new ColorDialog())
+			{
+				cd.Color = verseView1.BackColor;
+
+				if (DialogResult.OK == cd.ShowDialog(this))
+				{
+					verseView1.BackColor = cd.Color;
+				}
+			}
+		}
+
+		private void tsGoLive_Click(object sender, EventArgs e)
+		{
+			if (tsGoLive.Checked)
+			{
+				display = new FrmDisplay { Icon = Icon };
+				display.Activate();
+			}
+			else
+			{
+				if (display != null)
+				{
+					display.Deactivate();
+					((Form)display).Dispose();
+				}
+
+				tsBlack.Checked = false;
+				tsFreeze.Checked = false;
 			}
 		}
 	}

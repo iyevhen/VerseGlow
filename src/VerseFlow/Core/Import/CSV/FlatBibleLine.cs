@@ -34,7 +34,7 @@ namespace VerseFlow.Core.Import
 			set
 			{
 				if (value <= 0)
-					throw new ArgumentException("Verse number cannot be less or equals zero");
+					throw new ArgumentException("BibleVerse number cannot be less or equals zero");
 
 				values[2] = value.ToString(CultureInfo.InvariantCulture);
 			}

@@ -12,10 +12,9 @@ namespace VerseFlow.UI.Controls
 	{
 		private readonly object candy = new object();
 
-//		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 } };
+		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 } };
 		private readonly List<VerseItem> visibleVerses = new List<VerseItem>();
 		private List<VerseItem> allverses = new List<VerseItem>();
-		const int xPadding = 50;
 		const int xVersePadding = 5;
 
 		private readonly Color highlightLightenColor;
@@ -47,7 +46,7 @@ namespace VerseFlow.UI.Controls
 			VerticalScroll.Enabled = true;
 			VerticalScroll.Visible = true;
 
-			highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 15);
+			highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 10);
 		}
 
 		public void Fill(List<string> strings)
@@ -102,7 +101,7 @@ namespace VerseFlow.UI.Controls
 				{
 					Debug.WriteLine("Recalculating verses");
 
-					RecalcVerses(rect.Height, Width - (SystemInformation.VerticalScrollBarWidth * 2) - xPadding - xVersePadding, e.Graphics);
+					RecalcVerses(rect.Height, Width - (SystemInformation.VerticalScrollBarWidth * 2) - xVersePadding, e.Graphics);
 					recalcVerses = false;
 				}
 
@@ -137,11 +136,7 @@ namespace VerseFlow.UI.Controls
 		{
 			int scrollPosY = AutoScrollPosition.Y * -1;
 
-//			graph.SmoothingMode = SmoothingMode.AntiAlias;
-
 			graph.FillRectangle(backColorBrush, rect);
-			graph.FillRectangle(paddingColorBrush, new Rectangle(0, 0, xPadding, rect.Height));
-
 
 			int cursor = 0;
 			int y = 0;
@@ -168,18 +163,19 @@ namespace VerseFlow.UI.Controls
 					break;
 				}
 
-				var point = new Point(xPadding + xVersePadding, y);
+				var point = new Point(xVersePadding, y);
 
 				if (verse.IsSelected)
 				{
 					verse.Y = point.Y;
 
-					Rectangle r = verse.Rect(rect.Width, xPadding);
+					Rectangle r = verse.Rect(rect.Width, 0);
 
-//					using (var brush = new LinearGradientBrush(r, SystemColors.Highlight, highlightLightenColor, LinearGradientMode.Vertical))
+					using (var brush = new LinearGradientBrush(r, SystemColors.Highlight, highlightLightenColor, LinearGradientMode.Vertical))
 					{
-//						brush.Blend = blend;
-						graph.FillRectangle(SystemBrushes.Highlight, r);
+						brush.Blend = blend;
+						graph.FillRectangle(brush, r);
+//						graph.FillRectangle(SystemBrushes.Highlight, r);
 					}
 
 					foreach (string line in verse.EnumLines())

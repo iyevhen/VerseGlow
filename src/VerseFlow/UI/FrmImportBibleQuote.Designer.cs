@@ -1,29 +1,17 @@
 ﻿namespace VerseFlow.UI
 {
-	partial class ImportBibleQuote
+	partial class FrmImportBibleQuote
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
+		
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+		#region Windows Form Designer generated code
 
-		#region Component Designer generated code
-
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -36,6 +24,7 @@
 			this.cmbEnc = new System.Windows.Forms.ComboBox();
 			this.cboxDefault = new System.Windows.Forms.CheckBox();
 			this.btnImport = new System.Windows.Forms.Button();
+			this.btnCancel = new System.Windows.Forms.Button();
 			this.gbFolder.SuspendLayout();
 			this.gbEnc.SuspendLayout();
 			this.SuspendLayout();
@@ -45,34 +34,33 @@
 			this.gbFolder.Controls.Add(this.txtFolder);
 			this.gbFolder.Controls.Add(this.btnBrowse);
 			this.gbFolder.Dock = System.Windows.Forms.DockStyle.Top;
-			this.gbFolder.Location = new System.Drawing.Point(5, 5);
+			this.gbFolder.Location = new System.Drawing.Point(0, 0);
 			this.gbFolder.Margin = new System.Windows.Forms.Padding(10);
 			this.gbFolder.Name = "gbFolder";
 			this.gbFolder.Padding = new System.Windows.Forms.Padding(10, 3, 10, 10);
-			this.gbFolder.Size = new System.Drawing.Size(414, 48);
-			this.gbFolder.TabIndex = 13;
+			this.gbFolder.Size = new System.Drawing.Size(538, 48);
+			this.gbFolder.TabIndex = 3;
 			this.gbFolder.TabStop = false;
 			this.gbFolder.Text = "Path to BibleQuote module";
 			// 
 			// txtFolder
 			// 
 			this.txtFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtFolder.Font = new System.Drawing.Font("Courier New", 8.25F);
 			this.txtFolder.Location = new System.Drawing.Point(10, 16);
 			this.txtFolder.Name = "txtFolder";
-			this.txtFolder.Size = new System.Drawing.Size(372, 20);
-			this.txtFolder.TabIndex = 4;
+			this.txtFolder.Size = new System.Drawing.Size(496, 20);
+			this.txtFolder.TabIndex = 0;
 			this.txtFolder.WordWrap = false;
 			this.txtFolder.TextChanged += new System.EventHandler(this.txtFolder_TextChanged);
 			// 
 			// btnBrowse
 			// 
 			this.btnBrowse.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnBrowse.Location = new System.Drawing.Point(382, 16);
+			this.btnBrowse.Location = new System.Drawing.Point(506, 16);
 			this.btnBrowse.Margin = new System.Windows.Forms.Padding(0);
 			this.btnBrowse.Name = "btnBrowse";
 			this.btnBrowse.Size = new System.Drawing.Size(22, 22);
-			this.btnBrowse.TabIndex = 7;
+			this.btnBrowse.TabIndex = 1;
 			this.btnBrowse.Text = "...";
 			this.btnBrowse.UseVisualStyleBackColor = true;
 			this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
@@ -85,11 +73,11 @@
 			this.gbEnc.Controls.Add(this.txtPreview);
 			this.gbEnc.Controls.Add(this.cmbEnc);
 			this.gbEnc.Controls.Add(this.cboxDefault);
-			this.gbEnc.Location = new System.Drawing.Point(5, 53);
+			this.gbEnc.Location = new System.Drawing.Point(0, 52);
 			this.gbEnc.Name = "gbEnc";
 			this.gbEnc.Padding = new System.Windows.Forms.Padding(10);
-			this.gbEnc.Size = new System.Drawing.Size(414, 131);
-			this.gbEnc.TabIndex = 12;
+			this.gbEnc.Size = new System.Drawing.Size(538, 201);
+			this.gbEnc.TabIndex = 4;
 			this.gbEnc.TabStop = false;
 			this.gbEnc.Text = "Encoding";
 			// 
@@ -98,14 +86,13 @@
 			this.txtPreview.AcceptsReturn = true;
 			this.txtPreview.AcceptsTab = true;
 			this.txtPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtPreview.Font = new System.Drawing.Font("Courier New", 8.25F);
 			this.txtPreview.Location = new System.Drawing.Point(10, 67);
 			this.txtPreview.Multiline = true;
 			this.txtPreview.Name = "txtPreview";
 			this.txtPreview.ReadOnly = true;
 			this.txtPreview.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtPreview.Size = new System.Drawing.Size(394, 54);
-			this.txtPreview.TabIndex = 0;
+			this.txtPreview.Size = new System.Drawing.Size(518, 124);
+			this.txtPreview.TabIndex = 1;
 			this.txtPreview.Text = "You can download modules from:\r\n\r\n1. http://bqt.ru/Katalog\r\n2. http://www.ph4.ru/" +
     "b4_index.ph4";
 			// 
@@ -117,9 +104,9 @@
 			this.cmbEnc.FormattingEnabled = true;
 			this.cmbEnc.Location = new System.Drawing.Point(10, 45);
 			this.cmbEnc.Name = "cmbEnc";
-			this.cmbEnc.Size = new System.Drawing.Size(394, 22);
+			this.cmbEnc.Size = new System.Drawing.Size(518, 22);
 			this.cmbEnc.Sorted = true;
-			this.cmbEnc.TabIndex = 8;
+			this.cmbEnc.TabIndex = 0;
 			this.cmbEnc.SelectedIndexChanged += new System.EventHandler(this.cmbEnc_SelectedIndexChanged);
 			// 
 			// cboxDefault
@@ -131,7 +118,7 @@
 			this.cboxDefault.Location = new System.Drawing.Point(10, 23);
 			this.cboxDefault.Name = "cboxDefault";
 			this.cboxDefault.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-			this.cboxDefault.Size = new System.Drawing.Size(394, 22);
+			this.cboxDefault.Size = new System.Drawing.Size(518, 22);
 			this.cboxDefault.TabIndex = 10;
 			this.cboxDefault.Text = "Use Default Encoding";
 			this.cboxDefault.UseVisualStyleBackColor = true;
@@ -140,24 +127,41 @@
 			// btnImport
 			// 
 			this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnImport.Location = new System.Drawing.Point(344, 191);
+			this.btnImport.Location = new System.Drawing.Point(372, 259);
 			this.btnImport.Name = "btnImport";
-			this.btnImport.Size = new System.Drawing.Size(75, 22);
-			this.btnImport.TabIndex = 14;
+			this.btnImport.Size = new System.Drawing.Size(75, 23);
+			this.btnImport.TabIndex = 5;
 			this.btnImport.Text = "&Import";
 			this.btnImport.UseVisualStyleBackColor = true;
 			this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
 			// 
-			// ImportBibleQuote
+			// btnCancel
 			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.Location = new System.Drawing.Point(453, 259);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.TabIndex = 6;
+			this.btnCancel.Text = "&Cancel";
+			this.btnCancel.UseVisualStyleBackColor = true;
+			// 
+			// FrmImportBibleQuote
+			// 
+			this.AcceptButton = this.btnImport;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.btnImport);
+			this.CancelButton = this.btnCancel;
+			this.ClientSize = new System.Drawing.Size(538, 293);
+			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.gbEnc);
+			this.Controls.Add(this.btnImport);
 			this.Controls.Add(this.gbFolder);
-			this.Name = "ImportBibleQuote";
-			this.Padding = new System.Windows.Forms.Padding(5);
-			this.Size = new System.Drawing.Size(424, 221);
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "FrmImportBibleQuote";
+			this.ShowInTaskbar = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Import from BibleQuote";
 			this.Load += new System.EventHandler(this.ImportBibleQuote_Load);
 			this.gbFolder.ResumeLayout(false);
 			this.gbFolder.PerformLayout();
@@ -177,5 +181,8 @@
 		private System.Windows.Forms.ComboBox cmbEnc;
 		private System.Windows.Forms.CheckBox cboxDefault;
 		private System.Windows.Forms.Button btnImport;
+		private System.Windows.Forms.Button btnCancel;
+
+
 	}
 }

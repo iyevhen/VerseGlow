@@ -22,5 +22,26 @@ namespace VerseFlow.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
+        public global::System.Drawing.Color ToolsLeftForeColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ToolsLeftForeColor"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Tahoma, 9.25pt")]
+        public global::System.Drawing.Font LeftPanelFont {
+            get {
+                return ((global::System.Drawing.Font)(this["LeftPanelFont"]));
+            }
+            set {
+                this["LeftPanelFont"] = value;
+            }
+        }
     }
 }

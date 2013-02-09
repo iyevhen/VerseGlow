@@ -9,8 +9,6 @@ namespace VerseFlow.UI
 	{
 		private string currentText;
 		private readonly StringWrap wrap = new StringWrap();
-		private Image image;
-		private Color backgroundColor = Color.Black;
 		private bool fullScreen;
 		private FormBorderStyle brdStyle;
 		private FormWindowState winState;
@@ -46,14 +44,14 @@ namespace VerseFlow.UI
 		{
 			var cr = ClientRectangle;
 
-			if (image == null)
+			if (BackgroundImage == null)
 			{
-				using (var brush = new SolidBrush(backgroundColor))
+				using (var brush = new SolidBrush(BackColor))
 					e.Graphics.FillRectangle(brush, cr);
 			}
 			else
 			{
-				e.Graphics.DrawImage(image, cr);
+				e.Graphics.DrawImage(BackgroundImage, cr);
 			}
 
 			if (!String.IsNullOrEmpty(currentText))
@@ -99,25 +97,14 @@ namespace VerseFlow.UI
 				handler(this, EventArgs.Empty);
 		}
 
-		void IDisplay.DrawText(string text)
+		public string DisplayText
 		{
-			currentText = text;
-			Refresh();
-		}
-
-		void IDisplay.DrawBackground(Image image)
-		{
-			if (this.image != null)
-				this.image.Dispose();
-
-			this.image = image;
-			Refresh();
-		}
-
-		void IDisplay.DrawBackground(Color color)
-		{
-			backgroundColor = color;
-			Refresh();
+			get { return currentText; }
+			set
+			{
+				currentText = value;
+				Refresh();
+			}
 		}
 
 		public bool FullScreen
@@ -179,28 +166,14 @@ namespace VerseFlow.UI
 			OnActivationChanged();
 		}
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-
-			if (image != null)
-				image.Dispose();
-
-			base.Dispose(disposing);
-		}
-
 		private void FrmDisplay_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (e.CloseReason != CloseReason.UserClosing)
-				return;
-
-			e.Cancel = true;
-
-			Hide();
-			OnActivationChanged();
+			if (e.CloseReason == CloseReason.UserClosing)
+			{
+				e.Cancel = true;
+				Hide();
+				OnActivationChanged();
+			}
 		}
 
 		private void FrmDisplay_DoubleClick(object sender, EventArgs e)

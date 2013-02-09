@@ -32,289 +32,298 @@ namespace VerseFlow.UI
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-			this.textBoxHighlight = new System.Windows.Forms.TextBox();
-			this.buttonHightlihght = new System.Windows.Forms.Button();
-			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.tsBibles = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tsPsalms = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tsText = new System.Windows.Forms.ToolStripSplitButton();
-			this.tsSplit = new System.Windows.Forms.ToolStripSeparator();
-			this.tsSettings = new System.Windows.Forms.ToolStripButton();
-			this.tsAbout = new System.Windows.Forms.ToolStripButton();
-			this.button3 = new System.Windows.Forms.Button();
-			this.button4 = new System.Windows.Forms.Button();
-			this.pnlSource = new System.Windows.Forms.Panel();
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-			this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
-			this.toolStrip4 = new System.Windows.Forms.ToolStrip();
-			this.tsLive = new System.Windows.Forms.ToolStripButton();
+			this.tsAbout = new System.Windows.Forms.ToolStripStatusLabel();
+			this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+			this.pnlLeftNavigation = new System.Windows.Forms.Panel();
+			this.toolsLeftNavigation = new System.Windows.Forms.ToolStrip();
+			this.cmbContents = new System.Windows.Forms.ToolStripComboBox();
+			this.cmbChapters = new System.Windows.Forms.ToolStripComboBox();
+			this.cmbFind = new System.Windows.Forms.ToolStripComboBox();
+			this.tsFind = new System.Windows.Forms.ToolStripButton();
+			this.lblOpened = new System.Windows.Forms.Label();
+			this.toolsLeft = new System.Windows.Forms.ToolStrip();
+			this.tsOpen = new System.Windows.Forms.ToolStripDropDownButton();
+			this.tsImport = new System.Windows.Forms.ToolStripDropDownButton();
+			this.bibleFromBibleQuoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.tsFont = new System.Windows.Forms.ToolStripButton();
+			this.tsBackColor = new System.Windows.Forms.ToolStripButton();
+			this.toolsRight = new System.Windows.Forms.ToolStrip();
+			this.tsGoLive = new System.Windows.Forms.ToolStripButton();
+			this.tsFreeze = new System.Windows.Forms.ToolStripButton();
+			this.tsBlack = new System.Windows.Forms.ToolStripButton();
 			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
-			this.toolStrip1.SuspendLayout();
-			this.pnlSource.SuspendLayout();
-			this.splitContainer1.Panel1.SuspendLayout();
-			this.splitContainer1.Panel2.SuspendLayout();
-			this.splitContainer1.SuspendLayout();
-			this.toolStrip3.SuspendLayout();
-			this.toolStrip4.SuspendLayout();
+			this.statusStrip1.SuspendLayout();
+			this.splitContainerMain.Panel1.SuspendLayout();
+			this.splitContainerMain.Panel2.SuspendLayout();
+			this.splitContainerMain.SuspendLayout();
+			this.pnlLeftNavigation.SuspendLayout();
+			this.toolsLeftNavigation.SuspendLayout();
+			this.toolsLeft.SuspendLayout();
+			this.toolsRight.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// statusStrip1
 			// 
-			this.statusStrip1.Location = new System.Drawing.Point(0, 567);
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsAbout});
+			this.statusStrip1.Location = new System.Drawing.Point(0, 393);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(841, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(656, 22);
 			this.statusStrip1.TabIndex = 5;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
-			// textBoxHighlight
-			// 
-			this.textBoxHighlight.Location = new System.Drawing.Point(100, 157);
-			this.textBoxHighlight.Name = "textBoxHighlight";
-			this.textBoxHighlight.Size = new System.Drawing.Size(141, 20);
-			this.textBoxHighlight.TabIndex = 10;
-			// 
-			// buttonHightlihght
-			// 
-			this.buttonHightlihght.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.buttonHightlihght.Location = new System.Drawing.Point(16, 157);
-			this.buttonHightlihght.Name = "buttonHightlihght";
-			this.buttonHightlihght.Size = new System.Drawing.Size(75, 23);
-			this.buttonHightlihght.TabIndex = 11;
-			this.buttonHightlihght.Text = "Highlight";
-			this.buttonHightlihght.UseVisualStyleBackColor = true;
-			this.buttonHightlihght.Click += new System.EventHandler(this.buttonHightlihght_Click);
-			// 
-			// toolStrip1
-			// 
-			this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(0);
-			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsBibles,
-            this.tsPsalms,
-            this.tsText,
-            this.tsSplit,
-            this.tsSettings,
-            this.tsAbout});
-			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip1.Size = new System.Drawing.Size(841, 52);
-			this.toolStrip1.TabIndex = 12;
-			this.toolStrip1.Text = "toolStrip1";
-			// 
-			// tsBibles
-			// 
-			this.tsBibles.AutoToolTip = false;
-			this.tsBibles.Image = ((System.Drawing.Image)(resources.GetObject("tsBibles.Image")));
-			this.tsBibles.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tsBibles.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsBibles.Name = "tsBibles";
-			this.tsBibles.Size = new System.Drawing.Size(47, 49);
-			this.tsBibles.Text = "Bibles";
-			this.tsBibles.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.tsBibles.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.tsBibles.DropDownOpening += new System.EventHandler(this.tsBibles_DropDownOpening);
-			// 
-			// tsPsalms
-			// 
-			this.tsPsalms.AutoToolTip = false;
-			this.tsPsalms.Image = ((System.Drawing.Image)(resources.GetObject("tsPsalms.Image")));
-			this.tsPsalms.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tsPsalms.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsPsalms.Name = "tsPsalms";
-			this.tsPsalms.Size = new System.Drawing.Size(52, 49);
-			this.tsPsalms.Text = "Psalms";
-			this.tsPsalms.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.tsPsalms.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// tsText
-			// 
-			this.tsText.AutoToolTip = false;
-			this.tsText.Image = ((System.Drawing.Image)(resources.GetObject("tsText.Image")));
-			this.tsText.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tsText.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsText.Name = "tsText";
-			this.tsText.Size = new System.Drawing.Size(48, 49);
-			this.tsText.Text = "Text";
-			this.tsText.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// tsSplit
-			// 
-			this.tsSplit.Name = "tsSplit";
-			this.tsSplit.Size = new System.Drawing.Size(6, 52);
-			// 
-			// tsSettings
-			// 
-			this.tsSettings.AutoToolTip = false;
-			this.tsSettings.Image = ((System.Drawing.Image)(resources.GetObject("tsSettings.Image")));
-			this.tsSettings.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tsSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsSettings.Name = "tsSettings";
-			this.tsSettings.Size = new System.Drawing.Size(50, 49);
-			this.tsSettings.Text = "Settings";
-			this.tsSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.tsSettings.Click += new System.EventHandler(this.tsSettings_Click);
-			// 
 			// tsAbout
 			// 
-			this.tsAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.tsAbout.AutoToolTip = false;
-			this.tsAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsAbout.Image")));
-			this.tsAbout.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tsAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsAbout.IsLink = true;
+			this.tsAbout.LinkColor = System.Drawing.Color.DimGray;
 			this.tsAbout.Name = "tsAbout";
-			this.tsAbout.Size = new System.Drawing.Size(40, 49);
+			this.tsAbout.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+			this.tsAbout.Size = new System.Drawing.Size(41, 17);
 			this.tsAbout.Text = "About";
-			this.tsAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.tsAbout.Click += new System.EventHandler(this.tsAbout_Click);
 			// 
-			// button3
+			// splitContainerMain
 			// 
-			this.button3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.button3.Location = new System.Drawing.Point(16, 203);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(75, 23);
-			this.button3.TabIndex = 13;
-			this.button3.Text = "Show";
-			this.button3.UseVisualStyleBackColor = true;
-			this.button3.Click += new System.EventHandler(this.button3_Click);
+			this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainerMain.Location = new System.Drawing.Point(0, 0);
+			this.splitContainerMain.Name = "splitContainerMain";
 			// 
-			// button4
+			// splitContainerMain.Panel1
 			// 
-			this.button4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.button4.Location = new System.Drawing.Point(100, 203);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(75, 23);
-			this.button4.TabIndex = 14;
-			this.button4.Text = "Hide";
-			this.button4.UseVisualStyleBackColor = true;
-			this.button4.Click += new System.EventHandler(this.button4_Click);
+			this.splitContainerMain.Panel1.Controls.Add(this.verseView1);
+			this.splitContainerMain.Panel1.Controls.Add(this.pnlLeftNavigation);
+			this.splitContainerMain.Panel1.Controls.Add(this.lblOpened);
+			this.splitContainerMain.Panel1.Controls.Add(this.toolsLeft);
 			// 
-			// pnlSource
+			// splitContainerMain.Panel2
 			// 
-			this.pnlSource.Controls.Add(this.verseView1);
-			this.pnlSource.Dock = System.Windows.Forms.DockStyle.Left;
-			this.pnlSource.Location = new System.Drawing.Point(0, 52);
-			this.pnlSource.Name = "pnlSource";
-			this.pnlSource.Size = new System.Drawing.Size(300, 515);
-			this.pnlSource.TabIndex = 19;
+			this.splitContainerMain.Panel2.Controls.Add(this.toolsRight);
+			this.splitContainerMain.Size = new System.Drawing.Size(656, 393);
+			this.splitContainerMain.SplitterDistance = 313;
+			this.splitContainerMain.SplitterWidth = 6;
+			this.splitContainerMain.TabIndex = 13;
 			// 
-			// splitter1
+			// pnlLeftNavigation
 			// 
-			this.splitter1.Location = new System.Drawing.Point(300, 52);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 515);
-			this.splitter1.TabIndex = 20;
-			this.splitter1.TabStop = false;
+			this.pnlLeftNavigation.Controls.Add(this.toolsLeftNavigation);
+			this.pnlLeftNavigation.Dock = System.Windows.Forms.DockStyle.Top;
+			this.pnlLeftNavigation.Location = new System.Drawing.Point(0, 42);
+			this.pnlLeftNavigation.Name = "pnlLeftNavigation";
+			this.pnlLeftNavigation.Size = new System.Drawing.Size(313, 26);
+			this.pnlLeftNavigation.TabIndex = 4;
 			// 
-			// splitContainer1
+			// toolsLeftNavigation
 			// 
-			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainer1.Location = new System.Drawing.Point(303, 52);
-			this.splitContainer1.Name = "splitContainer1";
+			this.toolsLeftNavigation.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.toolsLeftNavigation.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmbContents,
+            this.cmbChapters,
+            this.cmbFind,
+            this.tsFind});
+			this.toolsLeftNavigation.Location = new System.Drawing.Point(0, 0);
+			this.toolsLeftNavigation.Name = "toolsLeftNavigation";
+			this.toolsLeftNavigation.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+			this.toolsLeftNavigation.ShowItemToolTips = false;
+			this.toolsLeftNavigation.Size = new System.Drawing.Size(313, 25);
+			this.toolsLeftNavigation.TabIndex = 4;
+			this.toolsLeftNavigation.Text = "toolsLeftNavigation";
 			// 
-			// splitContainer1.Panel1
+			// cmbContents
 			// 
-			this.splitContainer1.Panel1.Controls.Add(this.toolStrip3);
-			this.splitContainer1.Panel1.Controls.Add(this.button4);
-			this.splitContainer1.Panel1.Controls.Add(this.button3);
-			this.splitContainer1.Panel1.Controls.Add(this.buttonHightlihght);
-			this.splitContainer1.Panel1.Controls.Add(this.textBoxHighlight);
+			this.cmbContents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbContents.DropDownWidth = 300;
+			this.cmbContents.Name = "cmbContents";
+			this.cmbContents.Size = new System.Drawing.Size(150, 25);
+			this.cmbContents.SelectedIndexChanged += new System.EventHandler(this.cmbContents_SelectedIndexChanged);
 			// 
-			// splitContainer1.Panel2
+			// cmbChapters
 			// 
-			this.splitContainer1.Panel2.Controls.Add(this.toolStrip4);
-			this.splitContainer1.Size = new System.Drawing.Size(538, 515);
-			this.splitContainer1.SplitterDistance = 285;
-			this.splitContainer1.TabIndex = 21;
+			this.cmbChapters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbChapters.Name = "cmbChapters";
+			this.cmbChapters.Size = new System.Drawing.Size(75, 25);
+			this.cmbChapters.SelectedIndexChanged += new System.EventHandler(this.cmbChapters_SelectedIndexChanged);
 			// 
-			// toolStrip3
+			// cmbFind
 			// 
-			this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton5});
-			this.toolStrip3.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip3.Name = "toolStrip3";
-			this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip3.Size = new System.Drawing.Size(285, 25);
-			this.toolStrip3.TabIndex = 15;
-			this.toolStrip3.Text = "toolStrip3";
+			this.cmbFind.DropDownWidth = 300;
+			this.cmbFind.Name = "cmbFind";
+			this.cmbFind.Size = new System.Drawing.Size(121, 21);
+			this.cmbFind.Visible = false;
 			// 
-			// toolStripButton5
+			// tsFind
 			// 
-			this.toolStripButton5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripButton5.Image = global::VerseFlow.Properties.Resources._1358435985_arrow_right;
-			this.toolStripButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton5.Name = "toolStripButton5";
-			this.toolStripButton5.Size = new System.Drawing.Size(62, 22);
-			this.toolStripButton5.Text = "Go Live";
+			this.tsFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsFind.Image = global::VerseFlow.Properties.Resources._1357146337_find;
+			this.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsFind.Name = "tsFind";
+			this.tsFind.Size = new System.Drawing.Size(23, 22);
+			this.tsFind.Text = "Find";
+			this.tsFind.Visible = false;
 			// 
-			// toolStrip4
+			// lblOpened
 			// 
-			this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsLive});
-			this.toolStrip4.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip4.Name = "toolStrip4";
-			this.toolStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip4.Size = new System.Drawing.Size(249, 25);
-			this.toolStrip4.TabIndex = 16;
-			this.toolStrip4.Text = "toolStrip4";
+			this.lblOpened.AutoSize = true;
+			this.lblOpened.Dock = System.Windows.Forms.DockStyle.Top;
+			this.lblOpened.ForeColor = System.Drawing.Color.DimGray;
+			this.lblOpened.Location = new System.Drawing.Point(0, 25);
+			this.lblOpened.Name = "lblOpened";
+			this.lblOpened.Padding = new System.Windows.Forms.Padding(2);
+			this.lblOpened.Size = new System.Drawing.Size(43, 17);
+			this.lblOpened.TabIndex = 2;
+			this.lblOpened.Text = "<Title>";
 			// 
-			// tsLive
+			// toolsLeft
 			// 
-			this.tsLive.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.tsLive.CheckOnClick = true;
-			this.tsLive.Image = global::VerseFlow.Properties.Resources._1357332757_cctv_camera;
-			this.tsLive.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsLive.Name = "tsLive";
-			this.tsLive.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-			this.tsLive.Size = new System.Drawing.Size(56, 22);
-			this.tsLive.Text = "Live";
+			this.toolsLeft.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsOpen,
+            this.tsImport,
+            this.toolStripSeparator1,
+            this.tsFont,
+            this.tsBackColor});
+			this.toolsLeft.Location = new System.Drawing.Point(0, 0);
+			this.toolsLeft.Name = "toolsLeft";
+			this.toolsLeft.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+			this.toolsLeft.Size = new System.Drawing.Size(313, 25);
+			this.toolsLeft.TabIndex = 3;
+			this.toolsLeft.Text = "toolsLeft";
+			// 
+			// tsOpen
+			// 
+			this.tsOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tsOpen.Image = ((System.Drawing.Image)(resources.GetObject("tsOpen.Image")));
+			this.tsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsOpen.Name = "tsOpen";
+			this.tsOpen.Size = new System.Drawing.Size(46, 22);
+			this.tsOpen.Text = "&Open";
+			this.tsOpen.DropDownOpening += new System.EventHandler(this.tsOpen_DropDownOpening);
+			this.tsOpen.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsOpen_DropDownItemClicked);
+			// 
+			// tsImport
+			// 
+			this.tsImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tsImport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bibleFromBibleQuoteToolStripMenuItem});
+			this.tsImport.Image = ((System.Drawing.Image)(resources.GetObject("tsImport.Image")));
+			this.tsImport.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsImport.Name = "tsImport";
+			this.tsImport.Size = new System.Drawing.Size(52, 22);
+			this.tsImport.Text = "&Import";
+			// 
+			// bibleFromBibleQuoteToolStripMenuItem
+			// 
+			this.bibleFromBibleQuoteToolStripMenuItem.Name = "bibleFromBibleQuoteToolStripMenuItem";
+			this.bibleFromBibleQuoteToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.bibleFromBibleQuoteToolStripMenuItem.Text = "Bible from BibleQuote";
+			this.bibleFromBibleQuoteToolStripMenuItem.Click += new System.EventHandler(this.bibleFromBibleQuoteToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tsFont
+			// 
+			this.tsFont.Image = global::VerseFlow.Properties.Resources._1357145973_font;
+			this.tsFont.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsFont.Name = "tsFont";
+			this.tsFont.Size = new System.Drawing.Size(49, 22);
+			this.tsFont.Text = "Fon&t";
+			this.tsFont.Click += new System.EventHandler(this.tsFont_Click);
+			// 
+			// tsBackColor
+			// 
+			this.tsBackColor.Image = global::VerseFlow.Properties.Resources._1360462391_color_picker_alternative;
+			this.tsBackColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsBackColor.Name = "tsBackColor";
+			this.tsBackColor.Size = new System.Drawing.Size(77, 22);
+			this.tsBackColor.Text = "Back &Color";
+			this.tsBackColor.Click += new System.EventHandler(this.tsColor_Click);
+			// 
+			// toolsRight
+			// 
+			this.toolsRight.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsGoLive,
+            this.tsFreeze,
+            this.tsBlack});
+			this.toolsRight.Location = new System.Drawing.Point(0, 0);
+			this.toolsRight.Name = "toolsRight";
+			this.toolsRight.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+			this.toolsRight.Size = new System.Drawing.Size(337, 25);
+			this.toolsRight.TabIndex = 4;
+			this.toolsRight.Text = "toolsRight";
+			// 
+			// tsGoLive
+			// 
+			this.tsGoLive.CheckOnClick = true;
+			this.tsGoLive.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+			this.tsGoLive.Image = global::VerseFlow.Properties.Resources._1357332757_cctv_camera;
+			this.tsGoLive.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsGoLive.Name = "tsGoLive";
+			this.tsGoLive.Size = new System.Drawing.Size(68, 22);
+			this.tsGoLive.Text = "&Go Live";
+			this.tsGoLive.Click += new System.EventHandler(this.tsGoLive_Click);
+			// 
+			// tsFreeze
+			// 
+			this.tsFreeze.CheckOnClick = true;
+			this.tsFreeze.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tsFreeze.Image = ((System.Drawing.Image)(resources.GetObject("tsFreeze.Image")));
+			this.tsFreeze.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsFreeze.Name = "tsFreeze";
+			this.tsFreeze.Size = new System.Drawing.Size(44, 22);
+			this.tsFreeze.Text = "&Freeze";
+			// 
+			// tsBlack
+			// 
+			this.tsBlack.CheckOnClick = true;
+			this.tsBlack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tsBlack.Image = ((System.Drawing.Image)(resources.GetObject("tsBlack.Image")));
+			this.tsBlack.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsBlack.Name = "tsBlack";
+			this.tsBlack.Size = new System.Drawing.Size(50, 22);
+			this.tsBlack.Text = "Fill &Black";
 			// 
 			// verseView1
 			// 
 			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(213, 0);
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(276, 0);
 			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = new System.Drawing.Font("Ezra SIL SR", 14.25F);
+			this.verseView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.verseView1.HighlightText = null;
-			this.verseView1.Location = new System.Drawing.Point(0, 0);
+			this.verseView1.Location = new System.Drawing.Point(0, 68);
 			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(300, 515);
+			this.verseView1.Size = new System.Drawing.Size(313, 325);
 			this.verseView1.TabIndex = 1;
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(841, 589);
-			this.Controls.Add(this.splitContainer1);
-			this.Controls.Add(this.splitter1);
-			this.Controls.Add(this.pnlSource);
-			this.Controls.Add(this.toolStrip1);
+			this.ClientSize = new System.Drawing.Size(656, 415);
+			this.Controls.Add(this.splitContainerMain);
 			this.Controls.Add(this.statusStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "FrmMain";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "MainForm";
 			this.Load += new System.EventHandler(this.FrmMain_Load);
-			this.toolStrip1.ResumeLayout(false);
-			this.toolStrip1.PerformLayout();
-			this.pnlSource.ResumeLayout(false);
-			this.splitContainer1.Panel1.ResumeLayout(false);
-			this.splitContainer1.Panel1.PerformLayout();
-			this.splitContainer1.Panel2.ResumeLayout(false);
-			this.splitContainer1.Panel2.PerformLayout();
-			this.splitContainer1.ResumeLayout(false);
-			this.toolStrip3.ResumeLayout(false);
-			this.toolStrip3.PerformLayout();
-			this.toolStrip4.ResumeLayout(false);
-			this.toolStrip4.PerformLayout();
+			this.statusStrip1.ResumeLayout(false);
+			this.statusStrip1.PerformLayout();
+			this.splitContainerMain.Panel1.ResumeLayout(false);
+			this.splitContainerMain.Panel1.PerformLayout();
+			this.splitContainerMain.Panel2.ResumeLayout(false);
+			this.splitContainerMain.Panel2.PerformLayout();
+			this.splitContainerMain.ResumeLayout(false);
+			this.pnlLeftNavigation.ResumeLayout(false);
+			this.pnlLeftNavigation.PerformLayout();
+			this.toolsLeftNavigation.ResumeLayout(false);
+			this.toolsLeftNavigation.PerformLayout();
+			this.toolsLeft.ResumeLayout(false);
+			this.toolsLeft.PerformLayout();
+			this.toolsRight.ResumeLayout(false);
+			this.toolsRight.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -324,24 +333,26 @@ namespace VerseFlow.UI
 
 		private VerseView verseView1;
 		private System.Windows.Forms.StatusStrip statusStrip1;
-		private System.Windows.Forms.TextBox textBoxHighlight;
-		private System.Windows.Forms.Button buttonHightlihght;
-		private System.Windows.Forms.ToolStrip toolStrip1;
-		private System.Windows.Forms.ToolStripDropDownButton tsBibles;
-		private System.Windows.Forms.ToolStripDropDownButton tsPsalms;
-		private System.Windows.Forms.ToolStripButton tsSettings;
-		private System.Windows.Forms.ToolStripSplitButton tsText;
-		private System.Windows.Forms.ToolStripButton tsAbout;
-		private System.Windows.Forms.ToolStripSeparator tsSplit;
-		private System.Windows.Forms.Button button3;
-		private System.Windows.Forms.Button button4;
-		private System.Windows.Forms.Panel pnlSource;
-		private System.Windows.Forms.Splitter splitter1;
-		private System.Windows.Forms.SplitContainer splitContainer1;
-		private System.Windows.Forms.ToolStrip toolStrip3;
-		private System.Windows.Forms.ToolStrip toolStrip4;
-		private System.Windows.Forms.ToolStripButton tsLive;
-		private System.Windows.Forms.ToolStripButton toolStripButton5;
+		private System.Windows.Forms.SplitContainer splitContainerMain;
+		private System.Windows.Forms.Label lblOpened;
+		private System.Windows.Forms.ToolStrip toolsLeft;
+		private System.Windows.Forms.ToolStripDropDownButton tsOpen;
+		private System.Windows.Forms.ToolStripDropDownButton tsImport;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripButton tsFont;
+		private System.Windows.Forms.ToolStripButton tsBackColor;
+		private System.Windows.Forms.ToolStrip toolsRight;
+		private System.Windows.Forms.ToolStripButton tsGoLive;
+		private System.Windows.Forms.ToolStripButton tsBlack;
+		private System.Windows.Forms.ToolStripButton tsFreeze;
+		private System.Windows.Forms.ToolStripStatusLabel tsAbout;
+		private System.Windows.Forms.Panel pnlLeftNavigation;
+		private System.Windows.Forms.ToolStrip toolsLeftNavigation;
+		private System.Windows.Forms.ToolStripComboBox cmbContents;
+		private System.Windows.Forms.ToolStripComboBox cmbChapters;
+		private System.Windows.Forms.ToolStripComboBox cmbFind;
+		private System.Windows.Forms.ToolStripButton tsFind;
+		private System.Windows.Forms.ToolStripMenuItem bibleFromBibleQuoteToolStripMenuItem;
 
 	}
 }

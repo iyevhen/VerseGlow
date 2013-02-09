@@ -5,12 +5,12 @@ namespace VerseFlow.UI
 {
     public interface IDisplay
     {
-        void DrawText(string text);
-        void DrawBackground(Image image);
-        void DrawBackground(Color color);
+		string DisplayText { get; set; }
+		Color BackColor { get; set; }
+		Image BackgroundImage { get; set; }
+
 		bool FullScreen { get; set; }
-    	bool IsActive { get; }
-    	
+		bool IsActive { get; }
 		bool IsPlaying { get; }
     	bool IsPaused { get; }
     	bool IsStoped { get; }

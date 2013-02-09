@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="AppGlobal.cs" />
     <Compile Include="Bible.cs" />
+    <Compile Include="BibleBook.cs" />
+    <Compile Include="BibleVerse.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteBibleImporter.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteBook.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteImporter.cs" />
@@ -72,9 +74,6 @@
     <Compile Include="Core\Import\BibleQuote\BibleQuoteVerse.cs" />
     <Compile Include="UI\Controls\Corners.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
-    <Compile Include="UI\Controls\VerseRect\BibleBookRect.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\DirectoryHelp.cs" />
     <Compile Include="UI\FrmAbout.cs">
       <SubType>Form</SubType>
@@ -104,26 +103,17 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Controls\RoundCornersEditor.cs" />
-    <Compile Include="UI\Controls\VerseRect\VerseRect.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\Controls\VerseView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NetInterface.cs" />
-    <Compile Include="UI\FrmSettings.cs">
+    <Compile Include="UI\FrmImportBibleQuote.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmSettings.Designer.cs">
-      <DependentUpon>FrmSettings.cs</DependentUpon>
+    <Compile Include="UI\FrmImportBibleQuote.Designer.cs">
+      <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IDisplay.cs" />
-    <Compile Include="UI\ImportBibleQuote.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\ImportBibleQuote.Designer.cs">
-      <DependentUpon>ImportBibleQuote.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\WindowsAPI.cs" />
     <Compile Include="UI\StringWrap.cs" />
     <Compile Include="UI\TextCursor.cs" />
@@ -147,11 +137,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\FrmSettings.resx">
-      <DependentUpon>FrmSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ImportBibleQuote.resx">
-      <DependentUpon>ImportBibleQuote.cs</DependentUpon>
+    <EmbeddedResource Include="UI\FrmImportBibleQuote.resx">
+      <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -170,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\1360462391_color_picker_alternative.png" />
     <None Include="Resources\1358435985_arrow_right.png" />
     <None Include="Resources\1357332757_cctv_camera.png" />
     <None Include="Resources\1357332601_find.png" />
