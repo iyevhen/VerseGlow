@@ -15,12 +15,13 @@ namespace VerseFlow.UI
 		public FrmMain()
 		{
 			InitializeComponent();
-			lblOpened.Text = "";
+
 			toolsLeftNavigation.Visible = false;
 		}
 
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
+			Font = System.Drawing.SystemFonts.MessageBoxFont;
 			Text = string.Format("{0} - v{1}", AppGlobal.AppName, AppGlobal.AppVersion);
 		}
 
@@ -38,9 +39,9 @@ namespace VerseFlow.UI
 		{
 			if (!openLoaded)
 			{
-				foreach (Bible bible in AppGlobal.Bibles())
+				foreach (Bible bib in AppGlobal.Bibles())
 				{
-					tsOpen.DropDownItems.Add(new ToolStripMenuItem(bible.FullName) { Tag = bible });
+					miOpen.DropDownItems.Add(new ToolStripMenuItem(bib.FullName) { Tag = bib });
 				}
 
 				openLoaded = true;
@@ -54,61 +55,28 @@ namespace VerseFlow.UI
 			if (item != null && item.Tag != null)
 			{
 				bible = (Bible)item.Tag;
-				lblOpened.Text = bible.FullName;
+
+				tsFullName.Text = bible.FullName;
 
 				if (!toolsLeftNavigation.Visible)
-					toolsLeftNavigation.Visible = true;
-
-				cmbContents.Items.Clear();
-
-				foreach (BibleBook book in bible.ReadBooks())
 				{
-					cmbContents.Items.Add(book);
+					toolsLeftNavigation.Visible = true;
+					bibleView1.Visible = true;
 				}
 
-				cmbContents.SelectedIndex = 0;
+				bibleView1.CurrentBible = bible;
 			}
-		}
-
-		private void cmbContents_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			bibleBook = cmbContents.SelectedItem as BibleBook;
-
-			if (bibleBook == null)
-			{
-				return;
-			}
-
-			cmbChapters.Items.Clear();
-
-			for (int i = 1; i <= bibleBook.ChaptersCount; i++)
-			{
-				cmbChapters.Items.Add(i);
-			}
-
-			cmbChapters.SelectedIndex = 0;
-		}
-
-		private void cmbChapters_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (bible == null || bibleBook == null)
-			{
-				return;
-			}
-
-			List<BibleVerse> verses = bible.ReadChapter(bibleBook, cmbChapters.SelectedIndex + 1);
-			verseView1.Fill(verses.ConvertAll(v => v.Text));
 		}
 
 		private void tsFont_Click(object sender, EventArgs e)
 		{
 			using (var fd = new FontDialog())
 			{
-				fd.Font = verseView1.Font;
+				fd.Font = bibleView1.Font;
 
 				if (DialogResult.OK == fd.ShowDialog(this))
 				{
-					verseView1.Font = fd.Font;
+					bibleView1.Font = fd.Font;
 				}
 			}
 		}
@@ -117,21 +85,9 @@ namespace VerseFlow.UI
 		{
 			using (var f = new FrmImportBibleQuote { Icon = Icon })
 			{
+				f.Font = Font;
 				f.ShowDialog(this);
 				openLoaded = false;
-			}
-		}
-
-		private void tsColor_Click(object sender, EventArgs e)
-		{
-			using (var cd = new ColorDialog())
-			{
-				cd.Color = verseView1.BackColor;
-
-				if (DialogResult.OK == cd.ShowDialog(this))
-				{
-					verseView1.BackColor = cd.Color;
-				}
 			}
 		}
 

@@ -72,6 +72,18 @@
     <Compile Include="Core\Import\BibleQuote\BibleQuoteImportException.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteIni.cs" />
     <Compile Include="Core\Import\BibleQuote\BibleQuoteVerse.cs" />
+    <Compile Include="UI\BibleFindView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\BibleFindView.Designer.cs">
+      <DependentUpon>BibleFindView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BibleView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\BibleView.Designer.cs">
+      <DependentUpon>BibleView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controls\Corners.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
     <Compile Include="UI\DirectoryHelp.cs" />
@@ -106,7 +118,6 @@
     <Compile Include="UI\Controls\VerseView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NetInterface.cs" />
     <Compile Include="UI\FrmImportBibleQuote.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +129,9 @@
     <Compile Include="UI\StringWrap.cs" />
     <Compile Include="UI\TextCursor.cs" />
     <Compile Include="UI\UserRect.cs" />
+    <EmbeddedResource Include="UI\BibleView.resx">
+      <DependentUpon>BibleView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -157,15 +171,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\1360613630_magnifier.png" />
+    <None Include="Resources\1360606037_book_open.png" />
     <None Include="Resources\1360462391_color_picker_alternative.png" />
-    <None Include="Resources\1358435985_arrow_right.png" />
     <None Include="Resources\1357332757_cctv_camera.png" />
     <None Include="Resources\1357332601_find.png" />
     <None Include="Resources\1357332308_resultset_next.png" />
     <None Include="Resources\1357332164_resultset_previous.png" />
-    <None Include="Resources\1357332100_bullet_back.png" />
     <None Include="Resources\1357332047_text_list_bullets.png" />
-    <None Include="Resources\1357330836_cctv_camera.png" />
     <None Include="Resources\1357146159_billiard_marker.png" />
     <None Include="Resources\1357146337_find.png" />
     <None Include="Resources\1357146137_color_swatch.png" />

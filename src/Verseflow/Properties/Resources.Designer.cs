@@ -63,126 +63,6 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1355132156_ua {
-            get {
-                object obj = ResourceManager.GetObject("1355132156_ua", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1355132176_ru {
-            get {
-                object obj = ResourceManager.GetObject("1355132176_ru", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357144059_bug {
-            get {
-                object obj = ResourceManager.GetObject("1357144059_bug", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357145973_font {
-            get {
-                object obj = ResourceManager.GetObject("1357145973_font", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357146137_color_swatch {
-            get {
-                object obj = ResourceManager.GetObject("1357146137_color_swatch", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357146159_billiard_marker {
-            get {
-                object obj = ResourceManager.GetObject("1357146159_billiard_marker", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357146337_find {
-            get {
-                object obj = ResourceManager.GetObject("1357146337_find", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357330836_cctv_camera {
-            get {
-                object obj = ResourceManager.GetObject("1357330836_cctv_camera", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357332047_text_list_bullets {
-            get {
-                object obj = ResourceManager.GetObject("1357332047_text_list_bullets", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357332100_bullet_back {
-            get {
-                object obj = ResourceManager.GetObject("1357332100_bullet_back", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357332164_resultset_previous {
-            get {
-                object obj = ResourceManager.GetObject("1357332164_resultset_previous", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1357332308_resultset_next {
-            get {
-                object obj = ResourceManager.GetObject("1357332308_resultset_next", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _1357332601_find {
             get {
                 object obj = ResourceManager.GetObject("1357332601_find", resourceCulture);
@@ -193,9 +73,9 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1357332757_cctv_camera {
+        internal static System.Drawing.Bitmap _billiard_marker {
             get {
-                object obj = ResourceManager.GetObject("1357332757_cctv_camera", resourceCulture);
+                object obj = ResourceManager.GetObject("_billiard_marker", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +83,9 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1358435985_arrow_right {
+        internal static System.Drawing.Bitmap _book_open {
             get {
-                object obj = ResourceManager.GetObject("1358435985_arrow_right", resourceCulture);
+                object obj = ResourceManager.GetObject("_book_open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,9 +93,119 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1360462391_color_picker_alternative {
+        internal static System.Drawing.Bitmap _bug {
             get {
-                object obj = ResourceManager.GetObject("1360462391_color_picker_alternative", resourceCulture);
+                object obj = ResourceManager.GetObject("_bug", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _cctv_camera {
+            get {
+                object obj = ResourceManager.GetObject("_cctv_camera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _color_picker_alternative {
+            get {
+                object obj = ResourceManager.GetObject("_color_picker_alternative", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _color_swatch {
+            get {
+                object obj = ResourceManager.GetObject("_color_swatch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _find {
+            get {
+                object obj = ResourceManager.GetObject("_find", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _font {
+            get {
+                object obj = ResourceManager.GetObject("_font", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _magnifier {
+            get {
+                object obj = ResourceManager.GetObject("_magnifier", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _resultset_next {
+            get {
+                object obj = ResourceManager.GetObject("_resultset_next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _resultset_previous {
+            get {
+                object obj = ResourceManager.GetObject("_resultset_previous", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _ru {
+            get {
+                object obj = ResourceManager.GetObject("_ru", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _text_list_bullets {
+            get {
+                object obj = ResourceManager.GetObject("_text_list_bullets", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _ua {
+            get {
+                object obj = ResourceManager.GetObject("_ua", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

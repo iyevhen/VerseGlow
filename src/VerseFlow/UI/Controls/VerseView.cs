@@ -12,7 +12,7 @@ namespace VerseFlow.UI.Controls
 	{
 		private readonly object candy = new object();
 
-		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .4f, .4f, 0.8f, 1 } };
+		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .3f, .3f, 0.8f, 1 } };
 		private readonly List<VerseItem> visibleVerses = new List<VerseItem>();
 		private List<VerseItem> allverses = new List<VerseItem>();
 		const int xVersePadding = 5;
@@ -27,7 +27,7 @@ namespace VerseFlow.UI.Controls
 		private bool highlight;
 		private int lineHeight;
 
-		private const TextFormatFlags tff = TextFormatFlags.NoClipping
+		private const TextFormatFlags Tff = TextFormatFlags.NoClipping
 											| TextFormatFlags.NoFullWidthCharacterBreak
 											| TextFormatFlags.NoPadding
 											| TextFormatFlags.NoPrefix;
@@ -57,14 +57,6 @@ namespace VerseFlow.UI.Controls
 			allverses = strings.ConvertAll(s => new VerseItem(s));
 			recalcVerses = true;
 			Invalidate();
-		}
-
-		private static SizeF GetCharSize(Font font, char c)
-		{
-			Size sz2 = TextRenderer.MeasureText("<" + c.ToString() + ">", font);
-			Size sz3 = TextRenderer.MeasureText("<>", font);
-
-			return new SizeF(sz2.Width - sz3.Width, font.Height);
 		}
 
 		protected override void OnPaintBackground(PaintEventArgs e) { }
@@ -159,7 +151,7 @@ namespace VerseFlow.UI.Controls
 
 				if (y > rect.Height)
 				{
-					// do not draw not visible area
+					//EXIT. do not draw not visible area
 					break;
 				}
 
@@ -175,12 +167,11 @@ namespace VerseFlow.UI.Controls
 					{
 						brush.Blend = blend;
 						graph.FillRectangle(brush, r);
-//						graph.FillRectangle(SystemBrushes.Highlight, r);
 					}
 
 					foreach (string line in verse.EnumLines())
 					{
-						TextRenderer.DrawText(graph, line, Font, point, SystemColors.HighlightText, tff);
+						TextRenderer.DrawText(graph, line, Font, point, SystemColors.HighlightText, Tff);
 						point.Y += lineHeight;
 					}
 
@@ -226,12 +217,13 @@ namespace VerseFlow.UI.Controls
 						}
 						else
 						{
-							TextRenderer.DrawText(graph, line, Font, point, SystemColors.ControlText, tff);
+							TextRenderer.DrawText(graph, line, Font, point, SystemColors.ControlText, Tff);
 							point.Y += lineHeight;
 						}
 					}
 
-					graph.DrawLine(linePen, point.X, point.Y, paintedWidth, point.Y);
+					if (DrawSeparatorLine)
+						graph.DrawLine(linePen, point.X, point.Y, paintedWidth, point.Y);
 				}
 
 				visibleVerses.Add(verse);
@@ -271,7 +263,7 @@ namespace VerseFlow.UI.Controls
 
 					if (!charWidthDict.TryGetValue(c, out charWidth))
 					{
-						Size size = TextRenderer.MeasureText(g, new string(c, 1), Font, new Size(), tff);
+						Size size = TextRenderer.MeasureText(g, new string(c, 1), Font, new Size(), Tff);
 
 						charWidth = size.Width;
 						charWidthDict.Add(c, charWidth);
@@ -354,30 +346,18 @@ namespace VerseFlow.UI.Controls
 				Invalidate(ClientRectangle);
 		}
 
-		[DefaultValue(typeof(Font), "Courier New, 10.75")]
 		public override Font Font
 		{
 			get { return base.Font; }
 			set
 			{
 				base.Font = value;
-
-				//check monospace font
-				//				SizeF sizeM = GetCharSize(base.Font, 'M');
-				//				SizeF sizeDot = GetCharSize(base.Font, '.');
-
-				//				if (sizeM != sizeDot)
-				//					base.Font = new Font("Courier New", base.Font.SizeInPoints, FontStyle.Regular, GraphicsUnit.Point);
-
-				//				SizeF size = GetCharSize(base.Font, 'M');
-
-				//				monoCharWidth = (int)(size.Width);
-				//				monoCharHeight = (int)(size.Height);
-
 				recalcVerses = true;
 				Invalidate();
 			}
 		}
+
+		public bool DrawSeparatorLine { get; set; }
 
 		public string HighlightText
 		{

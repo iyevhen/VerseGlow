@@ -34,42 +34,47 @@ namespace VerseFlow.UI
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.tsAbout = new System.Windows.Forms.ToolStripStatusLabel();
 			this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+			this.bibleView1 = new VerseFlow.UI.BibleView();
 			this.pnlLeftNavigation = new System.Windows.Forms.Panel();
 			this.toolsLeftNavigation = new System.Windows.Forms.ToolStrip();
-			this.cmbContents = new System.Windows.Forms.ToolStripComboBox();
-			this.cmbChapters = new System.Windows.Forms.ToolStripComboBox();
-			this.cmbFind = new System.Windows.Forms.ToolStripComboBox();
-			this.tsFind = new System.Windows.Forms.ToolStripButton();
-			this.lblOpened = new System.Windows.Forms.Label();
-			this.toolsLeft = new System.Windows.Forms.ToolStrip();
-			this.tsOpen = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tsImport = new System.Windows.Forms.ToolStripDropDownButton();
-			this.bibleFromBibleQuoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tsFont = new System.Windows.Forms.ToolStripButton();
-			this.tsBackColor = new System.Windows.Forms.ToolStripButton();
+			this.tsSearch = new System.Windows.Forms.ToolStripButton();
+			this.tsFullName = new System.Windows.Forms.ToolStripLabel();
 			this.toolsRight = new System.Windows.Forms.ToolStrip();
 			this.tsGoLive = new System.Windows.Forms.ToolStripButton();
 			this.tsFreeze = new System.Windows.Forms.ToolStripButton();
 			this.tsBlack = new System.Windows.Forms.ToolStripButton();
-			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.miFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.resentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.miOpen = new System.Windows.Forms.ToolStripMenuItem();
+			this.miImport = new System.Windows.Forms.ToolStripMenuItem();
+			this.miImportBibleQuote = new System.Windows.Forms.ToolStripMenuItem();
+			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1.SuspendLayout();
 			this.splitContainerMain.Panel1.SuspendLayout();
 			this.splitContainerMain.Panel2.SuspendLayout();
 			this.splitContainerMain.SuspendLayout();
 			this.pnlLeftNavigation.SuspendLayout();
 			this.toolsLeftNavigation.SuspendLayout();
-			this.toolsLeft.SuspendLayout();
 			this.toolsRight.SuspendLayout();
+			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// statusStrip1
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsAbout});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 393);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 467);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(656, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(706, 22);
 			this.statusStrip1.TabIndex = 5;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
@@ -79,169 +84,92 @@ namespace VerseFlow.UI
 			this.tsAbout.LinkColor = System.Drawing.Color.DimGray;
 			this.tsAbout.Name = "tsAbout";
 			this.tsAbout.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-			this.tsAbout.Size = new System.Drawing.Size(41, 17);
+			this.tsAbout.Size = new System.Drawing.Size(46, 17);
 			this.tsAbout.Text = "About";
 			this.tsAbout.Click += new System.EventHandler(this.tsAbout_Click);
 			// 
 			// splitContainerMain
 			// 
 			this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainerMain.Location = new System.Drawing.Point(0, 0);
+			this.splitContainerMain.Location = new System.Drawing.Point(0, 24);
 			this.splitContainerMain.Name = "splitContainerMain";
 			// 
 			// splitContainerMain.Panel1
 			// 
-			this.splitContainerMain.Panel1.Controls.Add(this.verseView1);
+			this.splitContainerMain.Panel1.Controls.Add(this.bibleView1);
 			this.splitContainerMain.Panel1.Controls.Add(this.pnlLeftNavigation);
-			this.splitContainerMain.Panel1.Controls.Add(this.lblOpened);
-			this.splitContainerMain.Panel1.Controls.Add(this.toolsLeft);
 			// 
 			// splitContainerMain.Panel2
 			// 
 			this.splitContainerMain.Panel2.Controls.Add(this.toolsRight);
-			this.splitContainerMain.Size = new System.Drawing.Size(656, 393);
-			this.splitContainerMain.SplitterDistance = 313;
+			this.splitContainerMain.Size = new System.Drawing.Size(706, 443);
+			this.splitContainerMain.SplitterDistance = 323;
 			this.splitContainerMain.SplitterWidth = 6;
 			this.splitContainerMain.TabIndex = 13;
+			// 
+			// bibleView1
+			// 
+			this.bibleView1.AutoSize = true;
+			this.bibleView1.CurrentBible = null;
+			this.bibleView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.bibleView1.Location = new System.Drawing.Point(0, 26);
+			this.bibleView1.Name = "bibleView1";
+			this.bibleView1.Size = new System.Drawing.Size(323, 417);
+			this.bibleView1.TabIndex = 5;
+			this.bibleView1.Visible = false;
 			// 
 			// pnlLeftNavigation
 			// 
 			this.pnlLeftNavigation.Controls.Add(this.toolsLeftNavigation);
 			this.pnlLeftNavigation.Dock = System.Windows.Forms.DockStyle.Top;
-			this.pnlLeftNavigation.Location = new System.Drawing.Point(0, 42);
+			this.pnlLeftNavigation.Location = new System.Drawing.Point(0, 0);
 			this.pnlLeftNavigation.Name = "pnlLeftNavigation";
-			this.pnlLeftNavigation.Size = new System.Drawing.Size(313, 26);
+			this.pnlLeftNavigation.Size = new System.Drawing.Size(323, 26);
 			this.pnlLeftNavigation.TabIndex = 4;
 			// 
 			// toolsLeftNavigation
 			// 
 			this.toolsLeftNavigation.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolsLeftNavigation.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmbContents,
-            this.cmbChapters,
-            this.cmbFind,
-            this.tsFind});
+            this.tsFont,
+            this.tsSearch,
+            this.tsFullName});
 			this.toolsLeftNavigation.Location = new System.Drawing.Point(0, 0);
 			this.toolsLeftNavigation.Name = "toolsLeftNavigation";
 			this.toolsLeftNavigation.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
 			this.toolsLeftNavigation.ShowItemToolTips = false;
-			this.toolsLeftNavigation.Size = new System.Drawing.Size(313, 25);
+			this.toolsLeftNavigation.Size = new System.Drawing.Size(323, 25);
 			this.toolsLeftNavigation.TabIndex = 4;
 			this.toolsLeftNavigation.Text = "toolsLeftNavigation";
 			// 
-			// cmbContents
-			// 
-			this.cmbContents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbContents.DropDownWidth = 300;
-			this.cmbContents.Name = "cmbContents";
-			this.cmbContents.Size = new System.Drawing.Size(150, 25);
-			this.cmbContents.SelectedIndexChanged += new System.EventHandler(this.cmbContents_SelectedIndexChanged);
-			// 
-			// cmbChapters
-			// 
-			this.cmbChapters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbChapters.Name = "cmbChapters";
-			this.cmbChapters.Size = new System.Drawing.Size(75, 25);
-			this.cmbChapters.SelectedIndexChanged += new System.EventHandler(this.cmbChapters_SelectedIndexChanged);
-			// 
-			// cmbFind
-			// 
-			this.cmbFind.DropDownWidth = 300;
-			this.cmbFind.Name = "cmbFind";
-			this.cmbFind.Size = new System.Drawing.Size(121, 21);
-			this.cmbFind.Visible = false;
-			// 
-			// tsFind
-			// 
-			this.tsFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsFind.Image = global::VerseFlow.Properties.Resources._1357146337_find;
-			this.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsFind.Name = "tsFind";
-			this.tsFind.Size = new System.Drawing.Size(23, 22);
-			this.tsFind.Text = "Find";
-			this.tsFind.Visible = false;
-			// 
-			// lblOpened
-			// 
-			this.lblOpened.AutoSize = true;
-			this.lblOpened.Dock = System.Windows.Forms.DockStyle.Top;
-			this.lblOpened.ForeColor = System.Drawing.Color.DimGray;
-			this.lblOpened.Location = new System.Drawing.Point(0, 25);
-			this.lblOpened.Name = "lblOpened";
-			this.lblOpened.Padding = new System.Windows.Forms.Padding(2);
-			this.lblOpened.Size = new System.Drawing.Size(43, 17);
-			this.lblOpened.TabIndex = 2;
-			this.lblOpened.Text = "<Title>";
-			// 
-			// toolsLeft
-			// 
-			this.toolsLeft.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsOpen,
-            this.tsImport,
-            this.toolStripSeparator1,
-            this.tsFont,
-            this.tsBackColor});
-			this.toolsLeft.Location = new System.Drawing.Point(0, 0);
-			this.toolsLeft.Name = "toolsLeft";
-			this.toolsLeft.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolsLeft.Size = new System.Drawing.Size(313, 25);
-			this.toolsLeft.TabIndex = 3;
-			this.toolsLeft.Text = "toolsLeft";
-			// 
-			// tsOpen
-			// 
-			this.tsOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.tsOpen.Image = ((System.Drawing.Image)(resources.GetObject("tsOpen.Image")));
-			this.tsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsOpen.Name = "tsOpen";
-			this.tsOpen.Size = new System.Drawing.Size(46, 22);
-			this.tsOpen.Text = "&Open";
-			this.tsOpen.DropDownOpening += new System.EventHandler(this.tsOpen_DropDownOpening);
-			this.tsOpen.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsOpen_DropDownItemClicked);
-			// 
-			// tsImport
-			// 
-			this.tsImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.tsImport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bibleFromBibleQuoteToolStripMenuItem});
-			this.tsImport.Image = ((System.Drawing.Image)(resources.GetObject("tsImport.Image")));
-			this.tsImport.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsImport.Name = "tsImport";
-			this.tsImport.Size = new System.Drawing.Size(52, 22);
-			this.tsImport.Text = "&Import";
-			// 
-			// bibleFromBibleQuoteToolStripMenuItem
-			// 
-			this.bibleFromBibleQuoteToolStripMenuItem.Name = "bibleFromBibleQuoteToolStripMenuItem";
-			this.bibleFromBibleQuoteToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-			this.bibleFromBibleQuoteToolStripMenuItem.Text = "Bible from BibleQuote";
-			this.bibleFromBibleQuoteToolStripMenuItem.Click += new System.EventHandler(this.bibleFromBibleQuoteToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
 			// tsFont
 			// 
-			this.tsFont.Image = global::VerseFlow.Properties.Resources._1357145973_font;
+			this.tsFont.Image = global::VerseFlow.Properties.Resources._font;
 			this.tsFont.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsFont.Name = "tsFont";
-			this.tsFont.Size = new System.Drawing.Size(49, 22);
-			this.tsFont.Text = "Fon&t";
+			this.tsFont.Size = new System.Drawing.Size(53, 22);
+			this.tsFont.Text = "Font";
 			this.tsFont.Click += new System.EventHandler(this.tsFont_Click);
 			// 
-			// tsBackColor
+			// tsSearch
 			// 
-			this.tsBackColor.Image = global::VerseFlow.Properties.Resources._1360462391_color_picker_alternative;
-			this.tsBackColor.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsBackColor.Name = "tsBackColor";
-			this.tsBackColor.Size = new System.Drawing.Size(77, 22);
-			this.tsBackColor.Text = "Back &Color";
-			this.tsBackColor.Click += new System.EventHandler(this.tsColor_Click);
+			this.tsSearch.CheckOnClick = true;
+			this.tsSearch.Image = global::VerseFlow.Properties.Resources._magnifier;
+			this.tsSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsSearch.Name = "tsSearch";
+			this.tsSearch.Size = new System.Drawing.Size(68, 22);
+			this.tsSearch.Text = "Search";
+			// 
+			// tsFullName
+			// 
+			this.tsFullName.Image = global::VerseFlow.Properties.Resources._book_open;
+			this.tsFullName.Name = "tsFullName";
+			this.tsFullName.Size = new System.Drawing.Size(95, 22);
+			this.tsFullName.Text = "<FullName>";
 			// 
 			// toolsRight
 			// 
+			this.toolsRight.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolsRight.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsGoLive,
             this.tsFreeze,
@@ -249,18 +177,17 @@ namespace VerseFlow.UI
 			this.toolsRight.Location = new System.Drawing.Point(0, 0);
 			this.toolsRight.Name = "toolsRight";
 			this.toolsRight.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolsRight.Size = new System.Drawing.Size(337, 25);
+			this.toolsRight.Size = new System.Drawing.Size(377, 25);
 			this.toolsRight.TabIndex = 4;
 			this.toolsRight.Text = "toolsRight";
 			// 
 			// tsGoLive
 			// 
 			this.tsGoLive.CheckOnClick = true;
-			this.tsGoLive.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-			this.tsGoLive.Image = global::VerseFlow.Properties.Resources._1357332757_cctv_camera;
+			this.tsGoLive.Image = global::VerseFlow.Properties.Resources._cctv_camera;
 			this.tsGoLive.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsGoLive.Name = "tsGoLive";
-			this.tsGoLive.Size = new System.Drawing.Size(68, 22);
+			this.tsGoLive.Size = new System.Drawing.Size(69, 22);
 			this.tsGoLive.Text = "&Go Live";
 			this.tsGoLive.Click += new System.EventHandler(this.tsGoLive_Click);
 			// 
@@ -271,7 +198,7 @@ namespace VerseFlow.UI
 			this.tsFreeze.Image = ((System.Drawing.Image)(resources.GetObject("tsFreeze.Image")));
 			this.tsFreeze.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsFreeze.Name = "tsFreeze";
-			this.tsFreeze.Size = new System.Drawing.Size(44, 22);
+			this.tsFreeze.Size = new System.Drawing.Size(51, 22);
 			this.tsFreeze.Text = "&Freeze";
 			// 
 			// tsBlack
@@ -281,30 +208,127 @@ namespace VerseFlow.UI
 			this.tsBlack.Image = ((System.Drawing.Image)(resources.GetObject("tsBlack.Image")));
 			this.tsBlack.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsBlack.Name = "tsBlack";
-			this.tsBlack.Size = new System.Drawing.Size(50, 22);
+			this.tsBlack.Size = new System.Drawing.Size(61, 22);
 			this.tsBlack.Text = "Fill &Black";
 			// 
-			// verseView1
+			// menuStrip1
 			// 
-			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(276, 0);
-			this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.verseView1.HighlightText = null;
-			this.verseView1.Location = new System.Drawing.Point(0, 68);
-			this.verseView1.Name = "verseView1";
-			this.verseView1.Size = new System.Drawing.Size(313, 325);
-			this.verseView1.TabIndex = 1;
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miFile,
+            this.editToolStripMenuItem,
+            this.miOpen,
+            this.miImport,
+            this.settingsToolStripMenuItem});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+			this.menuStrip1.Size = new System.Drawing.Size(706, 24);
+			this.menuStrip1.TabIndex = 14;
+			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// miFile
+			// 
+			this.miFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.resentToolStripMenuItem,
+            this.exitToolStripMenuItem});
+			this.miFile.Name = "miFile";
+			this.miFile.Size = new System.Drawing.Size(40, 20);
+			this.miFile.Text = "File";
+			// 
+			// newToolStripMenuItem
+			// 
+			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			this.newToolStripMenuItem.Text = "New";
+			// 
+			// openToolStripMenuItem
+			// 
+			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			this.openToolStripMenuItem.Text = "Open";
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(158, 6);
+			// 
+			// resentToolStripMenuItem
+			// 
+			this.resentToolStripMenuItem.Name = "resentToolStripMenuItem";
+			this.resentToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			this.resentToolStripMenuItem.Text = "Recent opened";
+			// 
+			// exitToolStripMenuItem
+			// 
+			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+			this.exitToolStripMenuItem.Text = "Exit";
+			// 
+			// miOpen
+			// 
+			this.miOpen.Name = "miOpen";
+			this.miOpen.Size = new System.Drawing.Size(50, 20);
+			this.miOpen.Text = "Open";
+			this.miOpen.DropDownOpening += new System.EventHandler(this.tsOpen_DropDownOpening);
+			this.miOpen.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsOpen_DropDownItemClicked);
+			// 
+			// miImport
+			// 
+			this.miImport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miImportBibleQuote});
+			this.miImport.Name = "miImport";
+			this.miImport.Size = new System.Drawing.Size(58, 20);
+			this.miImport.Text = "Import";
+			// 
+			// miImportBibleQuote
+			// 
+			this.miImportBibleQuote.Name = "miImportBibleQuote";
+			this.miImportBibleQuote.Size = new System.Drawing.Size(199, 22);
+			this.miImportBibleQuote.Text = "Bible from BibleQuote";
+			this.miImportBibleQuote.Click += new System.EventHandler(this.bibleFromBibleQuoteToolStripMenuItem_Click);
+			// 
+			// settingsToolStripMenuItem
+			// 
+			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+			this.settingsToolStripMenuItem.Text = "Options";
+			// 
+			// editToolStripMenuItem
+			// 
+			this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fontToolStripMenuItem,
+            this.searchToolStripMenuItem});
+			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+			this.editToolStripMenuItem.Text = "Edit";
+			// 
+			// fontToolStripMenuItem
+			// 
+			this.fontToolStripMenuItem.Image = global::VerseFlow.Properties.Resources._font;
+			this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
+			this.fontToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.fontToolStripMenuItem.Text = "Font";
+			// 
+			// searchToolStripMenuItem
+			// 
+			this.searchToolStripMenuItem.Image = global::VerseFlow.Properties.Resources._magnifier;
+			this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+			this.searchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.searchToolStripMenuItem.Text = "Search";
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(656, 415);
+			this.ClientSize = new System.Drawing.Size(706, 489);
 			this.Controls.Add(this.splitContainerMain);
 			this.Controls.Add(this.statusStrip1);
+			this.Controls.Add(this.menuStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "FrmMain";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "MainForm";
@@ -320,10 +344,10 @@ namespace VerseFlow.UI
 			this.pnlLeftNavigation.PerformLayout();
 			this.toolsLeftNavigation.ResumeLayout(false);
 			this.toolsLeftNavigation.PerformLayout();
-			this.toolsLeft.ResumeLayout(false);
-			this.toolsLeft.PerformLayout();
 			this.toolsRight.ResumeLayout(false);
 			this.toolsRight.PerformLayout();
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -331,16 +355,8 @@ namespace VerseFlow.UI
 
 		#endregion
 
-		private VerseView verseView1;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.SplitContainer splitContainerMain;
-		private System.Windows.Forms.Label lblOpened;
-		private System.Windows.Forms.ToolStrip toolsLeft;
-		private System.Windows.Forms.ToolStripDropDownButton tsOpen;
-		private System.Windows.Forms.ToolStripDropDownButton tsImport;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripButton tsFont;
-		private System.Windows.Forms.ToolStripButton tsBackColor;
 		private System.Windows.Forms.ToolStrip toolsRight;
 		private System.Windows.Forms.ToolStripButton tsGoLive;
 		private System.Windows.Forms.ToolStripButton tsBlack;
@@ -348,11 +364,24 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.ToolStripStatusLabel tsAbout;
 		private System.Windows.Forms.Panel pnlLeftNavigation;
 		private System.Windows.Forms.ToolStrip toolsLeftNavigation;
-		private System.Windows.Forms.ToolStripComboBox cmbContents;
-		private System.Windows.Forms.ToolStripComboBox cmbChapters;
-		private System.Windows.Forms.ToolStripComboBox cmbFind;
-		private System.Windows.Forms.ToolStripButton tsFind;
-		private System.Windows.Forms.ToolStripMenuItem bibleFromBibleQuoteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripButton tsSearch;
+		private System.Windows.Forms.ToolStripButton tsFont;
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem miOpen;
+		private System.Windows.Forms.ToolStripMenuItem miImport;
+		private System.Windows.Forms.ToolStripMenuItem miImportBibleQuote;
+		private BibleView bibleView1;
+		private System.Windows.Forms.ToolStripLabel tsFullName;
+		private System.Windows.Forms.ToolStripMenuItem miFile;
+		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem resentToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
 
 	}
 }
