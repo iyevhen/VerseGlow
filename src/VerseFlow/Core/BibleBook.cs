@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VerseFlow
+namespace VerseFlow.Core
 {
 	public class BibleBook
 	{

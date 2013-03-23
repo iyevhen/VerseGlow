@@ -8,12 +8,12 @@ namespace VerseFlow.Test
 	[TestFixture]
 	public class BibleQuoteIniFixture
 	{
-		private BibleQuoteIni ini;
+		private BqtIni ini;
 
 		[SetUp]
 		public void SetUp()
 		{
-			ini = new BibleQuoteIni("folder", Encoding.Default, new string[0]);
+			ini = new BqtIni("folder", Encoding.Default, new string[0]);
 		}
 
 		[Test]

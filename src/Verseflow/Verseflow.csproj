@@ -56,22 +56,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppGlobal.cs" />
-    <Compile Include="Bible.cs" />
-    <Compile Include="BibleBook.cs" />
-    <Compile Include="BibleVerse.cs" />
-    <Compile Include="Core\Import\BibleQuote\BibleQuoteBibleImporter.cs" />
-    <Compile Include="Core\Import\BibleQuote\BibleQuoteBook.cs" />
-    <Compile Include="Core\Import\BibleQuote\BibleQuoteImporter.cs" />
-    <Compile Include="Core\Import\BibleQuote\BibleQuoteImportException.cs" />
-    <Compile Include="Core\Import\BibleQuote\BibleQuoteIni.cs" />
-    <Compile Include="Core\Import\BibleQuote\BibleQuoteVerse.cs" />
+    <Compile Include="Core\IBible.cs" />
+    <Compile Include="Core\Import\IBibleWriter.cs" />
+    <Compile Include="Core\Import\IBibleImportAdapter.cs" />
+    <Compile Include="Core\Import\BibleQuote\BqtBibleAdapter.cs" />
+    <Compile Include="Core\Import\IBibleBook.cs" />
+    <Compile Include="Core\Import\IBibleVerse.cs" />
+    <Compile Include="Core\IBibleRepository.cs" />
+    <Compile Include="Options.cs" />
+    <Compile Include="Core\XmlBible.cs" />
+    <Compile Include="Core\BibleBook.cs" />
+    <Compile Include="Core\BibleVerse.cs" />
+    <Compile Include="Core\Import\BibleQuote\BqtBook.cs" />
+    <Compile Include="Core\Import\BibleQuote\BqtImportException.cs" />
+    <Compile Include="Core\Import\BibleQuote\BqtIni.cs" />
+    <Compile Include="Core\Import\BibleQuote\BqtVerse.cs" />
     <Compile Include="UI\BibleFindView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -129,6 +133,7 @@
     <Compile Include="UI\StringWrap.cs" />
     <Compile Include="UI\TextCursor.cs" />
     <Compile Include="UI\UserRect.cs" />
+    <Compile Include="Core\XmlBibleRepository.cs" />
     <EmbeddedResource Include="UI\BibleView.resx">
       <DependentUpon>BibleView.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,6 +163,7 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -185,9 +191,7 @@
     <None Include="Resources\1357145973_font.png" />
     <None Include="Resources\1357144059_bug.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Download\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

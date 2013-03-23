@@ -2,6 +2,8 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using VerseFlow.Core;
+using VerseFlow.Core.Import;
 using VerseFlow.Core.Import.BibleQuote;
 using VerseFlow.Properties;
 
@@ -10,11 +12,18 @@ namespace VerseFlow.UI
 	public partial class FrmImportBibleQuote : Form
 	{
 		private string inifile;
+		private string browseDir;
+		private IBible importedBible;
 
 		public FrmImportBibleQuote()
 		{
 			InitializeComponent();
 			btnImport.Enabled = false;
+		}
+
+		public IBible ImportedBible
+		{
+			get { return importedBible; }
 		}
 
 		private void ImportBibleQuote_Load(object sender, EventArgs e)
@@ -32,9 +41,6 @@ namespace VerseFlow.UI
 					padding = infos[i].DisplayName.Length;
 			}
 
-			foreach (EncodingInfoEx ei in infos2)
-				ei.SetPadding(padding);
-
 			cmbEnc.DataSource = infos2;
 			cmbEnc.DisplayMember = "DisplayNameEx";
 
@@ -45,21 +51,30 @@ namespace VerseFlow.UI
 		{
 			try
 			{
-				string name = new BibleQuoteBibleImporter().Import(txtFolder.Text, GetEncoding());
-				MessageBox.Show(this, string.Format("Successfully imported '{0}'.", name), AppGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+				IBibleImportAdapter adapter = new BqtBibleAdapter(txtIniFilePath.Text, GetEncoding());
+
+				using (IBibleWriter bibleWriter = Options.BibleRepository.New())
+				{
+					importedBible = bibleWriter.Write(adapter);
+				}
+
+				MessageBox.Show(this,
+					string.Format("Successfully imported '{0}'.", adapter.BibleName()),
+					Options.AppName,
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Information);
 			}
 			catch (Exception exception)
 			{
-				MessageBox.Show(this, exception.Message, AppGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(this, exception.Message, Options.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private Encoding GetEncoding()
 		{
-			if (cboxDefault.Checked || cmbEnc.SelectedItem == null)
-				return Encoding.Default;
-
-			return ((EncodingInfoEx)cmbEnc.SelectedItem).Encoding;
+			return cboxDefault.Checked || cmbEnc.SelectedItem == null
+					   ? Encoding.Default
+					   : ((EncodingInfoEx)cmbEnc.SelectedItem).Encoding;
 		}
 
 		private void cmbEnc_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,7 +88,9 @@ namespace VerseFlow.UI
 		private void Preview()
 		{
 			if (!string.IsNullOrEmpty(inifile))
+			{
 				txtPreview.Text = File.ReadAllText(inifile, GetEncoding());
+			}
 		}
 
 		private void cboxDefault_CheckedChanged(object sender, EventArgs e)
@@ -84,19 +101,15 @@ namespace VerseFlow.UI
 
 		private void txtFolder_TextChanged(object sender, EventArgs e)
 		{
-			string folder = txtFolder.Text;
 			inifile = null;
 
-			if (Directory.Exists(folder))
+			if (File.Exists(txtIniFilePath.Text))
 			{
-				inifile = DirectoryHelp.GetFile(folder, BibleQuoteIni.INI);
+				inifile = txtIniFilePath.Text;
 
-				if (inifile != null)
-				{
-					btnImport.Enabled = true;
-					Preview();
-					return;
-				}
+				btnImport.Enabled = true;
+				Preview();
+				return;
 			}
 
 			btnImport.Enabled = false;
@@ -104,30 +117,31 @@ namespace VerseFlow.UI
 
 		private void btnBrowse_Click(object sender, EventArgs e)
 		{
-			using (var fb = new FolderBrowserDialog())
+			using (var ofd = new OpenFileDialog())
 			{
-				fb.Description = Resources.SelectBibleQuoteBibleFolder;
+				ofd.Title = Resources.SelectBibleQuoteIniFile;
+				ofd.CheckFileExists = true;
+				ofd.Multiselect = false;
+				ofd.InitialDirectory = browseDir;
+				ofd.Filter = string.Format("BibleQuote INI File|{0}", BqtIni.INI);
 
-				if (DialogResult.OK != fb.ShowDialog(this))
-					return;
-
-				txtFolder.Text = fb.SelectedPath;
+				if (DialogResult.OK == ofd.ShowDialog(this))
+				{
+					txtIniFilePath.Text = ofd.FileName;
+					browseDir = Path.GetDirectoryName(ofd.FileName);
+				}
 			}
 		}
 
 		class EncodingInfoEx
 		{
 			private readonly EncodingInfo ei;
-			private string displayNameEx;
+			private readonly string displayNameEx;
 
 			public EncodingInfoEx(EncodingInfo ei)
 			{
 				this.ei = ei;
-			}
-
-			public void SetPadding(int padding)
-			{
-				displayNameEx = string.Format("{0}  {1}", ei.DisplayName.PadRight(padding, ' '), ei.Name);
+				displayNameEx = string.Format("{0}  [{1}]", ei.DisplayName, ei.Name);
 			}
 
 			public Encoding Encoding

@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
+using VerseFlow.Core;
 
 namespace VerseFlow.UI
 {
 	public partial class BibleView : UserControl
 	{
 		private BibleBook bibleBook;
-		private Bible currentBible;
+		private IBible currentBible;
 
 		public BibleView()
 		{
 			InitializeComponent();
 		}
 
-		public Bible CurrentBible
+		public IBible CurrentBible
 		{
 			get { return currentBible; }
 			set
@@ -29,8 +26,7 @@ namespace VerseFlow.UI
 
 				if (currentBible != null)
 				{
-
-					foreach (BibleBook book in currentBible.ReadBooks())
+					foreach (BibleBook book in currentBible.OpenBooks())
 					{
 						cmbContents.Items.Add(book);
 					}
@@ -39,9 +35,14 @@ namespace VerseFlow.UI
 			}
 		}
 
+		public void Highlight(string text)
+		{
+			verseView1.HighlightText = text;
+		}
+
 		private void cmbContents_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (CurrentBible == null)
+			if (currentBible == null)
 			{
 				return;
 			}
@@ -65,12 +66,12 @@ namespace VerseFlow.UI
 
 		private void cmbChapters_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (CurrentBible == null || bibleBook == null)
+			if (currentBible == null || bibleBook == null)
 			{
 				return;
 			}
 
-			List<BibleVerse> verses = CurrentBible.ReadChapter(bibleBook, cmbChapters.SelectedIndex + 1);
+			List<BibleVerse> verses = currentBible.OpenChapter(bibleBook, (cmbChapters.SelectedIndex + 1).ToString());
 			verseView1.Fill(verses.ConvertAll(v => v.Text));
 		}
 	}

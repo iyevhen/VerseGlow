@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Windows.Forms;
+using VerseFlow.Core;
 
 namespace VerseFlow.UI
 {
@@ -9,8 +8,8 @@ namespace VerseFlow.UI
 	{
 		private IDisplay display;
 		private bool openLoaded;
-		private Bible bible;
-		private BibleBook bibleBook;
+		private IBible bible;
+		private string appNameAndVersion;
 
 		public FrmMain()
 		{
@@ -22,7 +21,8 @@ namespace VerseFlow.UI
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
 			Font = System.Drawing.SystemFonts.MessageBoxFont;
-			Text = string.Format("{0} - v{1}", AppGlobal.AppName, AppGlobal.AppVersion);
+			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion);
+			Text = appNameAndVersion;
 		}
 
 		private void tsAbout_Click(object sender, EventArgs e)
@@ -30,7 +30,7 @@ namespace VerseFlow.UI
 			using (var f = new FrmAbout())
 			{
 				f.Icon = Icon;
-				f.Text = AppGlobal.AppName;
+				f.Text = Options.AppName;
 				f.ShowDialog(this);
 			}
 		}
@@ -39,9 +39,11 @@ namespace VerseFlow.UI
 		{
 			if (!openLoaded)
 			{
-				foreach (Bible bib in AppGlobal.Bibles())
+				miOpen.DropDownItems.Clear();
+
+				foreach (IBible b in Options.BibleRepository.OpenAll())
 				{
-					miOpen.DropDownItems.Add(new ToolStripMenuItem(bib.FullName) { Tag = bib });
+					miOpen.DropDownItems.Add(new ToolStripMenuItem(b.Title()) { Tag = b });
 				}
 
 				openLoaded = true;
@@ -54,9 +56,9 @@ namespace VerseFlow.UI
 
 			if (item != null && item.Tag != null)
 			{
-				bible = (Bible)item.Tag;
+				bible = (IBible)item.Tag;
 
-				tsFullName.Text = bible.FullName;
+				Text = string.Format("{0} - {1}", appNameAndVersion, item.Text);
 
 				if (!toolsLeftNavigation.Visible)
 				{
@@ -109,6 +111,16 @@ namespace VerseFlow.UI
 				tsBlack.Checked = false;
 				tsFreeze.Checked = false;
 			}
+		}
+
+		private void tsHighlight_Click(object sender, EventArgs e)
+		{
+			bibleView1.Highlight(txtHighlight.Text);
+		}
+
+		private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("find");
 		}
 	}
 }

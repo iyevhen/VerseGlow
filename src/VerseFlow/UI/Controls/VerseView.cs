@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -15,7 +14,6 @@ namespace VerseFlow.UI.Controls
 		private readonly Blend blend = new Blend { Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 }, Factors = new[] { 1, .8f, .3f, .3f, 0.8f, 1 } };
 		private readonly List<VerseItem> visibleVerses = new List<VerseItem>();
 		private List<VerseItem> allverses = new List<VerseItem>();
-		const int xVersePadding = 5;
 
 		private readonly Color highlightLightenColor;
 		private SolidBrush backColorBrush;
@@ -26,6 +24,7 @@ namespace VerseFlow.UI.Controls
 		private string highlightText;
 		private bool highlight;
 		private int lineHeight;
+		private const int paragraph = 10;
 
 		private const TextFormatFlags Tff = TextFormatFlags.NoClipping
 											| TextFormatFlags.NoFullWidthCharacterBreak
@@ -93,7 +92,10 @@ namespace VerseFlow.UI.Controls
 				{
 					Debug.WriteLine("Recalculating verses");
 
-					RecalcVerses(rect.Height, Width - (SystemInformation.VerticalScrollBarWidth * 2) - xVersePadding, e.Graphics);
+					int visibleWidth = Width - (Padding.Left + Padding.Right);
+					int visibleHeight = rect.Height - (Padding.Top + Padding.Bottom);
+
+					RecalcVerses(visibleHeight, visibleWidth, e.Graphics);
 					recalcVerses = false;
 				}
 
@@ -138,6 +140,7 @@ namespace VerseFlow.UI.Controls
 
 			foreach (VerseItem verse in allverses)
 			{
+				//Get to visible verses
 				if (!visible)
 				{
 					cursor += verse.Height;
@@ -155,7 +158,7 @@ namespace VerseFlow.UI.Controls
 					break;
 				}
 
-				var point = new Point(xVersePadding, y);
+				var point = new Point(Padding.Left + paragraph, y);
 
 				if (verse.IsSelected)
 				{
@@ -173,6 +176,7 @@ namespace VerseFlow.UI.Controls
 					{
 						TextRenderer.DrawText(graph, line, Font, point, SystemColors.HighlightText, Tff);
 						point.Y += lineHeight;
+						point.X = Padding.Left;
 					}
 
 					graph.DrawRectangle(SystemPens.Highlight, r);
@@ -211,15 +215,14 @@ namespace VerseFlow.UI.Controls
 									cur = linelen;
 								}
 							}
-
-							point.Y += lineHeight;
-							point.X = 0;
 						}
 						else
 						{
 							TextRenderer.DrawText(graph, line, Font, point, SystemColors.ControlText, Tff);
-							point.Y += lineHeight;
 						}
+
+						point.Y += lineHeight;
+						point.X = Padding.Left;
 					}
 
 					if (DrawSeparatorLine)
@@ -233,19 +236,11 @@ namespace VerseFlow.UI.Controls
 
 		private void RecalcVerses(int visibleHeight, int visibleWidth, Graphics g)
 		{
-			bool scrolled = false;
-			int versesHeigth;
-			bool recalc;
-
-			var charWidthDict = new Dictionary<char, int>();
+			var charWidthes = new Dictionary<char, int>();
 			lineHeight = 0;
-			int lineWidth = 0;
-
 			int spaceIndex = 0;
-			int lineWidthLastSpace = 0;
-
-			recalc = false;
-			versesHeigth = 0;
+			bool recalc = false;
+			int versesHeigth = 0;
 
 			for (int i = 0; i < allverses.Count; i++)
 			{
@@ -253,6 +248,7 @@ namespace VerseFlow.UI.Controls
 				verse.DropLines();
 
 				int start = 0;
+				int lineWidth = paragraph;
 				int end = verse.Text.Length;
 				int j;
 
@@ -261,12 +257,12 @@ namespace VerseFlow.UI.Controls
 					char c = verse.Text[j];
 					int charWidth;
 
-					if (!charWidthDict.TryGetValue(c, out charWidth))
+					if (!charWidthes.TryGetValue(c, out charWidth))
 					{
 						Size size = TextRenderer.MeasureText(g, new string(c, 1), Font, new Size(), Tff);
 
 						charWidth = size.Width;
-						charWidthDict.Add(c, charWidth);
+						charWidthes.Add(c, charWidth);
 
 						if (lineHeight < size.Height)
 							lineHeight = size.Height;
@@ -304,10 +300,16 @@ namespace VerseFlow.UI.Controls
 				if (lineWidth > 0)
 				{
 					verse.NewLine(start, j - start, lineHeight);
-
 					spaceIndex = 0;
-					lineWidth = 0;
 					versesHeigth += lineHeight;
+				}
+
+				if (versesHeigth > visibleHeight && !recalc)
+				{
+					recalc = true;
+					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
+					i = -1;
+					versesHeigth = 0;
 				}
 			}
 

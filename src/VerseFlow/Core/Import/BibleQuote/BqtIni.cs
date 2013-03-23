@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using System.Web;
 
 namespace VerseFlow.Core.Import.BibleQuote
 {
 	/// <summary>
 	/// http://bqt.ru/OpisanieFormataModulejj?v=xqh
 	/// </summary>
-	public class BibleQuoteIni
+	public class BqtIni
 	{
 		public const string INI = "bibleqt.ini";
 
-		private readonly List<BibleQuoteBook> books = new List<BibleQuoteBook>();
+		private readonly List<BqtBook> books = new List<BqtBook>();
 		private readonly Dictionary<string, string> values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		private readonly string parentFolder;
 		private readonly Encoding encoding;
 
-		public BibleQuoteIni(string parentFolder, Encoding encoding, IEnumerable<string> lines)
+		public BqtIni(string parentFolder, Encoding encoding, IEnumerable<string> lines)
 		{
 			if (string.IsNullOrEmpty(parentFolder))
 				throw new ArgumentNullException("parentFolder");
@@ -29,7 +27,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			this.parentFolder = parentFolder;
 			this.encoding = encoding;
 
-			BibleQuoteBook book = null;
+			BqtBook book = null;
 
 			foreach (string line in lines)
 			{
@@ -49,9 +47,9 @@ namespace VerseFlow.Core.Import.BibleQuote
 				string key = pair[0].Trim();
 				string value = pair[1].Trim();
 
-				if (BibleQuoteBook.IsNewBook(key))
+				if (BqtBook.IsNewBook(key))
 				{
-					book = new BibleQuoteBook(this);
+					book = new BqtBook(this);
 					books.Add(book);
 				}
 
@@ -59,13 +57,13 @@ namespace VerseFlow.Core.Import.BibleQuote
 					continue;
 
 				if (values.ContainsKey(key))
-					throw new BibleQuoteImportException(string.Format("'{0}' contains dublicated KEY - '{1}'", INI, key));
+					throw new BqtImportException(string.Format("[{0}] contains dublicated KEY - [{1}]", INI, key));
 
 				values.Add(key, value);
 			}
 		}
 
-		public IEnumerable<BibleQuoteBook> Books
+		public IEnumerable<BqtBook> Books
 		{
 			get { return books.ToArray(); }
 		}
@@ -219,18 +217,13 @@ namespace VerseFlow.Core.Import.BibleQuote
 						skip = true;
 					}
 					else
-//						if (c == '&')
-//						{
-//
-//						}
-//						else
-						{
-							if (!trimmed)
-								trimmed = Char.IsLetter(c);
+					{
+						if (!trimmed)
+							trimmed = Char.IsLetter(c);
 
-							if (trimmed)
-								sb.Append(c);
-						}
+						if (trimmed)
+							sb.Append(c);
+					}
 				}
 				else if (c == '>')
 					skip = false;

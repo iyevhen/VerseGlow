@@ -113,7 +113,7 @@ namespace VerseFlow.UI
 		}
 
 		/// <summary>
-		/// Find the best place to break text given a starting index and a search radius.
+		/// OpenVerses the best place to break text given a starting index and a search radius.
 		/// </summary>
 		/// <param name="text">Full text to search through.</param>
 		/// <param name="start">Index in string to start searching at.  Will be used

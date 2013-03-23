@@ -211,11 +211,11 @@ namespace VerseFlow.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select folder where BibleQuote Bible module is located.
+        ///   Looks up a localized string similar to Please open BibleQuote &apos;bibleqt.ini&apos; file..
         /// </summary>
-        internal static string SelectBibleQuoteBibleFolder {
+        internal static string SelectBibleQuoteIniFile {
             get {
-                return ResourceManager.GetString("SelectBibleQuoteBibleFolder", resourceCulture);
+                return ResourceManager.GetString("SelectBibleQuoteIniFile", resourceCulture);
             }
         }
     }

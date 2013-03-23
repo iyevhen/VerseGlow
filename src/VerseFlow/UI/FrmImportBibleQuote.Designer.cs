@@ -17,7 +17,7 @@
 		private void InitializeComponent()
 		{
 			this.gbFolder = new System.Windows.Forms.GroupBox();
-			this.txtFolder = new System.Windows.Forms.TextBox();
+			this.txtIniFilePath = new System.Windows.Forms.TextBox();
 			this.btnBrowse = new System.Windows.Forms.Button();
 			this.gbEnc = new System.Windows.Forms.GroupBox();
 			this.txtPreview = new System.Windows.Forms.TextBox();
@@ -31,7 +31,7 @@
 			// 
 			// gbFolder
 			// 
-			this.gbFolder.Controls.Add(this.txtFolder);
+			this.gbFolder.Controls.Add(this.txtIniFilePath);
 			this.gbFolder.Controls.Add(this.btnBrowse);
 			this.gbFolder.Dock = System.Windows.Forms.DockStyle.Top;
 			this.gbFolder.Location = new System.Drawing.Point(0, 0);
@@ -43,23 +43,23 @@
 			this.gbFolder.TabStop = false;
 			this.gbFolder.Text = "Path to BibleQuote module";
 			// 
-			// txtFolder
+			// txtIniFilePath
 			// 
-			this.txtFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtFolder.Location = new System.Drawing.Point(10, 16);
-			this.txtFolder.Name = "txtFolder";
-			this.txtFolder.Size = new System.Drawing.Size(496, 20);
-			this.txtFolder.TabIndex = 0;
-			this.txtFolder.WordWrap = false;
-			this.txtFolder.TextChanged += new System.EventHandler(this.txtFolder_TextChanged);
+			this.txtIniFilePath.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtIniFilePath.Location = new System.Drawing.Point(10, 16);
+			this.txtIniFilePath.Name = "txtIniFilePath";
+			this.txtIniFilePath.Size = new System.Drawing.Size(488, 20);
+			this.txtIniFilePath.TabIndex = 0;
+			this.txtIniFilePath.WordWrap = false;
+			this.txtIniFilePath.TextChanged += new System.EventHandler(this.txtFolder_TextChanged);
 			// 
 			// btnBrowse
 			// 
 			this.btnBrowse.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnBrowse.Location = new System.Drawing.Point(506, 16);
+			this.btnBrowse.Location = new System.Drawing.Point(498, 16);
 			this.btnBrowse.Margin = new System.Windows.Forms.Padding(0);
 			this.btnBrowse.Name = "btnBrowse";
-			this.btnBrowse.Size = new System.Drawing.Size(22, 22);
+			this.btnBrowse.Size = new System.Drawing.Size(30, 22);
 			this.btnBrowse.TabIndex = 1;
 			this.btnBrowse.Text = "...";
 			this.btnBrowse.UseVisualStyleBackColor = true;
@@ -76,7 +76,7 @@
 			this.gbEnc.Location = new System.Drawing.Point(0, 52);
 			this.gbEnc.Name = "gbEnc";
 			this.gbEnc.Padding = new System.Windows.Forms.Padding(10);
-			this.gbEnc.Size = new System.Drawing.Size(538, 201);
+			this.gbEnc.Size = new System.Drawing.Size(538, 157);
 			this.gbEnc.TabIndex = 4;
 			this.gbEnc.TabStop = false;
 			this.gbEnc.Text = "Encoding";
@@ -86,12 +86,12 @@
 			this.txtPreview.AcceptsReturn = true;
 			this.txtPreview.AcceptsTab = true;
 			this.txtPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtPreview.Location = new System.Drawing.Point(10, 67);
+			this.txtPreview.Location = new System.Drawing.Point(10, 66);
 			this.txtPreview.Multiline = true;
 			this.txtPreview.Name = "txtPreview";
 			this.txtPreview.ReadOnly = true;
 			this.txtPreview.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtPreview.Size = new System.Drawing.Size(518, 124);
+			this.txtPreview.Size = new System.Drawing.Size(518, 81);
 			this.txtPreview.TabIndex = 1;
 			this.txtPreview.Text = "You can download modules from:\r\n\r\n1. http://bqt.ru/Katalog\r\n2. http://www.ph4.ru/" +
     "b4_index.ph4";
@@ -100,11 +100,10 @@
 			// 
 			this.cmbEnc.Dock = System.Windows.Forms.DockStyle.Top;
 			this.cmbEnc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbEnc.Font = new System.Drawing.Font("Courier New", 8.25F);
 			this.cmbEnc.FormattingEnabled = true;
 			this.cmbEnc.Location = new System.Drawing.Point(10, 45);
 			this.cmbEnc.Name = "cmbEnc";
-			this.cmbEnc.Size = new System.Drawing.Size(518, 22);
+			this.cmbEnc.Size = new System.Drawing.Size(518, 21);
 			this.cmbEnc.Sorted = true;
 			this.cmbEnc.TabIndex = 0;
 			this.cmbEnc.SelectedIndexChanged += new System.EventHandler(this.cmbEnc_SelectedIndexChanged);
@@ -127,7 +126,7 @@
 			// btnImport
 			// 
 			this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnImport.Location = new System.Drawing.Point(372, 259);
+			this.btnImport.Location = new System.Drawing.Point(372, 215);
 			this.btnImport.Name = "btnImport";
 			this.btnImport.Size = new System.Drawing.Size(75, 23);
 			this.btnImport.TabIndex = 5;
@@ -138,7 +137,8 @@
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCancel.Location = new System.Drawing.Point(453, 259);
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnCancel.Location = new System.Drawing.Point(453, 215);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 6;
@@ -151,7 +151,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(538, 293);
+			this.ClientSize = new System.Drawing.Size(538, 249);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.gbEnc);
 			this.Controls.Add(this.btnImport);
@@ -174,7 +174,7 @@
 		#endregion
 
 		private System.Windows.Forms.GroupBox gbFolder;
-		private System.Windows.Forms.TextBox txtFolder;
+		private System.Windows.Forms.TextBox txtIniFilePath;
 		private System.Windows.Forms.Button btnBrowse;
 		private System.Windows.Forms.GroupBox gbEnc;
 		private System.Windows.Forms.TextBox txtPreview;

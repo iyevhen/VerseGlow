@@ -2,13 +2,13 @@
 
 namespace VerseFlow.Core.Import.BibleQuote
 {
-	public class BibleQuoteVerse
+	public class BqtVerse : IBibleVerse
 	{
 		private readonly int chapter;
-		private readonly int verseNum;
 		private readonly string text;
+		private readonly int verseNum;
 
-		public BibleQuoteVerse(int chapter, int verseNum, string text)
+		public BqtVerse(int chapter, int verseNum, string text)
 		{
 			if (chapter <= 0)
 				throw new ArgumentException("chapter cannot be negative or equals zero");
@@ -21,19 +21,19 @@ namespace VerseFlow.Core.Import.BibleQuote
 			this.text = text;
 		}
 
-		public int Chapter
+		public int Chapter()
 		{
-			get { return chapter; }
+			return chapter;
 		}
 
-		public int VerseNum
+		public int Num()
 		{
-			get { return verseNum; }
+			return verseNum;
 		}
 
-		public string Text
+		public string Text()
 		{
-			get { return text; }
+			return text;
 		}
 	}
 }

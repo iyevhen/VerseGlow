@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using VerseFlow.Core.Import.BibleQuote;
 
 namespace VerseFlow.UI
 {

@@ -12,7 +12,7 @@ namespace VerseFlow.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "10.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,21 +26,33 @@ namespace VerseFlow.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
-        public global::System.Drawing.Color ToolsLeftForeColor {
+        public string ToolsLeftForeColor {
             get {
-                return ((global::System.Drawing.Color)(this["ToolsLeftForeColor"]));
+                return ((string)(this["ToolsLeftForeColor"]));
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Tahoma, 9.25pt")]
-        public global::System.Drawing.Font LeftPanelFont {
+        public string LeftPanelFont {
             get {
-                return ((global::System.Drawing.Font)(this["LeftPanelFont"]));
+                return ((string)(this["LeftPanelFont"]));
             }
             set {
                 this["LeftPanelFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AppFolder {
+            get {
+                return ((string)(this["AppFolder"]));
+            }
+            set {
+                this["AppFolder"] = value;
             }
         }
     }
