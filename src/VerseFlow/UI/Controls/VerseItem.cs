@@ -32,7 +32,7 @@ namespace VerseFlow.UI.Controls
 			height += lineHeight;
 		}
 
-		public IEnumerable<string> EnumLines()
+		public IEnumerable<string> Lines()
 		{
 			for (int i = 0; i < lineIdx.Count; i++)
 			{

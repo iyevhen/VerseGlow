@@ -21,7 +21,7 @@ namespace VerseFlow.UI
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
 			Font = System.Drawing.SystemFonts.MessageBoxFont;
-			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion);
+			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
 			Text = appNameAndVersion;
 		}
 
