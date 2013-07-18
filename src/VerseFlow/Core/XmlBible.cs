@@ -35,7 +35,7 @@ namespace VerseFlow.Core
 			this.file = file;
 		}
 
-		public string Title()
+		public string Name()
 		{
 			if (string.IsNullOrEmpty(fullName))
 			{
@@ -139,10 +139,10 @@ namespace VerseFlow.Core
 			return result;
 		}
 
-		public List<BibleVerse> OpenVerses(string text)
+		public List<BibleVerse> OpenVerses(string searchText)
 		{
-			if (string.IsNullOrEmpty(text))
-				throw new ArgumentNullException("text");
+			if (string.IsNullOrEmpty(searchText))
+				throw new ArgumentNullException("searchText");
 
 			var found = new List<BibleVerse>();
 
@@ -155,7 +155,7 @@ namespace VerseFlow.Core
 						string refs;
 						string chapter;
 
-						if (reader.IsStartElement() && reader.Name == elementBook)
+                        if (reader.IsStartElement() && reader.Name == elementBook)
 						{
 							refs = reader[attributeRef];
 						}
@@ -173,7 +173,7 @@ namespace VerseFlow.Core
 							{
 								string value = reader.Value;
 
-								if (value.IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0)
+								if (value.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
 								{
 									found.Add(new BibleVerse(id, value));
 								}
