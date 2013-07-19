@@ -14,8 +14,6 @@ namespace VerseFlow.UI
 		public FrmMain()
 		{
 			InitializeComponent();
-
-			toolsLeftNavigation.Visible = false;
 		}
 
 		private void FrmMain_Load(object sender, EventArgs e)
@@ -43,7 +41,7 @@ namespace VerseFlow.UI
 
 				foreach (IBible b in Options.BibleRepository.OpenAll())
 				{
-					miOpen.DropDownItems.Add(new ToolStripMenuItem(b.Title()) { Tag = b });
+					miOpen.DropDownItems.Add(new ToolStripMenuItem(b.Name()) { Tag = b });
 				}
 
 				openLoaded = true;
@@ -122,5 +120,11 @@ namespace VerseFlow.UI
 		{
 			MessageBox.Show("find");
 		}
+
+        private void tsSearch_Click(object sender, EventArgs e)
+        {
+            bibleView1.FindVerses(txtHighlight.Text);
+
+        }
 	}
 }

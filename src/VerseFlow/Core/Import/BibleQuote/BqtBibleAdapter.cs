@@ -26,17 +26,17 @@ namespace VerseFlow.Core.Import.BibleQuote
 
 		public string BibleName()
 		{
-			return BqtIni().BibleName;
+			return BqtIni.BibleName;
 		}
 
 		public string BibleShortName()
 		{
-			return BqtIni().BibleShortName;
+			return BqtIni.BibleShortName;
 		}
 
 		public CultureInfo Culture()
 		{
-			return new CultureInfo(BqtIni().Language);
+			return new CultureInfo(BqtIni.Language);
 		}
 
 		public Encoding Encoding()
@@ -46,48 +46,51 @@ namespace VerseFlow.Core.Import.BibleQuote
 
 		public bool HasOldTestement()
 		{
-			return BqtIni().HasOldTestament;
+			return BqtIni.HasOldTestament;
 		}
 
 		public bool HasNewTestement()
 		{
-			return BqtIni().HasNewTestament;
+			return BqtIni.HasNewTestament;
 		}
 
 		public bool HasApocrypha()
 		{
-			return BqtIni().HasApocrypha;
+			return BqtIni.HasApocrypha;
 		}
 
 		public int TotalBooksCount()
 		{
-			return BqtIni().BookQty;
+			return BqtIni.BookQty;
 		}
 
 		public IEnumerable<IBibleBook> Books()
 		{
 			var result = new List<IBibleBook>();
 
-			foreach (BqtBook book in BqtIni().Books)
+			foreach (BqtBook book in BqtIni.Books)
 				result.Add(book);
 
 			return result;
 		}
 
-		private BqtIni BqtIni()
-		{
-			if (ini == null)
-			{
-				if (!File.Exists(iniFilePath))
-					throw new FileNotFoundException(iniFilePath);
+	    private BqtIni BqtIni
+	    {
+	        get
+	        {
+	            if (ini == null)
+	            {
+	                if (!File.Exists(iniFilePath))
+	                    throw new FileNotFoundException(iniFilePath);
 
-				ini = new BqtIni(
-					Path.GetDirectoryName(iniFilePath),
-					encoding,
-					File.ReadAllLines(iniFilePath, encoding));
-			}
+	                ini = new BqtIni(
+	                    Path.GetDirectoryName(iniFilePath),
+	                    encoding,
+	                    File.ReadAllLines(iniFilePath, encoding));
+	            }
 
-			return ini;
-		}
+	            return ini;
+	        }
+	    }
 	}
 }
