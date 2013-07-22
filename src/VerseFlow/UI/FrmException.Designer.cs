@@ -33,6 +33,7 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.btnSendCrashReport = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.lblPleaseWait = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,13 +56,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textException.BackColor = System.Drawing.SystemColors.Control;
             this.textException.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textException.HideSelection = false;
             this.textException.Location = new System.Drawing.Point(12, 50);
             this.textException.Multiline = true;
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(371, 88);
+            this.textException.Size = new System.Drawing.Size(370, 114);
             this.textException.TabIndex = 1;
             // 
             // lblMessage
@@ -71,14 +71,15 @@
             this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblMessage.Location = new System.Drawing.Point(50, 12);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(333, 32);
+            this.lblMessage.Size = new System.Drawing.Size(332, 32);
             this.lblMessage.TabIndex = 2;
             this.lblMessage.Text = "<Message>";
+            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnSendCrashReport
             // 
             this.btnSendCrashReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSendCrashReport.Location = new System.Drawing.Point(192, 144);
+            this.btnSendCrashReport.Location = new System.Drawing.Point(191, 170);
             this.btnSendCrashReport.Name = "btnSendCrashReport";
             this.btnSendCrashReport.Size = new System.Drawing.Size(110, 23);
             this.btnSendCrashReport.TabIndex = 3;
@@ -90,19 +91,33 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(308, 144);
+            this.btnClose.Location = new System.Drawing.Point(307, 170);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 4;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
             // 
+            // lblPleaseWait
+            // 
+            this.lblPleaseWait.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblPleaseWait.Image = global::VerseFlow.Properties.Resources.ajax_loader1;
+            this.lblPleaseWait.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPleaseWait.Location = new System.Drawing.Point(12, 171);
+            this.lblPleaseWait.Name = "lblPleaseWait";
+            this.lblPleaseWait.Size = new System.Drawing.Size(104, 20);
+            this.lblPleaseWait.TabIndex = 6;
+            this.lblPleaseWait.Text = "     Sending report...";
+            this.lblPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FrmException
             // 
             this.AcceptButton = this.btnSendCrashReport;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(395, 176);
+            this.CancelButton = this.btnClose;
+            this.ClientSize = new System.Drawing.Size(394, 202);
+            this.Controls.Add(this.lblPleaseWait);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSendCrashReport);
             this.Controls.Add(this.lblMessage);
@@ -126,5 +141,6 @@
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Button btnSendCrashReport;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label lblPleaseWait;
     }
 }

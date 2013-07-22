@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VerseFlow.Test</RootNamespace>
     <AssemblyName>VerseFlow.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup>
@@ -59,7 +60,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BibleQuoteIniFixture.cs" />
+    <Compile Include="BqtIniFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -69,6 +70,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -82,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VerseFlow\VerseFlow.csproj">
-      <Project>{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}</Project>
+      <Project>{3d9deb1c-4855-466d-bb22-4a3dc051a7f4}</Project>
       <Name>VerseFlow</Name>
     </ProjectReference>
   </ItemGroup>

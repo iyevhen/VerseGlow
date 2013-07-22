@@ -123,7 +123,7 @@ namespace VerseFlow.Core
 										string id = reader[attributeId];
 
 										if (reader.Read())
-											result.Add(new BibleVerse(id, reader.Value));
+											result.Add(new BibleVerse(id, string.Format("{0}. {1}", id, reader.Value)));
 									}
 									else
 									{
@@ -150,14 +150,14 @@ namespace VerseFlow.Core
 			{
 				using (XmlReader reader = XmlReader.Create(stream))
 				{
+                    string bookName = string.Empty;
+                    string chapter = string.Empty;
+
 					while (reader.Read())
 					{
-						string refs;
-						string chapter;
-
                         if (reader.IsStartElement() && reader.Name == elementBook)
 						{
-							refs = reader[attributeRef];
+							bookName = reader[attributeName];
 						}
 
 						if (reader.IsStartElement() && reader.Name == elementChapter)
@@ -171,11 +171,13 @@ namespace VerseFlow.Core
 
 							if (reader.Read())
 							{
-								string value = reader.Value;
+							    string val = reader.Value;
+							    string verse = string.Format("({0} {1}:{2})   {3}", 
+                                    bookName, chapter, id, val);
 
-								if (value.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
+								if (val.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
 								{
-									found.Add(new BibleVerse(id, value));
+									found.Add(new BibleVerse(id, verse));
 								}
 							}
 						}

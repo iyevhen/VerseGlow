@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
+using VerseFlow.CrashReport;
 using VerseFlow.UI;
 
 namespace VerseFlow
@@ -32,7 +33,7 @@ namespace VerseFlow
 
         private static void ShowThreadExceptionDialog(Exception exception)
         {
-            using (var frm = new FrmException(exception))
+            using (var frm = new FrmException(exception, new CrashReportSender()))
             {
                 var rsx = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
                 frm.Icon = ((System.Drawing.Icon)(rsx.GetObject("$this.Icon")));

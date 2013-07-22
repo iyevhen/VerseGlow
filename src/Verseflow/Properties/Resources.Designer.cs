@@ -213,6 +213,16 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ajax_loader1 {
+            get {
+                object obj = ResourceManager.GetObject("ajax-loader1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dialog_error {
             get {
                 object obj = ResourceManager.GetObject("dialog_error", resourceCulture);
