@@ -92,7 +92,6 @@
     </Compile>
     <Compile Include="UI\Controls\Corners.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
-    <Compile Include="UI\DirectoryHelp.cs" />
     <Compile Include="UI\FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>

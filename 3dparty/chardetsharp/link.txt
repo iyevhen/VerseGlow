@@ -1,0 +1,2 @@
+http://www-archive.mozilla.org/projects/intl/chardet.html
+.NET portion of Universal Detector http://code.google.com/p/chardetsharp/
