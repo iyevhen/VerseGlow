@@ -31,8 +31,7 @@ namespace VerseFlow.Test
                             ini.GetVerseLine("<p>verse text <a href=\"go rststrong 1 1 1\"\\>ref goes here</p>"));
             Assert.AreEqual("verse text goes here", ini.GetVerseLine(@"<p>verse text goes here</p>"));
             Assert.AreEqual("verse text goes here", ini.GetVerseLine(@"<p>verse text goes here"));
-            Assert.AreEqual("verse,... ?  text  \"\" ref : goes here",
-                            ini.GetVerseLine("<p>verse,... ?  text  \"\" ref : goes here"));
+            Assert.AreEqual("verse,... ? text \"\" ref : goes here", ini.GetVerseLine("<p>verse,... ?  text  \"\" ref : goes here"));
         }
 
         [Test]
@@ -51,7 +50,7 @@ namespace VerseFlow.Test
         public void Verse_trimmes_non_letters_from_the_beginning_except_for_specific()
         {
             Assert.IsTrue(Char.IsPunctuation('«'));
-            Assert.AreEqual("«verse text goes here ", ini.GetVerseLine(@" «verse text goes here  "));
+            Assert.AreEqual("«verse text goes here", ini.GetVerseLine(@" «verse text goes here  "));
             Assert.AreEqual("\"verse text goes here", ini.GetVerseLine(" \"verse text goes here"));
         }
 
@@ -72,7 +71,7 @@ namespace VerseFlow.Test
         public void Only_one_space_between_words()
         {
             string line = ini.GetVerseLine(@"   first   word:   goes here 	");
-            Assert.AreEqual("first word: goes here 	", line);
+            Assert.AreEqual("first word: goes here", line);
         }
 
     }

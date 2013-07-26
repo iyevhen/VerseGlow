@@ -14,11 +14,23 @@ namespace VerseFlow.UI
 		public FrmMain()
 		{
 			InitializeComponent();
+
+		    KeyPreview = true;
 		}
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.F))
+            {
+                MessageBox.Show("What the Ctrl+F?");
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
 
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
-			Font = System.Drawing.SystemFonts.MessageBoxFont;
 			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
 			Text = appNameAndVersion;
 		}
@@ -37,11 +49,11 @@ namespace VerseFlow.UI
 		{
 			if (!openLoaded)
 			{
-				miOpen.DropDownItems.Clear();
+				openToolStripMenuItem.DropDownItems.Clear();
 
 				foreach (IBible b in Options.BibleRepository.OpenAll())
 				{
-					miOpen.DropDownItems.Add(new ToolStripMenuItem(b.Name()) { Tag = b });
+                    openToolStripMenuItem.DropDownItems.Add(new ToolStripMenuItem(b.Name()) { Tag = b });
 				}
 
 				openLoaded = true;
@@ -57,12 +69,6 @@ namespace VerseFlow.UI
 				bible = (IBible)item.Tag;
 
 				Text = string.Format("{0} - {1}", appNameAndVersion, item.Text);
-
-				if (!toolsLeftNavigation.Visible)
-				{
-					toolsLeftNavigation.Visible = true;
-					bibleView1.Visible = true;
-				}
 
 				bibleView1.CurrentBible = bible;
 			}
@@ -113,7 +119,7 @@ namespace VerseFlow.UI
 
 		private void tsHighlight_Click(object sender, EventArgs e)
 		{
-			bibleView1.Highlight(txtHighlight.Text);
+//			bibleView1.Highlight(txtHighlight.Text);
 		}
 
 		private void searchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,7 +129,26 @@ namespace VerseFlow.UI
 
         private void tsSearch_Click(object sender, EventArgs e)
         {
-            bibleView1.FindVerses(txtHighlight.Text);
+//            bibleView1.FindVerses(txtHighlight.Text);
+        }
+
+        private void splitContainerMain_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+	    private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+//            splitContainerLeft.Panel1Collapsed = !tsFind.Checked;
+        }
+
+        private void managedPanel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
 	}

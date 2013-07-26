@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Web;
 
@@ -207,17 +208,16 @@ namespace VerseFlow.Core.Import.BibleQuote
             if (string.IsNullOrEmpty(line))
                 throw new ArgumentNullException("line");
 
-            bool startLineTrimmed = false;
+            bool verseStarted = false;
             bool isInTag = false;
-            var outbut = new StringBuilder();
+            var output = new StringBuilder();
 
             if (line.IndexOf('&') >= 0)
-                line = HttpUtility.HtmlDecode(line);
+                line = WebUtility.HtmlDecode(line);
 
             for (int i = 0; i < line.Length; i++)
             {
                 char c = line[i];
-                bool isWord = false;
 
                 if (!isInTag)
                 {
@@ -227,15 +227,11 @@ namespace VerseFlow.Core.Import.BibleQuote
                     }
                     else
                     {
-                        if (!startLineTrimmed)
-                            startLineTrimmed = Char.IsLetter(c) || Char.IsPunctuation(c);
+                        if (!verseStarted)
+                            verseStarted = Char.IsLetter(c) || Char.IsPunctuation(c);
 
-                        
-
-//                        Char.IsWhiteSpace()
-
-                        if (startLineTrimmed)
-                            outbut.Append(c);
+                        if (verseStarted)
+                            output.Append(c);
                     }
                 }
                 else if (c == '>')
@@ -244,7 +240,13 @@ namespace VerseFlow.Core.Import.BibleQuote
                 }
             }
 
-            return outbut.ToString().TrimEnd();
+            return output
+                       .Replace("     ", " ")
+                       .Replace("    ", " ")
+                       .Replace("   ", " ")
+                       .Replace("  ", " ")
+                       .ToString()
+                       .TrimEnd();
         }
 
         static class Tags

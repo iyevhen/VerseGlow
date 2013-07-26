@@ -45,19 +45,6 @@ namespace VerseFlow.Core.Import.BibleQuote
 
         public IEnumerable<IBibleVerse> Verses()
         {
-
-            //            string alltext = File.ReadAllText(pathName, ini.Encoding);
-            //            string[] chaptersTxt = alltext.Split(new[] { ini.ChapterSign }, StringSplitOptions.RemoveEmptyEntries);
-            //
-            //            foreach (string chapterTxt in chaptersTxt)
-            //            {
-            //                string[] versesTxt = chapterTxt.Split(new[] { ini.VerseSign }, StringSplitOptions.RemoveEmptyEntries);
-            //
-            //                foreach (string verseTxt in versesTxt)
-            //                {
-            //                }
-            //            }
-
             int chapter = 0;
             int verseNum = 0;
 
@@ -78,18 +65,21 @@ namespace VerseFlow.Core.Import.BibleQuote
                     else if (ini.IsVerseLine(line) && chapter > 0)
                     {
                         if (builder != null)
-                            yield return new BqtVerse(chapter, verseNum, builder.ToString());
+                            yield return new BqtVerse(chapter, verseNum, builder.ToString().TrimEnd());
 
                         verseNum++;
                         builder = new StringBuilder();
                     }
 
-                    if (builder != null)
+                    if (builder != null && !string.IsNullOrEmpty(line))
+                    {
                         builder.Append(ini.GetVerseLine(line));
+                        builder.Append(' ');
+                    }
                 }
 
                 if (builder != null && builder.Length > 0)
-                    yield return new BqtVerse(chapter, verseNum, builder.ToString());
+                    yield return new BqtVerse(chapter, verseNum, builder.ToString().TrimEnd());
             }
         }
 

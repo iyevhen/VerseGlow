@@ -28,60 +28,58 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.cmbChapters = new System.Windows.Forms.ComboBox();
             this.cmbContents = new System.Windows.Forms.ComboBox();
-            this.panelTop = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbChapters = new System.Windows.Forms.ComboBox();
             this.verseView1 = new VerseFlow.UI.Controls.VerseView();
-            this.panelTop.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cmbChapters
-            // 
-            this.cmbChapters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbChapters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbChapters.FormattingEnabled = true;
-            this.cmbChapters.Location = new System.Drawing.Point(239, 0);
-            this.cmbChapters.Name = "cmbChapters";
-            this.cmbChapters.Size = new System.Drawing.Size(58, 21);
-            this.cmbChapters.TabIndex = 8;
-            this.cmbChapters.SelectedIndexChanged += new System.EventHandler(this.cmbChapters_SelectedIndexChanged);
             // 
             // cmbContents
             // 
-            this.cmbContents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbContents.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbContents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbContents.FormattingEnabled = true;
             this.cmbContents.Location = new System.Drawing.Point(0, 0);
             this.cmbContents.Name = "cmbContents";
-            this.cmbContents.Size = new System.Drawing.Size(233, 21);
+            this.cmbContents.Size = new System.Drawing.Size(275, 21);
             this.cmbContents.TabIndex = 7;
             this.cmbContents.SelectedIndexChanged += new System.EventHandler(this.cmbContents_SelectedIndexChanged);
             // 
-            // panelTop
+            // panel1
             // 
-            this.panelTop.AutoSize = true;
-            this.panelTop.Controls.Add(this.cmbChapters);
-            this.panelTop.Controls.Add(this.cmbContents);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Enabled = false;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(301, 24);
-            this.panelTop.TabIndex = 9;
+            this.panel1.Controls.Add(this.cmbContents);
+            this.panel1.Controls.Add(this.cmbChapters);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(331, 24);
+            this.panel1.TabIndex = 11;
+            // 
+            // cmbChapters
+            // 
+            this.cmbChapters.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmbChapters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbChapters.FormattingEnabled = true;
+            this.cmbChapters.Location = new System.Drawing.Point(275, 0);
+            this.cmbChapters.Name = "cmbChapters";
+            this.cmbChapters.Size = new System.Drawing.Size(56, 21);
+            this.cmbChapters.TabIndex = 7;
+            this.cmbChapters.SelectedIndexChanged += new System.EventHandler(this.cmbChapters_SelectedIndexChanged);
             // 
             // verseView1
             // 
             this.verseView1.AutoScroll = true;
-            this.verseView1.AutoScrollMinSize = new System.Drawing.Size(289, 0);
+            this.verseView1.AutoScrollMinSize = new System.Drawing.Size(321, 0);
             this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
+            this.verseView1.BackColor = System.Drawing.Color.Silver;
             this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.verseView1.DrawSeparatorLine = true;
             this.verseView1.HighlightText = null;
             this.verseView1.Location = new System.Drawing.Point(0, 24);
             this.verseView1.Name = "verseView1";
-            this.verseView1.Padding = new System.Windows.Forms.Padding(5, 5, 7, 5);
-            this.verseView1.Size = new System.Drawing.Size(301, 385);
+            this.verseView1.Padding = new System.Windows.Forms.Padding(5);
+            this.verseView1.Size = new System.Drawing.Size(331, 384);
             this.verseView1.TabIndex = 10;
             // 
             // BibleView
@@ -90,20 +88,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.verseView1);
-            this.Controls.Add(this.panelTop);
+            this.Controls.Add(this.panel1);
             this.Name = "BibleView";
-            this.Size = new System.Drawing.Size(301, 409);
-            this.panelTop.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(331, 408);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.ComboBox cmbChapters;
-		private System.Windows.Forms.ComboBox cmbContents;
-		private System.Windows.Forms.Panel panelTop;
-		private Controls.VerseView verseView1;
+        private System.Windows.Forms.ComboBox cmbContents;
+        private Controls.VerseView verseView1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox cmbChapters;
 	}
 }

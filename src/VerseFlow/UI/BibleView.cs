@@ -21,7 +21,7 @@ namespace VerseFlow.UI
             set
             {
                 currentBible = value;
-                panelTop.Enabled = value != null;
+                Enabled = value != null;
 
                 cmbContents.Items.Clear();
 
