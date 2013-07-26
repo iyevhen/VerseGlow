@@ -72,13 +72,12 @@
             this.verseView1.AutoScroll = true;
             this.verseView1.AutoScrollMinSize = new System.Drawing.Size(321, 0);
             this.verseView1.AutoScrollOffset = new System.Drawing.Point(500, 500);
-            this.verseView1.BackColor = System.Drawing.Color.Silver;
             this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.verseView1.DrawSeparatorLine = true;
             this.verseView1.HighlightText = null;
             this.verseView1.Location = new System.Drawing.Point(0, 24);
             this.verseView1.Name = "verseView1";
-            this.verseView1.Padding = new System.Windows.Forms.Padding(5);
+            this.verseView1.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.verseView1.Size = new System.Drawing.Size(331, 384);
             this.verseView1.TabIndex = 10;
             // 
