@@ -47,7 +47,12 @@ namespace VerseFlow.UI.Controls
                      | ControlStyles.ResizeRedraw
                      | ControlStyles.AllPaintingInWmPaint
                      | ControlStyles.UserPaint
-                     | ControlStyles.UserMouse, true);
+                     | ControlStyles.UserMouse
+                     | ControlStyles.Selectable
+					 | ControlStyles.Opaque // will not call OnPaintBackground
+					 | ControlStyles.StandardClick
+					 | ControlStyles.StandardDoubleClick
+					 , true);
 
             HorizontalScroll.Enabled = false;
             HorizontalScroll.Visible = false;
@@ -67,8 +72,8 @@ namespace VerseFlow.UI.Controls
             calcWidth = -1;
             Invalidate();
         }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
+	
+	    protected override void OnPaintBackground(PaintEventArgs e)
         {
         }
 
@@ -126,7 +131,8 @@ namespace VerseFlow.UI.Controls
                 DoPaint(e.Graphics, rect);
 #if DEBUG
                 sw.Stop();
-                Debug.WriteLine(string.Format("Painted in {0}", sw.Elapsed));
+	            TimeSpan timeSpan = sw.Elapsed;
+	            Debug.WriteLine(string.Format("Painted in [{0}s {1}ms]", timeSpan.Seconds, timeSpan.Milliseconds));
 #endif
 
             }
@@ -337,8 +343,6 @@ namespace VerseFlow.UI.Controls
             verticalScrollBarDisplayed = false;
             int versesHeigth = 0;
 
-            int vw = System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
-
             for (int i = 0; i < allverses.Count; i++)
             {
                 VerseItem verse = allverses[i];
@@ -441,8 +445,8 @@ namespace VerseFlow.UI.Controls
         {
             base.OnScroll(se);
 
-            if (se.ScrollOrientation == ScrollOrientation.VerticalScroll)
-                Invalidate(ClientRectangle);
+			if (se.ScrollOrientation == ScrollOrientation.VerticalScroll && se.OldValue != se.NewValue)
+                Invalidate();
         }
 
         public override Font Font
