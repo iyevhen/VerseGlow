@@ -45,7 +45,12 @@ namespace VerseFlow.UI.Controls
                      | ControlStyles.ResizeRedraw
                      | ControlStyles.AllPaintingInWmPaint
                      | ControlStyles.UserPaint
-                     | ControlStyles.UserMouse, true);
+                     | ControlStyles.UserMouse
+                     | ControlStyles.Selectable
+					 | ControlStyles.Opaque // will not call OnPaintBackground
+					 | ControlStyles.StandardClick
+					 | ControlStyles.StandardDoubleClick
+					 , true);
 
             HorizontalScroll.Enabled = false;
             HorizontalScroll.Visible = false;
@@ -78,8 +83,8 @@ namespace VerseFlow.UI.Controls
             calcWidth = -1;
             Invalidate();
         }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
+	
+	    protected override void OnPaintBackground(PaintEventArgs e)
         {
         }
 
@@ -450,8 +455,8 @@ namespace VerseFlow.UI.Controls
         {
             base.OnScroll(se);
 
-            if (se.ScrollOrientation == ScrollOrientation.VerticalScroll)
-                Invalidate(ClientRectangle);
+			if (se.ScrollOrientation == ScrollOrientation.VerticalScroll && se.OldValue != se.NewValue)
+                Invalidate();
         }
     }
 }
