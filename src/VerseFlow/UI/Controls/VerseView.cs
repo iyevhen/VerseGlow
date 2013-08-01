@@ -55,18 +55,7 @@ namespace VerseFlow.UI.Controls
 
             highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 10);
         }
-
-//        public override Font Font
-//        {
-//            get { return base.Font; }
-//            set
-//            {
-//                base.Font = value;
-//                calcWidth = -1;
-//                Invalidate();
-//            }
-//        }
-
+        
         public bool DrawSeparatorLine { get; set; }
 
         public string HighlightText
@@ -93,19 +82,6 @@ namespace VerseFlow.UI.Controls
         protected override void OnPaintBackground(PaintEventArgs e)
         {
         }
-
-        //        protected override void OnSizeChanged(EventArgs e)
-        //        {
-        //            base.OnSizeChanged(e);
-        //
-        //            if (Width != calcWidth)
-        //            {
-        //                Debug.WriteLine("Width changed");
-        //                
-        //               
-        //                recalc = true;
-        //            }
-        //        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -134,7 +110,7 @@ namespace VerseFlow.UI.Controls
                 int visibleHeight = clientRectangle.Height - Padding.Bottom - Padding.Top;
                 
                 verseWidth = RecalcVerses(visibleHeight, visibleWidth, e.Graphics);
-//                versesRect = new Rectangle(Padding.Left, Padding.Top, verseWidth, visibleHeight);
+                versesRect = new Rectangle(Padding.Left, Padding.Top, verseWidth, visibleHeight);
             }
 
             DoPaint(e.Graphics, clientRectangle);
@@ -157,13 +133,11 @@ namespace VerseFlow.UI.Controls
         private void DoPaint(Graphics graphics, Rectangle rect)
         {
             int scrollPosY = AutoScrollPosition.Y * -1;
-
             graphics.FillRectangle(backColorBrush, rect);
 
             int cursor = 0;
             int y = 0;
             bool visible = false;
-
             visibleVerses.Clear();
 
             foreach (VerseItem verse in allverses)
@@ -193,7 +167,7 @@ namespace VerseFlow.UI.Controls
                 {
                     verse.Y = point.Y;
 
-                    Rectangle vrect = verse.Rect(rect.Width, 0);
+                    Rectangle vrect = verse.Rect(0, rect.Width);
 
                     using (var brush = new LinearGradientBrush(
                         vrect, 

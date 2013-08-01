@@ -1,73 +1,82 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-
 namespace VerseFlow.UI.Controls
 {
-	internal class VerseItem
-	{
-		private readonly List<int> lineIdx = new List<int>();
-		private readonly List<int> lineLen = new List<int>();
-		private readonly string text;
-		private int height;
-		private int y;
+    internal class VerseItem
+    {
+        private readonly List<Line> lines = new List<Line>();
 
-		public VerseItem(string text)
-		{
-			this.text = text;
-		}
+        private readonly string text;
+        private int height;
+        private int y;
 
-		public bool IsInside(Point point)
-		{
-			return y <= point.Y && y + height >= point.Y;
-		}
+        public VerseItem(string text)
+        {
+            this.text = text;
+        }
 
-		public void NewLine(int fromIndex, int lineLength, int lineHeight)
-		{
-			if (fromIndex == 0 && lineLength == 0)
-				return;
+        public string Text
+        {
+            get { return text; }
+        }
 
-			lineIdx.Add(fromIndex);
-			lineLen.Add(lineLength);
-			height += lineHeight;
-		}
+        public bool IsSelected { get; set; }
 
-		public IEnumerable<string> Lines()
-		{
-			for (int i = 0; i < lineIdx.Count; i++)
-			{
-				yield return text.Substring(lineIdx[i], lineLen[i]);
-			}
-		}
+        public int Height
+        {
+            get { return height; }
+        }
 
-		public void DropLines()
-		{
-			lineIdx.Clear();
-			lineLen.Clear();
-			height = 0;
-		}
+        public int Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
 
-		public Rectangle Rect(int width, int x)
-		{
-			return new Rectangle(x, y, width, height);
-		}
+        public bool IsInside(Point point)
+        {
+            return y <= point.Y && y + height >= point.Y;
+        }
 
-		public string Text
-		{
-			get { return text; }
-		}
+        public void NewLine(int fromIndex, int lineLength, int lineHeight)
+        {
+            if (fromIndex == 0 && lineLength == 0)
+                return;
 
-		public bool IsSelected { get; set; }
+            lines.Add(new Line(fromIndex, lineLength));
+            height += lineHeight;
+        }
 
-		public int Height
-		{
-			get { return height; }
-		}
+        public IEnumerable<string> Lines()
+        {
+            for (int i = 0; i < lines.Count; i++)
+            {
+                yield return text.Substring(lines[i].index, lines[i].len);
+            }
+        }
 
-		public int Y
-		{
-			get { return y; }
-			set { y = value; }
-		}
-	}
+        public void DropLines()
+        {
+            lines.Clear();
+            height = 0;
+        }
+
+        public Rectangle Rect(int x, int width)
+        {
+            return new Rectangle(x, y, width, height);
+        }
+
+        private struct Line
+        {
+            public readonly int index;
+            public readonly int len;
+
+            public Line(int index, int len)
+            {
+                this.index = index;
+                this.len = len;
+            }
+        }
+    }
 }
