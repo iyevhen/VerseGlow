@@ -115,13 +115,13 @@ namespace VerseFlow.UI.Controls
                 int visibleHeight = clientRectangle.Height - Padding.Bottom - Padding.Top;
                 
                 verseWidth = RecalcVerses(visibleHeight, visibleWidth, e.Graphics);
-                versesRect = new Rectangle(Padding.Left, Padding.Top, verseWidth, visibleHeight);
+//                versesRect = new Rectangle(Padding.Left, Padding.Top, verseWidth, visibleHeight);
             }
 
             DoPaint(e.Graphics, clientRectangle);
             
 #if DEBUG
-            e.Graphics.DrawRectangle(Pens.Blue, versesRect);
+//            e.Graphics.DrawRectangle(Pens.Blue, versesRect);
             sw.Stop();
             Debug.WriteLine(string.Format("Painted in {0}", sw.Elapsed));
 #endif
@@ -137,8 +137,10 @@ namespace VerseFlow.UI.Controls
 
         private void DoPaint(Graphics graphics, Rectangle rect)
         {
-            int scrollPosY = AutoScrollPosition.Y * -1;
+	        int scrollPosY = AutoScrollPosition.Y * -1;
             graphics.FillRectangle(backColorBrush, rect);
+
+			Debug.WriteLine("Y={0}", scrollPosY);
 
             int cursor = 0;
             int y = 0;

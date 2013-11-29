@@ -74,5 +74,12 @@ namespace VerseFlow.Test
             Assert.AreEqual("first word: goes here", line);
         }
 
+        [Test]
+        public void Skips_numbers_in_rects()
+        {
+            string line = ini.GetVerseLine(@"first [1] second [12] third[123] ");
+            Assert.AreEqual("first second third", line);
+        }
+
     }
 }

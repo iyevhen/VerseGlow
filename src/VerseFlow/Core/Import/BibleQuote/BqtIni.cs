@@ -209,7 +209,7 @@ namespace VerseFlow.Core.Import.BibleQuote
                 throw new ArgumentNullException("line");
 
             bool verseStarted = false;
-            bool isInTag = false;
+            bool ignore = false;
             var output = new StringBuilder();
 
             if (line.IndexOf('&') >= 0)
@@ -217,28 +217,32 @@ namespace VerseFlow.Core.Import.BibleQuote
 
             for (int i = 0; i < line.Length; i++)
             {
-                char c = line[i];
+                char chr = line[i];
 
-                if (!isInTag)
+                if (!ignore)
                 {
-                    if (c == '<')
+                    if (chr == '<' || (chr == '[' && Char.IsDigit(line[i + 1])))
                     {
-                        isInTag = true;
+                        ignore = true;
                     }
                     else
                     {
                         if (!verseStarted)
-                            verseStarted = Char.IsLetter(c) || Char.IsPunctuation(c);
+                            verseStarted = Char.IsLetter(chr) || Char.IsPunctuation(chr);
 
                         if (verseStarted)
-                            output.Append(c);
+                        {
+                            output.Append(chr);
+                        }
                     }
                 }
-                else if (c == '>')
+                else if (chr == '>' || (chr == ']' && i > 0 && Char.IsDigit(line[i - 1])))
                 {
-                    isInTag = false;
+                    ignore = false;
                 }
             }
+
+
 
             return output
                        .Replace("     ", " ")

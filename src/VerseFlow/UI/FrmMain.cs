@@ -15,7 +15,10 @@ namespace VerseFlow.UI
 		{
 			InitializeComponent();
 
-		    KeyPreview = true;
+//		    KeyPreview = true;
+
+//			throw new Exception("Ooops!");
+
 		}
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
