@@ -4,7 +4,7 @@ namespace VerseFlow.Core
 {
 	public interface IBible
 	{
-		string Name();
+		string Name { get; }
 
 		List<BibleBook> OpenBooks();
 		List<BibleVerse> OpenChapter(BibleBook book, string chapter);

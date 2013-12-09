@@ -63,6 +63,8 @@ namespace VerseFlow.UI
 					Options.AppName,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Information);
+
+				DialogResult = DialogResult.OK;
 			}
 			catch (Exception exception)
 			{

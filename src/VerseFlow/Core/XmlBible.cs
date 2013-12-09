@@ -35,26 +35,29 @@ namespace VerseFlow.Core
 			this.file = file;
 		}
 
-		public string Name()
+		public string Name
 		{
-			if (string.IsNullOrEmpty(fullName))
+			get
 			{
-				using (var stream = new StreamReader(file, false))
+				if (string.IsNullOrEmpty(fullName))
 				{
-					using (XmlReader reader = XmlReader.Create(stream))
+					using (var stream = new StreamReader(file, false))
 					{
-						while (reader.Read())
+						using (XmlReader reader = XmlReader.Create(stream))
 						{
-							if (reader.IsStartElement() && reader.Name == elementBible)
+							while (reader.Read())
 							{
-								fullName = reader[attributeName];
-								break;
+								if (reader.IsStartElement() && reader.Name == elementBible)
+								{
+									fullName = reader[attributeName];
+									break;
+								}
 							}
 						}
 					}
 				}
+				return fullName;
 			}
-			return fullName;
 		}
 
 		public List<BibleBook> OpenBooks()

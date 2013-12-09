@@ -210,6 +210,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\wrench-screwdriver.png" />
+    <None Include="Resources\book-brown.png" />
+    <None Include="Resources\book.png" />
     <None Include="Resources\ajax-loader1.gif" />
     <None Include="Resources\list_remove.png" />
     <None Include="Resources\dialog_error.png" />
