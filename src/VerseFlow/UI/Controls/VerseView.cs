@@ -41,8 +41,11 @@ namespace VerseFlow.UI.Controls
 		private int lineHeight;
 		private Pen linePen;
 		private SolidBrush paddingColorBrush;
-		private int verseWidth;
+		private int textVerseWidth;
 		private Rectangle versesRect;
+		private bool focused;
+		private int focusedIndex = -1;
+		private const int interval = 4;
 
 		public VerseView()
 		{
@@ -93,6 +96,40 @@ namespace VerseFlow.UI.Controls
 		{
 		}
 
+		protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
+		{
+			base.OnPreviewKeyDown(e);
+
+			if (e.KeyCode == Keys.Down)
+			{
+				if (e.Modifiers == Keys.Control)
+					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y - lineHeight));
+
+				Invalidate();
+			}
+			else if (e.KeyCode == Keys.Up)
+			{
+				if (e.Modifiers == Keys.Control)
+					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y + lineHeight));
+				Invalidate();
+			}
+			else if (e.KeyData == Keys.Space)
+			{
+				//focusedVerse.
+			}
+			else if (e.KeyData == Keys.End)
+			{
+				AutoScrollPosition = new Point(0, AutoScrollMinSize.Height);
+				Invalidate();
+			}
+			else if (e.KeyData == Keys.Home)
+			{
+				AutoScrollPosition = new Point(0, 0);
+				Invalidate();
+			}
+
+		}
+
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			if (backColorBrush == null)
@@ -117,14 +154,14 @@ namespace VerseFlow.UI.Controls
 				int visibleWidth = clientRectangle.Width - Padding.Right - Padding.Left;
 				int visibleHeight = clientRectangle.Height - Padding.Bottom - Padding.Top;
 
-				verseWidth = RecalcVerses(visibleHeight, visibleWidth, e.Graphics);
-//                versesRect = new Rectangle(Padding.Left, Padding.Top, verseWidth, visibleHeight);
+				textVerseWidth = RecalcVerses(visibleHeight, visibleWidth, e.Graphics);
+				//                versesRect = new Rectangle(Padding.Left, Padding.Top, verseWidth, visibleHeight);
 			}
 
 			DoPaint(e.Graphics, clientRectangle);
 
 #if DEBUG
-//            e.Graphics.DrawRectangle(Pens.Blue, versesRect);
+			//            e.Graphics.DrawRectangle(Pens.Blue, versesRect);
 			sw.Stop();
 			Debug.WriteLine("Painted in {0}", sw.Elapsed);
 #endif
@@ -139,7 +176,7 @@ namespace VerseFlow.UI.Controls
 
 		private void DoPaint(Graphics graphics, Rectangle rect)
 		{
-            int scrollPosY = AutoScrollPosition.Y * -1;
+			int scrollPosY = AutoScrollPosition.Y * -1;
 			graphics.FillRectangle(backColorBrush, rect);
 
 			Debug.WriteLine("Y={0}", scrollPosY);
@@ -149,28 +186,33 @@ namespace VerseFlow.UI.Controls
 			bool visible = false;
 			visibleVerses.Clear();
 
-			foreach (VerseItem verse in allverses)
+			for (int i = 0; i < allverses.Count; i++)
 			{
+				VerseItem verse = allverses[i];
 				//Get to visible verses
 				if (!visible)
 				{
-					cursor += verse.Height;
+					cursor += verse.Height + interval;
 
 					if (cursor < scrollPosY)
 						continue;
 
-					y = cursor - verse.Height - scrollPosY;
+					y = cursor - verse.Height - scrollPosY - interval;
 					visible = true;
 				}
 
 				if (y > rect.Height)
 				{
 					//EXIT. do not draw not visible area
+					Debug.WriteLine("Break; not drawing not visible area");
 					break;
 				}
 
 				var point = new Point(Padding.Left + paragraph, y);
 				Font font = Font;
+
+				if (focusedIndex == -1)
+					focusedIndex = i;
 
 				if (verse.IsSelected)
 				{
@@ -178,7 +220,7 @@ namespace VerseFlow.UI.Controls
 
 					Rectangle vrect = verse.Rect(0, rect.Width);
 
-					using (var brush = new LinearGradientBrush(vrect, SystemColors.Highlight, 
+					using (var brush = new LinearGradientBrush(vrect, SystemColors.Highlight,
 						highlightLightenColor, LinearGradientMode.Vertical))
 					{
 						brush.Blend = blend;
@@ -209,8 +251,8 @@ namespace VerseFlow.UI.Controls
 									string highligten = line.Substring(found, lightlen);
 
 									TextRenderer.DrawText(graphics, highligten, font, point,
-														  GraphicsTools.InvertColor(SystemColors.HighlightText, 100),
-														  GraphicsTools.InvertColor(SystemColors.Highlight, 100), Tff);
+										GraphicsTools.InvertColor(SystemColors.HighlightText, 100),
+										GraphicsTools.InvertColor(SystemColors.Highlight, 100), Tff);
 									point.X += GetWidthOf(graphics, highligten);
 
 									cur = found + lightlen;
@@ -218,7 +260,7 @@ namespace VerseFlow.UI.Controls
 								else
 								{
 									TextRenderer.DrawText(graphics, line.Substring(cur), font, point,
-														  SystemColors.HighlightText, Tff);
+										SystemColors.HighlightText, Tff);
 									cur = linelen;
 								}
 							}
@@ -261,8 +303,7 @@ namespace VerseFlow.UI.Controls
 
 									string highligten = line.Substring(found, lightlen);
 
-									TextRenderer.DrawText(graphics, highligten, font, point, Color.Red, Color.LightPink,
-														  Tff);
+									TextRenderer.DrawText(graphics, highligten, font, point, Color.Red, Color.LightPink, Tff);
 									point.X += GetWidthOf(graphics, highligten);
 
 									cur = found + lightlen;
@@ -270,7 +311,7 @@ namespace VerseFlow.UI.Controls
 								else
 								{
 									TextRenderer.DrawText(graphics, line.Substring(cur), font, point,
-														  SystemColors.ControlText, Tff);
+										SystemColors.ControlText, Tff);
 									cur = linelen;
 								}
 							}
@@ -284,15 +325,38 @@ namespace VerseFlow.UI.Controls
 						point.X = Padding.Left;
 					}
 
-					if (DrawSeparatorLine)
-					{
-						graphics.DrawLine(linePen, point.X, point.Y, verseWidth, point.Y);
-					}
+					//					if (DrawSeparatorLine)
+					//					{
+					//						graphics.DrawLine(linePen, point.X, point.Y, verseWidth, point.Y);
+					//					}
+				}
+
+				if (focused && focusedIndex == i)
+				{
+					Rectangle vrect = verse.Rect(0, textVerseWidth);
+					//					vrect.Inflate(-1, -1);
+					ControlPaint.DrawFocusRectangle(graphics, vrect, ForeColor, BackColor);
 				}
 
 				visibleVerses.Add(verse);
-				y = point.Y;
+				y = point.Y + interval;
 			}
+		}
+
+		protected override void OnGotFocus(EventArgs e)
+		{
+			base.OnGotFocus(e);
+
+			focused = true;
+			Invalidate();
+		}
+
+		protected override void OnLostFocus(EventArgs e)
+		{
+			base.OnLostFocus(e);
+
+			focused = false;
+			Invalidate();
 		}
 
 		protected override void OnBackColorChanged(EventArgs e)
@@ -421,6 +485,8 @@ namespace VerseFlow.UI.Controls
 					i = -1;
 					versesHeigth = 0;
 				}
+
+				versesHeigth += interval;
 			}
 
 			AutoScrollMinSize = new Size(visibleWidth, versesHeigth);
@@ -428,11 +494,11 @@ namespace VerseFlow.UI.Controls
 			return visibleWidth;
 		}
 
-		protected override void OnMouseWheel(MouseEventArgs e)
-		{
-			base.OnMouseWheel(e);
-			Invalidate(ClientRectangle);
-		}
+		//		protected override void OnMouseWheel(MouseEventArgs e)
+		//		{
+		//			base.OnMouseWheel(e);
+		//			//Invalidate(ClientRectangle);
+		//		}
 
 		protected override void OnMouseClick(MouseEventArgs e)
 		{
@@ -452,12 +518,12 @@ namespace VerseFlow.UI.Controls
 			}
 		}
 
-		protected override void OnScroll(ScrollEventArgs se)
-		{
-			base.OnScroll(se);
-
-			if (se.ScrollOrientation == ScrollOrientation.VerticalScroll && se.OldValue != se.NewValue)
-				Invalidate();
-		}
+		//		protected override void OnScroll(ScrollEventArgs se)
+		//		{
+		//			base.OnScroll(se);
+		//
+		////			if (se.ScrollOrientation == ScrollOrientation.VerticalScroll && se.OldValue != se.NewValue)
+		////				Invalidate();
+		//		}
 	}
 }
