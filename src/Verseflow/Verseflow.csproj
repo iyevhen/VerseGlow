@@ -206,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\palette.png" />
     <None Include="Resources\information.png" />
     <None Include="Resources\book-open.png" />
     <None Include="Resources\edit.png" />

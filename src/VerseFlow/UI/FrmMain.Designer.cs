@@ -118,6 +118,7 @@ namespace VerseFlow.UI
 			this.tsSettings.Name = "tsSettings";
 			this.tsSettings.Size = new System.Drawing.Size(69, 22);
 			this.tsSettings.Text = "S&ettings";
+			this.tsSettings.Visible = false;
 			// 
 			// tsAbout
 			// 
