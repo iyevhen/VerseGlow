@@ -205,30 +205,17 @@
     <Compile Include="UI\Controls\cyotek.com\GroupBox\GroupBox.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\1355132176_ru.png" />
-    <None Include="Resources\1355132156_ua.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\book-open.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\binocular.png" />
     <None Include="Resources\wrench-screwdriver.png" />
     <None Include="Resources\book-brown.png" />
     <None Include="Resources\book.png" />
     <None Include="Resources\ajax-loader1.gif" />
     <None Include="Resources\list_remove.png" />
     <None Include="Resources\dialog_error.png" />
-    <None Include="Resources\1360613630_magnifier.png" />
-    <None Include="Resources\1360606037_book_open.png" />
-    <None Include="Resources\1360462391_color_picker_alternative.png" />
-    <None Include="Resources\1357332757_cctv_camera.png" />
-    <None Include="Resources\1357332601_find.png" />
-    <None Include="Resources\1357332308_resultset_next.png" />
-    <None Include="Resources\1357332164_resultset_previous.png" />
-    <None Include="Resources\1357332047_text_list_bullets.png" />
-    <None Include="Resources\1357146159_billiard_marker.png" />
-    <None Include="Resources\1357146337_find.png" />
-    <None Include="Resources\1357146137_color_swatch.png" />
-    <None Include="Resources\1357145973_font.png" />
-    <None Include="Resources\1357144059_bug.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

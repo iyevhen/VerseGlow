@@ -33,7 +33,7 @@ namespace VerseFlow.UI.Controls
 		private List<VerseItem> allverses = new List<VerseItem>();
 
 		private SolidBrush backColorBrush;
-		private BufferedGraphics[] buffergraphs;
+		//		private BufferedGraphics[] buffergraphs;
 		private int calcWidth;
 		private Dictionary<char, int> charWidthes = new Dictionary<char, int>();
 		private bool highlight;
@@ -45,6 +45,7 @@ namespace VerseFlow.UI.Controls
 		private Rectangle versesRect;
 		private bool focused;
 		private int focusedIndex = -1;
+		private bool fontChanged = true;
 		private const int interval = 4;
 
 		public VerseView()
@@ -103,14 +104,15 @@ namespace VerseFlow.UI.Controls
 			if (e.KeyCode == Keys.Down)
 			{
 				if (e.Modifiers == Keys.Control)
-					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y - lineHeight));
+					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y - VerticalScroll.SmallChange));
 
 				Invalidate();
 			}
 			else if (e.KeyCode == Keys.Up)
 			{
 				if (e.Modifiers == Keys.Control)
-					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y + lineHeight));
+					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y + VerticalScroll.SmallChange));
+
 				Invalidate();
 			}
 			else if (e.KeyData == Keys.Space)
@@ -146,16 +148,20 @@ namespace VerseFlow.UI.Controls
 #if DEBUG
 			Stopwatch sw = Stopwatch.StartNew();
 #endif
+			int clientWidth = clientRectangle.Width;
 			if (calcWidth != Width)
 			{
 				calcWidth = Width;
 				Debug.WriteLine("Recalculating verses width=" + calcWidth);
 
-				int visibleWidth = clientRectangle.Width - Padding.Right - Padding.Left;
-				int visibleHeight = clientRectangle.Height - Padding.Bottom - Padding.Top;
+				int versesWidth = clientRectangle.Width - Padding.Right - Padding.Left;
+				int versesHeight = clientRectangle.Height - Padding.Bottom - Padding.Top;
 
-				textVerseWidth = RecalcVerses(visibleHeight, visibleWidth, e.Graphics);
-				//                versesRect = new Rectangle(Padding.Left, Padding.Top, verseWidth, visibleHeight);
+				bool scrollable = SplitVersesToLines(versesHeight, versesWidth, e.Graphics);
+
+				if (scrollable)
+					clientWidth -= SystemInformation.VerticalScrollBarWidth;
+				//                versesRect = new Rectangle(Padding.Left, Padding.Top, verseWidth, versesHeight);
 			}
 
 			DoPaint(e.Graphics, clientRectangle);
@@ -171,6 +177,7 @@ namespace VerseFlow.UI.Controls
 		protected override void OnFontChanged(EventArgs e)
 		{
 			calcWidth = -1;
+			fontChanged = true;
 			base.OnFontChanged(e);
 		}
 
@@ -218,7 +225,7 @@ namespace VerseFlow.UI.Controls
 				{
 					verse.Y = point.Y;
 
-					Rectangle vrect = verse.Rect(0, rect.Width);
+					Rectangle vrect = verse.Rect(rect.Width - 1);
 
 					using (var brush = new LinearGradientBrush(vrect, SystemColors.Highlight,
 						highlightLightenColor, LinearGradientMode.Vertical))
@@ -333,8 +340,7 @@ namespace VerseFlow.UI.Controls
 
 				if (focused && focusedIndex == i)
 				{
-					Rectangle vrect = verse.Rect(0, textVerseWidth);
-					//					vrect.Inflate(-1, -1);
+					Rectangle vrect = verse.Rect(textVerseWidth);
 					ControlPaint.DrawFocusRectangle(graphics, vrect, ForeColor, BackColor);
 				}
 
@@ -403,10 +409,17 @@ namespace VerseFlow.UI.Controls
 			return result;
 		}
 
-		private int RecalcVerses(int visibleHeight, int visibleWidth, Graphics g)
+		private bool SplitVersesToLines(int versesHeight, int versesWidth, Graphics graphics)
 		{
-			charWidthes = new Dictionary<char, int>();
-			lineHeight = 0;
+			if (fontChanged)
+			{
+				charWidthes = new Dictionary<char, int>();
+				lineHeight = 0;
+
+				fontChanged = true;
+			}
+
+
 			Font font = Font;
 
 			bool verticalScrollBarDisplayed = false;
@@ -426,28 +439,28 @@ namespace VerseFlow.UI.Controls
 
 				for (j = 0; j < end; j++)
 				{
-					char c = verse.Text[j];
-					int charWidth;
+					char verseChar = verse.Text[j];
+					int verseCharWidth;
 
-					if (!charWidthes.TryGetValue(c, out charWidth))
+					if (!charWidthes.TryGetValue(verseChar, out verseCharWidth))
 					{
-						Size size = TextRenderer.MeasureText(g, new string(c, 1), font, new Size(), Tff);
+						Size size = TextRenderer.MeasureText(graphics, new string(verseChar, 1), font, new Size(), Tff);
 
-						charWidth = size.Width;
-						charWidthes.Add(c, charWidth);
+						verseCharWidth = size.Width;
+						charWidthes.Add(verseChar, verseCharWidth);
 
 						if (lineHeight < size.Height)
 							lineHeight = size.Height;
 					}
 
-					if (c == ' ')
+					if (verseChar == ' ')
 					{
 						spaceIndex = j;
 					}
 
-					lineWidth += charWidth;
+					lineWidth += verseCharWidth;
 
-					if (lineWidth >= visibleWidth)
+					if (lineWidth >= versesWidth)
 					{
 						if (spaceIndex == 0)
 						{
@@ -478,10 +491,10 @@ namespace VerseFlow.UI.Controls
 					versesHeigth += lineHeight;
 				}
 
-				if (versesHeigth > visibleHeight && !verticalScrollBarDisplayed)
+				if (versesHeigth > versesHeight && !verticalScrollBarDisplayed)
 				{
 					verticalScrollBarDisplayed = true;
-					visibleWidth -= SystemInformation.VerticalScrollBarWidth;
+					versesWidth -= SystemInformation.VerticalScrollBarWidth;
 					i = -1;
 					versesHeigth = 0;
 				}
@@ -489,9 +502,10 @@ namespace VerseFlow.UI.Controls
 				versesHeigth += interval;
 			}
 
-			AutoScrollMinSize = new Size(visibleWidth, versesHeigth);
+			AutoScrollMinSize = new Size(versesWidth, versesHeigth);
+			textVerseWidth = versesWidth;
 
-			return visibleWidth;
+			return verticalScrollBarDisplayed;
 		}
 
 		//		protected override void OnMouseWheel(MouseEventArgs e)

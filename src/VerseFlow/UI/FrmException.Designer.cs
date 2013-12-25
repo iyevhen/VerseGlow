@@ -101,7 +101,7 @@
             // lblPleaseWait
             // 
             this.lblPleaseWait.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblPleaseWait.Image = global::VerseFlow.Properties.Resources.ajax_loader1;
+            
             this.lblPleaseWait.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblPleaseWait.Location = new System.Drawing.Point(12, 171);
             this.lblPleaseWait.Name = "lblPleaseWait";

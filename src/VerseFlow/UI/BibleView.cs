@@ -1,92 +1,150 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 using VerseFlow.Core;
+using VerseFlow.UI.Controls;
 
 namespace VerseFlow.UI
 {
-    public partial class BibleView : UserControl
-    {
-        private BibleBook bibleBook;
-        private IBible currentBible;
+	public partial class BibleView : UserControl
+	{
+		private BibleBook book;
+		private IBible bible;
 
-        public BibleView()
-        {
-            InitializeComponent();
-        }
+		public BibleView()
+		{
+			InitializeComponent();
 
-        public IBible CurrentBible
-        {
-            get { return currentBible; }
-            set
-            {
-                currentBible = value;
-                Enabled = value != null;
+			pnlReadTop.Enabled = false;
+			pnlFindTop.Enabled = false;
+		}
 
-                cmbContents.Items.Clear();
+		public IBible Bible
+		{
+			get { return bible; }
+			set
+			{
+				bible = value;
 
-                if (currentBible != null)
-                {
-                    foreach (BibleBook book in currentBible.OpenBooks())
-                    {
-                        cmbContents.Items.Add(book);
-                    }
-                    cmbContents.SelectedIndex = 0;
-                }
-            }
-        }
+				Enabled = value != null;
+				pnlReadTop.Enabled = Enabled;
+				pnlFindTop.Enabled = Enabled;
 
-        public void Highlight(string text)
-        {
-            verseView1.HighlightText = text;
-        }
+				cmbBooks.Items.Clear();
 
-        private void cmbContents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (currentBible == null)
-            {
-                return;
-            }
+				if (bible != null)
+				{
+					foreach (BibleBook bb in bible.OpenBooks())
+						cmbBooks.Items.Add(bb);
 
-            bibleBook = cmbContents.SelectedItem as BibleBook;
+					cmbBooks.SelectedIndex = 0;
+				}
+			}
+		}
 
-            if (bibleBook == null)
-            {
-                return;
-            }
+		private void cmbBooks_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (bible == null)
+				return;
 
-            cmbChapters.Items.Clear();
+			book = cmbBooks.SelectedItem as BibleBook;
 
-            for (int i = 1; i <= bibleBook.ChaptersCount; i++)
-            {
-                cmbChapters.Items.Add(i);
-            }
+			if (book == null)
+				return;
 
-            cmbChapters.SelectedIndex = 0;
-        }
+			cmbChapters.Items.Clear();
 
-        private void cmbChapters_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (currentBible == null || bibleBook == null)
-            {
-                return;
-            }
+			for (int i = 1; i <= book.ChaptersCount; i++)
+				cmbChapters.Items.Add(i);
 
-            List<BibleVerse> verses = currentBible.OpenChapter(bibleBook, (cmbChapters.SelectedIndex + 1).ToString());
-            verseView1.Fill(verses.ConvertAll(v => v.Text));
-        }
+			cmbChapters.SelectedIndex = 0;
+		}
 
-        public void FindVerses(string txt)
-        {
-            if (string.IsNullOrEmpty(txt))
-                throw new ArgumentNullException("txt");
+		private void SetNextPrevious(int chapter)
+		{
+			btnPrevious.Enabled = chapter > 1;
+			btnNext.Enabled = chapter < book.ChaptersCount;
+		}
 
-            if (currentBible == null)
-                return;
+		private void cmbChapters_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (bible == null || book == null)
+				return;
 
-            List<BibleVerse> verses = currentBible.OpenVerses(txt);
-            verseView1.Fill(verses.ConvertAll(v => v.Text));
-            verseView1.HighlightText = txt;
-        }
-    }
+			int chapter = cmbChapters.SelectedIndex + 1;
+			List<BibleVerse> verses = bible.OpenChapter(book, chapter.ToString(CultureInfo.InvariantCulture));
+			verseViewRead.Fill(verses.ConvertAll(v => v.Text));
+			SetNextPrevious(chapter);
+		}
+
+		private void tsFont_Click(object sender, EventArgs e)
+		{
+			using (var fd = new FontDialog())
+			{
+				fd.Font = verseViewRead.Font;
+
+				if (DialogResult.OK == fd.ShowDialog(this))
+				{
+					verseViewRead.Font = fd.Font;
+					verseViewFind.Font = fd.Font;
+				}
+			}
+		}
+
+		private void tsFind_Click(object sender, EventArgs e)
+		{
+			if (tsFind.Checked)
+			{
+				tsRead.Checked = false;
+				SuspendLayout();
+				pnlRead.Visible = false;
+				pnlFind.Visible = true;
+				ResumeLayout();
+			}
+		}
+
+		private void tsRead_CheckedChanged(object sender, EventArgs e)
+		{
+			if (tsRead.Checked)
+			{
+				tsFind.Checked = false;
+				SuspendLayout();
+				pnlRead.Visible = true;
+				pnlFind.Visible = false;
+				ResumeLayout();
+			}
+		}
+
+		private void tsRead_Click(object sender, EventArgs e)
+		{
+			if (!tsRead.Checked)
+				tsRead.Checked = true;
+		}
+
+		private void cmbFind_TextChanged(object sender, EventArgs e)
+		{
+			btnFind.Enabled = !string.IsNullOrEmpty(cmbFind.Text);
+		}
+
+		private void btnFind_Click(object sender, EventArgs e)
+		{
+			if (bible == null)
+				return;
+
+			List<BibleVerse> verses = bible.OpenVerses(cmbFind.Text);
+			verseViewFind.Fill(verses.ConvertAll(v => v.Text));
+			verseViewFind.HighlightText = cmbFind.Text;
+		}
+
+		private void btnNext_Click(object sender, EventArgs e)
+		{
+			cmbChapters.SelectedIndex += 1;
+		}
+
+		private void btnPrevious_Click(object sender, EventArgs e)
+		{
+			cmbChapters.SelectedIndex -= 1;
+		}
+	}
 }

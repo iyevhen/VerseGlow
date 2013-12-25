@@ -53,45 +53,27 @@ namespace VerseFlow.UI
 			{
 				bible = (IBible)item.Tag;
 
-				Text = string.Format("{0} - {1}", appNameAndVersion, item.Text);
-
-				if (tabControl1.TabPages.ContainsKey(bible.Name))
+				if (tabControl.TabPages.ContainsKey(bible.Name))
 				{
-					tabControl1.SelectedTab = tabControl1.TabPages[bible.Name];
+					tabControl.SelectedTab = tabControl.TabPages[bible.Name];
 				}
 				else
 				{
 					var bibleView = new BibleView();
-					tabControl1.SuspendLayout();
-					tabControl1.TabPages.Insert(0, bible.Name, bible.Name);
-					TabPage page = tabControl1.TabPages[0];
+					tabControl.SuspendLayout();
+					tabControl.TabPages.Insert(0, bible.Name, bible.Name);
+					TabPage page = tabControl.TabPages[0];
 					page.SuspendLayout();
 					page.Controls.Add(bibleView);
 					bibleView.Dock = DockStyle.Fill;
-					bibleView.CurrentBible = bible;
-					page.ResumeLayout(false);
+					bibleView.Bible = bible;
+					page.ResumeLayout();
 
-					tabControl1.SelectedTab = page;
-					tabControl1.ResumeLayout(false);
+					tabControl.SelectedTab = page;
+					tabControl.ResumeLayout();
 				}
-
 			}
 		}
-
-		//		private void tsFont_Click(object sender, EventArgs e)
-		//		{
-		//			using (var fd = new FontDialog())
-		//			{
-		//				fd.Font = bibleView1.Font;
-		//
-		//				if (DialogResult.OK == fd.ShowDialog(this))
-		//				{
-		//					bibleView1.Font = fd.Font;
-		//				}
-		//			}
-		//		}
-
-
 
 		private void tsGoLive_Click(object sender, EventArgs e)
 		{
@@ -113,37 +95,7 @@ namespace VerseFlow.UI
 			}
 		}
 
-		private void tsHighlight_Click(object sender, EventArgs e)
-		{
-			//			bibleView1.Highlight(txtHighlight.Text);
-		}
-
-		private void searchToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			MessageBox.Show("find");
-		}
-
-		private void tsSearch_Click(object sender, EventArgs e)
-		{
-			//            bibleView1.FindVerses(txtHighlight.Text);
-		}
-
 		private void splitContainerMain_SplitterMoved(object sender, SplitterEventArgs e)
-		{
-
-		}
-
-		private void toolStripButton4_Click(object sender, EventArgs e)
-		{
-			//            splitContainerLeft.Panel1Collapsed = !tsFind.Checked;
-		}
-
-		private void managedPanel1_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void tabList1_SelectedIndexChanged(object sender, EventArgs e)
 		{
 
 		}
@@ -162,25 +114,26 @@ namespace VerseFlow.UI
 			}
 		}
 
-		private void tabControl1_MouseClick(object sender, MouseEventArgs e)
+		private void tabControl_MouseClick(object sender, MouseEventArgs e)
 		{
-			var tabControl = sender as TabControl;
+			var tabcon = sender as TabControl;
 
-			if (tabControl == null)
+			if (tabcon == null)
 				return;
 
-			TabPage tabPageCurrent = null;
+			TabPage page = null;
 			if (e.Button == MouseButtons.Middle)
 			{
-				for (var i = 0; i < tabControl.TabCount; i++)
+				for (var i = 0; i < tabcon.TabCount; i++)
 				{
-					if (!tabControl.GetTabRect(i).Contains(e.Location))
+					if (!tabcon.GetTabRect(i).Contains(e.Location))
 						continue;
-					tabPageCurrent = tabControl.TabPages[i];
+					page = tabcon.TabPages[i];
 					break;
 				}
-				if (tabPageCurrent != null)
-					tabControl.TabPages.Remove(tabPageCurrent);
+
+				if (page != null)
+					tabcon.TabPages.Remove(page);
 			}
 		}
 	}
