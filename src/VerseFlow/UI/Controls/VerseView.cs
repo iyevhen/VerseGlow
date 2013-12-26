@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -43,8 +44,10 @@ namespace VerseFlow.UI.Controls
 		private int textVerseWidth;
 		private Rectangle versesRect;
 		private bool focused;
-		private int focusedIndex = -1;
 		private bool fontChanged = true;
+		private int selectItem;
+		private int focusedItem = -1;
+		private bool readOnly;
 		private const int interval = 3;
 
 		public VerseView()
@@ -82,6 +85,26 @@ namespace VerseFlow.UI.Controls
 			}
 		}
 
+		public bool ReadOnly
+		{
+			get { return readOnly; }
+			set { readOnly = value; }
+		}
+
+		public void SelectItem(int index)
+		{
+			if (index > -1 && index < allverses.Count)
+			{
+				allverses[index].IsSelected = !allverses[index].IsSelected;
+			}
+		}
+
+		public void SetFocusedItem(int index)
+		{
+			if (index > -1 && index < allverses.Count)
+				focusedItem = index;
+		}
+
 		public void Fill(List<string> strings)
 		{
 			if (strings == null)
@@ -101,12 +124,15 @@ namespace VerseFlow.UI.Controls
 		{
 			base.OnPreviewKeyDown(e);
 
+			if (readOnly)
+				return;
+
 			if (e.KeyCode == Keys.Down)
 			{
 				if (e.Modifiers == Keys.Control)
 					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y - VerticalScroll.SmallChange));
-				else if (focusedIndex + 1 < allverses.Count)
-					focusedIndex++;
+				else if (focusedItem + 1 < allverses.Count)
+					focusedItem++;
 
 				Invalidate();
 			}
@@ -114,16 +140,16 @@ namespace VerseFlow.UI.Controls
 			{
 				if (e.Modifiers == Keys.Control)
 					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y + VerticalScroll.SmallChange));
-				else if (focusedIndex - 1 > -1)
-					focusedIndex--;
+				else if (focusedItem - 1 > -1)
+					focusedItem--;
 
 				Invalidate();
 			}
 			else if (e.KeyData == Keys.Space)
 			{
-				if (focusedIndex > -1)
+				if (focusedItem > -1)
 				{
-					allverses[focusedIndex].IsSelected = !allverses[focusedIndex].IsSelected;
+					allverses[focusedItem].IsSelected = !allverses[focusedItem].IsSelected;
 					Invalidate();
 				}
 			}
@@ -146,7 +172,6 @@ namespace VerseFlow.UI.Controls
 #if DEBUG
 			Stopwatch sw = Stopwatch.StartNew();
 #endif
-
 			if (backColorBrush == null)
 				backColorBrush = new SolidBrush(BackColor);
 
@@ -168,6 +193,7 @@ namespace VerseFlow.UI.Controls
 
 				SplitVersesToLines(versesHeight, versesWidth, e.Graphics);
 			}
+
 
 			DoPaint(e.Graphics, clientRectangle);
 
@@ -224,8 +250,8 @@ namespace VerseFlow.UI.Controls
 				var point = new Point(Padding.Left + paragraph, y);
 				Font font = Font;
 
-				if (focusedIndex == -1)
-					focusedIndex = i;
+				if (focusedItem == -1)
+					focusedItem = i;
 
 				if (verse.IsSelected)
 				{
@@ -344,20 +370,10 @@ namespace VerseFlow.UI.Controls
 					//					}
 				}
 
-				if (focusedIndex == i && focused)
+				if (focusedItem == i && (focused || readOnly))
 				{
 					Rectangle vrect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
-
-					graphics.SmoothingMode = SmoothingMode.AntiAlias;
-					//					GraphicsTools.RoundRectangle(vrect, 15, Corners.All);
-
-//					GraphicsPath path = GraphicsTools.RoundRectangle(vrect, 8, Corners.All);
-
-					
-//						graphics.DrawPath(focused ? SystemPens.Highlight : Pens.DarkGray, path);
-					
-										ControlPaint.DrawFocusRectangle(graphics, vrect, ForeColor, BackColor);
-					
+					ControlPaint.DrawFocusRectangle(graphics, vrect);
 				}
 
 				visibleVerses.Add(verse);
@@ -534,6 +550,9 @@ namespace VerseFlow.UI.Controls
 		protected override void OnMouseClick(MouseEventArgs e)
 		{
 			base.OnMouseClick(e);
+
+			if (readOnly)
+				return;
 
 			if (e.Button == MouseButtons.Left)
 			{

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using VerseFlow.Core;
-using VerseFlow.UI.Controls;
 
 namespace VerseFlow.UI
 {
@@ -84,10 +83,22 @@ namespace VerseFlow.UI
 			{
 				fd.Font = verseViewRead.Font;
 
-				if (DialogResult.OK == fd.ShowDialog(this))
+				Form parent = FindForm();
+
+				if (parent != null)
 				{
-					verseViewRead.Font = fd.Font;
-					verseViewFind.Font = fd.Font;
+					fd.FontMustExist = true;
+					fd.AllowVerticalFonts = false;
+					fd.ShowColor = false;
+					fd.ShowEffects = false;
+
+					if (DialogResult.OK == fd.ShowDialog(parent))
+					{
+						verseViewRead.Font = fd.Font;
+						verseViewFind.Font = fd.Font;
+
+						Properties.Settings.Default.Save();
+					}
 				}
 			}
 		}
@@ -101,6 +112,20 @@ namespace VerseFlow.UI
 				pnlRead.Visible = false;
 				pnlFind.Visible = true;
 				ResumeLayout();
+			}
+		}
+
+		private void tsColors_Click(object sender, EventArgs e)
+		{
+			using (var frm = new FrmBibleViewColors())
+			{
+				Form parent = FindForm();
+
+				if (parent != null)
+				{
+					frm.Icon = parent.Icon;
+					frm.ShowDialog(parent);
+				}
 			}
 		}
 
@@ -146,5 +171,7 @@ namespace VerseFlow.UI
 		{
 			cmbChapters.SelectedIndex -= 1;
 		}
+
+
 	}
 }

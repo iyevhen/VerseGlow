@@ -40,12 +40,12 @@
 			this.tsFont = new System.Windows.Forms.ToolStripButton();
 			this.tsColors = new System.Windows.Forms.ToolStripButton();
 			this.pnlRead = new System.Windows.Forms.Panel();
-			this.verseViewRead = new VerseFlow.UI.Controls.VerseView();
 			this.pnlFind = new System.Windows.Forms.Panel();
-			this.verseViewFind = new VerseFlow.UI.Controls.VerseView();
 			this.pnlFindTop = new System.Windows.Forms.Panel();
 			this.cmbFind = new System.Windows.Forms.ComboBox();
 			this.btnFind = new System.Windows.Forms.Button();
+			this.verseViewRead = new VerseFlow.UI.Controls.VerseView();
+			this.verseViewFind = new VerseFlow.UI.Controls.VerseView();
 			this.pnlReadTop.SuspendLayout();
 			this.tools.SuspendLayout();
 			this.pnlRead.SuspendLayout();
@@ -170,6 +170,7 @@
 			this.tsColors.Name = "tsColors";
 			this.tsColors.Size = new System.Drawing.Size(61, 22);
 			this.tsColors.Text = "Colors";
+			this.tsColors.Click += new System.EventHandler(this.tsColors_Click);
 			// 
 			// pnlRead
 			// 
@@ -181,23 +182,6 @@
 			this.pnlRead.Size = new System.Drawing.Size(265, 271);
 			this.pnlRead.TabIndex = 13;
 			// 
-			// verseViewRead
-			// 
-			this.verseViewRead.AutoScroll = true;
-			this.verseViewRead.AutoScrollMinSize = new System.Drawing.Size(259, 0);
-			this.verseViewRead.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.verseViewRead.BackColor = System.Drawing.Color.White;
-			this.verseViewRead.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.verseViewRead.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseViewRead.DrawSeparatorLine = true;
-			this.verseViewRead.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
-			this.verseViewRead.HighlightText = null;
-			this.verseViewRead.Location = new System.Drawing.Point(0, 26);
-			this.verseViewRead.Name = "verseViewRead";
-			this.verseViewRead.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-			this.verseViewRead.Size = new System.Drawing.Size(265, 245);
-			this.verseViewRead.TabIndex = 10;
-			// 
 			// pnlFind
 			// 
 			this.pnlFind.Controls.Add(this.verseViewFind);
@@ -208,23 +192,6 @@
 			this.pnlFind.Size = new System.Drawing.Size(265, 271);
 			this.pnlFind.TabIndex = 14;
 			this.pnlFind.Visible = false;
-			// 
-			// verseViewFind
-			// 
-			this.verseViewFind.AutoScroll = true;
-			this.verseViewFind.AutoScrollMinSize = new System.Drawing.Size(259, 0);
-			this.verseViewFind.AutoScrollOffset = new System.Drawing.Point(500, 500);
-			this.verseViewFind.BackColor = System.Drawing.Color.White;
-			this.verseViewFind.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.verseViewFind.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseViewFind.DrawSeparatorLine = true;
-			this.verseViewFind.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
-			this.verseViewFind.HighlightText = null;
-			this.verseViewFind.Location = new System.Drawing.Point(0, 26);
-			this.verseViewFind.Name = "verseViewFind";
-			this.verseViewFind.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-			this.verseViewFind.Size = new System.Drawing.Size(265, 245);
-			this.verseViewFind.TabIndex = 12;
 			// 
 			// pnlFindTop
 			// 
@@ -263,6 +230,46 @@
 			this.btnFind.Text = "Find";
 			this.btnFind.UseVisualStyleBackColor = true;
 			this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
+			// 
+			// verseViewRead
+			// 
+			this.verseViewRead.AutoScroll = true;
+			this.verseViewRead.AutoScrollMinSize = new System.Drawing.Size(259, 0);
+			this.verseViewRead.AutoScrollOffset = new System.Drawing.Point(500, 500);
+			this.verseViewRead.BackColor = global::VerseFlow.Properties.Settings.Default.BibleBackColor;
+			this.verseViewRead.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseViewRead.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseViewRead.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseFlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseViewRead.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.verseViewRead.DrawSeparatorLine = true;
+			this.verseViewRead.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
+			this.verseViewRead.ForeColor = global::VerseFlow.Properties.Settings.Default.BibleForeColor;
+			this.verseViewRead.HighlightText = null;
+			this.verseViewRead.Location = new System.Drawing.Point(0, 26);
+			this.verseViewRead.Name = "verseViewRead";
+			this.verseViewRead.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
+			this.verseViewRead.Size = new System.Drawing.Size(265, 245);
+			this.verseViewRead.TabIndex = 10;
+			// 
+			// verseViewFind
+			// 
+			this.verseViewFind.AutoScroll = true;
+			this.verseViewFind.AutoScrollMinSize = new System.Drawing.Size(259, 0);
+			this.verseViewFind.AutoScrollOffset = new System.Drawing.Point(500, 500);
+			this.verseViewFind.BackColor = global::VerseFlow.Properties.Settings.Default.BibleBackColor;
+			this.verseViewFind.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseViewFind.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseViewFind.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseFlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseViewFind.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.verseViewFind.DrawSeparatorLine = true;
+			this.verseViewFind.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
+			this.verseViewFind.ForeColor = global::VerseFlow.Properties.Settings.Default.BibleForeColor;
+			this.verseViewFind.HighlightText = null;
+			this.verseViewFind.Location = new System.Drawing.Point(0, 26);
+			this.verseViewFind.Name = "verseViewFind";
+			this.verseViewFind.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
+			this.verseViewFind.Size = new System.Drawing.Size(265, 245);
+			this.verseViewFind.TabIndex = 12;
 			// 
 			// BibleView
 			// 
