@@ -37,7 +37,7 @@ namespace VerseFlow.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Constantia, 9.75pt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Constantia, 10pt")]
         public global::System.Drawing.Font BibleFont {
             get {
                 return ((global::System.Drawing.Font)(this["BibleFont"]));
@@ -49,7 +49,7 @@ namespace VerseFlow.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control")]
         public global::System.Drawing.Color BibleBackColor {
             get {
                 return ((global::System.Drawing.Color)(this["BibleBackColor"]));

@@ -6,10 +6,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BibleFont" Type="System.Drawing.Font" Scope="User">
-      <Value Profile="(Default)">Constantia, 9.75pt</Value>
+      <Value Profile="(Default)">Constantia, 10pt</Value>
     </Setting>
     <Setting Name="BibleBackColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">White</Value>
+      <Value Profile="(Default)">Control</Value>
     </Setting>
     <Setting Name="BibleForeColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">ControlText</Value>

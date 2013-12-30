@@ -69,7 +69,7 @@ namespace VerseFlow.UI.Controls
 			VerticalScroll.Enabled = true;
 			VerticalScroll.Visible = true;
 
-			highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 10);
+			highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 20);
 		}
 
 		public bool DrawSeparatorLine { get; set; }
@@ -214,160 +214,103 @@ namespace VerseFlow.UI.Controls
 
 		private void DoPaint(Graphics graphics, Rectangle rect)
 		{
-
-			int scrollPosY = AutoScrollPosition.Y * -1;
-			graphics.FillRectangle(backColorBrush, rect);
-
-			Debug.WriteLine("Y={0}", scrollPosY);
+			int scrollYTop = -AutoScrollPosition.Y;
+			int scrollYBottom = -AutoScrollPosition.Y + rect.Height;
 
 			int cursor = 0;
 			int y = 0;
 			bool visible = false;
+			Font font = Font;
 			visibleVerses.Clear();
+
+			graphics.FillRectangle(backColorBrush, rect);
 
 			for (int i = 0; i < allverses.Count; i++)
 			{
 				VerseItem verse = allverses[i];
-				//Get to visible verses
+
 				if (!visible)
 				{
-					cursor += verse.Height + interval;
+					cursor = cursor + verse.Height + interval;
 
-					if (cursor < scrollPosY)
+					if (cursor < scrollYTop)
 						continue;
 
-					y = cursor - verse.Height - scrollPosY - interval;
+					y = cursor - verse.Height - interval - scrollYTop;
 					visible = true;
 				}
 
 				if (y > rect.Height)
 				{
-					//EXIT. do not draw not visible area
-					Debug.WriteLine("Break; not drawing not visible area");
+					Debug.WriteLine("Break");
 					break;
 				}
 
 				var point = new Point(Padding.Left + paragraph, y);
-				Font font = Font;
 
 				if (focusedItem == -1)
 					focusedItem = i;
+				verse.Y = point.Y;
 
 				if (verse.IsSelected)
 				{
-					verse.Y = point.Y;
-
 					Rectangle vrect = verse.Rect(rect.Width - 1);
 
-					using (var brush = new LinearGradientBrush(vrect, SystemColors.Highlight,
-						highlightLightenColor, LinearGradientMode.Vertical))
+					using (var brush = new LinearGradientBrush(vrect, 
+						SystemColors.Highlight, 
+						highlightLightenColor,
+						LinearGradientMode.Vertical))
 					{
 						brush.Blend = blend;
 						graphics.FillRectangle(brush, vrect);
 					}
 
-					foreach (string line in verse.Lines())
-					{
-						if (highlight)
-						{
-							int linelen = line.Length;
-							int lightlen = highlightText.Length;
-
-							int cur = 0;
-
-							while (cur < linelen)
-							{
-								int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
-
-								if (found > -1)
-								{
-									int normal = found - cur;
-									string before = line.Substring(cur, normal);
-
-									TextRenderer.DrawText(graphics, before, font, point, SystemColors.HighlightText, Tff);
-									point.X += GetWidthOf(graphics, before);
-
-									string highligten = line.Substring(found, lightlen);
-
-									TextRenderer.DrawText(graphics, highligten, font, point,
-										GraphicsTools.InvertColor(SystemColors.HighlightText, 100),
-										GraphicsTools.InvertColor(SystemColors.Highlight, 100), Tff);
-									point.X += GetWidthOf(graphics, highligten);
-
-									cur = found + lightlen;
-								}
-								else
-								{
-									TextRenderer.DrawText(graphics, line.Substring(cur), font, point,
-										SystemColors.HighlightText, Tff);
-									cur = linelen;
-								}
-							}
-						}
-						else
-						{
-							TextRenderer.DrawText(graphics, line, font, point, SystemColors.HighlightText, Tff);
-						}
-
-						point.Y += lineHeight;
-						point.X = Padding.Left;
-					}
-
 					graphics.DrawRectangle(SystemPens.Highlight, vrect);
 				}
-				else
+
+				foreach (string line in verse.Lines())
 				{
-					verse.Y = point.Y;
-
-					foreach (string line in verse.Lines())
+					if (highlight)
 					{
-						if (highlight)
+						int linelen = line.Length;
+						int lightlen = highlightText.Length;
+
+						int cur = 0;
+
+						while (cur < linelen)
 						{
-							int linelen = line.Length;
-							int lightlen = highlightText.Length;
+							int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
 
-							int cur = 0;
-
-							while (cur < linelen)
+							if (found > -1)
 							{
-								int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
+								int normal = found - cur;
+								string before = line.Substring(cur, normal);
 
-								if (found > -1)
-								{
-									int normal = found - cur;
-									string before = line.Substring(cur, normal);
+								TextRenderer.DrawText(graphics, before, font, point, SystemColors.ControlText, Tff);
+								point.X += GetWidthOf(graphics, before, font);
 
-									TextRenderer.DrawText(graphics, before, font, point, SystemColors.ControlText, Tff);
-									point.X += GetWidthOf(graphics, before);
+								string highligten = line.Substring(found, lightlen);
 
-									string highligten = line.Substring(found, lightlen);
+								TextRenderer.DrawText(graphics, highligten, font, point, Color.Red, Color.LightPink, Tff);
+								point.X += GetWidthOf(graphics, highligten, font);
 
-									TextRenderer.DrawText(graphics, highligten, font, point, Color.Red, Color.LightPink, Tff);
-									point.X += GetWidthOf(graphics, highligten);
-
-									cur = found + lightlen;
-								}
-								else
-								{
-									TextRenderer.DrawText(graphics, line.Substring(cur), font, point,
-										SystemColors.ControlText, Tff);
-									cur = linelen;
-								}
+								cur = found + lightlen;
+							}
+							else
+							{
+								TextRenderer.DrawText(graphics, line.Substring(cur), font, point,
+									SystemColors.ControlText, Tff);
+								cur = linelen;
 							}
 						}
-						else
-						{
-							TextRenderer.DrawText(graphics, line, font, point, SystemColors.ControlText, Tff);
-						}
-
-						point.Y += lineHeight;
-						point.X = Padding.Left;
+					}
+					else
+					{
+						TextRenderer.DrawText(graphics, line, font, point, SystemColors.ControlText, Tff);
 					}
 
-					//					if (DrawSeparatorLine)
-					//					{
-					//						graphics.DrawLine(linePen, point.X, point.Y, verseWidth, point.Y);
-					//					}
+					point.Y += lineHeight;
+					point.X = Padding.Left;
 				}
 
 				if (focusedItem == i && (focused || readOnly))
@@ -415,7 +358,7 @@ namespace VerseFlow.UI.Controls
 				linePen.Dispose();
 		}
 
-		private int GetWidthOf(Graphics g, string text)
+		private int GetWidthOf(Graphics g, string text, Font font)
 		{
 			int result = 0;
 
@@ -429,7 +372,7 @@ namespace VerseFlow.UI.Controls
 
 				if (!charWidthes.TryGetValue(c, out charWidth))
 				{
-					Size size = TextRenderer.MeasureText(g, new string(c, 1), Font, new Size(), Tff);
+					Size size = TextRenderer.MeasureText(g, new string(c, 1), font, new Size(), Tff);
 
 					charWidth = size.Width;
 					charWidthes.Add(c, charWidth);
@@ -441,7 +384,7 @@ namespace VerseFlow.UI.Controls
 			return result;
 		}
 
-		private bool SplitVersesToLines(int versesHeight, int versesWidth, Graphics graphics)
+		private void SplitVersesToLines(int versesHeight, int versesWidth, Graphics graphics)
 		{
 			if (fontChanged)
 			{
@@ -538,15 +481,9 @@ namespace VerseFlow.UI.Controls
 			AutoScrollMinSize = new Size(versesWidth, versesHeigth);
 			textVerseWidth = versesWidth;
 
-			return verticalScrollBarDisplayed;
+			return;
 		}
-
-		//		protected override void OnMouseWheel(MouseEventArgs e)
-		//		{
-		//			base.OnMouseWheel(e);
-		//			//Invalidate(ClientRectangle);
-		//		}
-
+		
 		protected override void OnMouseClick(MouseEventArgs e)
 		{
 			base.OnMouseClick(e);
@@ -567,13 +504,5 @@ namespace VerseFlow.UI.Controls
 				}
 			}
 		}
-
-		//		protected override void OnScroll(ScrollEventArgs se)
-		//		{
-		//			base.OnScroll(se);
-		//
-		////			if (se.ScrollOrientation == ScrollOrientation.VerticalScroll && se.OldValue != se.NewValue)
-		////				Invalidate();
-		//		}
 	}
 }
