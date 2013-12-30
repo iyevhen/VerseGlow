@@ -49,6 +49,7 @@ namespace VerseFlow.UI
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
 			this.splitContainerMain.Panel1.SuspendLayout();
@@ -69,7 +70,8 @@ namespace VerseFlow.UI
             this.tsBibles,
             this.tsSongs,
             this.tsSettings,
-            this.tsAbout});
+            this.tsAbout,
+            this.toolStripButton4});
 			this.toolStrip2.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip2.Name = "toolStrip2";
 			this.toolStrip2.ShowItemToolTips = false;
@@ -263,6 +265,16 @@ namespace VerseFlow.UI
 			this.toolStripButton3.Size = new System.Drawing.Size(57, 22);
 			this.toolStripButton3.Text = "Fill &Black";
 			// 
+			// toolStripButton4
+			// 
+			this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+			this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton4.Name = "toolStripButton4";
+			this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+			this.toolStripButton4.Text = "toolStripButton4";
+			this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -316,6 +328,7 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.ToolStripMenuItem miBibleQuote;
 		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.ToolStripButton tsAbout;
+		private System.Windows.Forms.ToolStripButton toolStripButton4;
 
 	}
 }

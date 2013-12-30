@@ -59,6 +59,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TableSplitControl">
+      <HintPath>..\..\lib\TableSplitControl.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\IBible.cs" />
@@ -112,6 +115,7 @@
     <Compile Include="UI\Controls\dotnetrix.co.uk\RoundedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Controls\Interval.cs" />
     <Compile Include="UI\Controls\TextCursor.cs" />
     <Compile Include="UI\Controls\UserRect.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
@@ -165,6 +169,12 @@
       <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
     </Compile>
     <Compile Include="CrashReport\ICrashReportSender.cs" />
+    <Compile Include="UI\FrmSplits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmSplits.Designer.cs">
+      <DependentUpon>FrmSplits.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\IDisplay.cs" />
     <Compile Include="UI\ImageUtilities.cs" />
     <Compile Include="UI\WindowsAPI.cs" />
@@ -202,6 +212,9 @@
     </Compile>
     <EmbeddedResource Include="UI\FrmImportBibleQuote.resx">
       <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmSplits.resx">
+      <DependentUpon>FrmSplits.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
