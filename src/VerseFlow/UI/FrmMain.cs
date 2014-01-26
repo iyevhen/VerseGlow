@@ -137,12 +137,6 @@ namespace VerseFlow.UI
 			}
 		}
 
-		private void toolStripButton4_Click(object sender, EventArgs e)
-		{
-			using (var f = new FrmSplits())
-			{
-				f.ShowDialog(this);
-			}
-		}
+		
 	}
 }

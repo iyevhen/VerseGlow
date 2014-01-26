@@ -20,7 +20,7 @@ namespace VerseFlow.UI.Controls
 											| TextFormatFlags.NoPadding
 											| TextFormatFlags.NoPrefix;
 
-		private const int paragraph = 10;
+		private const int paragraph = 5;
 
 		private readonly Blend blend = new Blend
 			{
@@ -46,7 +46,7 @@ namespace VerseFlow.UI.Controls
 		private int selectItem;
 		private int focusedItem = -1;
 		private bool readOnly;
-		private const int interval = 3;
+		private const int interval = 2;
 
 		public VerseView()
 		{
@@ -118,9 +118,24 @@ namespace VerseFlow.UI.Controls
 		{
 		}
 
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == Keys.Down || keyData == Keys.Up)
+				return true;
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+				e.Handled = true;
+
+			base.OnKeyDown(e);
+		}
+
 		protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
 		{
-			base.OnPreviewKeyDown(e);
+//			base.OnPreviewKeyDown(e);
 
 			if (readOnly)
 				return;
@@ -131,7 +146,7 @@ namespace VerseFlow.UI.Controls
 					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y - VerticalScroll.SmallChange));
 				else if (focusedItem + 1 < allverses.Count)
 					focusedItem++;
-
+				
 				Invalidate();
 			}
 			else if (e.KeyCode == Keys.Up)
@@ -161,7 +176,6 @@ namespace VerseFlow.UI.Controls
 				AutoScrollPosition = new Point(0, 0);
 				Invalidate();
 			}
-
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
@@ -251,14 +265,15 @@ namespace VerseFlow.UI.Controls
 					Rectangle vrect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
 					vrect.Inflate(0, interval);
 
-//					using (var brush = new LinearGradientBrush(vrect,
-//						SystemColors.Highlight,
-//						highlightLightenColor,
-//						LinearGradientMode.Vertical))
-//					{
-//						brush.Blend = blend;
-						graphics.FillRectangle(SystemBrushes.Highlight, vrect);
-//					}
+					using (var brush = new LinearGradientBrush(vrect,
+						SystemColors.Highlight,
+						highlightLightenColor,
+						LinearGradientMode.Vertical))
+					{
+						brush.Blend = blend;
+						graphics.FillRectangle(brush, vrect);
+//						graphics.FillRectangle(SystemBrushes.Highlight, vrect);
+					}
 
 //					graphics.DrawRectangle(SystemPens.Highlight, vrect);
 				}

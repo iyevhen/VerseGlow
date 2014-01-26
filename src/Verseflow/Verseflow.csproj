@@ -59,9 +59,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TableSplitControl">
-      <HintPath>..\..\lib\TableSplitControl.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\IBible.cs" />
@@ -81,12 +78,6 @@
     <Compile Include="Core\Import\BibleQuote\BqtImportException.cs" />
     <Compile Include="Core\Import\BibleQuote\BqtIni.cs" />
     <Compile Include="Core\Import\BibleQuote\BqtVerse.cs" />
-    <Compile Include="UI\BibleFindView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\BibleFindView.Designer.cs">
-      <DependentUpon>BibleFindView.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\BibleView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -169,12 +160,6 @@
       <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
     </Compile>
     <Compile Include="CrashReport\ICrashReportSender.cs" />
-    <Compile Include="UI\FrmSplits.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FrmSplits.Designer.cs">
-      <DependentUpon>FrmSplits.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\IDisplay.cs" />
     <Compile Include="UI\ImageUtilities.cs" />
     <Compile Include="UI\WindowsAPI.cs" />
@@ -212,9 +197,6 @@
     </Compile>
     <EmbeddedResource Include="UI\FrmImportBibleQuote.resx">
       <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmSplits.resx">
-      <DependentUpon>FrmSplits.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
