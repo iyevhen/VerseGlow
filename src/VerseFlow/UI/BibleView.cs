@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows.Forms;
 using VerseFlow.Core;
+using VerseFlow.Properties;
 
 namespace VerseFlow.UI
 {
 	//http://stackoverflow.com/questions/11780558/c-sharp-winforms-combobox-dynamic-autocomplete
 	public partial class BibleView : UserControl
 	{
-		private BibleBook book;
 		private IBible bible;
+		private BibleBook book;
 
 		public BibleView()
 		{
@@ -23,9 +23,7 @@ namespace VerseFlow.UI
 			set
 			{
 				bible = value;
-
 				Enabled = value != null;
-
 				cmbNavigate.Items.Clear();
 
 				if (bible != null)
@@ -33,16 +31,20 @@ namespace VerseFlow.UI
 					foreach (BibleBook bb in bible.OpenBooks())
 						cmbNavigate.Items.Add(bb);
 
-					cmbNavigate.SelectedIndex = 0;
+					if (cmbNavigate.Items.Count > 0)
+					{
+						cmbNavigate.Text = cmbNavigate.Items[0] + " 1";
+					}
 				}
 			}
 		}
 
-		private void cmbBooks_SelectedIndexChanged(object sender, EventArgs e)
+		private void cmbNavigate_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (bible == null)
 				return;
 
+			cmbNavigate.SelectionLength = 0;
 			book = cmbNavigate.SelectedItem as BibleBook;
 
 			if (book == null)
@@ -52,6 +54,14 @@ namespace VerseFlow.UI
 			verseView.Fill(verses.ConvertAll(v => v.Text));
 		}
 
+		private void cmbNavigate_TextChanged(object sender, EventArgs e)
+		{
+			var combo = sender as ComboBox;
+
+			if (combo != null)
+			{
+			}
+		}
 
 		private void tsFont_Click(object sender, EventArgs e)
 		{
@@ -72,7 +82,7 @@ namespace VerseFlow.UI
 				if (DialogResult.OK == fd.ShowDialog(parent))
 				{
 					verseView.Font = fd.Font;
-					Properties.Settings.Default.Save();
+					Settings.Default.Save();
 				}
 			}
 		}

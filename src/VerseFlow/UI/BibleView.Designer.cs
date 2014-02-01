@@ -41,13 +41,13 @@
 			this.cmbNavigate.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.cmbNavigate.Dock = System.Windows.Forms.DockStyle.Top;
 			this.cmbNavigate.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
-			this.cmbNavigate.FormattingEnabled = true;
 			this.cmbNavigate.IntegralHeight = false;
 			this.cmbNavigate.Location = new System.Drawing.Point(0, 0);
 			this.cmbNavigate.Name = "cmbNavigate";
 			this.cmbNavigate.Size = new System.Drawing.Size(277, 26);
 			this.cmbNavigate.TabIndex = 1;
-			this.cmbNavigate.SelectedIndexChanged += new System.EventHandler(this.cmbBooks_SelectedIndexChanged);
+			this.cmbNavigate.SelectedIndexChanged += new System.EventHandler(this.cmbNavigate_SelectedIndexChanged);
+			this.cmbNavigate.TextChanged += new System.EventHandler(this.cmbNavigate_TextChanged);
 			// 
 			// toolBar
 			// 
@@ -93,7 +93,7 @@
 			this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseFlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.verseView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView.DrawSeparatorLine = true;
+			this.verseView.DrawSeparatorLine = false;
 			this.verseView.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
 			this.verseView.ForeColor = global::VerseFlow.Properties.Settings.Default.BibleForeColor;
 			this.verseView.HighlightText = null;
