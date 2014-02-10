@@ -137,6 +137,16 @@ namespace VerseFlow.UI
 			}
 		}
 
+		private void button1_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void tsSettings_Click(object sender, EventArgs e)
+		{
+
+		}
+
 		
 	}
 }
