@@ -29,10 +29,11 @@ namespace VerseFlow.Core
 			get { return chaptersCount; }
 		}
 
-		public string Refs
+		public string[] Shortcuts
 		{
-			get { return refs; }
+			get { return refs.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries); }
 		}
+
 
 		public string Name
 		{

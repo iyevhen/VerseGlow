@@ -97,10 +97,10 @@
     <Compile Include="UI\Controls\dotnetrix.co.uk\Button.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\dotnetrix.co.uk\ListBox.cs">
+    <Compile Include="UI\Controls\dotnetrix.co.uk\NumTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\dotnetrix.co.uk\NumTextBox.cs">
+    <Compile Include="UI\Controls\dotnetrix.co.uk\VFListBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\dotnetrix.co.uk\RoundedPanel.cs">
@@ -110,6 +110,7 @@
     <Compile Include="UI\Controls\TextCursor.cs" />
     <Compile Include="UI\Controls\UserRect.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
+    <Compile Include="UI\ControlExtensions.cs" />
     <Compile Include="UI\FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>

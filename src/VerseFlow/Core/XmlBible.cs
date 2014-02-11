@@ -142,7 +142,7 @@ namespace VerseFlow.Core
 			return result;
 		}
 
-		public List<BibleVerse> OpenVerses(string searchText)
+		public List<BibleVerse> FindVerses(string searchText)
 		{
 			if (string.IsNullOrEmpty(searchText))
 				throw new ArgumentNullException("searchText");

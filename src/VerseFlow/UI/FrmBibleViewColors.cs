@@ -42,7 +42,7 @@ namespace VerseFlow.UI
 	}
 
 	//Please help me add a Size and Style Picker
-//	public class FontListBox : ListBox
+//	public class FontListBox : VFListBox
 //	{
 //		private List<Font> _fonts = new List<Font>();
 //		private Brush _foreBrush;
@@ -149,7 +149,7 @@ namespace VerseFlow.UI
 //	public partial class MyFontDialog : Form
 //	{
 //		private FontListBox _fontListBox;
-//		private ListBox _fontSizeListBox;
+//		private VFListBox _fontSizeListBox;
 //
 //		public MyFontDialog()
 //		{
@@ -160,7 +160,7 @@ namespace VerseFlow.UI
 //			_fontListBox.Size = new Size(200, Height);
 //			Controls.Add(_fontListBox);
 //
-//			_fontSizeListBox = new ListBox();
+//			_fontSizeListBox = new VFListBox();
 //			_fontSizeListBox.Location = new Point(_fontListBox.Width, 0);
 //
 //			Controls.Add(_fontSizeListBox);
