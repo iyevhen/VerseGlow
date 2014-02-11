@@ -74,7 +74,7 @@ namespace VerseFlow.UI
 			this.toolStrip2.Name = "toolStrip2";
 			this.toolStrip2.ShowItemToolTips = false;
 			this.toolStrip2.Size = new System.Drawing.Size(724, 25);
-			this.toolStrip2.TabIndex = 14;
+			this.toolStrip2.TabIndex = 0;
 			this.toolStrip2.Text = "toolStrip2";
 			// 
 			// tsBibles
@@ -118,7 +118,6 @@ namespace VerseFlow.UI
 			this.tsSettings.Name = "tsSettings";
 			this.tsSettings.Size = new System.Drawing.Size(69, 22);
 			this.tsSettings.Text = "S&ettings";
-			this.tsSettings.Click += new System.EventHandler(this.tsSettings_Click);
 			// 
 			// tsAbout
 			// 
@@ -145,9 +144,9 @@ namespace VerseFlow.UI
 			// 
 			this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
 			this.splitContainerMain.Size = new System.Drawing.Size(724, 434);
-			this.splitContainerMain.SplitterDistance = 348;
+			this.splitContainerMain.SplitterDistance = 346;
 			this.splitContainerMain.SplitterWidth = 6;
-			this.splitContainerMain.TabIndex = 13;
+			this.splitContainerMain.TabIndex = 1;
 			this.splitContainerMain.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainerMain_SplitterMoved);
 			// 
 			// tabControl
@@ -156,7 +155,7 @@ namespace VerseFlow.UI
 			this.tabControl.Location = new System.Drawing.Point(0, 0);
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(348, 434);
+			this.tabControl.Size = new System.Drawing.Size(346, 434);
 			this.tabControl.TabIndex = 0;
 			this.tabControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControl_MouseClick);
 			// 
@@ -174,9 +173,9 @@ namespace VerseFlow.UI
 			// splitContainerRight.Panel2
 			// 
 			this.splitContainerRight.Panel2.Controls.Add(this.toolStrip1);
-			this.splitContainerRight.Size = new System.Drawing.Size(370, 434);
+			this.splitContainerRight.Size = new System.Drawing.Size(372, 434);
 			this.splitContainerRight.SplitterDistance = 180;
-			this.splitContainerRight.TabIndex = 5;
+			this.splitContainerRight.TabIndex = 0;
 			// 
 			// toolsRight
 			// 
@@ -188,8 +187,8 @@ namespace VerseFlow.UI
 			this.toolsRight.Location = new System.Drawing.Point(0, 0);
 			this.toolsRight.Name = "toolsRight";
 			this.toolsRight.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolsRight.Size = new System.Drawing.Size(370, 25);
-			this.toolsRight.TabIndex = 5;
+			this.toolsRight.Size = new System.Drawing.Size(372, 25);
+			this.toolsRight.TabIndex = 0;
 			this.toolsRight.Text = "toolsRight";
 			// 
 			// tsGoLive
@@ -231,8 +230,8 @@ namespace VerseFlow.UI
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip1.Size = new System.Drawing.Size(370, 25);
-			this.toolStrip1.TabIndex = 5;
+			this.toolStrip1.Size = new System.Drawing.Size(372, 25);
+			this.toolStrip1.TabIndex = 0;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
 			// toolStripButton1

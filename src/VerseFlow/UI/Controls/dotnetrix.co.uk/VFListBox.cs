@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace VerseFlow.UI.Controls.dotnetrix.co.uk
 {
-	class ListBox : System.Windows.Forms.ListBox
+	class VFListBox : System.Windows.Forms.ListBox
 	{
 		private const int LB_GETCURSEL = 0x188;
 		private const int LB_GETSELITEMS = 0x191;
@@ -38,7 +38,7 @@ namespace VerseFlow.UI.Controls.dotnetrix.co.uk
 		private SizeF lineNumberSize;
 		private int count;
 
-		public ListBox()
+		public VFListBox()
 		{
 			SetStyle(
 				//				ControlStyles.UserPaint
@@ -63,11 +63,11 @@ namespace VerseFlow.UI.Controls.dotnetrix.co.uk
 
 		/// <summary>
 		/// Sets up the <see cref="CreateParams" /> object to tell 
-		/// Windows how the ListBox control should be created.  In 
+		/// Windows how the VFListBox control should be created.  In 
 		/// this instance the default configuration is modified to 
 		/// remove <c>LBS_HASSTRINGS</c> and <c>LBS_SORT</c> 
 		/// styles and to add <c>LBS_NODATA</c>and LBS_OWNERDRAWFIXED 
-		/// styles. This converts the ListBox into a Virtual ListBox.
+		/// styles. This converts the VFListBox into a Virtual VFListBox.
 		/// </summary>
 		protected override CreateParams CreateParams
 		{
@@ -82,7 +82,7 @@ namespace VerseFlow.UI.Controls.dotnetrix.co.uk
 		}
 
 		/// <summary>
-		/// Gets or sets the number of virtual items in the ListBox.
+		/// Gets or sets the number of virtual items in the VFListBox.
 		/// </summary>
 		public int Count
 		{
@@ -97,7 +97,7 @@ namespace VerseFlow.UI.Controls.dotnetrix.co.uk
 		}
 
 		/// <summary>
-		/// Throws an exception.  All the items for a Virtual ListBox 
+		/// Throws an exception.  All the items for a Virtual VFListBox 
 		/// are externally managed.
 		/// </summary>
 		/// <remarks>The selected index can be obtained using 
@@ -110,7 +110,7 @@ namespace VerseFlow.UI.Controls.dotnetrix.co.uk
 			get
 			{
 				throw new InvalidOperationException(
-				   "A Virtual ListBox does not have a " +
+				   "A Virtual VFListBox does not have a " +
 				   "SelectedObject collection");
 			}
 		}
