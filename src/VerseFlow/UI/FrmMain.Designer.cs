@@ -39,27 +39,22 @@ namespace VerseFlow.UI
 			this.tsSettings = new System.Windows.Forms.ToolStripButton();
 			this.tsAbout = new System.Windows.Forms.ToolStripButton();
 			this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-			this.tabControl = new System.Windows.Forms.TabControl();
-			this.splitContainerRight = new System.Windows.Forms.SplitContainer();
-			this.toolsRight = new System.Windows.Forms.ToolStrip();
-			this.tsGoLive = new System.Windows.Forms.ToolStripButton();
-			this.tsFreeze = new System.Windows.Forms.ToolStripButton();
-			this.tsBlack = new System.Windows.Forms.ToolStripButton();
+			this.tableLayoutTop = new System.Windows.Forms.TableLayoutPanel();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+			this.toolsRight = new System.Windows.Forms.ToolStrip();
+			this.tsGoLive = new System.Windows.Forms.ToolStripButton();
+			this.tsFreeze = new System.Windows.Forms.ToolStripButton();
+			this.tsBlack = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
 			this.splitContainerMain.Panel1.SuspendLayout();
 			this.splitContainerMain.Panel2.SuspendLayout();
 			this.splitContainerMain.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).BeginInit();
-			this.splitContainerRight.Panel1.SuspendLayout();
-			this.splitContainerRight.Panel2.SuspendLayout();
-			this.splitContainerRight.SuspendLayout();
-			this.toolsRight.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
+			this.toolsRight.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip2
@@ -73,7 +68,7 @@ namespace VerseFlow.UI
 			this.toolStrip2.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip2.Name = "toolStrip2";
 			this.toolStrip2.ShowItemToolTips = false;
-			this.toolStrip2.Size = new System.Drawing.Size(724, 25);
+			this.toolStrip2.Size = new System.Drawing.Size(501, 25);
 			this.toolStrip2.TabIndex = 0;
 			this.toolStrip2.Text = "toolStrip2";
 			// 
@@ -135,59 +130,89 @@ namespace VerseFlow.UI
 			this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.splitContainerMain.Location = new System.Drawing.Point(0, 25);
 			this.splitContainerMain.Name = "splitContainerMain";
+			this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
 			// 
 			// splitContainerMain.Panel1
 			// 
-			this.splitContainerMain.Panel1.Controls.Add(this.tabControl);
+			this.splitContainerMain.Panel1.Controls.Add(this.tableLayoutTop);
 			// 
 			// splitContainerMain.Panel2
 			// 
-			this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
-			this.splitContainerMain.Size = new System.Drawing.Size(724, 434);
-			this.splitContainerMain.SplitterDistance = 346;
+			this.splitContainerMain.Panel2.Controls.Add(this.toolStrip1);
+			this.splitContainerMain.Panel2.Controls.Add(this.toolsRight);
+			this.splitContainerMain.Size = new System.Drawing.Size(501, 438);
+			this.splitContainerMain.SplitterDistance = 205;
 			this.splitContainerMain.SplitterWidth = 6;
 			this.splitContainerMain.TabIndex = 1;
 			this.splitContainerMain.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainerMain_SplitterMoved);
 			// 
-			// tabControl
+			// tableLayoutTop
 			// 
-			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl.Location = new System.Drawing.Point(0, 0);
-			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(346, 434);
-			this.tabControl.TabIndex = 0;
-			this.tabControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControl_MouseClick);
+			this.tableLayoutTop.ColumnCount = 1;
+			this.tableLayoutTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutTop.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutTop.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutTop.Name = "tableLayoutTop";
+			this.tableLayoutTop.RowCount = 1;
+			this.tableLayoutTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutTop.Size = new System.Drawing.Size(501, 205);
+			this.tableLayoutTop.TabIndex = 1;
 			// 
-			// splitContainerRight
+			// toolStrip1
 			// 
-			this.splitContainerRight.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainerRight.Location = new System.Drawing.Point(0, 0);
-			this.splitContainerRight.Name = "splitContainerRight";
-			this.splitContainerRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.toolStripButton3});
+			this.toolStrip1.Location = new System.Drawing.Point(108, 89);
+			this.toolStrip1.Name = "toolStrip1";
+			this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+			this.toolStrip1.Size = new System.Drawing.Size(179, 25);
+			this.toolStrip1.TabIndex = 0;
+			this.toolStrip1.Text = "toolStrip1";
 			// 
-			// splitContainerRight.Panel1
+			// toolStripButton1
 			// 
-			this.splitContainerRight.Panel1.Controls.Add(this.toolsRight);
+			this.toolStripButton1.CheckOnClick = true;
+			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton1.Name = "toolStripButton1";
+			this.toolStripButton1.Size = new System.Drawing.Size(75, 22);
+			this.toolStripButton1.Text = "&Background";
 			// 
-			// splitContainerRight.Panel2
+			// toolStripButton2
 			// 
-			this.splitContainerRight.Panel2.Controls.Add(this.toolStrip1);
-			this.splitContainerRight.Size = new System.Drawing.Size(372, 434);
-			this.splitContainerRight.SplitterDistance = 180;
-			this.splitContainerRight.TabIndex = 0;
+			this.toolStripButton2.CheckOnClick = true;
+			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton2.Name = "toolStripButton2";
+			this.toolStripButton2.Size = new System.Drawing.Size(44, 22);
+			this.toolStripButton2.Text = "&Freeze";
+			// 
+			// toolStripButton3
+			// 
+			this.toolStripButton3.CheckOnClick = true;
+			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton3.Name = "toolStripButton3";
+			this.toolStripButton3.Size = new System.Drawing.Size(57, 22);
+			this.toolStripButton3.Text = "Fill &Black";
 			// 
 			// toolsRight
 			// 
+			this.toolsRight.Dock = System.Windows.Forms.DockStyle.None;
 			this.toolsRight.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolsRight.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsGoLive,
             this.tsFreeze,
             this.tsBlack});
-			this.toolsRight.Location = new System.Drawing.Point(0, 0);
+			this.toolsRight.Location = new System.Drawing.Point(99, 60);
 			this.toolsRight.Name = "toolsRight";
 			this.toolsRight.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolsRight.Size = new System.Drawing.Size(372, 25);
+			this.toolsRight.Size = new System.Drawing.Size(154, 25);
 			this.toolsRight.TabIndex = 0;
 			this.toolsRight.Text = "toolsRight";
 			// 
@@ -220,53 +245,11 @@ namespace VerseFlow.UI
 			this.tsBlack.Size = new System.Drawing.Size(57, 22);
 			this.tsBlack.Text = "Fill &Black";
 			// 
-			// toolStrip1
-			// 
-			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3});
-			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip1.Size = new System.Drawing.Size(372, 25);
-			this.toolStrip1.TabIndex = 0;
-			this.toolStrip1.Text = "toolStrip1";
-			// 
-			// toolStripButton1
-			// 
-			this.toolStripButton1.CheckOnClick = true;
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(75, 22);
-			this.toolStripButton1.Text = "&Background";
-			// 
-			// toolStripButton2
-			// 
-			this.toolStripButton2.CheckOnClick = true;
-			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(44, 22);
-			this.toolStripButton2.Text = "&Freeze";
-			// 
-			// toolStripButton3
-			// 
-			this.toolStripButton3.CheckOnClick = true;
-			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton3.Name = "toolStripButton3";
-			this.toolStripButton3.Size = new System.Drawing.Size(57, 22);
-			this.toolStripButton3.Text = "Fill &Black";
-			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(724, 459);
+			this.ClientSize = new System.Drawing.Size(501, 463);
 			this.Controls.Add(this.splitContainerMain);
 			this.Controls.Add(this.toolStrip2);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -278,18 +261,13 @@ namespace VerseFlow.UI
 			this.toolStrip2.PerformLayout();
 			this.splitContainerMain.Panel1.ResumeLayout(false);
 			this.splitContainerMain.Panel2.ResumeLayout(false);
+			this.splitContainerMain.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
 			this.splitContainerMain.ResumeLayout(false);
-			this.splitContainerRight.Panel1.ResumeLayout(false);
-			this.splitContainerRight.Panel1.PerformLayout();
-			this.splitContainerRight.Panel2.ResumeLayout(false);
-			this.splitContainerRight.Panel2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).EndInit();
-			this.splitContainerRight.ResumeLayout(false);
-			this.toolsRight.ResumeLayout(false);
-			this.toolsRight.PerformLayout();
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
+			this.toolsRight.ResumeLayout(false);
+			this.toolsRight.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -298,7 +276,6 @@ namespace VerseFlow.UI
 		#endregion
 
 		private System.Windows.Forms.SplitContainer splitContainerMain;
-        private System.Windows.Forms.SplitContainer splitContainerRight;
         private System.Windows.Forms.ToolStrip toolsRight;
         private System.Windows.Forms.ToolStripButton tsGoLive;
         private System.Windows.Forms.ToolStripButton tsFreeze;
@@ -313,8 +290,8 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.ToolStripButton tsSettings;
 		private System.Windows.Forms.ToolStripMenuItem miImport;
 		private System.Windows.Forms.ToolStripMenuItem miBibleQuote;
-		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.ToolStripButton tsAbout;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutTop;
 
 	}
 }

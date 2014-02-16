@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using VerseFlow.Core;
 
@@ -9,6 +10,7 @@ namespace VerseFlow.UI
 		private IDisplay display;
 		private IBible bible;
 		private string appNameAndVersion;
+		private HashSet<string> opened;
 
 		public FrmMain()
 		{
@@ -33,6 +35,8 @@ namespace VerseFlow.UI
 
 			foreach (IBible b in Options.BibleRepository.OpenAll())
 				tsBibles.DropDownItems.Add(new ToolStripMenuItem(b.Name) { Tag = b });
+
+			opened = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 		}
 
 		private void tsAbout_Click(object sender, EventArgs e)
@@ -53,24 +57,33 @@ namespace VerseFlow.UI
 			{
 				bible = (IBible)item.Tag;
 
-				if (tabControl.TabPages.ContainsKey(bible.Name))
+				if (opened.Contains(bible.Name))
 				{
-					tabControl.SelectedTab = tabControl.TabPages[bible.Name];
+
+					//					tabControl.SelectedTab = tabControl.TabPages[bible.Name];
 				}
 				else
 				{
-					var bibleView = new BibleView();
-					tabControl.SuspendLayout();
-					tabControl.TabPages.Insert(0, bible.Name, bible.Name);
-					TabPage page = tabControl.TabPages[0];
-					page.SuspendLayout();
-					page.Controls.Add(bibleView);
-					bibleView.Dock = DockStyle.Fill;
-					bibleView.Bible = bible;
-					page.ResumeLayout();
+					tableLayoutTop.SuspendLayout();
+					
+					tableLayoutTop.ColumnCount += 1;
 
-					tabControl.SelectedTab = page;
-					tabControl.ResumeLayout();
+					int idx = tableLayoutTop.Controls.Count > 0
+						? tableLayoutTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f))
+						: 0;
+
+					var bibleView = new BibleView();
+					tableLayoutTop.Controls.Add(bibleView, idx, 0);
+
+					bibleView.Anchor =
+						AnchorStyles.Bottom |
+						AnchorStyles.Left |
+						AnchorStyles.Top |
+						AnchorStyles.Right;
+
+					bibleView.Bible = bible;
+
+					tableLayoutTop.ResumeLayout();
 				}
 			}
 		}
@@ -137,6 +150,6 @@ namespace VerseFlow.UI
 			}
 		}
 
-		
+
 	}
 }

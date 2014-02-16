@@ -20,7 +20,7 @@ namespace VerseFlow.UI.Controls
 											| TextFormatFlags.NoPadding
 											| TextFormatFlags.NoPrefix;
 
-		private const int paragraph = 5;
+		private const int paragraph = 0;
 
 		private readonly Blend blend = new Blend
 			{
@@ -34,6 +34,7 @@ namespace VerseFlow.UI.Controls
 		private List<VerseItem> allverses = new List<VerseItem>();
 
 		private SolidBrush backColorBrush;
+		private SolidBrush backColorVerseBrush;
 		private int prevWidth;
 		private Dictionary<char, int> charWidthes = new Dictionary<char, int>();
 		private bool highlight;
@@ -46,7 +47,7 @@ namespace VerseFlow.UI.Controls
 		private int selectItem;
 		private int focusedItem = -1;
 		private bool readOnly;
-		private const int interval = 2;
+		private int interval = 2;
 
 		public VerseView()
 		{
@@ -135,7 +136,7 @@ namespace VerseFlow.UI.Controls
 
 		protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
 		{
-//			base.OnPreviewKeyDown(e);
+			//			base.OnPreviewKeyDown(e);
 
 			if (readOnly)
 				return;
@@ -146,7 +147,7 @@ namespace VerseFlow.UI.Controls
 					AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y - VerticalScroll.SmallChange));
 				else if (focusedItem + 1 < allverses.Count)
 					focusedItem++;
-				
+
 				Invalidate();
 			}
 			else if (e.KeyCode == Keys.Up)
@@ -186,6 +187,9 @@ namespace VerseFlow.UI.Controls
 #endif
 			if (backColorBrush == null)
 				backColorBrush = new SolidBrush(BackColor);
+
+			if (backColorVerseBrush == null)
+				backColorVerseBrush = new SolidBrush(GraphicsTools.DarkenColor(BackColor, 8));
 
 			var clientRectangle = new Rectangle(0, 0, Size.Width, Size.Height);
 
@@ -260,11 +264,11 @@ namespace VerseFlow.UI.Controls
 
 				verse.Y = point.Y;
 
+				Rectangle vrect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
+				vrect.Inflate(0, interval);
+
 				if (verse.IsSelected)
 				{
-					Rectangle vrect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
-					vrect.Inflate(0, interval);
-
 					using (var brush = new LinearGradientBrush(vrect,
 						SystemColors.Highlight,
 						highlightLightenColor,
@@ -272,10 +276,14 @@ namespace VerseFlow.UI.Controls
 					{
 						brush.Blend = blend;
 						graphics.FillRectangle(brush, vrect);
-//						graphics.FillRectangle(SystemBrushes.Highlight, vrect);
+						//						graphics.FillRectangle(SystemBrushes.Highlight, vrect);
 					}
 
-//					graphics.DrawRectangle(SystemPens.Highlight, vrect);
+					//					graphics.DrawRectangle(SystemPens.Highlight, vrect);
+				}
+				else if(i % 2 == 1)
+				{
+					graphics.FillRectangle(backColorVerseBrush, vrect);
 				}
 
 				foreach (string line in verse.Lines())
@@ -330,8 +338,8 @@ namespace VerseFlow.UI.Controls
 
 				if (focusedItem == i && (focused || readOnly))
 				{
-					Rectangle vrect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
-					ControlPaint.DrawFocusRectangle(graphics, vrect);
+					Rectangle frect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
+					ControlPaint.DrawFocusRectangle(graphics, frect);
 				}
 
 				visibleVerses.Add(verse);
@@ -434,36 +442,40 @@ namespace VerseFlow.UI.Controls
 
 			AutoScrollMinSize = new Size(versesWidth, versesHeigth);
 			textVerseWidth = versesWidth;
+			interval = lineHeight / 4;
+
+			if (interval == 0)
+				interval = 2;
 		}
 
 		private int FindVerse(int yPosition)
 		{
-//			 int position = allverses.Count / 2;
-//    int stepSize = position / 2;
-//
-//    while (true) {
-//        if (stepSize == 0) {
-//            // Couldn't find it.
-//            return 0;
-//        }
-//
-//        if (allverses[position].High < number) {
-//            // Search down.
-//            position -= stepSize;
-//
-//        } else if (RangeGroups[position].Low > number) {
-//            // Search up.
-//            position += stepSize;
-//
-//        } else {
-//            // Found it!
-//            return RangeGroups[position];
-//        }
-//
-//        stepSize /= 2;
-//    }
+			//			 int position = allverses.Count / 2;
+			//    int stepSize = position / 2;
+			//
+			//    while (true) {
+			//        if (stepSize == 0) {
+			//            // Couldn't find it.
+			//            return 0;
+			//        }
+			//
+			//        if (allverses[position].High < number) {
+			//            // Search down.
+			//            position -= stepSize;
+			//
+			//        } else if (RangeGroups[position].Low > number) {
+			//            // Search up.
+			//            position += stepSize;
+			//
+			//        } else {
+			//            // Found it!
+			//            return RangeGroups[position];
+			//        }
+			//
+			//        stepSize /= 2;
+			//    }
 
-//			verses.
+			//			verses.
 
 			return 0;
 		}
@@ -488,6 +500,7 @@ namespace VerseFlow.UI.Controls
 		{
 			base.OnBackColorChanged(e);
 			backColorBrush = null;
+			backColorVerseBrush = null;
 		}
 
 		protected override void Dispose(bool disposing)
@@ -496,6 +509,9 @@ namespace VerseFlow.UI.Controls
 
 			if (backColorBrush != null)
 				backColorBrush.Dispose();
+
+			if (backColorVerseBrush != null)
+				backColorVerseBrush.Dispose();
 		}
 
 		private int GetWidthOf(Graphics g, string text, Font font)
