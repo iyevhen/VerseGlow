@@ -49,7 +49,7 @@ namespace VerseFlow.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Control")]
+        [global::System.Configuration.DefaultSettingValueAttribute("WhiteSmoke")]
         public global::System.Drawing.Color BibleBackColor {
             get {
                 return ((global::System.Drawing.Color)(this["BibleBackColor"]));
@@ -68,6 +68,18 @@ namespace VerseFlow.Properties {
             }
             set {
                 this["BibleForeColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Tahoma, 8.45pt")]
+        public global::System.Drawing.Font ApplicationFont {
+            get {
+                return ((global::System.Drawing.Font)(this["ApplicationFont"]));
+            }
+            set {
+                this["ApplicationFont"] = value;
             }
         }
     }

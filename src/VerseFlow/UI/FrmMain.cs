@@ -27,9 +27,11 @@ namespace VerseFlow.UI
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 
-
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
+			display = new FrmDisplay { Icon = Icon };
+			display.SizeChanged += DisplayOnSizeChanged;
+
 			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
 			Text = appNameAndVersion;
 
@@ -60,28 +62,28 @@ namespace VerseFlow.UI
 				if (opened.Contains(bible.Name))
 				{
 
-					//					tabControl.SelectedTab = tabControl.TabPages[bible.Name];
 				}
 				else
 				{
 					tableLayoutTop.SuspendLayout();
-					
+
 					tableLayoutTop.ColumnCount += 1;
 
 					int idx = tableLayoutTop.Controls.Count > 0
 						? tableLayoutTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f))
 						: 0;
 
-					var bibleView = new BibleView();
+					var bibleView = new BibleView
+					{
+						Anchor = AnchorStyles.Bottom |
+								 AnchorStyles.Left |
+								 AnchorStyles.Top |
+								 AnchorStyles.Right,
+
+						Bible = bible
+					};
+
 					tableLayoutTop.Controls.Add(bibleView, idx, 0);
-
-					bibleView.Anchor =
-						AnchorStyles.Bottom |
-						AnchorStyles.Left |
-						AnchorStyles.Top |
-						AnchorStyles.Right;
-
-					bibleView.Bible = bible;
 
 					tableLayoutTop.ResumeLayout();
 				}
@@ -92,25 +94,29 @@ namespace VerseFlow.UI
 		{
 			if (tsGoLive.Checked)
 			{
-				display = new FrmDisplay { Icon = Icon };
 				display.Activate();
+				SetDisplayProportions(display);
 			}
 			else
 			{
-				if (display != null)
-				{
-					display.Deactivate();
-					((Form)display).Dispose();
-				}
-
-				tsBlack.Checked = false;
-				tsFreeze.Checked = false;
+				display.Deactivate();
 			}
 		}
 
-		private void splitContainerMain_SplitterMoved(object sender, SplitterEventArgs e)
+		private void DisplayOnSizeChanged(object sender, EventArgs eventArgs)
 		{
+			var disp = sender as IDisplay;
 
+			if (disp != null)
+			{
+				SetDisplayProportions(disp);
+			}
+		}
+
+		private void SetDisplayProportions(IDisplay disp)
+		{
+			displayViewPreview.Etalon = disp.Size;
+			displayViewLive.Etalon = disp.Size;
 		}
 
 		private void miBibleQuote_Click(object sender, EventArgs e)
@@ -127,39 +133,17 @@ namespace VerseFlow.UI
 			}
 		}
 
-		private void tabControl_MouseClick(object sender, MouseEventArgs e)
+		protected override void Dispose(bool disposing)
 		{
-			var tabcon = sender as TabControl;
-
-			if (tabcon == null)
-				return;
-
-			TabPage page = null;
-			if (e.Button == MouseButtons.Middle)
+			if (disposing && (components != null))
 			{
-				for (var i = 0; i < tabcon.TabCount; i++)
-				{
-					if (!tabcon.GetTabRect(i).Contains(e.Location))
-						continue;
-					page = tabcon.TabPages[i];
-					break;
-				}
-
-				if (page != null)
-					tabcon.TabPages.Remove(page);
+				components.Dispose();
 			}
+
+			display.Dispose();
+
+			base.Dispose(disposing);
 		}
-
-		private void button1_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void tsSettings_Click(object sender, EventArgs e)
-		{
-
-		}
-
 
 	}
 }

@@ -60,6 +60,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BqtBookFixture.cs" />
     <Compile Include="BqtIniFixture.cs" />
     <Compile Include="Core\SlideFixture.cs" />
     <Compile Include="IsFixture.cs" />

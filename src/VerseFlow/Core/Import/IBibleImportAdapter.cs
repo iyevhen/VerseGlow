@@ -15,6 +15,6 @@ namespace VerseFlow.Core.Import
 		bool HasNewTestement();
 		bool HasApocrypha();
 		int TotalBooksCount();
-		IEnumerable<IBibleBook> Books();
+		IList<IBibleBook> Books();
 	}
 }

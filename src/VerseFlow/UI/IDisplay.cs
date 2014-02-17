@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace VerseFlow.UI
 {
-    public interface IDisplay
+    public interface IDisplay : IDisposable
     {
 		string DisplayText { get; set; }
 		Color BackColor { get; set; }
@@ -16,6 +16,9 @@ namespace VerseFlow.UI
     	bool IsStoped { get; }
 
     	event EventHandler ActivationChanged;
+	    event EventHandler SizeChanged;
+
+		Size Size { get; }
 
         void Activate();
         void Deactivate();

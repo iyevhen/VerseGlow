@@ -12,7 +12,17 @@ namespace VerseFlow.UI
 	{
 		private IBible bible;
 		private Dictionary<string, BibleBook> bookMap;
-		private int comboIndexText;
+		private readonly Random random = new Random();
+
+		public event EventHandler CloseRequested;
+
+		protected virtual void OnCloseRequested()
+		{
+			EventHandler handler = CloseRequested;
+
+			if (handler != null)
+				handler(this, EventArgs.Empty);
+		}
 
 		public BibleView()
 		{
@@ -29,6 +39,7 @@ namespace VerseFlow.UI
 
 				if (bible != null)
 				{
+					lblBibleName.Text = bible.Name;
 					bookMap = new Dictionary<string, BibleBook>(StringComparer.CurrentCultureIgnoreCase);
 					List<BibleBook> books = bible.OpenBooks();
 
@@ -49,10 +60,9 @@ namespace VerseFlow.UI
 							foreach (string shortcut in book.Shortcuts)
 								bookMap[shortcut] = book;
 						}
-
-						var random = new Random();
+						
 						int bookIdx = random.Next(0, books.Count - 1);
-						cmbNavigate.SetCue(string.Format("Sample: {0} {1}:1", books[bookIdx].Name, random.Next(1, books[bookIdx].ChaptersCount)));
+						cmbNavigate.SetCue(string.Format("{0} {1}:1", books[bookIdx].Name, random.Next(1, books[bookIdx].ChaptersCount)));
 					}
 					finally
 					{
@@ -186,6 +196,11 @@ namespace VerseFlow.UI
 
 
 			Debug.WriteLine(combo.Text);
+		}
+
+		private void toolStripButtonClose_Click(object sender, EventArgs e)
+		{
+			OnCloseRequested();
 		}
 		
 	}

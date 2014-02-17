@@ -115,7 +115,6 @@
 			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseFlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.DrawSeparatorLine = false;
 			this.verseView1.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
 			this.verseView1.ForeColor = global::VerseFlow.Properties.Settings.Default.BibleForeColor;
 			this.verseView1.HighlightText = null;

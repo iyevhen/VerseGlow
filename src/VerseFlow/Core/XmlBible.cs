@@ -18,10 +18,8 @@ namespace VerseFlow.Core
 
 		private const string attributeName = "name";
 		private const string attributeId = "id";
-		private const string attributeCodePage = "codepage";
-		private const string attributeEncodingName = "encoding";
 		private const string attributeBooks = "books";
-		private const string attributeRef = "ref";
+		private const string attributeShortcuts = "shortcuts";
 		private const string attributeChapters = "chapters";
 
 		private readonly string file;
@@ -73,7 +71,7 @@ namespace VerseFlow.Core
 						if (reader.IsStartElement() && reader.Name == elementBook)
 						{
 							string name = reader[attributeName];
-							string refs = reader[attributeRef];
+							string refs = reader[attributeShortcuts];
 							string chaptersString = reader[attributeChapters];
 
 							int chapters;
@@ -153,12 +151,12 @@ namespace VerseFlow.Core
 			{
 				using (XmlReader reader = XmlReader.Create(stream))
 				{
-                    string bookName = string.Empty;
-                    string chapter = string.Empty;
+					string bookName = string.Empty;
+					string chapter = string.Empty;
 
 					while (reader.Read())
 					{
-                        if (reader.IsStartElement() && reader.Name == elementBook)
+						if (reader.IsStartElement() && reader.Name == elementBook)
 						{
 							bookName = reader[attributeName];
 						}
@@ -174,9 +172,9 @@ namespace VerseFlow.Core
 
 							if (reader.Read())
 							{
-							    string val = reader.Value;
-							    string verse = string.Format("({0} {1}:{2})   {3}", 
-                                    bookName, chapter, id, val);
+								string val = reader.Value;
+								string verse = string.Format("({0} {1}:{2})   {3}",
+									bookName, chapter, id, val);
 
 								if (val.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
 								{
@@ -235,15 +233,14 @@ namespace VerseFlow.Core
 						writer.WriteAttributeString(attributeId, adapter.BibleShortName());
 						writer.WriteAttributeString(attributeName, adapter.BibleName());
 						writer.WriteAttributeString(attributeBooks, adapter.TotalBooksCount().ToString(CultureInfo.InvariantCulture));
-						writer.WriteAttributeString(attributeEncodingName, adapter.Encoding().EncodingName);
-						writer.WriteAttributeString(attributeCodePage, adapter.Encoding().CodePage.ToString(CultureInfo.InvariantCulture));
 
-						foreach (IBibleBook book in adapter.Books())
+						for (int i = 0; i < adapter.Books().Count; i++)
 						{
+							IBibleBook book = adapter.Books()[i];
 							writer.WriteStartElement(elementBook);
-							writer.WriteAttributeString(attributeId, "");
+							writer.WriteAttributeString(attributeId, (i + 1).ToString(CultureInfo.InvariantCulture));
 							writer.WriteAttributeString(attributeName, book.Name());
-							writer.WriteAttributeString(attributeRef, string.Join(" ", book.Shortcuts()));
+							writer.WriteAttributeString(attributeShortcuts, string.Join(" ", book.Shortcuts()));
 							writer.WriteAttributeString(attributeChapters, book.ChaptersCount().ToString(CultureInfo.InvariantCulture));
 
 							int chapter = 0;

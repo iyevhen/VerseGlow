@@ -103,6 +103,16 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap chain {
+            get {
+                object obj = ResourceManager.GetObject("chain", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clock_history {
             get {
                 object obj = ResourceManager.GetObject("clock-history", resourceCulture);
@@ -116,6 +126,16 @@ namespace VerseFlow.Properties {
         internal static System.Drawing.Bitmap edit {
             get {
                 object obj = ResourceManager.GetObject("edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fileclose {
+            get {
+                object obj = ResourceManager.GetObject("fileclose", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,6 +163,26 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap monitor_wallpaper {
+            get {
+                object obj = ResourceManager.GetObject("monitor-wallpaper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap music_beam {
+            get {
+                object obj = ResourceManager.GetObject("music-beam", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap palette {
             get {
                 object obj = ResourceManager.GetObject("palette", resourceCulture);
@@ -156,6 +196,16 @@ namespace VerseFlow.Properties {
         internal static string SelectBibleQuoteIniFile {
             get {
                 return ResourceManager.GetString("SelectBibleQuoteIniFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap surveillance_camera {
+            get {
+                object obj = ResourceManager.GetObject("surveillance-camera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

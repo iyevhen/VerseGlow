@@ -94,6 +94,9 @@
     <Compile Include="UI\Controls\cyotek.com\WrapLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Controls\DisplayView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\Controls\dotnetrix.co.uk\Button.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -217,6 +220,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\chain.png" />
+    <None Include="Resources\monitor-wallpaper.png" />
+    <None Include="Resources\music-beam.png" />
+    <None Include="Resources\surveillance-camera.png" />
+    <None Include="Resources\fileclose.png" />
     <None Include="Resources\clock-history.png" />
     <None Include="Resources\palette.png" />
     <None Include="Resources\information.png" />
@@ -228,7 +236,6 @@
     <None Include="Resources\book.png" />
     <None Include="Resources\ajax-loader1.gif" />
     <None Include="Resources\list_remove.png" />
-    <None Include="Resources\dialog_error.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -58,6 +58,9 @@ namespace VerseFlow.Core.Import.BibleQuote
 
                     if (ini.IsChapterLine(line))
                     {
+						if (builder != null && builder.Length > 0)
+							yield return new BqtVerse(chapter, verseNum, builder.ToString());
+
                         chapter++;
                         verseNum = 0;
                         builder = null;
@@ -65,21 +68,23 @@ namespace VerseFlow.Core.Import.BibleQuote
                     else if (ini.IsVerseLine(line) && chapter > 0)
                     {
                         if (builder != null)
-                            yield return new BqtVerse(chapter, verseNum, builder.ToString().TrimEnd());
+                            yield return new BqtVerse(chapter, verseNum, builder.ToString());
 
                         verseNum++;
                         builder = new StringBuilder();
                     }
 
-                    if (builder != null && !string.IsNullOrEmpty(line))
+                    if (builder != null && !string.IsNullOrWhiteSpace(line))
                     {
+						if (builder.Length > 0)
+							builder.Append(' ');
+
                         builder.Append(ini.GetVerseLine(line));
-                        builder.Append(' ');
                     }
                 }
 
                 if (builder != null && builder.Length > 0)
-                    yield return new BqtVerse(chapter, verseNum, builder.ToString().TrimEnd());
+                    yield return new BqtVerse(chapter, verseNum, builder.ToString());
             }
         }
 

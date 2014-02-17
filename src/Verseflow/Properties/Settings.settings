@@ -9,10 +9,13 @@
       <Value Profile="(Default)">Verdana, 9pt</Value>
     </Setting>
     <Setting Name="BibleBackColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Control</Value>
+      <Value Profile="(Default)">WhiteSmoke</Value>
     </Setting>
     <Setting Name="BibleForeColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">ControlText</Value>
+    </Setting>
+    <Setting Name="ApplicationFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Tahoma, 8.45pt</Value>
     </Setting>
   </Settings>
 </SettingsFile>

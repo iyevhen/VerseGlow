@@ -64,7 +64,7 @@ namespace VerseFlow.Core.Import.BibleQuote
 			return BqtIni.BookQty;
 		}
 
-		public IEnumerable<IBibleBook> Books()
+		public IList<IBibleBook> Books()
 		{
 			var result = new List<IBibleBook>();
 

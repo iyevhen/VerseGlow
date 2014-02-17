@@ -70,8 +70,7 @@ namespace VerseFlow.UI.Controls
 
 			highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 25);
 		}
-
-		public bool DrawSeparatorLine { get; set; }
+		
 
 		public string HighlightText
 		{
@@ -189,7 +188,7 @@ namespace VerseFlow.UI.Controls
 				backColorBrush = new SolidBrush(BackColor);
 
 			if (backColorVerseBrush == null)
-				backColorVerseBrush = new SolidBrush(GraphicsTools.DarkenColor(BackColor, 8));
+				backColorVerseBrush = new SolidBrush(GraphicsTools.DarkenColor(BackColor, 6));
 
 			var clientRectangle = new Rectangle(0, 0, Size.Width, Size.Height);
 
@@ -211,140 +210,8 @@ namespace VerseFlow.UI.Controls
 
 #if DEBUG
 			sw.Stop();
-			Debug.WriteLine("Painted in {0}", sw.Elapsed);
+			Debug.WriteLine("Painted verses in {0}", sw.Elapsed);
 #endif
-		}
-
-		protected override void OnFontChanged(EventArgs e)
-		{
-			prevWidth = -1;
-			fontChanged = true;
-			base.OnFontChanged(e);
-		}
-
-		private void DoPaint(Graphics graphics, Rectangle rect)
-		{
-			int scrollYTop = -AutoScrollPosition.Y;
-
-			int verseIndex = FindVerse(-AutoScrollPosition.Y);
-
-			int cursor = 0;
-			int y = 0;
-			bool visible = false;
-			Font font = Font;
-			visibleVerses.Clear();
-
-			graphics.FillRectangle(backColorBrush, rect);
-
-			for (int i = 0; i < allverses.Count; i++)
-			{
-				VerseItem verse = allverses[i];
-
-				if (!visible)
-				{
-					cursor += interval + verse.Height + interval;
-
-					if (cursor < scrollYTop)
-						continue;
-
-					y = cursor - interval - verse.Height - interval - scrollYTop;
-					visible = true;
-				}
-
-				if (y > rect.Height)
-				{
-					Debug.WriteLine("Break");
-					break;
-				}
-
-				var point = new Point(Padding.Left + paragraph, y + interval);
-
-				if (focusedItem == -1)
-					focusedItem = i;
-
-				verse.Y = point.Y;
-
-				Rectangle vrect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
-				vrect.Inflate(0, interval);
-
-				if (verse.IsSelected)
-				{
-					using (var brush = new LinearGradientBrush(vrect,
-						SystemColors.Highlight,
-						highlightLightenColor,
-						LinearGradientMode.Vertical))
-					{
-						brush.Blend = blend;
-						graphics.FillRectangle(brush, vrect);
-						//						graphics.FillRectangle(SystemBrushes.Highlight, vrect);
-					}
-
-					//					graphics.DrawRectangle(SystemPens.Highlight, vrect);
-				}
-				else if(i % 2 == 1)
-				{
-					graphics.FillRectangle(backColorVerseBrush, vrect);
-				}
-
-				foreach (string line in verse.Lines())
-				{
-					if (highlight)
-					{
-						int linelen = line.Length;
-						int lightlen = highlightText.Length;
-
-						int cur = 0;
-
-						while (cur < linelen)
-						{
-							int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
-
-							if (found > -1)
-							{
-								int normal = found - cur;
-								string before = line.Substring(cur, normal);
-
-								TextRenderer.DrawText(graphics, before, font, point, ForeColor, Tff);
-								point.X += GetWidthOf(graphics, before, font);
-
-								string highligten = line.Substring(found, lightlen);
-
-								TextRenderer.DrawText(graphics, highligten, font, point, Color.Red, Color.LightPink, Tff);
-								point.X += GetWidthOf(graphics, highligten, font);
-
-								cur = found + lightlen;
-							}
-							else
-							{
-								TextRenderer.DrawText(graphics,
-									line.Substring(cur),
-									font,
-									point,
-									ForeColor,
-									Tff);
-
-								cur = linelen;
-							}
-						}
-					}
-					else
-					{
-						TextRenderer.DrawText(graphics, line, font, point, ForeColor, Tff);
-					}
-
-					point.Y += lineHeight;
-					point.X = Padding.Left;
-				}
-
-				if (focusedItem == i && (focused || readOnly))
-				{
-					Rectangle frect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
-					ControlPaint.DrawFocusRectangle(graphics, frect);
-				}
-
-				visibleVerses.Add(verse);
-				y = point.Y + interval;
-			}
 		}
 
 		private void SplitVersesToLines(int versesHeight, int versesWidth, Graphics graphics)
@@ -367,8 +234,6 @@ namespace VerseFlow.UI.Controls
 			{
 				VerseItem verse = allverses[i];
 				verse.DropLines();
-
-				versesHeigth += interval;
 
 				int start = 0;
 				int lineWidth = paragraph;
@@ -436,16 +301,148 @@ namespace VerseFlow.UI.Controls
 					i = -1;
 					versesHeigth = 0;
 				}
-
-				versesHeigth += interval;
 			}
 
-			AutoScrollMinSize = new Size(versesWidth, versesHeigth);
-			textVerseWidth = versesWidth;
 			interval = lineHeight / 4;
 
 			if (interval == 0)
 				interval = 2;
+
+			versesHeigth += interval * allverses.Count * 2;
+			AutoScrollMinSize = new Size(versesWidth, versesHeigth);
+			textVerseWidth = versesWidth;
+		}
+
+		private void DoPaint(Graphics graphics, Rectangle rect)
+		{
+			int scrollYTop = -AutoScrollPosition.Y;
+
+			int verseIndex = FindVerse(-AutoScrollPosition.Y);
+
+			int cursor = 0;
+			int y = 0;
+			bool visible = false;
+			Font font = Font;
+			visibleVerses.Clear();
+
+			graphics.FillRectangle(backColorBrush, rect);
+
+			for (int i = 0; i < allverses.Count; i++)
+			{
+				VerseItem verse = allverses[i];
+
+				if (!visible)
+				{
+					cursor += interval + verse.Height + interval;
+
+					if (cursor < scrollYTop)
+						continue;
+
+					y = cursor - interval - verse.Height - interval - scrollYTop;
+					visible = true;
+				}
+
+				if (y > rect.Height)
+				{
+					Debug.WriteLine("Break");
+					break;
+				}
+
+				var point = new Point(Padding.Left + paragraph, y + interval);
+
+				if (focusedItem == -1)
+					focusedItem = i;
+
+				verse.Y = point.Y;
+
+				Rectangle vrect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
+				vrect.Inflate(0, interval);
+
+				if (verse.IsSelected)
+				{
+					using (var brush = new LinearGradientBrush(vrect,
+						SystemColors.Highlight,
+						highlightLightenColor,
+						LinearGradientMode.Vertical))
+					{
+						brush.Blend = blend;
+						graphics.FillRectangle(brush, vrect);
+						//						graphics.FillRectangle(SystemBrushes.Highlight, vrect);
+					}
+
+					graphics.DrawRectangle(SystemPens.Highlight, vrect);
+				}
+				else if (i % 2 == 1)
+				{
+					graphics.FillRectangle(backColorVerseBrush, vrect);
+				}
+
+				foreach (string line in verse.Lines())
+				{
+					if (highlight)
+					{
+						int linelen = line.Length;
+						int lightlen = highlightText.Length;
+
+						int cur = 0;
+
+						while (cur < linelen)
+						{
+							int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
+
+							if (found > -1)
+							{
+								int normal = found - cur;
+								string before = line.Substring(cur, normal);
+
+								TextRenderer.DrawText(graphics, before, font, point, ForeColor, Tff);
+								point.X += GetWidthOf(graphics, before, font);
+
+								string highligten = line.Substring(found, lightlen);
+
+								TextRenderer.DrawText(graphics, highligten, font, point, Color.Red, Color.LightPink, Tff);
+								point.X += GetWidthOf(graphics, highligten, font);
+
+								cur = found + lightlen;
+							}
+							else
+							{
+								TextRenderer.DrawText(graphics,
+									line.Substring(cur),
+									font,
+									point,
+									ForeColor,
+									Tff);
+
+								cur = linelen;
+							}
+						}
+					}
+					else
+					{
+						TextRenderer.DrawText(graphics, line, font, point, ForeColor, Tff);
+					}
+
+					point.Y += lineHeight;
+					point.X = Padding.Left;
+				}
+
+				if (focusedItem == i && (focused || readOnly))
+				{
+					Rectangle frect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
+					ControlPaint.DrawFocusRectangle(graphics, frect);
+				}
+
+				visibleVerses.Add(verse);
+				y = point.Y + interval;
+			}
+		}
+
+		protected override void OnFontChanged(EventArgs e)
+		{
+			prevWidth = -1;
+			fontChanged = true;
+			base.OnFontChanged(e);
 		}
 
 		private int FindVerse(int yPosition)
