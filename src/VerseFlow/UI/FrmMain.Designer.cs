@@ -26,35 +26,11 @@ namespace VerseFlow.UI
 			this.tsSongs = new System.Windows.Forms.ToolStripDropDownButton();
 			this.tsSettings = new System.Windows.Forms.ToolStripButton();
 			this.tsAbout = new System.Windows.Forms.ToolStripButton();
-			this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+			this.tsPreviews = new System.Windows.Forms.ToolStripDropDownButton();
+			this.tsPreview = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsLive = new System.Windows.Forms.ToolStripMenuItem();
 			this.tableLayoutTop = new System.Windows.Forms.TableLayoutPanel();
-			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.splitContainerDisplays = new System.Windows.Forms.SplitContainer();
-			this.displayViewPreview = new VerseFlow.UI.Controls.DisplayView();
-			this.toolsRight = new System.Windows.Forms.ToolStrip();
-			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tsGoLive = new System.Windows.Forms.ToolStripButton();
-			this.displayViewLive = new VerseFlow.UI.Controls.DisplayView();
-			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
-			this.splitContainerMain.Panel1.SuspendLayout();
-			this.splitContainerMain.Panel2.SuspendLayout();
-			this.splitContainerMain.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-			this.splitContainer1.Panel2.SuspendLayout();
-			this.splitContainer1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainerDisplays)).BeginInit();
-			this.splitContainerDisplays.Panel1.SuspendLayout();
-			this.splitContainerDisplays.Panel2.SuspendLayout();
-			this.splitContainerDisplays.SuspendLayout();
-			this.toolsRight.SuspendLayout();
-			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip2
@@ -64,11 +40,12 @@ namespace VerseFlow.UI
             this.tsBibles,
             this.tsSongs,
             this.tsSettings,
-            this.tsAbout});
+            this.tsAbout,
+            this.tsPreviews});
 			this.toolStrip2.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip2.Name = "toolStrip2";
 			this.toolStrip2.ShowItemToolTips = false;
-			this.toolStrip2.Size = new System.Drawing.Size(563, 25);
+			this.toolStrip2.Size = new System.Drawing.Size(552, 25);
 			this.toolStrip2.TabIndex = 0;
 			this.toolStrip2.Text = "toolStrip2";
 			// 
@@ -127,175 +104,49 @@ namespace VerseFlow.UI
 			this.tsAbout.Text = "About";
 			this.tsAbout.Click += new System.EventHandler(this.tsAbout_Click);
 			// 
-			// splitContainerMain
+			// tsPreviews
 			// 
-			this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainerMain.Location = new System.Drawing.Point(0, 25);
-			this.splitContainerMain.Name = "splitContainerMain";
-			this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			this.tsPreviews.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsPreview,
+            this.tsLive});
+			this.tsPreviews.Image = global::VerseFlow.Properties.Resources.monitor;
+			this.tsPreviews.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsPreviews.Name = "tsPreviews";
+			this.tsPreviews.Size = new System.Drawing.Size(61, 22);
+			this.tsPreviews.Text = "View";
 			// 
-			// splitContainerMain.Panel1
+			// tsPreview
 			// 
-			this.splitContainerMain.Panel1.Controls.Add(this.tableLayoutTop);
+			this.tsPreview.Name = "tsPreview";
+			this.tsPreview.Size = new System.Drawing.Size(152, 22);
+			this.tsPreview.Text = "Preview";
+			this.tsPreview.Click += new System.EventHandler(this.tsPreview_Click);
 			// 
-			// splitContainerMain.Panel2
+			// tsLive
 			// 
-			this.splitContainerMain.Panel2.Controls.Add(this.splitContainer1);
-			this.splitContainerMain.Size = new System.Drawing.Size(563, 340);
-			this.splitContainerMain.SplitterDistance = 154;
-			this.splitContainerMain.SplitterWidth = 6;
-			this.splitContainerMain.TabIndex = 1;
+			this.tsLive.Name = "tsLive";
+			this.tsLive.Size = new System.Drawing.Size(152, 22);
+			this.tsLive.Text = "Live";
+			this.tsLive.Click += new System.EventHandler(this.tsLive_Click);
 			// 
 			// tableLayoutTop
 			// 
 			this.tableLayoutTop.ColumnCount = 1;
-			this.tableLayoutTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 552F));
 			this.tableLayoutTop.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutTop.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutTop.Location = new System.Drawing.Point(0, 25);
 			this.tableLayoutTop.Name = "tableLayoutTop";
 			this.tableLayoutTop.RowCount = 1;
-			this.tableLayoutTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutTop.Size = new System.Drawing.Size(563, 154);
+			this.tableLayoutTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutTop.Size = new System.Drawing.Size(552, 335);
 			this.tableLayoutTop.TabIndex = 1;
-			// 
-			// splitContainer1
-			// 
-			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-			this.splitContainer1.Name = "splitContainer1";
-			// 
-			// splitContainer1.Panel2
-			// 
-			this.splitContainer1.Panel2.Controls.Add(this.splitContainerDisplays);
-			this.splitContainer1.Size = new System.Drawing.Size(563, 180);
-			this.splitContainer1.SplitterDistance = 176;
-			this.splitContainer1.TabIndex = 2;
-			// 
-			// splitContainerDisplays
-			// 
-			this.splitContainerDisplays.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainerDisplays.Location = new System.Drawing.Point(0, 0);
-			this.splitContainerDisplays.Name = "splitContainerDisplays";
-			// 
-			// splitContainerDisplays.Panel1
-			// 
-			this.splitContainerDisplays.Panel1.Controls.Add(this.displayViewPreview);
-			this.splitContainerDisplays.Panel1.Controls.Add(this.toolsRight);
-			// 
-			// splitContainerDisplays.Panel2
-			// 
-			this.splitContainerDisplays.Panel2.Controls.Add(this.displayViewLive);
-			this.splitContainerDisplays.Panel2.Controls.Add(this.toolStrip1);
-			this.splitContainerDisplays.Size = new System.Drawing.Size(383, 180);
-			this.splitContainerDisplays.SplitterDistance = 190;
-			this.splitContainerDisplays.TabIndex = 0;
-			// 
-			// displayViewPreview
-			// 
-			this.displayViewPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.displayViewPreview.Etalon = new System.Drawing.Size(4, 3);
-			this.displayViewPreview.Location = new System.Drawing.Point(0, 25);
-			this.displayViewPreview.Name = "displayViewPreview";
-			this.displayViewPreview.Size = new System.Drawing.Size(190, 155);
-			this.displayViewPreview.TabIndex = 0;
-			// 
-			// toolsRight
-			// 
-			this.toolsRight.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolsRight.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.toolStripSeparator1,
-            this.tsGoLive});
-			this.toolsRight.Location = new System.Drawing.Point(0, 0);
-			this.toolsRight.Name = "toolsRight";
-			this.toolsRight.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolsRight.Size = new System.Drawing.Size(190, 25);
-			this.toolsRight.TabIndex = 0;
-			this.toolsRight.Text = "toolsRight";
-			// 
-			// toolStripLabel1
-			// 
-			this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(53, 22);
-			this.toolStripLabel1.Text = "Preview";
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// tsGoLive
-			// 
-			this.tsGoLive.CheckOnClick = true;
-			this.tsGoLive.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsGoLive.Name = "tsGoLive";
-			this.tsGoLive.Size = new System.Drawing.Size(50, 22);
-			this.tsGoLive.Text = "&Go Live";
-			this.tsGoLive.Click += new System.EventHandler(this.tsGoLive_Click);
-			// 
-			// displayViewLive
-			// 
-			this.displayViewLive.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.displayViewLive.Etalon = new System.Drawing.Size(4, 3);
-			this.displayViewLive.Location = new System.Drawing.Point(0, 25);
-			this.displayViewLive.Name = "displayViewLive";
-			this.displayViewLive.Size = new System.Drawing.Size(189, 155);
-			this.displayViewLive.TabIndex = 2;
-			// 
-			// toolStrip1
-			// 
-			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel2,
-            this.toolStripSeparator2,
-            this.toolStripButton2,
-            this.toolStripButton3});
-			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip1.Size = new System.Drawing.Size(189, 25);
-			this.toolStrip1.TabIndex = 1;
-			this.toolStrip1.Text = "toolStrip1";
-			// 
-			// toolStripLabel2
-			// 
-			this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-			this.toolStripLabel2.Name = "toolStripLabel2";
-			this.toolStripLabel2.Size = new System.Drawing.Size(30, 22);
-			this.toolStripLabel2.Text = "Live";
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// toolStripButton2
-			// 
-			this.toolStripButton2.CheckOnClick = true;
-			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(44, 22);
-			this.toolStripButton2.Text = "&Freeze";
-			// 
-			// toolStripButton3
-			// 
-			this.toolStripButton3.CheckOnClick = true;
-			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton3.Name = "toolStripButton3";
-			this.toolStripButton3.Size = new System.Drawing.Size(57, 22);
-			this.toolStripButton3.Text = "Fill &Black";
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(563, 365);
-			this.Controls.Add(this.splitContainerMain);
+			this.ClientSize = new System.Drawing.Size(552, 360);
+			this.Controls.Add(this.tableLayoutTop);
 			this.Controls.Add(this.toolStrip2);
 			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.Font = global::VerseFlow.Properties.Settings.Default.ApplicationFont;
@@ -306,23 +157,6 @@ namespace VerseFlow.UI
 			this.Load += new System.EventHandler(this.FrmMain_Load);
 			this.toolStrip2.ResumeLayout(false);
 			this.toolStrip2.PerformLayout();
-			this.splitContainerMain.Panel1.ResumeLayout(false);
-			this.splitContainerMain.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
-			this.splitContainerMain.ResumeLayout(false);
-			this.splitContainer1.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-			this.splitContainer1.ResumeLayout(false);
-			this.splitContainerDisplays.Panel1.ResumeLayout(false);
-			this.splitContainerDisplays.Panel1.PerformLayout();
-			this.splitContainerDisplays.Panel2.ResumeLayout(false);
-			this.splitContainerDisplays.Panel2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainerDisplays)).EndInit();
-			this.splitContainerDisplays.ResumeLayout(false);
-			this.toolsRight.ResumeLayout(false);
-			this.toolsRight.PerformLayout();
-			this.toolStrip1.ResumeLayout(false);
-			this.toolStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -330,9 +164,6 @@ namespace VerseFlow.UI
 
 		#endregion
 
-		private System.Windows.Forms.SplitContainer splitContainerMain;
-        private System.Windows.Forms.ToolStrip toolsRight;
-		private System.Windows.Forms.ToolStripButton tsGoLive;
 		private System.Windows.Forms.ToolStrip toolStrip2;
 		private System.Windows.Forms.ToolStripDropDownButton tsBibles;
 		private System.Windows.Forms.ToolStripDropDownButton tsSongs;
@@ -341,17 +172,9 @@ namespace VerseFlow.UI
 		private System.Windows.Forms.ToolStripMenuItem miBibleQuote;
 		private System.Windows.Forms.ToolStripButton tsAbout;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutTop;
-		private System.Windows.Forms.SplitContainer splitContainer1;
-		private System.Windows.Forms.SplitContainer splitContainerDisplays;
-		private DisplayView displayViewPreview;
-		private DisplayView displayViewLive;
-		private System.Windows.Forms.ToolStrip toolStrip1;
-		private System.Windows.Forms.ToolStripButton toolStripButton2;
-		private System.Windows.Forms.ToolStripButton toolStripButton3;
-		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.ToolStripDropDownButton tsPreviews;
+		private System.Windows.Forms.ToolStripMenuItem tsPreview;
+		private System.Windows.Forms.ToolStripMenuItem tsLive;
 
 	}
 }

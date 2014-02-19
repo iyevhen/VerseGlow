@@ -5,22 +5,22 @@ namespace VerseFlow.Core
 	public class BibleBook
 	{
 		private readonly string name;
-		private readonly string refs;
+		private readonly string shortcuts;
 		private readonly int chaptersCount;
 
-		public BibleBook(string name, string refs, int chaptersCount)
+		public BibleBook(string name, string shortcuts, int chaptersCount)
 		{
 			if (string.IsNullOrEmpty(name))
 				throw new ArgumentNullException("name");
 
-			if (string.IsNullOrEmpty(refs))
-				throw new ArgumentNullException("refs");
+			if (string.IsNullOrEmpty(shortcuts))
+				throw new ArgumentNullException("shortcuts");
 
 			if (chaptersCount <= 0)
 				throw new ArgumentException("chaptersCount cannot be negative or equals 0");
 
 			this.name = name;
-			this.refs = refs;
+			this.shortcuts = shortcuts;
 			this.chaptersCount = chaptersCount;
 		}
 
@@ -31,7 +31,7 @@ namespace VerseFlow.Core
 
 		public string[] Shortcuts
 		{
-			get { return refs.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries); }
+			get { return shortcuts.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries); }
 		}
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -39,7 +40,7 @@ namespace VerseFlow.UI
 
 				if (bible != null)
 				{
-					lblBibleName.Text = bible.Name;
+					lblTitle.Text = bible.Name;
 					bookMap = new Dictionary<string, BibleBook>(StringComparer.CurrentCultureIgnoreCase);
 					List<BibleBook> books = bible.OpenBooks();
 
@@ -60,7 +61,7 @@ namespace VerseFlow.UI
 							foreach (string shortcut in book.Shortcuts)
 								bookMap[shortcut] = book;
 						}
-						
+
 						int bookIdx = random.Next(0, books.Count - 1);
 						cmbNavigate.SetCue(string.Format("{0} {1}:1", books[bookIdx].Name, random.Next(1, books[bookIdx].ChaptersCount)));
 					}
@@ -72,7 +73,6 @@ namespace VerseFlow.UI
 				}
 			}
 		}
-
 
 		private void cmbNavigate_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -125,28 +125,28 @@ namespace VerseFlow.UI
 
 		private void cmbNavigate_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			var combo = sender as ComboBox;
-
-			if (combo == null)
-				return;
-
-			if (combo.SelectedIndex == -1)
-				return;
-
-			combo.Select(combo.Text.Length, 0);
-//			combo.SelectedText = combo.Text;
-//			{
-//				combo.Text = comboIndexText;
-////				combo.Select(comboIndexText.Length, 0);
-//				comboIndexText = null;
+//			var combo = sender as ComboBox;
+//
+//			if (combo == null)
 //				return;
-//			}
+//
+//			if (combo.SelectedIndex == -1)
+//				return;
+//
+//			combo.Select(combo.Text.Length, 0);
+			//			combo.SelectedText = combo.Text;
+			//			{
+			//				combo.Text = comboIndexText;
+			////				combo.Select(comboIndexText.Length, 0);
+			//				comboIndexText = null;
+			//				return;
+			//			}
 
-//			comboIndexText = combo.SelectedIndex;
-//			combo.SelectedIndex = -1;
-//			combo.SelectedItem = null;
+			//			comboIndexText = combo.SelectedIndex;
+			//			combo.SelectedIndex = -1;
+			//			combo.SelectedItem = null;
 		}
-		
+
 
 		private void tsFont_Click(object sender, EventArgs e)
 		{
@@ -198,11 +198,15 @@ namespace VerseFlow.UI
 			Debug.WriteLine(combo.Text);
 		}
 
-		private void toolStripButtonClose_Click(object sender, EventArgs e)
+		private void lblBibleName_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnClose_Click(object sender, EventArgs e)
 		{
 			OnCloseRequested();
 		}
-		
 	}
 
 	public static class Extensions
@@ -219,5 +223,4 @@ namespace VerseFlow.UI
 			return Int32.TryParse(text, out number) ? number : 0;
 		}
 	}
-
 }

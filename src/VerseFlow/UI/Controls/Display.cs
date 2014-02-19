@@ -4,19 +4,18 @@ using System.Windows.Forms;
 
 namespace VerseFlow.UI.Controls
 {
-	public class DisplayView : UserControl
+	public class Display : Control
 	{
 		private readonly Size size43 = new Size(4, 3);
 		private Size etalon = new Size(4, 3);
 
-		public DisplayView()
+		public Display()
 		{
 			SetStyle(ControlStyles.OptimizedDoubleBuffer
 					 | ControlStyles.ResizeRedraw
 					 | ControlStyles.AllPaintingInWmPaint
 					 | ControlStyles.UserPaint
 					 | ControlStyles.UserMouse
-					 | ControlStyles.Selectable
 					 | ControlStyles.Opaque // will not call OnPaintBackground
 					 | ControlStyles.StandardClick
 					 | ControlStyles.StandardDoubleClick
@@ -42,12 +41,13 @@ namespace VerseFlow.UI.Controls
 #if DEBUG
 			Stopwatch sw = Stopwatch.StartNew();
 #endif
+			Rectangle rect = ClientRectangle;
 
 			using (var brush = new SolidBrush(BackColor))
-				e.Graphics.FillRectangle(brush, e.ClipRectangle);
-
-			int clipWidth = e.ClipRectangle.Width;
-			int clipHeight = e.ClipRectangle.Height;
+				e.Graphics.FillRectangle(brush, rect);
+			
+			int clipWidth = rect.Width;
+			int clipHeight = rect.Height;
 
 			float myWidth = 1.0f * clipHeight * etalon.Width / etalon.Height;
 			float myHeight = 1.0f * clipWidth * etalon.Height / etalon.Width;

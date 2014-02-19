@@ -29,20 +29,10 @@ namespace VerseFlow.UI
 		private void ImportBibleQuote_Load(object sender, EventArgs e)
 		{
 			EncodingInfo[] infos = Encoding.GetEncodings();
-			EncodingInfoEx[] infos2 = new EncodingInfoEx[infos.Length];
-
-			int padding = 0;
-
-			for (int i = 0; i < infos.Length; i++)
-			{
-				infos2[i] = new EncodingInfoEx(infos[i]);
-
-				if (infos[i].DisplayName.Length > padding)
-					padding = infos[i].DisplayName.Length;
-			}
-
-			cmbEnc.DataSource = infos2;
-			cmbEnc.DisplayMember = "DisplayNameEx";
+			
+			Array.Sort(infos, (e1, e2) => e1.DisplayName.CompareTo(e2.DisplayName));
+			cmbEnc.DataSource = infos;
+			cmbEnc.DisplayMember = "DisplayName";
 
 			cmbEnc.Enabled = !cboxDefault.Checked;
 		}
@@ -76,7 +66,7 @@ namespace VerseFlow.UI
 		{
 			return cboxDefault.Checked || cmbEnc.SelectedItem == null
 					   ? Encoding.Default
-					   : ((EncodingInfoEx)cmbEnc.SelectedItem).Encoding;
+					   : ((EncodingInfo)cmbEnc.SelectedItem).GetEncoding();
 		}
 
 		private void cmbEnc_SelectedIndexChanged(object sender, EventArgs e)
@@ -132,28 +122,6 @@ namespace VerseFlow.UI
 					txtIniFilePath.Text = ofd.FileName;
 					browseDir = Path.GetDirectoryName(ofd.FileName);
 				}
-			}
-		}
-
-		class EncodingInfoEx
-		{
-			private readonly EncodingInfo ei;
-			private readonly string displayNameEx;
-
-			public EncodingInfoEx(EncodingInfo ei)
-			{
-				this.ei = ei;
-				displayNameEx = string.Format("{0}  [{1}]", ei.DisplayName, ei.Name);
-			}
-
-			public Encoding Encoding
-			{
-				get { return ei.GetEncoding(); }
-			}
-
-			public string DisplayNameEx
-			{
-				get { return displayNameEx; }
 			}
 		}
 	}

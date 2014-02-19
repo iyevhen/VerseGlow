@@ -94,8 +94,14 @@
     <Compile Include="UI\Controls\cyotek.com\WrapLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\DisplayView.cs">
+    <Compile Include="UI\Controls\Display.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\DisplayLiveView.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\DisplayLiveView.Designer.cs">
+      <DependentUpon>DisplayLiveView.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\dotnetrix.co.uk\Button.cs">
       <SubType>Component</SubType>
@@ -108,6 +114,12 @@
     </Compile>
     <Compile Include="UI\Controls\dotnetrix.co.uk\RoundedPanel.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\CloseButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\CloseButton.Designer.cs">
+      <DependentUpon>CloseButton.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\Interval.cs" />
     <Compile Include="UI\Controls\SplitButton.cs">
@@ -177,6 +189,12 @@
     <EmbeddedResource Include="UI\BibleView.resx">
       <DependentUpon>BibleView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Controls\CloseButton.resx">
+      <DependentUpon>CloseButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Controls\DisplayLiveView.resx">
+      <DependentUpon>DisplayLiveView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -220,6 +238,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\control-stop-square.png" />
+    <None Include="Resources\control-pause.png" />
+    <None Include="Resources\control.png" />
+    <None Include="Resources\monitor.png" />
+    <None Include="Resources\paint-can.png" />
+    <None Include="Resources\weather-snowflake.png" />
     <None Include="Resources\chain.png" />
     <None Include="Resources\monitor-wallpaper.png" />
     <None Include="Resources\music-beam.png" />
