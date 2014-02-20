@@ -47,7 +47,7 @@ namespace VerseFlow.UI.Controls
 		private int selectItem;
 		private int focusedItem = -1;
 		private bool readOnly;
-		private int interval = 2;
+		private int interval = 3;
 
 		public VerseView()
 		{
@@ -235,6 +235,8 @@ namespace VerseFlow.UI.Controls
 				VerseItem verse = allverses[i];
 				verse.DropLines();
 
+				versesHeigth += interval;
+
 				int start = 0;
 				int lineWidth = paragraph;
 				int end = verse.Text.Length;
@@ -301,14 +303,12 @@ namespace VerseFlow.UI.Controls
 					i = -1;
 					versesHeigth = 0;
 				}
+				else
+				{
+					versesHeigth += interval;
+				}
 			}
 
-			interval = lineHeight / 4;
-
-			if (interval == 0)
-				interval = 2;
-
-			versesHeigth += interval * allverses.Count * 2;
 			AutoScrollMinSize = new Size(versesWidth, versesHeigth);
 			textVerseWidth = versesWidth;
 		}
@@ -367,7 +367,6 @@ namespace VerseFlow.UI.Controls
 					{
 						brush.Blend = blend;
 						graphics.FillRectangle(brush, vrect);
-						//						graphics.FillRectangle(SystemBrushes.Highlight, vrect);
 					}
 
 					graphics.DrawRectangle(SystemPens.Highlight, vrect);

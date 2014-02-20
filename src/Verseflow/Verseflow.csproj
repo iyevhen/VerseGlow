@@ -115,14 +115,11 @@
     <Compile Include="UI\Controls\dotnetrix.co.uk\RoundedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\CloseButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Controls\CloseButton.Designer.cs">
-      <DependentUpon>CloseButton.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controls\Interval.cs" />
     <Compile Include="UI\Controls\SplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\SplitContainerDots.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\TextCursor.cs" />
@@ -188,9 +185,6 @@
     <Compile Include="Core\XmlBibleRepository.cs" />
     <EmbeddedResource Include="UI\BibleView.resx">
       <DependentUpon>BibleView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Controls\CloseButton.resx">
-      <DependentUpon>CloseButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Controls\DisplayLiveView.resx">
       <DependentUpon>DisplayLiveView.cs</DependentUpon>

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows.Forms;
 using VerseFlow.Core;
 using VerseFlow.Properties;
@@ -11,19 +9,9 @@ namespace VerseFlow.UI
 {
 	public partial class BibleView : UserControl
 	{
+		private readonly Random random = new Random();
 		private IBible bible;
 		private Dictionary<string, BibleBook> bookMap;
-		private readonly Random random = new Random();
-
-		public event EventHandler CloseRequested;
-
-		protected virtual void OnCloseRequested()
-		{
-			EventHandler handler = CloseRequested;
-
-			if (handler != null)
-				handler(this, EventArgs.Empty);
-		}
 
 		public BibleView()
 		{
@@ -69,9 +57,18 @@ namespace VerseFlow.UI
 					{
 						cmbNavigate.EndUpdate();
 					}
-
 				}
 			}
+		}
+
+		public event EventHandler CloseRequested;
+
+		protected virtual void OnCloseRequested()
+		{
+			EventHandler handler = CloseRequested;
+
+			if (handler != null)
+				handler(this, EventArgs.Empty);
 		}
 
 		private void cmbNavigate_KeyDown(object sender, KeyEventArgs e)
@@ -81,7 +78,7 @@ namespace VerseFlow.UI
 				string searchText = cmbNavigate.Text.Trim();
 
 				string[] args = searchText
-					.Split(new[] { ' ', ':', '-' }, StringSplitOptions.RemoveEmptyEntries);
+					.Split(new[] {' ', ':', '-'}, StringSplitOptions.RemoveEmptyEntries);
 
 				BibleBook book = null;
 				int chapter = 0;
@@ -147,7 +144,6 @@ namespace VerseFlow.UI
 			//			combo.SelectedItem = null;
 		}
 
-
 		private void tsFont_Click(object sender, EventArgs e)
 		{
 			using (var fd = new FontDialog())
@@ -171,7 +167,6 @@ namespace VerseFlow.UI
 				}
 			}
 		}
-
 
 		private void tsColors_Click(object sender, EventArgs e)
 		{
@@ -200,7 +195,6 @@ namespace VerseFlow.UI
 
 		private void lblBibleName_Click(object sender, EventArgs e)
 		{
-
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)

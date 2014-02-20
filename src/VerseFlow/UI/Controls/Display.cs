@@ -46,13 +46,15 @@ namespace VerseFlow.UI.Controls
 			using (var brush = new SolidBrush(BackColor))
 				e.Graphics.FillRectangle(brush, rect);
 			
-			int clipWidth = rect.Width;
-			int clipHeight = rect.Height;
+			int w = rect.Width;
+			int h = rect.Height;
 
-			float myWidth = 1.0f * clipHeight * etalon.Width / etalon.Height;
-			float myHeight = 1.0f * clipWidth * etalon.Height / etalon.Width;
-			float y = (clipHeight - myHeight) / 2.0f;
-			float x = (clipWidth - myWidth) / 2.0f;
+			float myWidth = 1.0f * h * etalon.Width / etalon.Height;
+			float myHeight = 1.0f * w * etalon.Height / etalon.Width;
+//			float y = (h - myHeight) / 2.0f;
+			float y = 0f;
+			float x = (w - myWidth) / 2.0f;
+			
 
 			var myRect = new RectangleF(x, y, myWidth, myHeight);
 
