@@ -31,11 +31,11 @@
 			this.panelTitle = new System.Windows.Forms.Panel();
 			this.lblTitle = new System.Windows.Forms.Label();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.toolStripButtonFillBlack = new System.Windows.Forms.ToolStripButton();
 			this.tsPlay = new System.Windows.Forms.ToolStripButton();
 			this.tsPause = new System.Windows.Forms.ToolStripButton();
 			this.tsStop = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripButtonFillBlack = new System.Windows.Forms.ToolStripButton();
 			this.splitContainerDots1 = new VerseFlow.UI.Controls.SplitContainerDots();
 			this.display1 = new VerseFlow.UI.Controls.Display();
 			this.panelTitle.SuspendLayout();
@@ -89,14 +89,6 @@
 			this.toolStrip1.TabIndex = 6;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
-			// toolStripButtonFillBlack
-			// 
-			this.toolStripButtonFillBlack.Image = global::VerseFlow.Properties.Resources.paint_can;
-			this.toolStripButtonFillBlack.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButtonFillBlack.Name = "toolStripButtonFillBlack";
-			this.toolStripButtonFillBlack.Size = new System.Drawing.Size(73, 22);
-			this.toolStripButtonFillBlack.Text = "Fill Black";
-			// 
 			// tsPlay
 			// 
 			this.tsPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -128,6 +120,14 @@
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripButtonFillBlack
+			// 
+			this.toolStripButtonFillBlack.Image = global::VerseFlow.Properties.Resources.paint_can;
+			this.toolStripButtonFillBlack.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonFillBlack.Name = "toolStripButtonFillBlack";
+			this.toolStripButtonFillBlack.Size = new System.Drawing.Size(73, 22);
+			this.toolStripButtonFillBlack.Text = "Fill Black";
 			// 
 			// splitContainerDots1
 			// 

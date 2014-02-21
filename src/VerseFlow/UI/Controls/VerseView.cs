@@ -20,7 +20,7 @@ namespace VerseFlow.UI.Controls
 											| TextFormatFlags.NoPadding
 											| TextFormatFlags.NoPrefix;
 
-		private const int paragraph = 0;
+		const int interval = 3;
 
 		private readonly Blend blend = new Blend
 			{
@@ -40,14 +40,13 @@ namespace VerseFlow.UI.Controls
 		private bool highlight;
 		private string highlightText;
 		private int lineHeight;
-		private int textVerseWidth;
+//		private int textVerseWidth;
 		private Rectangle versesRect;
 		private bool focused;
 		private bool fontChanged = true;
 		private int selectItem;
 		private int focusedItem = -1;
 		private bool readOnly;
-		private int interval = 3;
 
 		public VerseView()
 		{
@@ -70,7 +69,7 @@ namespace VerseFlow.UI.Controls
 
 			highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 25);
 		}
-		
+
 
 		public string HighlightText
 		{
@@ -200,7 +199,7 @@ namespace VerseFlow.UI.Controls
 				int versesWidth = clientRectangle.Width - Padding.Right - Padding.Left;
 				int versesHeight = clientRectangle.Height - Padding.Bottom - Padding.Top;
 
-				SplitVersesToLines(versesHeight, versesWidth, e.Graphics);
+				AutoScrollMinSize = SplitVersesToLines(versesHeight, versesWidth, e.Graphics);
 			}
 
 
@@ -214,7 +213,7 @@ namespace VerseFlow.UI.Controls
 #endif
 		}
 
-		private void SplitVersesToLines(int versesHeight, int versesWidth, Graphics graphics)
+		private Size SplitVersesToLines(int versesHeight, int versesWidth, Graphics graphics)
 		{
 			if (fontChanged)
 			{
@@ -238,7 +237,7 @@ namespace VerseFlow.UI.Controls
 				versesHeigth += interval;
 
 				int start = 0;
-				int lineWidth = paragraph;
+				int lineWidth = 0;
 				int end = verse.Text.Length;
 				int j;
 
@@ -309,8 +308,7 @@ namespace VerseFlow.UI.Controls
 				}
 			}
 
-			AutoScrollMinSize = new Size(versesWidth, versesHeigth);
-			textVerseWidth = versesWidth;
+			return new Size(versesWidth, versesHeigth);
 		}
 
 		private void DoPaint(Graphics graphics, Rectangle rect)
@@ -348,14 +346,14 @@ namespace VerseFlow.UI.Controls
 					break;
 				}
 
-				var point = new Point(Padding.Left + paragraph, y + interval);
+				var point = new Point(Padding.Left, y + interval);
 
 				if (focusedItem == -1)
 					focusedItem = i;
 
 				verse.Y = point.Y;
 
-				Rectangle vrect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
+				Rectangle vrect = verse.Rect(AutoScrollMinSize.Width + Padding.Left + Padding.Right);
 				vrect.Inflate(0, interval);
 
 				if (verse.IsSelected)
@@ -428,7 +426,7 @@ namespace VerseFlow.UI.Controls
 
 				if (focusedItem == i && (focused || readOnly))
 				{
-					Rectangle frect = verse.Rect(textVerseWidth + Padding.Left + Padding.Right);
+					Rectangle frect = verse.Rect(AutoScrollMinSize.Width + Padding.Left + Padding.Right);
 					ControlPaint.DrawFocusRectangle(graphics, frect);
 				}
 

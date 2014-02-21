@@ -1,5 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsrCtlBufferDrawing", "UsrCtlBufferDrawing\UsrCtlBufferDrawing.csproj", "{4023356D-6BC0-44F4-8129-81745398D14D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBufferDrawing", "TestBufferDrawing\TestBufferDrawing.csproj", "{32241631-F717-41E3-8D65-5B4910A415AF}"

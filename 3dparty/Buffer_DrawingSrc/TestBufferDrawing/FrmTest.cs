@@ -36,7 +36,7 @@ namespace TestBufferDrawing
                 usrcontrol.dotwidth = 1;
             else
                 usrcontrol.dotwidth++;
-            LblTimePaint.Text = (usrcontrol.timeused.TotalMilliseconds / usrcontrol.paintiterations).ToString();
+            LblTimePaint.Text = usrcontrol.timeused.ToString();
         }
 
         private void TmrBackground_Tick(object sender, EventArgs e)
