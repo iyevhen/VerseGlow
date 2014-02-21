@@ -40,13 +40,10 @@ namespace VerseFlow.UI.Controls
 		private bool highlight;
 		private string highlightText;
 		private int lineHeight;
-//		private int textVerseWidth;
-		private Rectangle versesRect;
 		private bool focused;
-		private bool fontChanged = true;
-		private int selectItem;
 		private int focusedItem = -1;
 		private bool readOnly;
+		private VerseDispatcher dispatcher;
 
 		public VerseView()
 		{
@@ -69,7 +66,6 @@ namespace VerseFlow.UI.Controls
 
 			highlightLightenColor = GraphicsTools.LightenColor(SystemColors.Highlight, 25);
 		}
-
 
 		public string HighlightText
 		{
@@ -107,15 +103,14 @@ namespace VerseFlow.UI.Controls
 			if (strings == null)
 				throw new ArgumentNullException("strings");
 
+			dispatcher = new VerseDispatcher(strings);
 			allverses = strings.ConvertAll(s => new VerseItem(s));
 			prevWidth = -1;
 			AutoScrollPosition = new Point(0, 0);
 			Invalidate();
 		}
 
-		protected override void OnPaintBackground(PaintEventArgs e)
-		{
-		}
+		
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
@@ -177,6 +172,10 @@ namespace VerseFlow.UI.Controls
 			}
 		}
 
+		protected override void OnPaintBackground(PaintEventArgs e)
+		{
+		}
+
 		protected override void OnPaint(PaintEventArgs e)
 		{
 
@@ -187,11 +186,11 @@ namespace VerseFlow.UI.Controls
 				backColorBrush = new SolidBrush(BackColor);
 
 			if (backColorVerseBrush == null)
-				backColorVerseBrush = new SolidBrush(GraphicsTools.DarkenColor(BackColor, 6));
+				backColorVerseBrush = new SolidBrush(GraphicsTools.DarkenColor(BackColor, 7));
 
 			var clientRectangle = new Rectangle(0, 0, Size.Width, Size.Height);
 
-			if (prevWidth != Width)
+			if (prevWidth != Width) // start re-calculation only if width changed
 			{
 				prevWidth = Width;
 				Debug.WriteLine("Recalculating verses width=" + Width);
@@ -199,7 +198,7 @@ namespace VerseFlow.UI.Controls
 				int versesWidth = clientRectangle.Width - Padding.Right - Padding.Left;
 				int versesHeight = clientRectangle.Height - Padding.Bottom - Padding.Top;
 
-				AutoScrollMinSize = SplitVersesToLines(versesHeight, versesWidth, e.Graphics);
+				AutoScrollMinSize = RecalculateVersesSize(versesHeight, versesWidth, e.Graphics, Font);
 			}
 
 
@@ -213,37 +212,27 @@ namespace VerseFlow.UI.Controls
 #endif
 		}
 
-		private Size SplitVersesToLines(int versesHeight, int versesWidth, Graphics graphics)
+		private Size RecalculateVersesSize(int versesHeight, int versesWidth, Graphics graphics, Font font)
 		{
-			if (fontChanged)
-			{
-				charWidthes = new Dictionary<char, int>();
-				lineHeight = 0;
-
-				fontChanged = false;
-			}
-
-			Font font = Font;
-
 			bool verticalScrollBarDisplayed = false;
 			int spaceIndex = 0;
 			int versesHeigth = 0;
 
 			for (int i = 0; i < allverses.Count; i++)
 			{
-				VerseItem verse = allverses[i];
-				verse.DropLines();
+				VerseItem vi = allverses[i];
+				vi.DropLines();
 
 				versesHeigth += interval;
 
 				int start = 0;
 				int lineWidth = 0;
-				int end = verse.Text.Length;
+				int end = vi.Text.Length;
 				int j;
 
 				for (j = 0; j < end; j++)
 				{
-					char verseChar = verse.Text[j];
+					char verseChar = vi.Text[j];
 					int verseCharWidth;
 
 					if (!charWidthes.TryGetValue(verseChar, out verseCharWidth))
@@ -268,12 +257,12 @@ namespace VerseFlow.UI.Controls
 					{
 						if (spaceIndex == 0)
 						{
-							verse.NewLine(start, j - start, lineHeight);
+							vi.NewLine(start, j - start, lineHeight);
 							start = j;
 						}
 						else
 						{
-							verse.NewLine(start, spaceIndex - start, lineHeight);
+							vi.NewLine(start, spaceIndex - start, lineHeight);
 
 							j = spaceIndex;
 							spaceIndex++; // NOT SURE WHY this needed
@@ -290,7 +279,7 @@ namespace VerseFlow.UI.Controls
 
 				if (lineWidth > 0)
 				{
-					verse.NewLine(start, j - start, lineHeight);
+					vi.NewLine(start, j - start, lineHeight);
 					spaceIndex = 0;
 					versesHeigth += lineHeight;
 				}
@@ -327,16 +316,16 @@ namespace VerseFlow.UI.Controls
 
 			for (int i = 0; i < allverses.Count; i++)
 			{
-				VerseItem verse = allverses[i];
+				VerseItem vi = allverses[i];
 
 				if (!visible)
 				{
-					cursor += interval + verse.Height + interval;
+					cursor += interval + vi.Height + interval;
 
 					if (cursor < scrollYTop)
 						continue;
 
-					y = cursor - interval - verse.Height - interval - scrollYTop;
+					y = cursor - interval - vi.Height - interval - scrollYTop;
 					visible = true;
 				}
 
@@ -351,12 +340,12 @@ namespace VerseFlow.UI.Controls
 				if (focusedItem == -1)
 					focusedItem = i;
 
-				verse.Y = point.Y;
+				vi.Y = point.Y;
 
-				Rectangle vrect = verse.Rect(AutoScrollMinSize.Width + Padding.Left + Padding.Right);
+				Rectangle vrect = vi.Rect(AutoScrollMinSize.Width + Padding.Left + Padding.Right);
 				vrect.Inflate(0, interval);
 
-				if (verse.IsSelected)
+				if (vi.IsSelected)
 				{
 					using (var brush = new LinearGradientBrush(vrect,
 						SystemColors.Highlight,
@@ -374,7 +363,7 @@ namespace VerseFlow.UI.Controls
 					graphics.FillRectangle(backColorVerseBrush, vrect);
 				}
 
-				foreach (string line in verse.Lines())
+				foreach (string line in vi.Lines())
 				{
 					if (highlight)
 					{
@@ -426,19 +415,21 @@ namespace VerseFlow.UI.Controls
 
 				if (focusedItem == i && (focused || readOnly))
 				{
-					Rectangle frect = verse.Rect(AutoScrollMinSize.Width + Padding.Left + Padding.Right);
+					Rectangle frect = vi.Rect(AutoScrollMinSize.Width + Padding.Left + Padding.Right);
 					ControlPaint.DrawFocusRectangle(graphics, frect);
 				}
 
-				visibleVerses.Add(verse);
+				visibleVerses.Add(vi);
 				y = point.Y + interval;
 			}
 		}
 
 		protected override void OnFontChanged(EventArgs e)
 		{
+			charWidthes = new Dictionary<char, int>();
+			lineHeight = 0;
 			prevWidth = -1;
-			fontChanged = true;
+
 			base.OnFontChanged(e);
 		}
 
@@ -553,6 +544,19 @@ namespace VerseFlow.UI.Controls
 					}
 				}
 			}
+		}
+	}
+
+	class VerseDispatcher
+	{
+//		private List<VerseItem> allverses;
+
+		public VerseDispatcher(List<string> strings)
+		{
+//			if (strings == null)
+//				throw new ArgumentNullException("strings");
+//
+//			allverses = strings.ConvertAll(s => new VerseItem(s));
 		}
 	}
 }
