@@ -2,16 +2,16 @@
 {
 	public class BibleVerse
 	{
-		private readonly string id;
+		private readonly ushort id;
 		private readonly string text;
 
-		public BibleVerse(string id, string text)
+		public BibleVerse(ushort id, string text)
 		{
 			this.id = id;
 			this.text = text;
 		}
 
-		public string Id
+		public ushort Id
 		{
 			get { return id; }
 		}

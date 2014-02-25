@@ -23,7 +23,7 @@ namespace VerseFlow.UI
 			};
 
 
-			verseView1.Fill(strings);
+//			verseView1.Fill(strings);
 			verseView1.SelectItem(0);
 			verseView1.SetFocusedItem(1);
 			verseView1.HighlightText = "ipsum";

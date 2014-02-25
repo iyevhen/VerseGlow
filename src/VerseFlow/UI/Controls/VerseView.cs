@@ -1,9 +1,7 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace VerseFlow.UI.Controls
@@ -14,18 +12,15 @@ namespace VerseFlow.UI.Controls
 		//Buffer2: Verses and Selected Verses 
 		//Buffer3: Verses and Selected Verses and Highlighted words 
 		//Buffer4: Verses and Selected Verses and Highlighted words and MouseOver words
-
-
-		private readonly List<VerseItem> visibleVerses = new List<VerseItem>();
+		
 		private List<VerseItem> allverses = new List<VerseItem>();
 
 
 		private int prevWidth;
-
 		private int focusedItem = -1;
 		private bool readOnly;
-		private VerseViewPresenter viewPresenter;
-		private readonly VerseViewColorTheme theme;
+		private readonly VerseViewPresenter viewPresenter;
+		private readonly VerseViewColorTheme colorTheme;
 
 		public VerseView()
 		{
@@ -46,7 +41,8 @@ namespace VerseFlow.UI.Controls
 			VerticalScroll.Enabled = true;
 			VerticalScroll.Visible = true;
 
-			theme = new VerseViewColorTheme(BackColor);
+			colorTheme = new VerseViewColorTheme();
+			viewPresenter = new VerseViewPresenter(colorTheme);
 		}
 
 		public string HighlightText
@@ -69,23 +65,26 @@ namespace VerseFlow.UI.Controls
 		{
 			if (index > -1 && index < allverses.Count)
 			{
-				allverses[index].IsSelected = !allverses[index].IsSelected;
+				viewPresenter[index].IsSelected = !viewPresenter[index].IsSelected;
 			}
 		}
 
 		public void SetFocusedItem(int index)
 		{
-			if (index > -1 && index < allverses.Count) { }
-			//				focusedItem = index;
+			if (index > -1 && index < allverses.Count)
+			{
+				viewPresenter.FocusedIndex = index;
+			}
 		}
 
-		public void Fill(List<string> strings)
+		public void Fill(List<VerseItem> items)
 		{
-			if (strings == null)
-				throw new ArgumentNullException("strings");
+			if (items == null)
+				throw new ArgumentNullException("items");
 
-			viewPresenter = new VerseViewPresenter(strings, theme);
-			allverses = strings.ConvertAll(s => new VerseItem(s));
+			viewPresenter.Fill(items);
+
+			//			allverses = strings.ConvertAll(s => new VerseItem(s));
 			prevWidth = -1;
 			AutoScrollPosition = new Point(0, 0);
 			Invalidate();
@@ -155,30 +154,26 @@ namespace VerseFlow.UI.Controls
 		{
 		}
 
+
+
 		protected override void OnPaint(PaintEventArgs e)
 		{
 
 #if DEBUG
 			Stopwatch sw = Stopwatch.StartNew();
 #endif
-			//			if (backColorBrush == null)
-			//				backColorBrush = new SolidBrush(BackColor);
-			//
-			//			if (backColorDarkerBrush == null)
-			//				backColorDarkerBrush = new SolidBrush(GraphicsTools.DarkenColor(BackColor, 7));
+			var rect = ClientRectangle;
 
-			var myRect = new Rectangle(0, 0, Size.Width, Size.Height);
-
-			if (prevWidth != Width) // start re-calculation only if width changed
+			if (prevWidth != rect.Width)
 			{
-				prevWidth = Width;
+				prevWidth = rect.Width;
 				Debug.WriteLine("Recalculating verses width=" + Width);
 
-				viewPresenter.SetBounds(e.Graphics, myRect, Padding);
+				viewPresenter.Refresh(e.Graphics, rect, Padding);
 				AutoScrollMinSize = viewPresenter.Size;
 			}
 
-			viewPresenter.DoPaint(e.Graphics, myRect, AutoScrollPosition.Y);
+			viewPresenter.DoPaint(e.Graphics, rect, AutoScrollPosition);
 
 			base.OnPaint(e);
 
@@ -216,15 +211,15 @@ namespace VerseFlow.UI.Controls
 		protected override void OnBackColorChanged(EventArgs e)
 		{
 			base.OnBackColorChanged(e);
-			theme.BackColor = BackColor;
+			colorTheme.BackColor = BackColor;
 		}
 
 		protected override void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);
 
-			if (theme != null)
-				theme.Dispose();
+			if (colorTheme != null)
+				colorTheme.Dispose();
 		}
 
 		protected override void OnMouseClick(MouseEventArgs e)
@@ -236,14 +231,15 @@ namespace VerseFlow.UI.Controls
 
 			if (e.Button == MouseButtons.Left)
 			{
-				foreach (VerseItem vb in visibleVerses)
+				Point location = e.Location;
+				location.Offset(0, -AutoScrollPosition.Y);
+
+				int index = viewPresenter.FindVerse(location);
+
+				if (index > -1)
 				{
-					if (vb.IsInside(e.Location))
-					{
-						vb.IsSelected = !vb.IsSelected;
-						Invalidate();
-						return;
-					}
+					viewPresenter[index].IsSelected = !viewPresenter[index].IsSelected;
+					Invalidate();
 				}
 			}
 		}

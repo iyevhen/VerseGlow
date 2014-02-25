@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -8,26 +9,34 @@ namespace VerseFlow.UI.Controls
 	class VerseViewPresenter
 	{
 		private readonly VerseViewColorTheme colorTheme;
-		private VerseViewTextTheme textTheme;
-		private readonly List<VerseItem> verses;
+		private Renderer textTheme;
+		private List<VerseItem> verses = new List<VerseItem>();
 		private Font font;
-		private int focusedItem;
+		private int focusedIndex;
 		private bool focused;
 
 		private Size size;
 		private string highlightText;
 
-		public VerseViewPresenter(List<string> strings, VerseViewColorTheme colorTheme)
+		public VerseViewPresenter(VerseViewColorTheme colorTheme)
 		{
-
-			if (strings == null)
-				throw new ArgumentNullException("strings");
-
 			if (colorTheme == null)
 				throw new ArgumentNullException("colorTheme");
 
 			this.colorTheme = colorTheme;
-			verses = strings.ConvertAll(s => new VerseItem(s));
+		}
+
+		public void Fill(List<VerseItem> items)
+		{
+			if (items == null)
+				throw new ArgumentNullException("items");
+
+			verses = items;
+		}
+
+		public VerseItem this[int index]
+		{
+			get { return verses[index]; }
 		}
 
 		public Font Font
@@ -39,7 +48,7 @@ namespace VerseFlow.UI.Controls
 					throw new ArgumentNullException("value");
 
 				font = value;
-				textTheme = new VerseViewTextTheme(value);
+				textTheme = new Renderer(value);
 			}
 		}
 
@@ -54,103 +63,155 @@ namespace VerseFlow.UI.Controls
 			set { highlightText = value; }
 		}
 
-		public bool Focused { get; set; }
+		public bool Focused
+		{
+			get { return focused; }
+			set { focused = value; }
+		}
 
-		public void SetBounds(Graphics graphics, Rectangle clientRectangle, Padding padding)
+		public int FocusedIndex
+		{
+			get { return focusedIndex; }
+			set { focusedIndex = value; }
+		}
+
+		public void DoPaint(Graphics graphics, Rectangle rect, Point scrollPosition)
+		{
+			Debug.WriteLine("Paint verses: " + rect.Size);
+
+			graphics.FillRectangle(colorTheme.BackColorBrush, rect);
+
+			int offset = scrollPosition.Y;
+
+			for (int i = 0; i < verses.Count; i++)
+			{
+				VerseItem vi = verses[i];
+
+				if ((offset + vi.Position.Y + vi.Size.Height) < 0)
+				{
+					continue;
+				}
+
+				if (focusedIndex == -1)
+				{
+					focusedIndex = i;
+				}
+
+				var vrect = vi.Rect();
+				vrect.Offset(0, offset);
+
+				if (vrect.Y > rect.Height)
+				{
+					Debug.WriteLine("Stop paint [{0}]: {1}", i + 1, vrect.Location);
+					break;
+				}
+
+				Debug.WriteLine("Paint [{0}]: {1} - {2}", i + 1, vrect.Location, vrect.Size);
+
+				if (vi.IsSelected)
+				{
+					using (var brush = colorTheme.NewHighlightBrush(vrect))
+						graphics.FillRectangle(brush, vrect);
+
+					graphics.DrawRectangle(colorTheme.HighlightColorPen, vrect);
+				}
+				else if (i % 2 == 0)
+				{
+					graphics.FillRectangle(colorTheme.BackColorDarkerBrush, vrect);
+				}
+
+				int linesHeight = 0;
+
+				foreach (string line in vi.Lines())
+				{
+					Point point = vi.TextPosition;
+					point.Offset(0, offset + linesHeight);
+
+					if (!string.IsNullOrEmpty(highlightText))
+					{
+						int linelen = line.Length;
+						int lightlen = highlightText.Length;
+
+						int cur = 0;
+
+						while (cur < linelen)
+						{
+							int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
+
+							if (found > -1)
+							{
+								int normal = found - cur;
+								string before = line.Substring(cur, normal);
+
+								textTheme.DrawText(graphics, before, point, colorTheme.TextColor);
+								point.X += textTheme.MeasureTextWidth(graphics, before);
+
+								string highligten = line.Substring(found, lightlen);
+
+								textTheme.DrawText(graphics, highligten, point, colorTheme.TextHighlightColor, colorTheme.TextHighlightBackColor);
+								point.X += textTheme.MeasureTextWidth(graphics, highligten);
+
+								cur = found + lightlen;
+							}
+							else
+							{
+								textTheme.DrawText(graphics, line.Substring(cur), point, colorTheme.TextColor);
+								cur = linelen;
+							}
+						}
+					}
+					else
+					{
+						textTheme.DrawText(graphics, line, point, colorTheme.TextColor);
+					}
+
+					linesHeight += textTheme.LineHeight;
+				}
+
+				if (focusedIndex == i && focused)
+				{
+					ControlPaint.DrawFocusRectangle(graphics, vrect);
+				}
+			}
+		}
+
+		public void Refresh(Graphics graphics, Rectangle clientRectangle, Padding padding)
 		{
 			int clipWidth = clientRectangle.Width - padding.Right - padding.Left;
-			int clipHeigth = clientRectangle.Height - padding.Bottom - padding.Top;
 
-			bool withScroll = false;
-			int y = 0;
+			int y = padding.Top;
 			int x = padding.Left;
 
 			for (int i = 0; i < verses.Count; i++)
 			{
 				VerseItem vi = verses[i];
-				vi.Location = new Point(x, y);
-				vi.SetBounds(graphics, clipWidth, textTheme);
+				vi.Refresh(graphics, clipWidth, textTheme, new Point(x, y));
 				y += vi.Size.Height;
-
-				if (!withScroll && y > clipHeigth)
-				{
-					clipWidth -= SystemInformation.VerticalScrollBarWidth;
-
-					withScroll = true;
-					i = -1;
-					y = 0;
-				}
 			}
 
+			y += padding.Bottom;
 			size = new Size(clipWidth, y);
 		}
 
-		public void DoPaint(Graphics graphics, Rectangle rect, int yScroll)
+		internal int FindVerse(Point point)
 		{
-			graphics.FillRectangle(colorTheme.BackColorBrush, rect);
-
-			int y = 0;
-			int offset = +1;
-
-			for (int i = 0; i < verses.Count; i++)
-			{
-				VerseItem vi = verses[i];
-
-				if (offset > 0)
-				{
-					int diff = vi.Location.Y + yScroll;
-
-					if (diff < -vi.Size.Height)
-						continue;
-
-					offset = yScroll - diff;
-				}
-
-				if (y > rect.Height)
-				{
-					break;
-				}
-
-				if (focusedItem == -1)
-				{
-					focusedItem = i;
-				}
-
-				vi.Draw(graphics, colorTheme, offset);
-
-				if (focusedItem == i && focused)
-				{
-					ControlPaint.DrawFocusRectangle(graphics, vi.Rect(offset));
-				}
-
-				y += vi.Size.Height;
-			}
-		}
-
-		private int FindVerse(int yPosition)
-		{
-			int position = verses.Count / 2;
-			int stepSize = position / 2;
+			int position = (verses.Count / 2);
+			int step = position / 2;
 
 			while (true)
 			{
-				if (stepSize == 0)
-				{
-					// Couldn't find it.
-					return 0;
-				}
+				if (step == 0)
+					return -1;
 
-				if (verses[position].Location.Y < yPosition)
+				if (verses[position].Position.Y > point.Y)
 				{
 					// Search down.
-					position -= stepSize;
-
+					position -= step;
 				}
-				else if (verses[position].Location.Y + verses[position].Size.Height > yPosition)
+				else if (verses[position].Position.Y + verses[position].Size.Height < point.Y)
 				{
 					// Search up.
-					position += stepSize;
-
+					position += step;
 				}
 				else
 				{
@@ -158,7 +219,7 @@ namespace VerseFlow.UI.Controls
 					return position;
 				}
 
-				stepSize /= 2;
+				step /= 2;
 			}
 		}
 	}

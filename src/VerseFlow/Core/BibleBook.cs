@@ -6,9 +6,9 @@ namespace VerseFlow.Core
 	{
 		private readonly string name;
 		private readonly string shortcuts;
-		private readonly int chaptersCount;
+		private readonly ushort chaptersCount;
 
-		public BibleBook(string name, string shortcuts, int chaptersCount)
+		public BibleBook(string name, string shortcuts, ushort chaptersCount)
 		{
 			if (string.IsNullOrEmpty(name))
 				throw new ArgumentNullException("name");

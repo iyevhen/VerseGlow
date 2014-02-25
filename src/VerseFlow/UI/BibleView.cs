@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Forms;
 using VerseFlow.Core;
 using VerseFlow.Properties;
+using VerseFlow.UI.Controls;
 
 namespace VerseFlow.UI
 {
@@ -103,13 +105,13 @@ namespace VerseFlow.UI
 						? new List<BibleVerse>()
 						: bible.FindVerses(searchText);
 
-					verseView.Fill(verses.ConvertAll(v => v.Text));
+					verseView.Fill(verses.ConvertAll(v => new VerseItem(v)));
 					verseView.HighlightText = searchText;
 				}
 				else
 				{
-					verses = bible.OpenChapter(book, chapter == 0 ? "1" : chapter.ToString());
-					verseView.Fill(verses.ConvertAll(v => v.Text));
+					verses = bible.OpenChapter(book, chapter == 0 ? "1" : chapter.ToString(CultureInfo.InvariantCulture));
+					verseView.Fill(verses.ConvertAll(v => new VerseItem(v)));
 
 					if (verse > 0)
 						verseView.SelectItem(verse);

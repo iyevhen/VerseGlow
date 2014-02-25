@@ -128,7 +128,7 @@
     <Compile Include="UI\ControlExtensions.cs" />
     <Compile Include="UI\Controls\VerseViewColorTheme.cs" />
     <Compile Include="UI\Controls\VerseViewPresenter.cs" />
-    <Compile Include="UI\Controls\VerseViewTextTheme.cs" />
+    <Compile Include="UI\Controls\Renderer.cs" />
     <Compile Include="UI\FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
