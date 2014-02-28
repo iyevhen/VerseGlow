@@ -9,7 +9,7 @@ namespace VerseFlow.UI.Controls
 	class VerseViewPresenter
 	{
 		private readonly VerseViewColorTheme colorTheme;
-		private Renderer textTheme;
+		private Renderer renderer;
 		private List<VerseItem> verses = new List<VerseItem>();
 		private Font font;
 		private int focusedIndex;
@@ -48,7 +48,7 @@ namespace VerseFlow.UI.Controls
 					throw new ArgumentNullException("value");
 
 				font = value;
-				textTheme = new Renderer(value);
+				renderer = new Renderer(value);
 			}
 		}
 
@@ -102,11 +102,11 @@ namespace VerseFlow.UI.Controls
 
 				if (vrect.Y > rect.Height)
 				{
-					Debug.WriteLine("Stop paint [{0}]: {1}", i + 1, vrect.Location);
+					//Debug.WriteLine("Stop paint [{0}]: {1}", i + 1, vrect.Location);
 					break;
 				}
 
-				Debug.WriteLine("Paint [{0}]: {1} - {2}", i + 1, vrect.Location, vrect.Size);
+				//Debug.WriteLine("Paint [{0}]: {1} - {2}", i + 1, vrect.Location, vrect.Size);
 
 				if (vi.IsSelected)
 				{
@@ -143,34 +143,34 @@ namespace VerseFlow.UI.Controls
 								int normal = found - cur;
 								string before = line.Substring(cur, normal);
 
-								textTheme.DrawText(graphics, before, point, colorTheme.TextColor);
-								point.X += textTheme.MeasureTextWidth(graphics, before);
+								renderer.DrawText(graphics, before, point, colorTheme.TextColor);
+								point.X += renderer.MeasureTextWidth(graphics, before);
 
 								string highligten = line.Substring(found, lightlen);
 
-								textTheme.DrawText(graphics, highligten, point, colorTheme.TextHighlightColor, colorTheme.TextHighlightBackColor);
-								point.X += textTheme.MeasureTextWidth(graphics, highligten);
+								renderer.DrawText(graphics, highligten, point, colorTheme.TextHighlightColor, colorTheme.TextHighlightBackColor);
+								point.X += renderer.MeasureTextWidth(graphics, highligten);
 
 								cur = found + lightlen;
 							}
 							else
 							{
-								textTheme.DrawText(graphics, line.Substring(cur), point, colorTheme.TextColor);
+								renderer.DrawText(graphics, line.Substring(cur), point, colorTheme.TextColor);
 								cur = linelen;
 							}
 						}
 					}
 					else
 					{
-						textTheme.DrawText(graphics, line, point, colorTheme.TextColor);
+						renderer.DrawText(graphics, line, point, colorTheme.TextColor);
 					}
 
-					linesHeight += textTheme.LineHeight;
+					linesHeight += renderer.LineHeight;
 				}
 
 				if (focusedIndex == i && focused)
 				{
-					ControlPaint.DrawFocusRectangle(graphics, vrect);
+					renderer.DrawFocusRectangle(graphics, vrect);
 				}
 			}
 		}
@@ -185,7 +185,7 @@ namespace VerseFlow.UI.Controls
 			for (int i = 0; i < verses.Count; i++)
 			{
 				VerseItem vi = verses[i];
-				vi.Refresh(graphics, clipWidth, textTheme, new Point(x, y));
+				vi.Refresh(graphics, clipWidth, renderer, new Point(x, y));
 				y += vi.Size.Height;
 			}
 
@@ -193,34 +193,52 @@ namespace VerseFlow.UI.Controls
 			size = new Size(clipWidth, y);
 		}
 
-		internal int FindVerse(Point point)
+		//		public int interpolationSearch(int[] sortedArray, int toFind)
+		//		{
+		//			// Возвращает индекс элемента со значением toFind или -1, если такого элемента не существует
+		//			int mid;
+		//			int low = 0;
+		//			int high = sortedArray.length - 1;
+		//
+		//			while (sortedArray[low] < toFind && sortedArray[high] > toFind)
+		//			{
+		//				mid = low + ((toFind - sortedArray[low]) * (high - low)) / (sortedArray[high] - sortedArray[low]);
+		//
+		//				if (sortedArray[mid] < toFind)
+		//					low = mid + 1;
+		//				else if (sortedArray[mid] > toFind)
+		//					high = mid - 1;
+		//				else
+		//					return mid;
+		//			}
+		//
+		//			if (sortedArray[low] == toFind)
+		//				return low;
+		//			else if (sortedArray[high] == toFind)
+		//				return high;
+		//			else
+		//				return -1; // Not found
+		//		}
+
+		internal int FindIndex(Point point)
 		{
-			int position = (verses.Count / 2);
-			int step = position / 2;
+			int left = 0;
+			int right = verses.Count - 1;
 
-			while (true)
+			while (left < right)
 			{
-				if (step == 0)
-					return -1;
+				int i = (left + right) / 2;
 
-				if (verses[position].Position.Y > point.Y)
-				{
-					// Search down.
-					position -= step;
-				}
-				else if (verses[position].Position.Y + verses[position].Size.Height < point.Y)
-				{
-					// Search up.
-					position += step;
-				}
+				if (verses[i].Position.Y > point.Y)
+					right = i;
+				else if (verses[i + 1].Position.Y < point.Y)
+					left = i + 1;
 				else
-				{
-					// Found it!
-					return position;
-				}
-
-				step /= 2;
+					return i;
 			}
+
+
+			return -1;
 		}
 	}
 }

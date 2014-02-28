@@ -35,8 +35,8 @@ namespace VerseFlow.UI.Controls
 
 		public int MeasureTextWidth(IDeviceContext device, string text)
 		{
-			return string.IsNullOrEmpty(text) 
-				? 0 
+			return string.IsNullOrEmpty(text)
+				? 0
 				: text.Sum(c => MeasureSymbolWidth(device, c));
 		}
 
@@ -53,6 +53,11 @@ namespace VerseFlow.UI.Controls
 				lineHeight = measured.Height;
 
 			return measured.Width;
+		}
+
+		public void DrawFocusRectangle(Graphics graphics, Rectangle rectangle)
+		{
+			ControlPaint.DrawFocusRectangle(graphics, rectangle);
 		}
 	}
 }

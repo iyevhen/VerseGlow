@@ -234,7 +234,7 @@ namespace VerseFlow.UI.Controls
 				Point location = e.Location;
 				location.Offset(0, -AutoScrollPosition.Y);
 
-				int index = viewPresenter.FindVerse(location);
+				int index = viewPresenter.FindIndex(location);
 
 				if (index > -1)
 				{
