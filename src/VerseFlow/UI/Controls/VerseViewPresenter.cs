@@ -193,46 +193,19 @@ namespace VerseFlow.UI.Controls
 			size = new Size(clipWidth, y);
 		}
 
-		//		public int interpolationSearch(int[] sortedArray, int toFind)
-		//		{
-		//			// Возвращает индекс элемента со значением toFind или -1, если такого элемента не существует
-		//			int mid;
-		//			int low = 0;
-		//			int high = sortedArray.length - 1;
-		//
-		//			while (sortedArray[low] < toFind && sortedArray[high] > toFind)
-		//			{
-		//				mid = low + ((toFind - sortedArray[low]) * (high - low)) / (sortedArray[high] - sortedArray[low]);
-		//
-		//				if (sortedArray[mid] < toFind)
-		//					low = mid + 1;
-		//				else if (sortedArray[mid] > toFind)
-		//					high = mid - 1;
-		//				else
-		//					return mid;
-		//			}
-		//
-		//			if (sortedArray[low] == toFind)
-		//				return low;
-		//			else if (sortedArray[high] == toFind)
-		//				return high;
-		//			else
-		//				return -1; // Not found
-		//		}
-
 		internal int FindIndex(Point point)
 		{
-			int left = 0;
-			int right = verses.Count - 1;
+			int begin = 0;
+			int end = verses.Count - 1;
 
-			while (left < right)
+			while (begin <= end)
 			{
-				int i = (left + right) / 2;
+				int i = (begin + end) / 2;
 
 				if (verses[i].Position.Y > point.Y)
-					right = i;
-				else if (verses[i + 1].Position.Y < point.Y)
-					left = i + 1;
+					end = i - 1;
+				else if (verses[i].Position.Y + verses[i].Size.Height < point.Y)
+					begin = i + 1;
 				else
 					return i;
 			}
