@@ -23,13 +23,11 @@ namespace VerseFlow.UI
 			this.tsBibles = new System.Windows.Forms.ToolStripDropDownButton();
 			this.miImport = new System.Windows.Forms.ToolStripMenuItem();
 			this.miBibleQuote = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsSongs = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tsSettings = new System.Windows.Forms.ToolStripButton();
 			this.tsAbout = new System.Windows.Forms.ToolStripButton();
-			this.tsPreviews = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tsPreview = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsLive = new System.Windows.Forms.ToolStripMenuItem();
 			this.tableLayoutTop = new System.Windows.Forms.TableLayoutPanel();
+			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.tsDisplay = new System.Windows.Forms.ToolStripButton();
+			this.displayLiveView1 = new VerseFlow.UI.Controls.DisplayLiveView();
 			this.toolStrip2.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -38,14 +36,12 @@ namespace VerseFlow.UI
 			this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsBibles,
-            this.tsSongs,
-            this.tsSettings,
             this.tsAbout,
-            this.tsPreviews});
+            this.tsDisplay});
 			this.toolStrip2.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip2.Name = "toolStrip2";
 			this.toolStrip2.ShowItemToolTips = false;
-			this.toolStrip2.Size = new System.Drawing.Size(552, 25);
+			this.toolStrip2.Size = new System.Drawing.Size(913, 25);
 			this.toolStrip2.TabIndex = 0;
 			this.toolStrip2.Text = "toolStrip2";
 			// 
@@ -75,24 +71,6 @@ namespace VerseFlow.UI
 			this.miBibleQuote.Text = "BibleQuote";
 			this.miBibleQuote.Click += new System.EventHandler(this.miBibleQuote_Click);
 			// 
-			// tsSongs
-			// 
-			this.tsSongs.Image = global::VerseFlow.Properties.Resources.music_beam;
-			this.tsSongs.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsSongs.Name = "tsSongs";
-			this.tsSongs.Size = new System.Drawing.Size(68, 22);
-			this.tsSongs.Text = "&Songs";
-			this.tsSongs.Visible = false;
-			// 
-			// tsSettings
-			// 
-			this.tsSettings.Image = global::VerseFlow.Properties.Resources.wrench_screwdriver;
-			this.tsSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsSettings.Name = "tsSettings";
-			this.tsSettings.Size = new System.Drawing.Size(69, 22);
-			this.tsSettings.Text = "S&ettings";
-			this.tsSettings.Visible = false;
-			// 
 			// tsAbout
 			// 
 			this.tsAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -104,49 +82,52 @@ namespace VerseFlow.UI
 			this.tsAbout.Text = "About";
 			this.tsAbout.Click += new System.EventHandler(this.tsAbout_Click);
 			// 
-			// tsPreviews
-			// 
-			this.tsPreviews.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsPreview,
-            this.tsLive});
-			this.tsPreviews.Image = global::VerseFlow.Properties.Resources.monitor;
-			this.tsPreviews.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsPreviews.Name = "tsPreviews";
-			this.tsPreviews.Size = new System.Drawing.Size(61, 22);
-			this.tsPreviews.Text = "View";
-			// 
-			// tsPreview
-			// 
-			this.tsPreview.Name = "tsPreview";
-			this.tsPreview.Size = new System.Drawing.Size(152, 22);
-			this.tsPreview.Text = "Preview";
-			this.tsPreview.Click += new System.EventHandler(this.tsPreview_Click);
-			// 
-			// tsLive
-			// 
-			this.tsLive.Name = "tsLive";
-			this.tsLive.Size = new System.Drawing.Size(152, 22);
-			this.tsLive.Text = "Live";
-			this.tsLive.Click += new System.EventHandler(this.tsLive_Click);
-			// 
 			// tableLayoutTop
 			// 
 			this.tableLayoutTop.ColumnCount = 1;
-			this.tableLayoutTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 552F));
+			this.tableLayoutTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 644F));
 			this.tableLayoutTop.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutTop.Location = new System.Drawing.Point(0, 25);
+			this.tableLayoutTop.Location = new System.Drawing.Point(335, 25);
 			this.tableLayoutTop.Name = "tableLayoutTop";
 			this.tableLayoutTop.RowCount = 1;
 			this.tableLayoutTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutTop.Size = new System.Drawing.Size(552, 335);
+			this.tableLayoutTop.Size = new System.Drawing.Size(578, 597);
 			this.tableLayoutTop.TabIndex = 1;
+			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(332, 25);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(3, 597);
+			this.splitter1.TabIndex = 3;
+			this.splitter1.TabStop = false;
+			// 
+			// tsDisplay
+			// 
+			this.tsDisplay.Image = global::VerseFlow.Properties.Resources.monitor;
+			this.tsDisplay.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsDisplay.Name = "tsDisplay";
+			this.tsDisplay.Size = new System.Drawing.Size(65, 22);
+			this.tsDisplay.Text = "Display";
+			// 
+			// displayLiveView1
+			// 
+			this.displayLiveView1.Dock = System.Windows.Forms.DockStyle.Left;
+			this.displayLiveView1.Location = new System.Drawing.Point(0, 25);
+			this.displayLiveView1.Margin = new System.Windows.Forms.Padding(2);
+			this.displayLiveView1.Name = "displayLiveView1";
+			this.displayLiveView1.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
+			this.displayLiveView1.Size = new System.Drawing.Size(332, 597);
+			this.displayLiveView1.TabIndex = 2;
 			// 
 			// FrmMain
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(552, 360);
+			this.ClientSize = new System.Drawing.Size(913, 622);
 			this.Controls.Add(this.tableLayoutTop);
+			this.Controls.Add(this.splitter1);
+			this.Controls.Add(this.displayLiveView1);
 			this.Controls.Add(this.toolStrip2);
 			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.Font = global::VerseFlow.Properties.Settings.Default.ApplicationFont;
@@ -166,15 +147,13 @@ namespace VerseFlow.UI
 
 		private System.Windows.Forms.ToolStrip toolStrip2;
 		private System.Windows.Forms.ToolStripDropDownButton tsBibles;
-		private System.Windows.Forms.ToolStripDropDownButton tsSongs;
-		private System.Windows.Forms.ToolStripButton tsSettings;
 		private System.Windows.Forms.ToolStripMenuItem miImport;
 		private System.Windows.Forms.ToolStripMenuItem miBibleQuote;
 		private System.Windows.Forms.ToolStripButton tsAbout;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutTop;
-		private System.Windows.Forms.ToolStripDropDownButton tsPreviews;
-		private System.Windows.Forms.ToolStripMenuItem tsPreview;
-		private System.Windows.Forms.ToolStripMenuItem tsLive;
+		private DisplayLiveView displayLiveView1;
+		private System.Windows.Forms.Splitter splitter1;
+		private System.Windows.Forms.ToolStripButton tsDisplay;
 
 	}
 }

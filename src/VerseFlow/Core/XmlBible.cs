@@ -112,9 +112,14 @@ namespace VerseFlow.Core
 							{
 								if (!chapterFound)
 								{
-									if (reader.Name == elementChapter && reader[attributeId] == chapter)
+									if (reader.Name == elementChapter)
 									{
-										chapterFound = true;
+										if (reader[attributeId] == chapter)
+											chapterFound = true;
+									}
+									else if (reader.Name != elementVerse)
+									{
+										break;
 									}
 								}
 								else

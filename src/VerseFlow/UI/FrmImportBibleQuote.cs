@@ -65,7 +65,7 @@ namespace VerseFlow.UI
 		private Encoding GetEncoding()
 		{
 			return cboxDefault.Checked || cmbEnc.SelectedItem == null
-					   ? Encoding.Default
+					   ? Encoding.UTF8
 					   : ((EncodingInfo)cmbEnc.SelectedItem).GetEncoding();
 		}
 

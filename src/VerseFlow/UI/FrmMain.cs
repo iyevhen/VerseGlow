@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using VerseFlow.Core;
-using VerseFlow.UI.Controls;
 
 namespace VerseFlow.UI
 {
@@ -181,13 +180,9 @@ namespace VerseFlow.UI
 			base.Dispose(disposing);
 		}
 
-		private void tsPreview_Click(object sender, EventArgs e)
-		{
-		}
-
 		private void tsLive_Click(object sender, EventArgs e)
 		{
-			AddView(new DisplayLiveView());
+//			AddView(new DisplayLiveView());
 		}
 	}
 }

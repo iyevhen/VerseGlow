@@ -35,10 +35,10 @@
 			this.gbFolder.Controls.Add(this.btnBrowse);
 			this.gbFolder.Dock = System.Windows.Forms.DockStyle.Top;
 			this.gbFolder.Location = new System.Drawing.Point(0, 0);
-			this.gbFolder.Margin = new System.Windows.Forms.Padding(10);
+			this.gbFolder.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
 			this.gbFolder.Name = "gbFolder";
-			this.gbFolder.Padding = new System.Windows.Forms.Padding(10, 3, 10, 10);
-			this.gbFolder.Size = new System.Drawing.Size(446, 48);
+			this.gbFolder.Padding = new System.Windows.Forms.Padding(12, 3, 12, 11);
+			this.gbFolder.Size = new System.Drawing.Size(520, 52);
 			this.gbFolder.TabIndex = 3;
 			this.gbFolder.TabStop = false;
 			this.gbFolder.Text = "Path to BibleQuote module";
@@ -46,9 +46,9 @@
 			// txtIniFilePath
 			// 
 			this.txtIniFilePath.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtIniFilePath.Location = new System.Drawing.Point(10, 16);
+			this.txtIniFilePath.Location = new System.Drawing.Point(12, 18);
 			this.txtIniFilePath.Name = "txtIniFilePath";
-			this.txtIniFilePath.Size = new System.Drawing.Size(396, 20);
+			this.txtIniFilePath.Size = new System.Drawing.Size(461, 22);
 			this.txtIniFilePath.TabIndex = 0;
 			this.txtIniFilePath.WordWrap = false;
 			this.txtIniFilePath.TextChanged += new System.EventHandler(this.txtFolder_TextChanged);
@@ -56,10 +56,10 @@
 			// btnBrowse
 			// 
 			this.btnBrowse.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnBrowse.Location = new System.Drawing.Point(406, 16);
+			this.btnBrowse.Location = new System.Drawing.Point(473, 18);
 			this.btnBrowse.Margin = new System.Windows.Forms.Padding(0);
 			this.btnBrowse.Name = "btnBrowse";
-			this.btnBrowse.Size = new System.Drawing.Size(30, 22);
+			this.btnBrowse.Size = new System.Drawing.Size(35, 23);
 			this.btnBrowse.TabIndex = 1;
 			this.btnBrowse.Text = "...";
 			this.btnBrowse.UseVisualStyleBackColor = true;
@@ -73,10 +73,10 @@
 			this.gbEnc.Controls.Add(this.txtPreview);
 			this.gbEnc.Controls.Add(this.cmbEnc);
 			this.gbEnc.Controls.Add(this.cboxDefault);
-			this.gbEnc.Location = new System.Drawing.Point(0, 52);
+			this.gbEnc.Location = new System.Drawing.Point(0, 56);
 			this.gbEnc.Name = "gbEnc";
-			this.gbEnc.Padding = new System.Windows.Forms.Padding(10);
-			this.gbEnc.Size = new System.Drawing.Size(446, 241);
+			this.gbEnc.Padding = new System.Windows.Forms.Padding(12, 11, 12, 11);
+			this.gbEnc.Size = new System.Drawing.Size(520, 260);
 			this.gbEnc.TabIndex = 4;
 			this.gbEnc.TabStop = false;
 			this.gbEnc.Text = "Encoding";
@@ -86,12 +86,12 @@
 			this.txtPreview.AcceptsReturn = true;
 			this.txtPreview.AcceptsTab = true;
 			this.txtPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtPreview.Location = new System.Drawing.Point(10, 66);
+			this.txtPreview.Location = new System.Drawing.Point(12, 71);
 			this.txtPreview.Multiline = true;
 			this.txtPreview.Name = "txtPreview";
 			this.txtPreview.ReadOnly = true;
 			this.txtPreview.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtPreview.Size = new System.Drawing.Size(426, 165);
+			this.txtPreview.Size = new System.Drawing.Size(496, 178);
 			this.txtPreview.TabIndex = 1;
 			this.txtPreview.Text = "You can download modules from:\r\n\r\n  http://bqt.ru/Katalog\r\n  http://www.ph4.ru/b4" +
     "_index.ph4\r\n  http://eshatos-lib.ru/mod";
@@ -101,9 +101,9 @@
 			this.cmbEnc.Dock = System.Windows.Forms.DockStyle.Top;
 			this.cmbEnc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbEnc.FormattingEnabled = true;
-			this.cmbEnc.Location = new System.Drawing.Point(10, 45);
+			this.cmbEnc.Location = new System.Drawing.Point(12, 49);
 			this.cmbEnc.Name = "cmbEnc";
-			this.cmbEnc.Size = new System.Drawing.Size(426, 21);
+			this.cmbEnc.Size = new System.Drawing.Size(496, 22);
 			this.cmbEnc.TabIndex = 0;
 			this.cmbEnc.SelectedIndexChanged += new System.EventHandler(this.cmbEnc_SelectedIndexChanged);
 			// 
@@ -113,21 +113,21 @@
 			this.cboxDefault.Checked = true;
 			this.cboxDefault.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.cboxDefault.Dock = System.Windows.Forms.DockStyle.Top;
-			this.cboxDefault.Location = new System.Drawing.Point(10, 23);
+			this.cboxDefault.Location = new System.Drawing.Point(12, 26);
 			this.cboxDefault.Name = "cboxDefault";
 			this.cboxDefault.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-			this.cboxDefault.Size = new System.Drawing.Size(426, 22);
+			this.cboxDefault.Size = new System.Drawing.Size(496, 23);
 			this.cboxDefault.TabIndex = 10;
-			this.cboxDefault.Text = "Use Default Encoding";
+			this.cboxDefault.Text = "Use UTF-8 Encoding";
 			this.cboxDefault.UseVisualStyleBackColor = true;
 			this.cboxDefault.CheckedChanged += new System.EventHandler(this.cboxDefault_CheckedChanged);
 			// 
 			// btnImport
 			// 
 			this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnImport.Location = new System.Drawing.Point(280, 299);
+			this.btnImport.Location = new System.Drawing.Point(327, 322);
 			this.btnImport.Name = "btnImport";
-			this.btnImport.Size = new System.Drawing.Size(75, 23);
+			this.btnImport.Size = new System.Drawing.Size(87, 25);
 			this.btnImport.TabIndex = 5;
 			this.btnImport.Text = "&Import";
 			this.btnImport.UseVisualStyleBackColor = true;
@@ -137,9 +137,9 @@
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(361, 299);
+			this.btnCancel.Location = new System.Drawing.Point(421, 322);
 			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.Size = new System.Drawing.Size(87, 25);
 			this.btnCancel.TabIndex = 6;
 			this.btnCancel.Text = "&Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
@@ -147,14 +147,16 @@
 			// FrmImportBibleQuote
 			// 
 			this.AcceptButton = this.btnImport;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(446, 333);
+			this.ClientSize = new System.Drawing.Size(520, 359);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.gbEnc);
 			this.Controls.Add(this.btnImport);
 			this.Controls.Add(this.gbFolder);
+			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.Font = global::VerseFlow.Properties.Settings.Default.ApplicationFont;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "FrmImportBibleQuote";

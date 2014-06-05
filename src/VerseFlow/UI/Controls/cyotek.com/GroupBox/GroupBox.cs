@@ -1,10 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using System;
 
-namespace Cyotek.Framework.Application.Components
+namespace VerseFlow.UI.Controls.cyotek.com.GroupBox
 {
     // Cyotek GroupBox Component
     // www.cyotek.com

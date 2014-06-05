@@ -91,9 +91,6 @@
     <Compile Include="UI\Controls\cyotek.com\GroupBox\GroupBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\cyotek.com\WrapLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\Controls\Display.cs">
       <SubType>Component</SubType>
     </Compile>

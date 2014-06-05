@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.Text;
 using System.Windows.Forms;
 using VerseFlow.Core;
 using VerseFlow.Properties;
@@ -9,13 +11,14 @@ namespace VerseFlow.UI
 {
 	public partial class BibleView : UserControl
 	{
-		private readonly Random random = new Random();
 		private IBible bible;
 		private Dictionary<string, BibleBook> bookMap;
 
 		public BibleView()
 		{
 			InitializeComponent();
+
+			cmbNavigate.SetCue("Book or Search...");
 		}
 
 		public IBible Bible
@@ -43,15 +46,23 @@ namespace VerseFlow.UI
 
 						foreach (BibleBook book in books)
 						{
+							var trimmed = new StringBuilder();
+							foreach (char c in book.Name)
+							{
+								if (Char.IsNumber(c) && trimmed.Length > 0)
+									break;
+
+								if (c != ' ')
+									trimmed.Append(c);
+							}
+
 							bookMap[book.Name] = book;
+							bookMap[trimmed.ToString()] = book;
 							cmbNavigate.Items.Add(book.Name);
 
 							foreach (string shortcut in book.Shortcuts)
 								bookMap[shortcut] = book;
 						}
-
-						int bookIdx = random.Next(0, books.Count - 1);
-						cmbNavigate.SetCue(string.Format("{0} {1}:1", books[bookIdx].Name, random.Next(1, books[bookIdx].ChaptersCount)));
 					}
 					finally
 					{
@@ -73,47 +84,14 @@ namespace VerseFlow.UI
 
 		private void cmbNavigate_KeyDown(object sender, KeyEventArgs e)
 		{
+			var combo = sender as ComboBox;
+
+			if (combo == null)
+				return;
+
 			if (e.KeyCode == Keys.Enter)
 			{
-				string searchText = cmbNavigate.Text.Trim();
-
-				string[] args = searchText
-					.Split(new[] {' ', ':', '-'}, StringSplitOptions.RemoveEmptyEntries);
-
-				BibleBook book = null;
-				int chapter = 0;
-				int verse = 0;
-
-				if (args.Length > 0)
-				{
-					book = bookMap.Find(args[0]);
-
-					if (args.Length > 1)
-						chapter = args[1].TryGetInt32();
-
-					if (args.Length > 2)
-						verse = args[2].TryGetInt32();
-				}
-
-				List<BibleVerse> verses;
-
-				if (book == null)
-				{
-					verses = searchText.Length == 0
-						? new List<BibleVerse>()
-						: bible.FindVerses(searchText);
-
-					verseView.Fill(verses.ConvertAll(v => v.Text));
-					verseView.HighlightText = searchText;
-				}
-				else
-				{
-					verses = bible.OpenChapter(book, chapter == 0 ? "1" : chapter.ToString());
-					verseView.Fill(verses.ConvertAll(v => v.Text));
-
-					if (verse > 0)
-						verseView.SelectItem(verse);
-				}
+				GoTo(combo.Text.Trim());
 
 				e.Handled = true;
 				e.SuppressKeyPress = true;
@@ -122,26 +100,89 @@ namespace VerseFlow.UI
 
 		private void cmbNavigate_SelectedIndexChanged(object sender, EventArgs e)
 		{
-//			var combo = sender as ComboBox;
-//
-//			if (combo == null)
-//				return;
-//
-//			if (combo.SelectedIndex == -1)
-//				return;
-//
-//			combo.Select(combo.Text.Length, 0);
-			//			combo.SelectedText = combo.Text;
-			//			{
-			//				combo.Text = comboIndexText;
-			////				combo.Select(comboIndexText.Length, 0);
-			//				comboIndexText = null;
-			//				return;
-			//			}
+			var combo = sender as ComboBox;
 
-			//			comboIndexText = combo.SelectedIndex;
-			//			combo.SelectedIndex = -1;
-			//			combo.SelectedItem = null;
+			if (combo == null)
+				return;
+
+			if (combo.SelectedIndex == -1)
+				return;
+
+			GoTo(combo.Text.Trim());
+		}
+
+		private void GoTo(string searchfor)
+		{
+			bool startsExclamation = searchfor.Length > 0 && searchfor[0] == '!';
+
+			if (!startsExclamation)
+			{
+				var trim = new StringBuilder();
+				int i = 0;
+				for (; i < searchfor.Length; i++)
+				{
+					char c = searchfor[i];
+
+					if (Char.IsNumber(c) && trim.Length > 0)
+						break;
+
+					if (c != ' ')
+						trim.Append(c);
+				}
+
+				BibleBook book = bookMap.Find(trim.ToString());
+
+				if (book != null)
+				{
+					string[] args = searchfor
+						.Substring(i)
+						.Split(new[] {' ', ':', '-'}, StringSplitOptions.RemoveEmptyEntries);
+
+					int chapter = 0;
+					int verse = 0;
+
+					if (args.Length > 0)
+					{
+						chapter = args[0].TryGetInt32();
+
+						if (args.Length > 1)
+							verse = args[1].TryGetInt32();
+					}
+
+					cmbChapter.Items.Clear();
+					int allchapters = book.ChaptersCount;
+
+					for (int item = 1; item <= allchapters; item++)
+						cmbChapter.Items.Add(item);
+
+					string chap = chapter == 0 
+						? "1" 
+						: chapter.ToString(CultureInfo.InvariantCulture);
+
+					cmbChapter.Text = chap;
+					
+					var opened = bible.OpenChapter(book, chap);
+					verseView.Fill(opened.ConvertAll(v => v.Text));
+
+					lblInfo.Text = string.Format("{0} {1}", book.Name, chap);
+
+					if (verse > 0)
+						verseView.SelectItem(verse - 1);
+
+					return;
+				}
+			}
+
+			if (startsExclamation)
+				searchfor = searchfor.TrimStart('!');
+
+			List<BibleVerse> found = searchfor.Length == 0 
+				? new List<BibleVerse>() 
+				: bible.FindVerses(searchfor);
+
+			verseView.Fill(found.ConvertAll(v => v.Text));
+			verseView.HighlightText = searchfor;
+			lblInfo.Text = string.Format("Found {0} verses", found.Count);
 		}
 
 		private void tsFont_Click(object sender, EventArgs e)
@@ -189,12 +230,7 @@ namespace VerseFlow.UI
 			if (combo == null)
 				return;
 
-
 			Debug.WriteLine(combo.Text);
-		}
-
-		private void lblBibleName_Click(object sender, EventArgs e)
-		{
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)
