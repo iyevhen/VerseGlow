@@ -63,7 +63,6 @@
     <Compile Include="BqtBookFixture.cs" />
     <Compile Include="BqtIniFixture.cs" />
     <Compile Include="Core\SlideFixture.cs" />
-    <Compile Include="IsFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -86,6 +85,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VerseFlow.Common\VerseFlow.Common.csproj">
+      <Project>{03f752cc-13ff-4523-94b4-b11ae9108243}</Project>
+      <Name>VerseFlow.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VerseFlow\VerseFlow.csproj">
       <Project>{3d9deb1c-4855-466d-bb22-4a3dc051a7f4}</Project>
       <Name>VerseFlow</Name>

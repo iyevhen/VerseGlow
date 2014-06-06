@@ -35,14 +35,14 @@ namespace VerseFlow.UI
 
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
-			display = new FrmDisplay {Icon = Icon};
+			display = new FrmDisplay { Icon = Icon };
 			display.SizeChanged += DisplayOnSizeChanged;
 
 			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
 			Text = appNameAndVersion;
 
 			foreach (IBible b in Options.BibleRepository.OpenAll())
-				tsBibles.DropDownItems.Add(new ToolStripMenuItem(b.Name) {Tag = b});
+				tsBibles.DropDownItems.Add(new ToolStripMenuItem(b.Name) { Tag = b });
 
 			opened = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 		}
@@ -63,7 +63,7 @@ namespace VerseFlow.UI
 
 			if (item != null && item.Tag != null)
 			{
-				bible = (IBible) item.Tag;
+				bible = (IBible)item.Tag;
 
 				if (opened.Contains(bible.Name))
 				{
@@ -90,9 +90,9 @@ namespace VerseFlow.UI
 			int idx = tableLayoutTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
 			tableLayoutTop.ColumnCount += 1;
 			control.Anchor = AnchorStyles.Bottom |
-			                 AnchorStyles.Left |
-			                 AnchorStyles.Top |
-			                 AnchorStyles.Right;
+							 AnchorStyles.Left |
+							 AnchorStyles.Top |
+							 AnchorStyles.Right;
 			tableLayoutTop.Controls.Add(control, idx, 0);
 			tableLayoutTop.ResumeLayout();
 		}
@@ -157,14 +157,14 @@ namespace VerseFlow.UI
 
 		private void miBibleQuote_Click(object sender, EventArgs e)
 		{
-			using (var f = new FrmImportBibleQuote {Icon = Icon})
+			using (var f = new FrmImportBibleQuote { Icon = Icon })
 			{
 				if (DialogResult.OK == f.ShowDialog(this))
 				{
 					IBible imported = f.ImportedBible;
 
 					if (imported != null)
-						tsBibles.DropDownItems.Add(new ToolStripMenuItem(imported.Name) {Tag = imported});
+						tsBibles.DropDownItems.Add(new ToolStripMenuItem(imported.Name) { Tag = imported });
 				}
 			}
 		}

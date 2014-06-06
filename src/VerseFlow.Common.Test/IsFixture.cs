@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace FreePresenter.UI.Test
+namespace VerseFlow.Common.Test
 {
 	[TestFixture]
 	public class IsFixture
@@ -11,7 +11,7 @@ namespace FreePresenter.UI.Test
 		{
 			Assert.Throws<ArgumentException>(
 				() => Is.Not(true)
-				      	.Throw<ArgumentException>("This is Guard Testing"));
+						.Throw<ArgumentException>("This is Guard Testing"));
 		}
 
 		[Test]
@@ -19,7 +19,7 @@ namespace FreePresenter.UI.Test
 		{
 			Assert.DoesNotThrow(
 				() => Is.Not(false)
-				      	.Throw<ArgumentException>("This is Guard Testing"));
+						.Throw<ArgumentException>("This is Guard Testing"));
 		}
 
 		[Test]

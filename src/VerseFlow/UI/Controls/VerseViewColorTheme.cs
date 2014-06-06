@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Net.Mime;
 
 namespace VerseFlow.UI.Controls
 {
@@ -9,8 +8,8 @@ namespace VerseFlow.UI.Controls
 	{
 		private readonly Blend blend = new Blend
 		{
-			Positions = new[] { .0f, .2f, .4f, .6f, .8f, 1 },
-			Factors = new[] { 1, .8f, .3f, .3f, 0.8f, 1 }
+			Positions = new[] {.0f, .2f, .4f, .6f, .8f, 1},
+			Factors = new[] {1, .8f, .3f, .3f, 0.8f, 1}
 		};
 
 		private Color backColor;
@@ -22,8 +21,8 @@ namespace VerseFlow.UI.Controls
 		private Color highlightColorLighten;
 		private Pen highlightColorPen;
 		private Color textColor;
-		private Color textHighlightColor;
 		private Color textHighlightBackColor;
+		private Color textHighlightColor;
 
 		public VerseViewColorTheme()
 		{
@@ -49,7 +48,7 @@ namespace VerseFlow.UI.Controls
 			return new LinearGradientBrush(rectangle,
 				highlightColor,
 				highlightColorLighten,
-				LinearGradientMode.Vertical) { Blend = blend };
+				LinearGradientMode.Vertical) {Blend = blend};
 		}
 
 		private void DisposeBackcolor()

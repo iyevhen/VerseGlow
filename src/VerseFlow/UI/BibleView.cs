@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
+using VerseFlow.Common;
 using VerseFlow.Core;
 using VerseFlow.Properties;
 using VerseFlow.UI.Controls;
@@ -80,7 +81,7 @@ namespace VerseFlow.UI
 				string searchText = cmbNavigate.Text.Trim();
 
 				string[] args = searchText
-					.Split(new[] {' ', ':', '-'}, StringSplitOptions.RemoveEmptyEntries);
+					.Split(new[] { ' ', ':', '-' }, StringSplitOptions.RemoveEmptyEntries);
 
 				BibleBook book = null;
 				int chapter = 0;
@@ -124,15 +125,15 @@ namespace VerseFlow.UI
 
 		private void cmbNavigate_SelectedIndexChanged(object sender, EventArgs e)
 		{
-//			var combo = sender as ComboBox;
-//
-//			if (combo == null)
-//				return;
-//
-//			if (combo.SelectedIndex == -1)
-//				return;
-//
-//			combo.Select(combo.Text.Length, 0);
+			//			var combo = sender as ComboBox;
+			//
+			//			if (combo == null)
+			//				return;
+			//
+			//			if (combo.SelectedIndex == -1)
+			//				return;
+			//
+			//			combo.Select(combo.Text.Length, 0);
 			//			combo.SelectedText = combo.Text;
 			//			{
 			//				combo.Text = comboIndexText;
@@ -202,21 +203,6 @@ namespace VerseFlow.UI
 		private void btnClose_Click(object sender, EventArgs e)
 		{
 			OnCloseRequested();
-		}
-	}
-
-	public static class Extensions
-	{
-		public static TValue Find<TKey, TValue>(this Dictionary<TKey, TValue> target, TKey key)
-		{
-			TValue value;
-			return target.TryGetValue(key, out value) ? value : default(TValue);
-		}
-
-		public static Int32 TryGetInt32(this string text)
-		{
-			Int32 number;
-			return Int32.TryParse(text, out number) ? number : 0;
 		}
 	}
 }

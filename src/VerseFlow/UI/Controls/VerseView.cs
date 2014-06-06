@@ -13,9 +13,7 @@ namespace VerseFlow.UI.Controls
 		//Buffer3: Verses and Selected Verses and Highlighted words 
 		//Buffer4: Verses and Selected Verses and Highlighted words and MouseOver words
 		
-		private List<VerseItem> allverses = new List<VerseItem>();
-
-
+		private readonly List<VerseItem> allverses = new List<VerseItem>();
 		private int prevWidth;
 		private int focusedItem = -1;
 		private bool readOnly;
@@ -42,7 +40,7 @@ namespace VerseFlow.UI.Controls
 			VerticalScroll.Visible = true;
 
 			colorTheme = new VerseViewColorTheme();
-			viewPresenter = new VerseViewPresenter(colorTheme);
+			viewPresenter = new VerseViewPresenter(colorTheme, Font);
 		}
 
 		public string HighlightText
@@ -154,8 +152,6 @@ namespace VerseFlow.UI.Controls
 		{
 		}
 
-
-
 		protected override void OnPaint(PaintEventArgs e)
 		{
 
@@ -169,7 +165,7 @@ namespace VerseFlow.UI.Controls
 				prevWidth = rect.Width;
 				Debug.WriteLine("Recalculating verses width=" + Width);
 
-				viewPresenter.Refresh(e.Graphics, rect, Padding);
+				viewPresenter.SetBounds(e.Graphics, rect, Padding);
 				AutoScrollMinSize = viewPresenter.Size;
 			}
 

@@ -14,16 +14,20 @@ namespace VerseFlow.UI.Controls
 		private Font font;
 		private int focusedIndex;
 		private bool focused;
-
 		private Size size;
 		private string highlightText;
+		private LineRenderer lineRenderer;
 
-		public VerseViewPresenter(VerseViewColorTheme colorTheme)
+		public VerseViewPresenter(VerseViewColorTheme colorTheme, Font font)
 		{
 			if (colorTheme == null)
 				throw new ArgumentNullException("colorTheme");
 
+			if (font == null)
+				throw new ArgumentNullException("colorTheme");
+
 			this.colorTheme = colorTheme;
+			Font = font;
 		}
 
 		public void Fill(List<VerseItem> items)
@@ -49,6 +53,7 @@ namespace VerseFlow.UI.Controls
 
 				font = value;
 				renderer = new Renderer(value);
+				lineRenderer.Renderer = renderer;
 			}
 		}
 
@@ -60,7 +65,15 @@ namespace VerseFlow.UI.Controls
 		public string HighlightText
 		{
 			get { return highlightText; }
-			set { highlightText = value; }
+			set
+			{
+				highlightText = value;
+
+				if (value == null)
+					lineRenderer = new RegularLineRenderer(renderer, colorTheme);
+				else
+					lineRenderer = new HighlightLineRenderer(renderer, colorTheme, value);
+			}
 		}
 
 		public bool Focused
@@ -102,11 +115,8 @@ namespace VerseFlow.UI.Controls
 
 				if (vrect.Y > rect.Height)
 				{
-					//Debug.WriteLine("Stop paint [{0}]: {1}", i + 1, vrect.Location);
 					break;
 				}
-
-				//Debug.WriteLine("Paint [{0}]: {1} - {2}", i + 1, vrect.Location, vrect.Size);
 
 				if (vi.IsSelected)
 				{
@@ -127,44 +137,7 @@ namespace VerseFlow.UI.Controls
 					Point point = vi.TextPosition;
 					point.Offset(0, offset + linesHeight);
 
-					if (!string.IsNullOrEmpty(highlightText))
-					{
-						int linelen = line.Length;
-						int lightlen = highlightText.Length;
-
-						int cur = 0;
-
-						while (cur < linelen)
-						{
-							int found = line.IndexOf(highlightText, cur, StringComparison.OrdinalIgnoreCase);
-
-							if (found > -1)
-							{
-								int normal = found - cur;
-								string before = line.Substring(cur, normal);
-
-								renderer.DrawText(graphics, before, point, colorTheme.TextColor);
-								point.X += renderer.MeasureTextWidth(graphics, before);
-
-								string highligten = line.Substring(found, lightlen);
-
-								renderer.DrawText(graphics, highligten, point, colorTheme.TextHighlightColor, colorTheme.TextHighlightBackColor);
-								point.X += renderer.MeasureTextWidth(graphics, highligten);
-
-								cur = found + lightlen;
-							}
-							else
-							{
-								renderer.DrawText(graphics, line.Substring(cur), point, colorTheme.TextColor);
-								cur = linelen;
-							}
-						}
-					}
-					else
-					{
-						renderer.DrawText(graphics, line, point, colorTheme.TextColor);
-					}
-
+					lineRenderer.DrawLine(graphics, line, point);
 					linesHeight += renderer.LineHeight;
 				}
 
@@ -175,9 +148,9 @@ namespace VerseFlow.UI.Controls
 			}
 		}
 
-		public void Refresh(Graphics graphics, Rectangle clientRectangle, Padding padding)
+		public void SetBounds(Graphics graphics, Rectangle rect, Padding padding)
 		{
-			int clipWidth = clientRectangle.Width - padding.Right - padding.Left;
+			int width = rect.Width - padding.Right - padding.Left;
 
 			int y = padding.Top;
 			int x = padding.Left;
@@ -185,12 +158,12 @@ namespace VerseFlow.UI.Controls
 			for (int i = 0; i < verses.Count; i++)
 			{
 				VerseItem vi = verses[i];
-				vi.Refresh(graphics, clipWidth, renderer, new Point(x, y));
+				vi.Refresh(graphics, width, renderer, new Point(x, y));
 				y += vi.Size.Height;
 			}
 
 			y += padding.Bottom;
-			size = new Size(clipWidth, y);
+			size = new Size(width, y);
 		}
 
 		internal int FindIndex(Point point)

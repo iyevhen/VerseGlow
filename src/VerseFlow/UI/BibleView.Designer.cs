@@ -137,7 +137,7 @@
 			// verseView
 			// 
 			this.verseView.AutoScroll = true;
-			this.verseView.AutoScrollMinSize = new System.Drawing.Size(219, 0);
+			this.verseView.AutoScrollMinSize = new System.Drawing.Size(219, 10);
 			this.verseView.AutoScrollOffset = new System.Drawing.Point(500, 500);
 			this.verseView.BackColor = global::VerseFlow.Properties.Settings.Default.BibleBackColor;
 			this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
