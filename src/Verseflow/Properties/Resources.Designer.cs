@@ -123,6 +123,16 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap book_open_next {
+            get {
+                object obj = ResourceManager.GetObject("book-open-next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap chain {
             get {
                 object obj = ResourceManager.GetObject("chain", resourceCulture);

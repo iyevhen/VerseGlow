@@ -36,7 +36,7 @@
 			this.tsStop = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripButtonFillBlack = new System.Windows.Forms.ToolStripButton();
-			this.splitContainerDots1 = new VerseFlow.UI.Controls.SplitContainerDots();
+			this.splitContainerDots1 = new System.Windows.Forms.SplitContainer();
 			this.display1 = new VerseFlow.UI.Controls.Display();
 			this.panelTitle.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
@@ -130,6 +130,7 @@
 			// 
 			// splitContainerDots1
 			// 
+			this.splitContainerDots1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.splitContainerDots1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.splitContainerDots1.Location = new System.Drawing.Point(0, 42);
 			this.splitContainerDots1.Name = "splitContainerDots1";
@@ -138,6 +139,11 @@
 			// splitContainerDots1.Panel1
 			// 
 			this.splitContainerDots1.Panel1.Controls.Add(this.display1);
+			this.splitContainerDots1.Panel1.Padding = new System.Windows.Forms.Padding(2);
+			// 
+			// splitContainerDots1.Panel2
+			// 
+			this.splitContainerDots1.Panel2.Padding = new System.Windows.Forms.Padding(2);
 			this.splitContainerDots1.Size = new System.Drawing.Size(170, 221);
 			this.splitContainerDots1.SplitterDistance = 120;
 			this.splitContainerDots1.TabIndex = 7;
@@ -146,9 +152,9 @@
 			// 
 			this.display1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.display1.Etalon = new System.Drawing.Size(4, 3);
-			this.display1.Location = new System.Drawing.Point(0, 0);
+			this.display1.Location = new System.Drawing.Point(2, 2);
 			this.display1.Name = "display1";
-			this.display1.Size = new System.Drawing.Size(170, 120);
+			this.display1.Size = new System.Drawing.Size(162, 112);
 			this.display1.TabIndex = 0;
 			this.display1.Text = "display1";
 			// 
@@ -180,7 +186,7 @@
 		private System.Windows.Forms.Label lblTitle;
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.ToolStripButton toolStripButtonFillBlack;
-		private SplitContainerDots splitContainerDots1;
+		private System.Windows.Forms.SplitContainer splitContainerDots1;
 		private Display display1;
 		private System.Windows.Forms.ToolStripButton tsPlay;
 		private System.Windows.Forms.ToolStripButton tsPause;

@@ -116,9 +116,6 @@
     <Compile Include="UI\Controls\SplitButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\SplitContainerDots.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\Controls\TextCursor.cs" />
     <Compile Include="UI\Controls\UserRect.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
@@ -229,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\book-open-next.png" />
     <None Include="Resources\1402049392_arrow-000-medium.png" />
     <None Include="Resources\1402049221_arrow-180-medium.png" />
     <None Include="Resources\control-stop-square.png" />
