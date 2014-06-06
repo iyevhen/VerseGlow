@@ -38,7 +38,7 @@
 			// verseView1
 			// 
 			this.verseView1.AutoScroll = true;
-			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(454, 0);
+			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(449, 0);
 			this.verseView1.BackColor = global::VerseFlow.Properties.Settings.Default.BibleBackColor;
 			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -47,10 +47,10 @@
 			this.verseView1.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
 			this.verseView1.ForeColor = global::VerseFlow.Properties.Settings.Default.BibleForeColor;
 			this.verseView1.HighlightText = null;
-			this.verseView1.Location = new System.Drawing.Point(0, 0);
+			this.verseView1.Location = new System.Drawing.Point(5, 5);
 			this.verseView1.Name = "verseView1";
 			this.verseView1.ReadOnly = false;
-			this.verseView1.Size = new System.Drawing.Size(454, 279);
+			this.verseView1.Size = new System.Drawing.Size(449, 283);
 			this.verseView1.TabIndex = 0;
 			this.verseView1.Text = "verseViewSample";
 			// 
@@ -59,16 +59,16 @@
 			this.panel1.Controls.Add(this.btnCancel);
 			this.panel1.Controls.Add(this.btnOK);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(0, 279);
+			this.panel1.Location = new System.Drawing.Point(5, 288);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(454, 39);
+			this.panel1.Size = new System.Drawing.Size(449, 33);
 			this.panel1.TabIndex = 4;
 			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(352, 6);
+			this.btnCancel.Location = new System.Drawing.Point(359, 5);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(87, 25);
 			this.btnCancel.TabIndex = 1;
@@ -78,7 +78,7 @@
 			// btnOK
 			// 
 			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnOK.Location = new System.Drawing.Point(261, 6);
+			this.btnOK.Location = new System.Drawing.Point(266, 5);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(87, 25);
 			this.btnOK.TabIndex = 0;
@@ -92,7 +92,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(454, 318);
+			this.ClientSize = new System.Drawing.Size(459, 326);
 			this.Controls.Add(this.verseView1);
 			this.Controls.Add(this.panel1);
 			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -100,6 +100,7 @@
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "FrmBibleViewColors";
+			this.Padding = new System.Windows.Forms.Padding(5);
 			this.ShowInTaskbar = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

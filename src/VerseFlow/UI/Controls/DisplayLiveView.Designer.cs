@@ -54,7 +54,7 @@
 			this.panelTitle.Location = new System.Drawing.Point(0, 0);
 			this.panelTitle.Name = "panelTitle";
 			this.panelTitle.Padding = new System.Windows.Forms.Padding(2);
-			this.panelTitle.Size = new System.Drawing.Size(271, 17);
+			this.panelTitle.Size = new System.Drawing.Size(170, 17);
 			this.panelTitle.TabIndex = 5;
 			// 
 			// lblTitle
@@ -67,14 +67,14 @@
 			this.lblTitle.Location = new System.Drawing.Point(2, 2);
 			this.lblTitle.Margin = new System.Windows.Forms.Padding(0);
 			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(29, 13);
+			this.lblTitle.Size = new System.Drawing.Size(92, 13);
 			this.lblTitle.TabIndex = 3;
-			this.lblTitle.Text = "LIVE";
+			this.lblTitle.Text = "<DisplayName>";
 			this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// toolStrip1
 			// 
-			this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(1);
+			this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(0);
 			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsPlay,
@@ -84,8 +84,7 @@
             this.toolStripButtonFillBlack});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 17);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStrip1.Size = new System.Drawing.Size(271, 25);
+			this.toolStrip1.Size = new System.Drawing.Size(170, 25);
 			this.toolStrip1.TabIndex = 6;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
@@ -139,8 +138,8 @@
 			// splitContainerDots1.Panel1
 			// 
 			this.splitContainerDots1.Panel1.Controls.Add(this.display1);
-			this.splitContainerDots1.Size = new System.Drawing.Size(271, 442);
-			this.splitContainerDots1.SplitterDistance = 191;
+			this.splitContainerDots1.Size = new System.Drawing.Size(170, 221);
+			this.splitContainerDots1.SplitterDistance = 120;
 			this.splitContainerDots1.TabIndex = 7;
 			// 
 			// display1
@@ -149,7 +148,7 @@
 			this.display1.Etalon = new System.Drawing.Size(4, 3);
 			this.display1.Location = new System.Drawing.Point(0, 0);
 			this.display1.Name = "display1";
-			this.display1.Size = new System.Drawing.Size(271, 191);
+			this.display1.Size = new System.Drawing.Size(170, 120);
 			this.display1.TabIndex = 0;
 			this.display1.Text = "display1";
 			// 
@@ -162,7 +161,7 @@
 			this.Controls.Add(this.panelTitle);
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "DisplayLiveView";
-			this.Size = new System.Drawing.Size(271, 484);
+			this.Size = new System.Drawing.Size(170, 263);
 			this.panelTitle.ResumeLayout(false);
 			this.panelTitle.PerformLayout();
 			this.toolStrip1.ResumeLayout(false);

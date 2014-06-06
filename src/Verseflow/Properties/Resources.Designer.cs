@@ -63,6 +63,26 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1402049221_arrow_180_medium {
+            get {
+                object obj = ResourceManager.GetObject("1402049221_arrow-180-medium", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1402049392_arrow_000_medium {
+            get {
+                object obj = ResourceManager.GetObject("1402049392_arrow-000-medium", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap binocular {
             get {
                 object obj = ResourceManager.GetObject("binocular", resourceCulture);

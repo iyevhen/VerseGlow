@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using VerseFlow.Core;
+using VerseFlow.UI.Controls;
 
 namespace VerseFlow.UI
 {
@@ -16,10 +19,8 @@ namespace VerseFlow.UI
 		{
 			InitializeComponent();
 
-			tableLayoutTop.ColumnCount = 0;
-			tableLayoutTop.ColumnStyles.Clear();
-			tableLayoutTop.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
-			tableLayoutTop.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+			tblBibles.ColumnCount = 0;
+			tblBibles.ColumnStyles.Clear();
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -85,15 +86,16 @@ namespace VerseFlow.UI
 
 		private void AddView(Control control)
 		{
-			tableLayoutTop.SuspendLayout();
-			int idx = tableLayoutTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-			tableLayoutTop.ColumnCount += 1;
+			tblBibles.SuspendLayout();
+			int idx = tblBibles.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+			tblBibles.ColumnCount += 1;
 			control.Anchor = AnchorStyles.Bottom |
 			                 AnchorStyles.Left |
 			                 AnchorStyles.Top |
 			                 AnchorStyles.Right;
-			tableLayoutTop.Controls.Add(control, idx, 0);
-			tableLayoutTop.ResumeLayout();
+			control.Margin = new Padding(0);
+			tblBibles.Controls.Add(control, idx, 0);
+			tblBibles.ResumeLayout();
 		}
 
 		private void bibleView_CloseRequested(object sender, EventArgs e)
@@ -103,24 +105,24 @@ namespace VerseFlow.UI
 			if (bview == null)
 				return;
 
-			int column = tableLayoutTop.GetColumn(bview);
+			int column = tblBibles.GetColumn(bview);
 
-			tableLayoutTop.SuspendLayout();
+			tblBibles.SuspendLayout();
 
-			tableLayoutTop.Controls.Remove(bview);
+			tblBibles.Controls.Remove(bview);
 			bview.CloseRequested -= bibleView_CloseRequested;
 			bview.Dispose();
 
-			for (int i = column + 1; i < tableLayoutTop.ColumnCount; i++)
+			for (int i = column + 1; i < tblBibles.ColumnCount; i++)
 			{
-				Control ctr = tableLayoutTop.GetControlFromPosition(i, 0);
-				tableLayoutTop.SetColumn(ctr, i - 1);
+				Control ctr = tblBibles.GetControlFromPosition(i, 0);
+				tblBibles.SetColumn(ctr, i - 1);
 			}
 
-			tableLayoutTop.ColumnStyles.RemoveAt(tableLayoutTop.ColumnCount - 1);
-			tableLayoutTop.ColumnCount -= 1;
+			tblBibles.ColumnStyles.RemoveAt(tblBibles.ColumnCount - 1);
+			tblBibles.ColumnCount -= 1;
 
-			tableLayoutTop.ResumeLayout();
+			tblBibles.ResumeLayout();
 
 			opened.Remove(bview.Bible.Name);
 		}
@@ -180,9 +182,86 @@ namespace VerseFlow.UI
 			base.Dispose(disposing);
 		}
 
-		private void tsLive_Click(object sender, EventArgs e)
+		private void tsDisplay_DropDownOpening(object sender, EventArgs e)
 		{
-//			AddView(new DisplayLiveView());
+			tsDisplay.DropDownItems.Clear();
+
+			var d = new DISPLAY_DEVICE();
+			d.cb = Marshal.SizeOf(d);
+			try
+			{
+				for (uint id = 0; EnumDisplayDevices(null, id, ref d, 0); id++)
+				{
+//					Debug.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}", id, d.DeviceName, d.DeviceString, d.StateFlags, d.DeviceID, d.DeviceKey);
+					d.cb = Marshal.SizeOf(d);
+
+					var dd = new DISPLAY_DEVICE();
+					dd.cb = Marshal.SizeOf(dd);
+					string monitorName = d.DeviceString;
+
+					if (EnumDisplayDevices(d.DeviceName, 0, ref dd, 0))
+						monitorName = dd.DeviceString;
+
+					tsDisplay.DropDownItems.Add(monitorName);
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+			}
+
+//			foreach (Screen screen in Screen.AllScreens)
+//			{
+//				var dd = new DISPLAY_DEVICE();
+//				dd.cb = Marshal.SizeOf(dd);
+//				string monitorName = screen.DeviceName;
+//
+//				if (EnumDisplayDevices(screen.DeviceName, 0, ref dd, 0))
+//					monitorName = dd.DeviceString;
+//
+//				tsDisplay.DropDownItems.Add(monitorName);
+//			}
+			
+		}
+
+		[DllImport("user32.dll")]
+		static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
+
+		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+		public struct DISPLAY_DEVICE
+		{
+			[MarshalAs(UnmanagedType.U4)]
+			public int cb;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+			public string DeviceName;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+			public string DeviceString;
+			[MarshalAs(UnmanagedType.U4)]
+			public DisplayDeviceStateFlags StateFlags;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+			public string DeviceID;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+			public string DeviceKey;
+		}
+
+		[Flags()]
+		public enum DisplayDeviceStateFlags : int
+		{
+			/// <summary>The device is part of the desktop.</summary>
+			AttachedToDesktop = 0x1,
+			MultiDriver = 0x2,
+			/// <summary>The device is part of the desktop.</summary>
+			PrimaryDevice = 0x4,
+			/// <summary>Represents a pseudo device used to mirror application drawing for remoting or other purposes.</summary>
+			MirroringDriver = 0x8,
+			/// <summary>The device is VGA compatible.</summary>
+			VGACompatible = 0x10,
+			/// <summary>The device is removable; it cannot be the primary display.</summary>
+			Removable = 0x20,
+			/// <summary>The device has more display modes than its output devices support.</summary>
+			ModesPruned = 0x8000000,
+			Remote = 0x4000000,
+			Disconnect = 0x2000000
 		}
 	}
 }

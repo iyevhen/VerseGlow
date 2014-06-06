@@ -45,28 +45,26 @@ namespace VerseFlow.UI.Controls
 
 			using (var brush = new SolidBrush(BackColor))
 				e.Graphics.FillRectangle(brush, rect);
-			
+
 			int w = rect.Width;
 			int h = rect.Height;
 
 			float myWidth = 1.0f * h * etalon.Width / etalon.Height;
 			float myHeight = 1.0f * w * etalon.Height / etalon.Width;
-//			float y = (h - myHeight) / 2.0f;
+
+			if (myHeight > h)
+				myHeight = h;
+			
 			float y = 0f;
 			float x = (w - myWidth) / 2.0f;
-			
 
 			var myRect = new RectangleF(x, y, myWidth, myHeight);
 
 			e.Graphics.FillRectangle(Brushes.Black, myRect);
+			var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
-			if (etalon == size43)
-			{
-				var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-
-				using (var font = new Font(FontFamily.GenericSansSerif, Font.Size))
-					e.Graphics.DrawString("No slide", font, Brushes.White, myRect, format);
-			}
+			using (var font = new Font(FontFamily.GenericSansSerif, Font.Size))
+				e.Graphics.DrawString("No slide", font, Brushes.White, myRect, format);
 
 			base.OnPaint(e);
 

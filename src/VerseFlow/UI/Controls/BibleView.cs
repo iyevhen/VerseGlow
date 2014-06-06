@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using VerseFlow.Core;
 using VerseFlow.Properties;
 
-namespace VerseFlow.UI
+namespace VerseFlow.UI.Controls
 {
 	public partial class BibleView : UserControl
 	{
@@ -18,7 +18,8 @@ namespace VerseFlow.UI
 		{
 			InitializeComponent();
 
-			cmbNavigate.SetCue("Book or Search...");
+			cmbNavigate.SetCue("Select book or enter search text and hit Enter...");
+			tsLblInfo.Text = "";
 		}
 
 		public IBible Bible
@@ -136,7 +137,7 @@ namespace VerseFlow.UI
 				{
 					string[] args = searchfor
 						.Substring(i)
-						.Split(new[] {' ', ':', '-'}, StringSplitOptions.RemoveEmptyEntries);
+						.Split(new[] { ' ', ':', '-' }, StringSplitOptions.RemoveEmptyEntries);
 
 					int chapter = 0;
 					int verse = 0;
@@ -150,21 +151,19 @@ namespace VerseFlow.UI
 					}
 
 					cmbChapter.Items.Clear();
-					int allchapters = book.ChaptersCount;
-
-					for (int item = 1; item <= allchapters; item++)
+					for (int item = 1; item <= book.ChaptersCount; item++)
 						cmbChapter.Items.Add(item);
 
-					string chap = chapter == 0 
-						? "1" 
+					string chap = chapter == 0
+						? "1"
 						: chapter.ToString(CultureInfo.InvariantCulture);
 
 					cmbChapter.Text = chap;
-					
+
 					var opened = bible.OpenChapter(book, chap);
 					verseView.Fill(opened.ConvertAll(v => v.Text));
 
-					lblInfo.Text = string.Format("{0} {1}", book.Name, chap);
+					tsLblInfo.Text = string.Format("{0} {1}", book.Name, chap);
 
 					if (verse > 0)
 						verseView.SelectItem(verse - 1);
@@ -176,13 +175,13 @@ namespace VerseFlow.UI
 			if (startsExclamation)
 				searchfor = searchfor.TrimStart('!');
 
-			List<BibleVerse> found = searchfor.Length == 0 
-				? new List<BibleVerse>() 
+			List<BibleVerse> found = searchfor.Length == 0
+				? new List<BibleVerse>()
 				: bible.FindVerses(searchfor);
 
 			verseView.Fill(found.ConvertAll(v => v.Text));
 			verseView.HighlightText = searchfor;
-			lblInfo.Text = string.Format("Found {0} verses", found.Count);
+			tsLblInfo.Text = string.Format("Found {0} verses", found.Count);
 		}
 
 		private void tsFont_Click(object sender, EventArgs e)
@@ -223,20 +222,34 @@ namespace VerseFlow.UI
 			}
 		}
 
-		private void cmbNavigate_TextChanged(object sender, EventArgs e)
+		private void cmbChapter_TextChanged(object sender, EventArgs e)
 		{
 			var combo = sender as ComboBox;
 
 			if (combo == null)
 				return;
 
-			Debug.WriteLine(combo.Text);
+			int chap = combo.Text.TryGetInt32();
+
+			if (chap == 0)
+			{
+				tsPrev.Enabled = false;
+				tsNext.Enabled = false;
+			}
+			else
+			{
+				tsPrev.Enabled = true;
+				tsNext.Enabled = true;
+
+				Debug.WriteLine("Index " + combo.SelectedIndex);
+			}
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)
 		{
 			OnCloseRequested();
 		}
+
 	}
 
 	public static class Extensions

@@ -69,12 +69,12 @@ namespace VerseFlow.UI
 
 					var r = new RectangleF(new PointF(x, y), bounds.Size);
 
-					PointF[] target_pts = new[]
-					                      	{
-					                      		new PointF(r.Left, r.Top),
-					                      		new PointF(r.Right, r.Top),
-					                      		new PointF(r.Left, r.Bottom)
-					                      	};
+					PointF[] target_pts =
+					{
+						new PointF(r.Left, r.Top),
+						new PointF(r.Right, r.Top),
+						new PointF(r.Left, r.Bottom)
+					};
 
 					e.Graphics.Transform = new Matrix(bounds, target_pts);
 

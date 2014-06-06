@@ -78,10 +78,10 @@
     <Compile Include="Core\Import\BibleQuote\BqtImportException.cs" />
     <Compile Include="Core\Import\BibleQuote\BqtIni.cs" />
     <Compile Include="Core\Import\BibleQuote\BqtVerse.cs" />
-    <Compile Include="UI\BibleView.cs">
+    <Compile Include="UI\Controls\BibleView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\BibleView.Designer.cs">
+    <Compile Include="UI\Controls\BibleView.Designer.cs">
       <DependentUpon>BibleView.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\ColorButton.cs">
@@ -180,7 +180,7 @@
     <Compile Include="UI\TextCursor.cs" />
     <Compile Include="UI\UserRect.cs" />
     <Compile Include="Core\XmlBibleRepository.cs" />
-    <EmbeddedResource Include="UI\BibleView.resx">
+    <EmbeddedResource Include="UI\Controls\BibleView.resx">
       <DependentUpon>BibleView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Controls\DisplayLiveView.resx">
@@ -229,6 +229,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\1402049392_arrow-000-medium.png" />
+    <None Include="Resources\1402049221_arrow-180-medium.png" />
     <None Include="Resources\control-stop-square.png" />
     <None Include="Resources\control-pause.png" />
     <None Include="Resources\control.png" />
