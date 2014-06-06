@@ -28,11 +28,10 @@ namespace VerseFlow.UI.Controls
 			set
 			{
 				bible = value;
-				Enabled = value != null;
 
 				if (bible != null)
 				{
-					lblTitle.Text = bible.Name;
+					tsBible.Text = bible.Name;
 					bookMap = new Dictionary<string, BibleBook>(StringComparer.CurrentCultureIgnoreCase);
 					List<BibleBook> books = bible.OpenBooks();
 
@@ -70,7 +69,21 @@ namespace VerseFlow.UI.Controls
 						cmbNavigate.EndUpdate();
 					}
 				}
+				else
+				{
+					DisableAll();
+				}
 			}
+		}
+
+		private void DisableAll()
+		{
+			tblCombos.Enabled = false;
+			verseView.Enabled = false;
+
+			tsFont.Enabled = false;
+			tsLblInfo.Enabled = false;
+			tsClose.Enabled = false;
 		}
 
 		public event EventHandler CloseRequested;
@@ -150,20 +163,14 @@ namespace VerseFlow.UI.Controls
 							verse = args[1].TryGetInt32();
 					}
 
-					cmbChapter.Items.Clear();
-					for (int item = 1; item <= book.ChaptersCount; item++)
-						cmbChapter.Items.Add(item);
-
 					string chap = chapter == 0
 						? "1"
 						: chapter.ToString(CultureInfo.InvariantCulture);
 
-					cmbChapter.Text = chap;
-
 					var opened = bible.OpenChapter(book, chap);
 					verseView.Fill(opened.ConvertAll(v => v.Text));
 
-					tsLblInfo.Text = string.Format("{0} {1}", book.Name, chap);
+					tsLblInfo.Text = string.Format("{0} {1}", book.Shortcut, chap);
 
 					if (verse > 0)
 						verseView.SelectItem(verse - 1);
@@ -233,15 +240,13 @@ namespace VerseFlow.UI.Controls
 
 			if (chap == 0)
 			{
-				tsPrev.Enabled = false;
-				tsNext.Enabled = false;
+				//				tsPrev.Enabled = false;
+				//				tsNext.Enabled = false;
 			}
 			else
 			{
-				tsPrev.Enabled = true;
-				tsNext.Enabled = true;
-
-				Debug.WriteLine("Index " + combo.SelectedIndex);
+				//				tsPrev.Enabled = true;
+				//				tsNext.Enabled = true;
 			}
 		}
 
@@ -249,7 +254,6 @@ namespace VerseFlow.UI.Controls
 		{
 			OnCloseRequested();
 		}
-
 	}
 
 	public static class Extensions

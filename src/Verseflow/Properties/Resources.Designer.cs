@@ -83,6 +83,36 @@ namespace VerseFlow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1402072563_cross {
+            get {
+                object obj = ResourceManager.GetObject("1402072563_cross", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1402077846_inbox_download {
+            get {
+                object obj = ResourceManager.GetObject("1402077846_inbox-download", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1402078190_plus {
+            get {
+                object obj = ResourceManager.GetObject("1402078190_plus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap binocular {
             get {
                 object obj = ResourceManager.GetObject("binocular", resourceCulture);
@@ -126,6 +156,16 @@ namespace VerseFlow.Properties {
         internal static System.Drawing.Bitmap book_open_next {
             get {
                 object obj = ResourceManager.GetObject("book-open-next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap book_open_previous {
+            get {
+                object obj = ResourceManager.GetObject("book-open-previous", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -94,11 +94,11 @@
     <Compile Include="UI\Controls\Display.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\DisplayLiveView.cs">
+    <Compile Include="UI\Controls\DisplayView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Controls\DisplayLiveView.Designer.cs">
-      <DependentUpon>DisplayLiveView.cs</DependentUpon>
+    <Compile Include="UI\Controls\DisplayView.Designer.cs">
+      <DependentUpon>DisplayView.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\dotnetrix.co.uk\Button.cs">
       <SubType>Component</SubType>
@@ -180,8 +180,8 @@
     <EmbeddedResource Include="UI\Controls\BibleView.resx">
       <DependentUpon>BibleView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Controls\DisplayLiveView.resx">
-      <DependentUpon>DisplayLiveView.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Controls\DisplayView.resx">
+      <DependentUpon>DisplayView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
@@ -226,6 +226,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\1402078190_plus.png" />
+    <None Include="Resources\1402077846_inbox-download.png" />
+    <None Include="Resources\book-open-previous.png" />
+    <None Include="Resources\1402072563_cross.png" />
     <None Include="Resources\book-open-next.png" />
     <None Include="Resources\1402049392_arrow-000-medium.png" />
     <None Include="Resources\1402049221_arrow-180-medium.png" />
