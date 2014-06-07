@@ -27,6 +27,7 @@ namespace VerseFlow.UI.Controls
 				throw new ArgumentNullException("colorTheme");
 
 			this.colorTheme = colorTheme;
+			lineRenderer = new RegularLineRenderer(new Renderer(font), new VerseViewColorTheme());
 			Font = font;
 		}
 
@@ -182,7 +183,6 @@ namespace VerseFlow.UI.Controls
 				else
 					return i;
 			}
-
 
 			return -1;
 		}

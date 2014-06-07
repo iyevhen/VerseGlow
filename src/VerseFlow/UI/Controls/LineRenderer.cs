@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using FreePresenter;
 using VerseFlow.Common;
 
 namespace VerseFlow.UI.Controls

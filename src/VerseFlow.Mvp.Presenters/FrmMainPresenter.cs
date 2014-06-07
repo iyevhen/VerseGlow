@@ -13,8 +13,6 @@ namespace VerseFlow.Mvp.Presenters
 		protected override void OnViewConnected(IFrmMainView v)
 		{
 			base.OnViewConnected(v);
-
-			v.SetMenuItem();
 		}
 
 		
