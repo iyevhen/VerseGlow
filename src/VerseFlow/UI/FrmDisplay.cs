@@ -193,5 +193,9 @@ namespace VerseFlow.UI
 		{
 
 		}
+
+		private void FrmDisplay_MouseMove(object sender, MouseEventArgs e)
+		{
+		}
 	}
 }

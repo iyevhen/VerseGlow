@@ -38,16 +38,19 @@
 			this.ClientSize = new System.Drawing.Size(492, 355);
 			this.MinimizeBox = false;
 			this.Name = "FrmDisplay";
+			this.Padding = new System.Windows.Forms.Padding(10);
 			this.Text = "Double click to fullscreen";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmDisplay_FormClosing);
 			this.Load += new System.EventHandler(this.FrmDisplay_Load);
 			this.DoubleClick += new System.EventHandler(this.FrmDisplay_DoubleClick);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmDisplay_MouseDown);
+			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmDisplay_MouseMove);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
+
 
 	}
 }

@@ -18,8 +18,7 @@ namespace VerseFlow.UI.Controls
 		{
 			InitializeComponent();
 
-			cmbNavigate.SetCue("Select book or enter search text and hit Enter...");
-			tsLblInfo.Text = "";
+			cmbNavigate.SetCue("Type search text and press Enter...");
 		}
 
 		public IBible Bible
@@ -31,7 +30,8 @@ namespace VerseFlow.UI.Controls
 
 				if (bible != null)
 				{
-					tsBible.Text = bible.Name;
+					lblTitle.Text = bible.Name;
+
 					bookMap = new Dictionary<string, BibleBook>(StringComparer.CurrentCultureIgnoreCase);
 					List<BibleBook> books = bible.OpenBooks();
 
@@ -58,6 +58,7 @@ namespace VerseFlow.UI.Controls
 
 							bookMap[book.Name] = book;
 							bookMap[trimmed.ToString()] = book;
+							
 							cmbNavigate.Items.Add(book.Name);
 
 							foreach (string shortcut in book.Shortcuts)
@@ -82,8 +83,8 @@ namespace VerseFlow.UI.Controls
 			verseView.Enabled = false;
 
 			tsFont.Enabled = false;
-			tsLblInfo.Enabled = false;
-			tsClose.Enabled = false;
+			tsLblChapter.Enabled = false;
+			btnClose.Enabled = false;
 		}
 
 		public event EventHandler CloseRequested;
@@ -128,6 +129,7 @@ namespace VerseFlow.UI.Controls
 		private void GoTo(string searchfor)
 		{
 			bool startsExclamation = searchfor.Length > 0 && searchfor[0] == '!';
+			verseView.HighlightText = null;
 
 			if (!startsExclamation)
 			{
@@ -148,6 +150,8 @@ namespace VerseFlow.UI.Controls
 
 				if (book != null)
 				{
+					tsBook.Text = book.Name;
+
 					string[] args = searchfor
 						.Substring(i)
 						.Split(new[] { ' ', ':', '-' }, StringSplitOptions.RemoveEmptyEntries);
@@ -170,7 +174,7 @@ namespace VerseFlow.UI.Controls
 					var opened = bible.OpenChapter(book, chap);
 					verseView.Fill(opened.ConvertAll(v => v.Text));
 
-					tsLblInfo.Text = string.Format("{0} {1}", book.Shortcut, chap);
+					tsLblChapter.Text = chap;
 
 					if (verse > 0)
 						verseView.SelectItem(verse - 1);
@@ -188,7 +192,7 @@ namespace VerseFlow.UI.Controls
 
 			verseView.Fill(found.ConvertAll(v => v.Text));
 			verseView.HighlightText = searchfor;
-			tsLblInfo.Text = string.Format("Found {0} verses", found.Count);
+			tsLblChapter.Text = string.Format("Found {0} verses", found.Count);
 		}
 
 		private void tsFont_Click(object sender, EventArgs e)
@@ -253,6 +257,11 @@ namespace VerseFlow.UI.Controls
 		private void btnClose_Click(object sender, EventArgs e)
 		{
 			OnCloseRequested();
+		}
+
+		private void tsFind_Click(object sender, EventArgs e)
+		{
+			cmbNavigate.Visible = tsFind.Checked;
 		}
 	}
 

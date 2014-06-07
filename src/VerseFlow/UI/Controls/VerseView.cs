@@ -386,7 +386,7 @@ namespace VerseFlow.UI.Controls
 
 								string highligten = line.Substring(found, lightlen);
 
-								TextRenderer.DrawText(graphics, highligten, font, point, Color.Red, Color.LightPink, Tff);
+								TextRenderer.DrawText(graphics, highligten, font, point, Color.Red, Color.LightYellow, Tff);
 								point.X += GetWidthOf(graphics, highligten, font);
 
 								cur = found + lightlen;

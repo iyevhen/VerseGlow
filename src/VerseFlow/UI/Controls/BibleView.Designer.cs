@@ -31,23 +31,27 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BibleView));
 			this.cmbNavigate = new System.Windows.Forms.ComboBox();
-			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.tsBible = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tsFont = new System.Windows.Forms.ToolStripButton();
+			this.toolStripMain = new System.Windows.Forms.ToolStrip();
+			this.tsBook = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tsLblInfo = new System.Windows.Forms.ToolStripLabel();
-			this.tsClose = new System.Windows.Forms.ToolStripButton();
-			this.tsPrevBook = new System.Windows.Forms.ToolStripButton();
-			this.tsNextBook = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.tsLblChapter = new System.Windows.Forms.ToolStripLabel();
 			this.tsPrevChapter = new System.Windows.Forms.ToolStripButton();
 			this.tsNextChapter = new System.Windows.Forms.ToolStripButton();
-			this.tsAddView = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.tsPrevBook = new System.Windows.Forms.ToolStripButton();
+			this.tsNextBook = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.tsFind = new System.Windows.Forms.ToolStripButton();
+			this.tsFont = new System.Windows.Forms.ToolStripButton();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.tblCombos = new System.Windows.Forms.TableLayoutPanel();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.lblTitle = new System.Windows.Forms.Label();
 			this.verseView = new VerseFlow.UI.Controls.VerseView();
-			this.toolStrip1.SuspendLayout();
+			this.btnClose = new VerseFlow.UI.Controls.dotnetrix.co.uk.Button();
+			this.toolStripMain.SuspendLayout();
 			this.tblCombos.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// cmbNavigate
@@ -62,91 +66,49 @@
 			this.cmbNavigate.SelectedIndexChanged += new System.EventHandler(this.cmbNavigate_SelectedIndexChanged);
 			this.cmbNavigate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbNavigate_KeyDown);
 			// 
-			// toolStrip1
+			// toolStripMain
 			// 
-			this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(1);
-			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsBible,
-            this.tsAddView,
+			this.toolStripMain.GripMargin = new System.Windows.Forms.Padding(1);
+			this.toolStripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsBook,
             this.toolStripSeparator1,
-            this.tsLblInfo,
-            this.tsClose,
-            this.tsPrevBook,
-            this.tsNextBook,
-            this.toolStripSeparator2,
+            this.tsLblChapter,
             this.tsPrevChapter,
             this.tsNextChapter,
+            this.toolStripSeparator2,
+            this.tsPrevBook,
+            this.tsNextBook,
+            this.toolStripSeparator3,
+            this.tsFind,
             this.tsFont});
-			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(347, 25);
-			this.toolStrip1.TabIndex = 2;
-			this.toolStrip1.Text = "toolStrip1";
+			this.toolStripMain.Location = new System.Drawing.Point(0, 18);
+			this.toolStripMain.Name = "toolStripMain";
+			this.toolStripMain.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+			this.toolStripMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+			this.toolStripMain.Size = new System.Drawing.Size(347, 25);
+			this.toolStripMain.TabIndex = 2;
+			this.toolStripMain.Text = "toolStrip1";
 			// 
-			// tsBible
+			// tsBook
 			// 
-			this.tsBible.Image = global::VerseFlow.Properties.Resources.book_open;
-			this.tsBible.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsBible.Name = "tsBible";
-			this.tsBible.Size = new System.Drawing.Size(94, 22);
-			this.tsBible.Text = "BibleName";
-			// 
-			// tsFont
-			// 
-			this.tsFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsFont.Image = global::VerseFlow.Properties.Resources.edit;
-			this.tsFont.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsFont.Name = "tsFont";
-			this.tsFont.Size = new System.Drawing.Size(23, 22);
-			this.tsFont.Text = "Font";
-			this.tsFont.Click += new System.EventHandler(this.tsFont_Click);
+			this.tsBook.CheckOnClick = true;
+			this.tsBook.Image = global::VerseFlow.Properties.Resources.book_open;
+			this.tsBook.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsBook.Name = "tsBook";
+			this.tsBook.Size = new System.Drawing.Size(70, 22);
+			this.tsBook.Text = "<Book>";
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
-			// tsLblInfo
+			// tsLblChapter
 			// 
-			this.tsLblInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-			this.tsLblInfo.Name = "tsLblInfo";
-			this.tsLblInfo.Size = new System.Drawing.Size(45, 22);
-			this.tsLblInfo.Text = "<info>";
-			// 
-			// tsClose
-			// 
-			this.tsClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.tsClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsClose.Image = global::VerseFlow.Properties.Resources._1402072563_cross;
-			this.tsClose.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsClose.Name = "tsClose";
-			this.tsClose.Size = new System.Drawing.Size(23, 22);
-			this.tsClose.Text = "Close";
-			this.tsClose.Click += new System.EventHandler(this.btnClose_Click);
-			// 
-			// tsPrevBook
-			// 
-			this.tsPrevBook.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsPrevBook.Image = global::VerseFlow.Properties.Resources.book_open_previous;
-			this.tsPrevBook.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsPrevBook.Name = "tsPrevBook";
-			this.tsPrevBook.Size = new System.Drawing.Size(23, 22);
-			this.tsPrevBook.Text = "Previous Book";
-			// 
-			// tsNextBook
-			// 
-			this.tsNextBook.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsNextBook.Image = global::VerseFlow.Properties.Resources.book_open_next;
-			this.tsNextBook.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsNextBook.Name = "tsNextBook";
-			this.tsNextBook.Size = new System.Drawing.Size(23, 22);
-			this.tsNextBook.Text = "Next Book";
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			this.tsLblChapter.Name = "tsLblChapter";
+			this.tsLblChapter.Size = new System.Drawing.Size(14, 22);
+			this.tsLblChapter.Text = "#";
 			// 
 			// tsPrevChapter
 			// 
@@ -166,14 +128,56 @@
 			this.tsNextChapter.Size = new System.Drawing.Size(23, 22);
 			this.tsNextChapter.Text = "Next Chapter";
 			// 
-			// tsAddView
+			// toolStripSeparator2
 			// 
-			this.tsAddView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsAddView.Image = global::VerseFlow.Properties.Resources._1402078190_plus;
-			this.tsAddView.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsAddView.Name = "tsAddView";
-			this.tsAddView.Size = new System.Drawing.Size(23, 22);
-			this.tsAddView.Text = "New View";
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tsPrevBook
+			// 
+			this.tsPrevBook.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsPrevBook.Image = global::VerseFlow.Properties.Resources.book_open_previous;
+			this.tsPrevBook.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsPrevBook.Name = "tsPrevBook";
+			this.tsPrevBook.Size = new System.Drawing.Size(23, 22);
+			this.tsPrevBook.Text = "Previous Book";
+			// 
+			// tsNextBook
+			// 
+			this.tsNextBook.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsNextBook.Image = global::VerseFlow.Properties.Resources.book_open_next;
+			this.tsNextBook.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsNextBook.Name = "tsNextBook";
+			this.tsNextBook.Size = new System.Drawing.Size(23, 22);
+			this.tsNextBook.Text = "Next Book";
+			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tsFind
+			// 
+			this.tsFind.Checked = true;
+			this.tsFind.CheckOnClick = true;
+			this.tsFind.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.tsFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsFind.Image = global::VerseFlow.Properties.Resources.binocular;
+			this.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsFind.Name = "tsFind";
+			this.tsFind.Size = new System.Drawing.Size(23, 22);
+			this.tsFind.Text = "toolStripButton1";
+			this.tsFind.Click += new System.EventHandler(this.tsFind_Click);
+			// 
+			// tsFont
+			// 
+			this.tsFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsFont.Image = global::VerseFlow.Properties.Resources.edit;
+			this.tsFont.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsFont.Name = "tsFont";
+			this.tsFont.Size = new System.Drawing.Size(23, 22);
+			this.tsFont.Text = "Font";
+			this.tsFont.Click += new System.EventHandler(this.tsFont_Click);
 			// 
 			// imageList1
 			// 
@@ -197,13 +201,37 @@
 			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.tblCombos.Controls.Add(this.cmbNavigate, 0, 0);
 			this.tblCombos.Dock = System.Windows.Forms.DockStyle.Top;
-			this.tblCombos.Location = new System.Drawing.Point(0, 25);
+			this.tblCombos.Location = new System.Drawing.Point(0, 43);
 			this.tblCombos.Margin = new System.Windows.Forms.Padding(0);
 			this.tblCombos.Name = "tblCombos";
 			this.tblCombos.RowCount = 1;
 			this.tblCombos.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tblCombos.Size = new System.Drawing.Size(347, 22);
 			this.tblCombos.TabIndex = 5;
+			// 
+			// panel1
+			// 
+			this.panel1.AutoSize = true;
+			this.panel1.BackColor = System.Drawing.Color.SteelBlue;
+			this.panel1.Controls.Add(this.btnClose);
+			this.panel1.Controls.Add(this.lblTitle);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel1.Location = new System.Drawing.Point(0, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Padding = new System.Windows.Forms.Padding(2);
+			this.panel1.Size = new System.Drawing.Size(347, 18);
+			this.panel1.TabIndex = 0;
+			// 
+			// lblTitle
+			// 
+			this.lblTitle.AutoSize = true;
+			this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lblTitle.ForeColor = System.Drawing.Color.White;
+			this.lblTitle.Location = new System.Drawing.Point(2, 2);
+			this.lblTitle.Name = "lblTitle";
+			this.lblTitle.Size = new System.Drawing.Size(31, 14);
+			this.lblTitle.TabIndex = 0;
+			this.lblTitle.Text = "title";
 			// 
 			// verseView
 			// 
@@ -215,13 +243,25 @@
 			this.verseView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.verseView.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.verseView.HighlightText = null;
-			this.verseView.Location = new System.Drawing.Point(0, 47);
+			this.verseView.Location = new System.Drawing.Point(0, 65);
 			this.verseView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.verseView.Name = "verseView";
 			this.verseView.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
 			this.verseView.ReadOnly = false;
-			this.verseView.Size = new System.Drawing.Size(347, 373);
+			this.verseView.Size = new System.Drawing.Size(347, 355);
 			this.verseView.TabIndex = 1;
+			// 
+			// btnClose
+			// 
+			this.btnClose.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.btnClose.Dock = System.Windows.Forms.DockStyle.Right;
+			this.btnClose.ImageIndex = 2;
+			this.btnClose.ImageList = this.imageList1;
+			this.btnClose.Location = new System.Drawing.Point(331, 2);
+			this.btnClose.Name = "btnClose";
+			this.btnClose.Size = new System.Drawing.Size(14, 14);
+			this.btnClose.TabIndex = 1;
+			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
 			// BibleView
 			// 
@@ -230,7 +270,8 @@
 			this.AutoSize = true;
 			this.Controls.Add(this.verseView);
 			this.Controls.Add(this.tblCombos);
-			this.Controls.Add(this.toolStrip1);
+			this.Controls.Add(this.toolStripMain);
+			this.Controls.Add(this.panel1);
 			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseFlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
@@ -238,9 +279,11 @@
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "BibleView";
 			this.Size = new System.Drawing.Size(347, 420);
-			this.toolStrip1.ResumeLayout(false);
-			this.toolStrip1.PerformLayout();
+			this.toolStripMain.ResumeLayout(false);
+			this.toolStripMain.PerformLayout();
 			this.tblCombos.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -250,19 +293,22 @@
 
 		private Controls.VerseView verseView;
 		private System.Windows.Forms.ComboBox cmbNavigate;
-		private System.Windows.Forms.ToolStrip toolStrip1;
+		private System.Windows.Forms.ToolStrip toolStripMain;
 		private System.Windows.Forms.ToolStripButton tsFont;
 		private System.Windows.Forms.TableLayoutPanel tblCombos;
 		private System.Windows.Forms.ImageList imageList1;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripLabel tsLblInfo;
-		private System.Windows.Forms.ToolStripButton tsClose;
-		private System.Windows.Forms.ToolStripDropDownButton tsBible;
+		private System.Windows.Forms.ToolStripLabel tsLblChapter;
 		private System.Windows.Forms.ToolStripButton tsPrevBook;
 		private System.Windows.Forms.ToolStripButton tsNextBook;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripButton tsPrevChapter;
 		private System.Windows.Forms.ToolStripButton tsNextChapter;
-		private System.Windows.Forms.ToolStripButton tsAddView;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Label lblTitle;
+		private dotnetrix.co.uk.Button btnClose;
+		private System.Windows.Forms.ToolStripButton tsBook;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripButton tsFind;
 	}
 }

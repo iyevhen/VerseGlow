@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using VerseFlow.Core;
+using VerseFlow.Core.Import.BibleQuote;
+using VerseFlow.Properties;
 using VerseFlow.UI.Controls;
 
 namespace VerseFlow.UI
@@ -35,16 +38,33 @@ namespace VerseFlow.UI
 
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
-			display = new FrmDisplay {Icon = Icon};
+			display = new FrmDisplay { Icon = Icon };
 			display.SizeChanged += DisplayOnSizeChanged;
 
 			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
 			Text = appNameAndVersion;
 
 			foreach (IBible b in Options.BibleRepository.OpenAll())
-				tsBibles.DropDownItems.Add(new ToolStripMenuItem(b.Name) {Tag = b});
+				tsBibles.DropDownItems.Insert(0, new ToolStripMenuItem(b.Name) { Tag = b });
 
 			opened = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			tsDisplay.DropDownItems.Clear();
+			foreach (Screen screen in Screen.AllScreens)
+			{
+				var dd = new DISPLAY_DEVICE();
+				dd.cb = Marshal.SizeOf(dd);
+				string monitorName = screen.DeviceName;
+
+				if (EnumDisplayDevices(screen.DeviceName, 0, ref dd, 0))
+				{
+					string[] splits = dd.DeviceString.Split(',');
+					monitorName = splits.Length > 0 ? splits[0] : dd.DeviceString;
+				}
+
+				tsDisplay.DropDownItems.Add(monitorName).Tag = screen;
+				tsDisplay.Text = monitorName;
+			}
 		}
 
 		private void tsAbout_Click(object sender, EventArgs e)
@@ -63,7 +83,7 @@ namespace VerseFlow.UI
 
 			if (item != null && item.Tag != null)
 			{
-				bible = (IBible) item.Tag;
+				bible = (IBible)item.Tag;
 
 				if (opened.Contains(bible.Name))
 				{
@@ -90,9 +110,9 @@ namespace VerseFlow.UI
 			int idx = tblBibles.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
 			tblBibles.ColumnCount += 1;
 			control.Anchor = AnchorStyles.Bottom |
-			                 AnchorStyles.Left |
-			                 AnchorStyles.Top |
-			                 AnchorStyles.Right;
+							 AnchorStyles.Left |
+							 AnchorStyles.Top |
+							 AnchorStyles.Right;
 			control.Margin = new Padding(0);
 			tblBibles.Controls.Add(control, idx, 0);
 			tblBibles.ResumeLayout();
@@ -129,15 +149,15 @@ namespace VerseFlow.UI
 
 		private void tsGoLive_Click(object sender, EventArgs e)
 		{
-			//			if (tsGoLive.Checked)
-			//			{
-			//				display.Activate();
-			//				SetDisplayProportions(display);
-			//			}
-			//			else
-			//			{
-			//				display.Deactivate();
-			//			}
+			if (tsGoLive.Checked)
+			{
+				display.Activate();
+				SetDisplayProportions(display);
+			}
+			else
+			{
+				display.Deactivate();
+			}
 		}
 
 		private void DisplayOnSizeChanged(object sender, EventArgs eventArgs)
@@ -152,20 +172,35 @@ namespace VerseFlow.UI
 
 		private void SetDisplayProportions(IDisplay disp)
 		{
-			//			displayViewPreview.Etalon = disp.Size;
-			//			displayViewLive.Etalon = disp.Size;
+			displayView1.LiveDisplaySize = disp.Size;
 		}
 
 		private void miBibleQuote_Click(object sender, EventArgs e)
 		{
-			using (var f = new FrmImportBibleQuote {Icon = Icon})
+			string bqtini = null;
+			using (var ofd = new OpenFileDialog())
+			{
+				ofd.Title = Resources.SelectBibleQuoteIniFile;
+				ofd.CheckFileExists = true;
+				ofd.Multiselect = false;
+				//ofd.InitialDirectory = browseDir;
+				ofd.Filter = string.Format("BibleQuote INI File|{0}", BqtIni.INI);
+
+				if (DialogResult.OK == ofd.ShowDialog(this))
+				{
+					bqtini = ofd.FileName;
+					//browseDir = Path.GetDirectoryName(ofd.FileName);
+				}
+			}
+
+			using (var f = new FrmImportBibleQuote(bqtini) { Icon = Icon })
 			{
 				if (DialogResult.OK == f.ShowDialog(this))
 				{
 					IBible imported = f.ImportedBible;
 
 					if (imported != null)
-						tsBibles.DropDownItems.Add(new ToolStripMenuItem(imported.Name) {Tag = imported});
+						tsBibles.DropDownItems.Add(new ToolStripMenuItem(imported.Name) { Tag = imported });
 				}
 			}
 		}
@@ -182,8 +217,47 @@ namespace VerseFlow.UI
 			base.Dispose(disposing);
 		}
 
-		
+		[DllImport("user32.dll")]
+		static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
 
-		
+		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+		public struct DISPLAY_DEVICE
+		{
+			[MarshalAs(UnmanagedType.U4)]
+			public int cb;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+			public string DeviceName;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+			public string DeviceString;
+			[MarshalAs(UnmanagedType.U4)]
+			public DisplayDeviceStateFlags StateFlags;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+			public string DeviceID;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+			public string DeviceKey;
+		}
+
+		[Flags]
+		public enum DisplayDeviceStateFlags : int
+		{
+			/// <summary>The device is part of the desktop.</summary>
+			AttachedToDesktop = 0x1,
+			MultiDriver = 0x2,
+			/// <summary>The device is part of the desktop.</summary>
+			PrimaryDevice = 0x4,
+			/// <summary>Represents a pseudo device used to mirror application drawing for remoting or other purposes.</summary>
+			MirroringDriver = 0x8,
+			/// <summary>The device is VGA compatible.</summary>
+			VGACompatible = 0x10,
+			/// <summary>The device is removable; it cannot be the primary display.</summary>
+			Removable = 0x20,
+			/// <summary>The device has more display modes than its output devices support.</summary>
+			ModesPruned = 0x8000000,
+			Remote = 0x4000000,
+			Disconnect = 0x2000000
+		}
+
 	}
+
+
 }
