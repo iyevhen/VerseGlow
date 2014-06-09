@@ -37,7 +37,7 @@ namespace VerseFlow.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Verdana, 9pt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Verdana, 9.75pt")]
         public global::System.Drawing.Font BibleFont {
             get {
                 return ((global::System.Drawing.Font)(this["BibleFont"]));

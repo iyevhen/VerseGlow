@@ -5,7 +5,9 @@ namespace VerseFlow.UI
 {
     public interface IDisplay : IDisposable
     {
-		string DisplayText { get; set; }
+	    string Name { get; }
+	    void DrawVerse(string content, string reference);
+
 		Color BackColor { get; set; }
 		Image BackgroundImage { get; set; }
 
@@ -20,7 +22,7 @@ namespace VerseFlow.UI
 
 		Size Size { get; }
 
-        void Activate();
+	    void Activate();
         void Deactivate();
     }
 }

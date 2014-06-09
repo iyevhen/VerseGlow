@@ -20,5 +20,10 @@
 		{
 			get { return text; }
 		}
+
+		public string Reference
+		{
+			get { return "Sample Book Ref 32:12"; }
+		}
 	}
 }

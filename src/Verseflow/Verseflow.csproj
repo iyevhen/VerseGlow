@@ -90,7 +90,7 @@
     <Compile Include="UI\Controls\cyotek.com\GroupBox\GroupBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\FakeDisplay.cs">
+    <Compile Include="UI\Controls\DisplayControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\DisplayView.cs">

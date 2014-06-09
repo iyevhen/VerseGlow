@@ -14,6 +14,8 @@ namespace VerseFlow.UI
 		private FormWindowState winState;
 		private bool topMost;
 		private Rectangle bounds;
+		private bool isPaused;
+		private Point location;
 
 		public bool IsStoped
 		{
@@ -30,7 +32,6 @@ namespace VerseFlow.UI
 					 ControlStyles.AllPaintingInWmPaint |
 					 ControlStyles.DoubleBuffer |
 					 ControlStyles.ResizeRedraw, true);
-
 		}
 
 		protected override bool ShowWithoutActivation
@@ -38,7 +39,9 @@ namespace VerseFlow.UI
 			get { return true; }
 		}
 
-		protected override void OnPaintBackground(PaintEventArgs e) { }
+		protected override void OnPaintBackground(PaintEventArgs e)
+		{
+		}
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
@@ -64,8 +67,8 @@ namespace VerseFlow.UI
 				{
 					var bounds = path.GetBounds();
 
-					var x = (int) ((clientRect.Width - bounds.Width)/2);
-					var y = (int) ((clientRect.Height - bounds.Height)/2);
+					var x = (int)((clientRect.Width - bounds.Width) / 2);
+					var y = (int)((clientRect.Height - bounds.Height) / 2);
 
 					var r = new RectangleF(new PointF(x, y), bounds.Size);
 
@@ -77,7 +80,7 @@ namespace VerseFlow.UI
 					};
 
 					e.Graphics.Transform = new Matrix(bounds, target_pts);
-					
+
 					e.Graphics.FillPath(Brushes.White, path);
 
 					e.Graphics.ResetTransform();
@@ -85,7 +88,7 @@ namespace VerseFlow.UI
 			}
 		}
 
-		void OnActivationChanged()
+		private void OnActivationChanged()
 		{
 			EventHandler handler = ActivationChanged;
 
@@ -93,14 +96,10 @@ namespace VerseFlow.UI
 				handler(this, EventArgs.Empty);
 		}
 
-		public string DisplayText
+		public void DrawVerse(string content, string reference)
 		{
-			get { return currentText; }
-			set
-			{
-				currentText = value;
-				Refresh();
-			}
+			currentText = content;
+			Refresh();
 		}
 
 		public bool FullScreen
@@ -119,6 +118,7 @@ namespace VerseFlow.UI
 					brdStyle = FormBorderStyle;
 					topMost = TopMost;
 					bounds = Bounds;
+					location = Location;
 
 					WindowState = FormWindowState.Maximized;
 					FormBorderStyle = FormBorderStyle.None;
@@ -131,6 +131,7 @@ namespace VerseFlow.UI
 					FormBorderStyle = brdStyle;
 					TopMost = topMost;
 					Bounds = bounds;
+					Location = location;
 				}
 			}
 		}
@@ -147,7 +148,7 @@ namespace VerseFlow.UI
 
 		public bool IsPaused
 		{
-			get { throw new NotImplementedException(); }
+			get { return isPaused; }
 		}
 
 		void IDisplay.Deactivate()
@@ -187,7 +188,6 @@ namespace VerseFlow.UI
 
 		private void FrmDisplay_Load(object sender, EventArgs e)
 		{
-
 		}
 
 		private void FrmDisplay_MouseMove(object sender, MouseEventArgs e)

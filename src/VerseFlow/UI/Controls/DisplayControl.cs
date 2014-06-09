@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 namespace VerseFlow.UI.Controls
 {
-	public class FakeDisplay : Control
+	public class DisplayControl : Control
 	{
-		private readonly Size size43 = new Size(4, 3);
-		private Size proportionSize = new Size(4, 3);
+		private readonly Size defaultSize;
+		private Size proportionSize;
 
-		public FakeDisplay()
+		public DisplayControl()
 		{
 			SetStyle(ControlStyles.OptimizedDoubleBuffer
 					 | ControlStyles.ResizeRedraw
@@ -19,6 +19,9 @@ namespace VerseFlow.UI.Controls
 					 | ControlStyles.Opaque // will not call OnPaintBackground
 					 | ControlStyles.StandardClick
 					 | ControlStyles.StandardDoubleClick, true);
+
+			defaultSize = new Size(4, 3);
+			proportionSize = defaultSize;
 		}
 
 		protected override void OnPaintBackground(PaintEventArgs e)
@@ -30,7 +33,9 @@ namespace VerseFlow.UI.Controls
 			get { return proportionSize; }
 			set
 			{
-				proportionSize = value == default(Size) ? size43 : value;
+				proportionSize = value == default(Size) 
+					? defaultSize 
+					: value;
 				Invalidate();
 			}
 		}

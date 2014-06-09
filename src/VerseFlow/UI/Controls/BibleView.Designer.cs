@@ -46,9 +46,9 @@
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.tblCombos = new System.Windows.Forms.TableLayoutPanel();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.btnClose = new VerseFlow.UI.Controls.dotnetrix.co.uk.Button();
 			this.lblTitle = new System.Windows.Forms.Label();
 			this.verseView = new VerseFlow.UI.Controls.VerseView();
+			this.btnClose = new VerseFlow.UI.Controls.dotnetrix.co.uk.Button();
 			this.toolStripMain.SuspendLayout();
 			this.tblCombos.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -61,7 +61,7 @@
 			this.cmbNavigate.Location = new System.Drawing.Point(0, 0);
 			this.cmbNavigate.Margin = new System.Windows.Forms.Padding(0);
 			this.cmbNavigate.Name = "cmbNavigate";
-			this.cmbNavigate.Size = new System.Drawing.Size(347, 22);
+			this.cmbNavigate.Size = new System.Drawing.Size(260, 21);
 			this.cmbNavigate.TabIndex = 0;
 			this.cmbNavigate.SelectedIndexChanged += new System.EventHandler(this.cmbNavigate_SelectedIndexChanged);
 			this.cmbNavigate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbNavigate_KeyDown);
@@ -82,11 +82,11 @@
             this.toolStripSeparator3,
             this.tsFind,
             this.tsFont});
-			this.toolStripMain.Location = new System.Drawing.Point(0, 18);
+			this.toolStripMain.Location = new System.Drawing.Point(0, 17);
 			this.toolStripMain.Name = "toolStripMain";
-			this.toolStripMain.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+			this.toolStripMain.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
 			this.toolStripMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStripMain.Size = new System.Drawing.Size(347, 25);
+			this.toolStripMain.Size = new System.Drawing.Size(260, 25);
 			this.toolStripMain.TabIndex = 2;
 			this.toolStripMain.Text = "toolStrip1";
 			// 
@@ -194,19 +194,19 @@
 			this.tblCombos.AutoSize = true;
 			this.tblCombos.ColumnCount = 1;
 			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+			this.tblCombos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
 			this.tblCombos.Controls.Add(this.cmbNavigate, 0, 0);
 			this.tblCombos.Dock = System.Windows.Forms.DockStyle.Top;
-			this.tblCombos.Location = new System.Drawing.Point(0, 43);
+			this.tblCombos.Location = new System.Drawing.Point(0, 42);
 			this.tblCombos.Margin = new System.Windows.Forms.Padding(0);
 			this.tblCombos.Name = "tblCombos";
 			this.tblCombos.RowCount = 1;
 			this.tblCombos.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tblCombos.Size = new System.Drawing.Size(347, 22);
+			this.tblCombos.Size = new System.Drawing.Size(260, 21);
 			this.tblCombos.TabIndex = 5;
 			// 
 			// panel1
@@ -217,22 +217,11 @@
 			this.panel1.Controls.Add(this.lblTitle);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
+			this.panel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.panel1.Name = "panel1";
 			this.panel1.Padding = new System.Windows.Forms.Padding(2);
-			this.panel1.Size = new System.Drawing.Size(347, 18);
+			this.panel1.Size = new System.Drawing.Size(260, 17);
 			this.panel1.TabIndex = 0;
-			// 
-			// btnClose
-			// 
-			this.btnClose.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.btnClose.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnClose.ImageIndex = 2;
-			this.btnClose.ImageList = this.imageList1;
-			this.btnClose.Location = new System.Drawing.Point(331, 2);
-			this.btnClose.Name = "btnClose";
-			this.btnClose.Size = new System.Drawing.Size(14, 14);
-			this.btnClose.TabIndex = 1;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
 			// lblTitle
 			// 
@@ -240,45 +229,59 @@
 			this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lblTitle.ForeColor = System.Drawing.Color.White;
 			this.lblTitle.Location = new System.Drawing.Point(2, 2);
+			this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(31, 14);
+			this.lblTitle.Size = new System.Drawing.Size(23, 13);
 			this.lblTitle.TabIndex = 0;
 			this.lblTitle.Text = "title";
 			// 
 			// verseView
 			// 
 			this.verseView.AutoScroll = true;
-			this.verseView.AutoScrollMinSize = new System.Drawing.Size(341, 10);
+			this.verseView.AutoScrollMinSize = new System.Drawing.Size(256, 10);
 			this.verseView.AutoScrollOffset = new System.Drawing.Point(500, 500);
 			this.verseView.BackColor = global::VerseFlow.Properties.Settings.Default.BibleBackColor;
 			this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.verseView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.verseView.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
 			this.verseView.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.verseView.HighlightText = null;
-			this.verseView.Location = new System.Drawing.Point(0, 65);
-			this.verseView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.verseView.Location = new System.Drawing.Point(0, 63);
+			this.verseView.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
 			this.verseView.Name = "verseView";
-			this.verseView.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
+			this.verseView.Padding = new System.Windows.Forms.Padding(2, 5, 2, 5);
 			this.verseView.ReadOnly = false;
-			this.verseView.Size = new System.Drawing.Size(347, 355);
+			this.verseView.Size = new System.Drawing.Size(260, 327);
 			this.verseView.TabIndex = 1;
+			// 
+			// btnClose
+			// 
+			this.btnClose.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.btnClose.Dock = System.Windows.Forms.DockStyle.Right;
+			this.btnClose.ImageIndex = 2;
+			this.btnClose.ImageList = this.imageList1;
+			this.btnClose.Location = new System.Drawing.Point(248, 2);
+			this.btnClose.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+			this.btnClose.Name = "btnClose";
+			this.btnClose.Size = new System.Drawing.Size(10, 13);
+			this.btnClose.TabIndex = 1;
+			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
 			// BibleView
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSize = true;
 			this.Controls.Add(this.verseView);
 			this.Controls.Add(this.tblCombos);
 			this.Controls.Add(this.toolStripMain);
 			this.Controls.Add(this.panel1);
-			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseFlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
 			this.ForeColor = global::VerseFlow.Properties.Settings.Default.BibleForeColor;
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "BibleView";
-			this.Size = new System.Drawing.Size(347, 420);
+			this.Size = new System.Drawing.Size(260, 390);
 			this.toolStripMain.ResumeLayout(false);
 			this.toolStripMain.PerformLayout();
 			this.tblCombos.ResumeLayout(false);

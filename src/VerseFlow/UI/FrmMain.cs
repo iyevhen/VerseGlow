@@ -11,10 +11,7 @@ namespace VerseFlow.UI
 {
 	public partial class FrmMain : Form
 	{
-		private string appNameAndVersion;
-		private IBible bible;
-
-		private HashSet<string> opened;
+		private HashSet<string> openedBibles;
 
 		public FrmMain()
 		{
@@ -36,13 +33,14 @@ namespace VerseFlow.UI
 
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
-			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
-			Text = appNameAndVersion;
+			Text = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
 
-			foreach (IBible b in Options.BibleRepository.OpenAll())
+			IBible[] bibles = Options.BibleRepository.OpenAll();
+
+			foreach (IBible b in bibles)
 				tsBibles.DropDownItems.Insert(0, new ToolStripMenuItem(b.Name) { Tag = b });
 
-			opened = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			openedBibles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
 			//Dispays
 			tsDisplay.DropDownItems.Clear();
@@ -59,8 +57,11 @@ namespace VerseFlow.UI
 				}
 
 				tsDisplay.DropDownItems.Add(monitorName).Tag = screen;
-				tsDisplay.Text = monitorName;
+				displayView.DisplayName = monitorName;
 			}
+
+			if (bibles.Length > 0)
+				OpenBible(bibles[0]);
 		}
 
 		private void tsAbout_Click(object sender, EventArgs e)
@@ -78,27 +79,26 @@ namespace VerseFlow.UI
 			ToolStripItem item = e.ClickedItem;
 
 			if (item != null && item.Tag != null)
+				OpenBible((IBible)item.Tag);
+		}
+
+		private void OpenBible(IBible bible)
+		{
+			if (!openedBibles.Contains(bible.Name))
 			{
-				bible = (IBible)item.Tag;
+				var bview = new BibleView();
+				bview.CloseRequested += OnBibleViewCloseRequested;
+				bview.SelectedVerseChanged += OnBibleViewSelectedVerseChanged;
+				bview.Bible = bible;
 
-				if (opened.Contains(bible.Name))
-				{
-				}
-				else
-				{
-					var bibleView = new BibleView
-					{
-						Bible = bible
-					};
-
-					bibleView.CloseRequested += bibleView_CloseRequested;
-					bibleView.SelectedVerseChanged += v => displayView.DisplayVerse(v);
-
-					AddView(bibleView);
-
-					opened.Add(bible.Name);
-				}
+				AddView(bview);
+				openedBibles.Add(bible.Name);
 			}
+		}
+
+		private void OnBibleViewSelectedVerseChanged(BibleVerse v)
+		{
+			displayView.DisplayVerse(v);
 		}
 
 		private void AddView(Control control)
@@ -115,7 +115,7 @@ namespace VerseFlow.UI
 			tblBibles.ResumeLayout();
 		}
 
-		private void bibleView_CloseRequested(object sender, EventArgs e)
+		private void OnBibleViewCloseRequested(object sender, EventArgs e)
 		{
 			var bview = sender as BibleView;
 
@@ -127,7 +127,8 @@ namespace VerseFlow.UI
 			tblBibles.SuspendLayout();
 
 			tblBibles.Controls.Remove(bview);
-			bview.CloseRequested -= bibleView_CloseRequested;
+			bview.CloseRequested -= OnBibleViewCloseRequested;
+			bview.SelectedVerseChanged -= OnBibleViewSelectedVerseChanged;
 			bview.Dispose();
 
 			for (int i = column + 1; i < tblBibles.ColumnCount; i++)
@@ -141,24 +142,7 @@ namespace VerseFlow.UI
 
 			tblBibles.ResumeLayout();
 
-			opened.Remove(bview.Bible.Name);
-		}
-
-		private void tsGoLive_Click(object sender, EventArgs e)
-		{
-			var btn = sender as ToolStripButton;
-
-			if (btn == null)
-				return;
-
-			if (btn.Checked)
-			{
-				displayView.Activate();
-			}
-			else
-			{
-				displayView.Deactivate();
-			}
+			openedBibles.Remove(bview.Bible.Name);
 		}
 
 		private void miBibleQuote_Click(object sender, EventArgs e)
@@ -182,7 +166,7 @@ namespace VerseFlow.UI
 							IBible imported = f.ImportedBible;
 
 							if (imported != null)
-								tsBibles.DropDownItems.Add(new ToolStripMenuItem(imported.Name) { Tag = imported });
+								tsBibles.DropDownItems.Insert(0, new ToolStripMenuItem(imported.Name) { Tag = imported });
 						}
 					}
 				}
@@ -190,7 +174,8 @@ namespace VerseFlow.UI
 		}
 
 		[DllImport("user32.dll")]
-		static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
+		private static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice,
+			uint dwFlags);
 
 		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
 		public struct DISPLAY_DEVICE
@@ -215,14 +200,19 @@ namespace VerseFlow.UI
 			/// <summary>The device is part of the desktop.</summary>
 			AttachedToDesktop = 0x1,
 			MultiDriver = 0x2,
+
 			/// <summary>The device is part of the desktop.</summary>
 			PrimaryDevice = 0x4,
+
 			/// <summary>Represents a pseudo device used to mirror application drawing for remoting or other purposes.</summary>
 			MirroringDriver = 0x8,
+
 			/// <summary>The device is VGA compatible.</summary>
 			VGACompatible = 0x10,
+
 			/// <summary>The device is removable; it cannot be the primary display.</summary>
 			Removable = 0x20,
+
 			/// <summary>The device has more display modes than its output devices support.</summary>
 			ModesPruned = 0x8000000,
 			Remote = 0x4000000,

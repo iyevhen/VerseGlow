@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using VerseFlow.Core;
 
@@ -7,17 +6,31 @@ namespace VerseFlow.UI.Controls
 {
 	public partial class DisplayView : UserControl, IDisplay
 	{
-		private IDisplay live;
+		private readonly IDisplay live;
 
 		public DisplayView()
 		{
 			InitializeComponent();
+
 			live = new FrmDisplay();
-			live.SizeChanged += DisplayOnSizeChanged;
 
-			Load += DisplayView_Load;
+			live.SizeChanged += (s, args) =>
+			{
+				var disp = s as IDisplay;
+
+				if (disp != null)
+					preview.ProportionSize = disp.Size;
+			};
+
+			Load += (s, args) =>
+			{
+				var parent = FindForm();
+
+				if (parent != null)
+					((Form)live).Icon = parent.Icon;
+			};
 		}
-
+	
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && (components != null))
@@ -31,37 +44,40 @@ namespace VerseFlow.UI.Controls
 			base.Dispose(disposing);
 		}
 
-		public Size LiveDisplaySize
+		private void tsGoLive_Click(object sender, EventArgs e)
 		{
-			get { return preview.ProportionSize; }
-			set { preview.ProportionSize = value; }
-		}
+			var btn = sender as ToolStripButton;
 
-		void DisplayView_Load(object sender, EventArgs e)
-		{
-			var parent = FindForm();
+			if (btn == null)
+				return;
 
-			if (parent != null)
-				((Form)live).Icon = parent.Icon;
-		}
-
-		private void DisplayOnSizeChanged(object sender, EventArgs eventArgs)
-		{
-			var disp = sender as IDisplay;
-
-			if (disp != null)
-				preview.ProportionSize = disp.Size;
+			if (btn.Checked)
+			{
+				Activate();
+			}
+			else
+			{
+				Deactivate();
+			}
 		}
 
 
 		public void DisplayVerse(BibleVerse bibleVerse)
 		{
-			live.DisplayText = bibleVerse == null
-				? null
-				: bibleVerse.Text;
+			if (bibleVerse == null)
+			{
+				live.DrawVerse(null, null);
+			}
+			else
+			{
+				live.DrawVerse(bibleVerse.Text, bibleVerse.Reference);
+			}
 		}
 
-		public string DisplayText { get; set; }
+		public void DrawVerse(string content, string reference)
+		{
+			live.DrawVerse(content, reference);
+		}
 
 		public bool FullScreen
 		{
@@ -72,6 +88,13 @@ namespace VerseFlow.UI.Controls
 		public bool IsPlaying { get; private set; }
 		public bool IsPaused { get; private set; }
 		public bool IsStoped { get; private set; }
+
+		public string DisplayName
+		{
+			get { return lblDispName.Text; } 
+			set { lblDispName.Text = value; }
+		}
+
 		public event EventHandler ActivationChanged;
 
 		public void Activate()
