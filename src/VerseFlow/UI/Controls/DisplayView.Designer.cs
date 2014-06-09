@@ -17,7 +17,6 @@
 		private void InitializeComponent()
 		{
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.preview = new VerseFlow.UI.Controls.DisplayControl();
 			this.toolStripMain = new System.Windows.Forms.ToolStrip();
 			this.tsGoLive = new System.Windows.Forms.ToolStripButton();
 			this.tsPause = new System.Windows.Forms.ToolStripButton();
@@ -28,6 +27,7 @@
 			this.lblDispName = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lblOptions = new System.Windows.Forms.Label();
+			this.preview = new VerseFlow.UI.Controls.DisplayControl();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -53,20 +53,9 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.panel1);
-			this.splitContainer1.Size = new System.Drawing.Size(285, 414);
-			this.splitContainer1.SplitterDistance = 223;
+			this.splitContainer1.Size = new System.Drawing.Size(468, 717);
+			this.splitContainer1.SplitterDistance = 386;
 			this.splitContainer1.TabIndex = 7;
-			// 
-			// preview
-			// 
-			this.preview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.preview.Location = new System.Drawing.Point(0, 42);
-			this.preview.Margin = new System.Windows.Forms.Padding(0);
-			this.preview.Name = "preview";
-			this.preview.ProportionSize = new System.Drawing.Size(4, 3);
-			this.preview.Size = new System.Drawing.Size(285, 181);
-			this.preview.TabIndex = 0;
-			this.preview.Text = "displaySmall";
 			// 
 			// toolStripMain
 			// 
@@ -82,7 +71,7 @@
 			this.toolStripMain.Name = "toolStripMain";
 			this.toolStripMain.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
 			this.toolStripMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.toolStripMain.Size = new System.Drawing.Size(285, 25);
+			this.toolStripMain.Size = new System.Drawing.Size(468, 25);
 			this.toolStripMain.TabIndex = 8;
 			this.toolStripMain.Text = "toolStrip1";
 			// 
@@ -141,7 +130,7 @@
 			this.panel2.Margin = new System.Windows.Forms.Padding(0);
 			this.panel2.Name = "panel2";
 			this.panel2.Padding = new System.Windows.Forms.Padding(2);
-			this.panel2.Size = new System.Drawing.Size(285, 17);
+			this.panel2.Size = new System.Drawing.Size(468, 17);
 			this.panel2.TabIndex = 2;
 			// 
 			// lblDispName
@@ -166,7 +155,7 @@
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
 			this.panel1.Padding = new System.Windows.Forms.Padding(2);
-			this.panel1.Size = new System.Drawing.Size(285, 17);
+			this.panel1.Size = new System.Drawing.Size(468, 17);
 			this.panel1.TabIndex = 1;
 			// 
 			// lblOptions
@@ -180,6 +169,17 @@
 			this.lblOptions.TabIndex = 0;
 			this.lblOptions.Text = "Options";
 			// 
+			// preview
+			// 
+			this.preview.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.preview.Location = new System.Drawing.Point(0, 42);
+			this.preview.Margin = new System.Windows.Forms.Padding(0);
+			this.preview.Name = "preview";
+			this.preview.ProportionSize = new System.Drawing.Size(4, 3);
+			this.preview.Size = new System.Drawing.Size(468, 344);
+			this.preview.TabIndex = 0;
+			this.preview.Text = "displaySmall";
+			// 
 			// DisplayView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,7 +187,7 @@
 			this.Controls.Add(this.splitContainer1);
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "DisplayView";
-			this.Size = new System.Drawing.Size(285, 414);
+			this.Size = new System.Drawing.Size(468, 717);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel1.PerformLayout();
 			this.splitContainer1.Panel2.ResumeLayout(false);

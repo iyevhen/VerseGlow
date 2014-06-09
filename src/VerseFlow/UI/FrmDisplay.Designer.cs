@@ -35,7 +35,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Black;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-			this.ClientSize = new System.Drawing.Size(492, 355);
+			this.ClientSize = new System.Drawing.Size(731, 532);
 			this.MinimizeBox = false;
 			this.Name = "FrmDisplay";
 			this.Padding = new System.Windows.Forms.Padding(10);

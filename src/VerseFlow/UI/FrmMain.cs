@@ -69,7 +69,6 @@ namespace VerseFlow.UI
 			}
 
 			displayView.SetDevice(screens[secondary], screensNames[secondary]);
-			
 		}
 
 		private void tsAbout_Click(object sender, EventArgs e)
@@ -230,5 +229,9 @@ namespace VerseFlow.UI
 		private void tsDisplay_DropDownOpening(object sender, EventArgs e)
 		{
 		}
+	}
+
+	class ScreenDevice
+	{
 	}
 }
