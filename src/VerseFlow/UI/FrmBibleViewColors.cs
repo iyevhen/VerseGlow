@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using VerseFlow.UI.Controls;
 
 namespace VerseFlow.UI
 {
@@ -22,10 +23,11 @@ namespace VerseFlow.UI
 				@"Curabitur eleifend, augue vitae euismod rhoncus, justo elit posuere ipsum, non tincidunt urna nisi nec arcu. Proin a tincidunt lacus, eu fringilla nisi. Sed bibendum tortor odio, ut porta leo luctus at. Nam ac urna nibh. Praesent pretium ipsum at nisl imperdiet facilisis. Praesent dictum, erat tristique posuere blandit, urna tellus porttitor purus, a adipiscing metus felis eget nulla. Aliquam vitae massa rhoncus, adipiscing dolor hendrerit, consequat ligula. Nullam consectetur interdum egestas. Vestibulum mattis porta nunc sit amet pretium. Nullam egestas lacinia libero, non blandit ante ultrices eget."
 			};
 
-			verseView1.Fill(strings);
-			verseView1.SelectItem(0);
-			verseView1.SetFocusedItem(1);
-			verseView1.HighlightText = "ipsum";
+//			List<VerseItem> items = new List<VerseItem> { new VerseItem()};
+//			verseView1.Fill(items);
+//			verseView1.SelectItem(0);
+//			verseView1.SetFocusedItem(1);
+//			verseView1.HighlightText = "ipsum";
 		}
 
 		private void btnOK_Click(object sender, EventArgs e)

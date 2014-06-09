@@ -4,9 +4,8 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Windows.Forms;
 
-namespace FreePresenter.UI
+namespace VerseFlow.UI.Controls
 {
 	public class TextCursor
 	{
@@ -100,6 +99,7 @@ namespace FreePresenter.UI
 		{
 			if (mycursor[0] != null)
 				return mycursor[0];
+
 			return Cursors.Default;
 		}
 

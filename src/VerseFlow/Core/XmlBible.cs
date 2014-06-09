@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Xml;
 using System.Xml.Schema;
 using VerseFlow.Core.Import;
@@ -74,9 +75,9 @@ namespace VerseFlow.Core
 							string refs = reader[attributeShortcuts];
 							string chaptersString = reader[attributeChapters];
 
-							int chapters;
-							if (!int.TryParse(chaptersString, out chapters))
-								throw new XmlSchemaException("'chapters' attribute expected to be of type Int32");
+							ushort chapters;
+							if (!ushort.TryParse(chaptersString, out chapters))
+								throw new XmlSchemaException(string.Format("'{0}' attribute expected to be of type UInt16", attributeChapters));
 
 							books.Add(new BibleBook(name, refs, chapters));
 						}
@@ -126,10 +127,12 @@ namespace VerseFlow.Core
 								{
 									if (reader.Name == elementVerse)
 									{
-										string id = reader[attributeId];
+										ushort id;
+										if (!ushort.TryParse(reader[attributeId], out id))
+											throw new XmlSchemaException(string.Format("'{0}' attribute expected to be of type UInt16", attributeId));
 
 										if (reader.Read())
-											result.Add(new BibleVerse(id, string.Format("{0}. {1}", id, reader.Value)));
+											result.Add(new BibleVerse(id, reader.Value));
 									}
 									else
 									{
@@ -173,7 +176,9 @@ namespace VerseFlow.Core
 
 						if (reader.IsStartElement() && reader.Name == elementVerse)
 						{
-							string id = reader[attributeId];
+							ushort id;
+							if (!ushort.TryParse(reader[attributeId], out id))
+								throw new XmlSchemaException(string.Format("'{0}' attribute expected to be of type UInt16", attributeId));
 
 							if (reader.Read())
 							{

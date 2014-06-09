@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace FreePresenter
+namespace VerseFlow.Common
 {
 	/// <summary>
 	/// Helper class for guard statements, that allow prettier code for guard clauses

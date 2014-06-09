@@ -69,7 +69,6 @@
     <Compile Include="Core\Import\IBibleVerse.cs" />
     <Compile Include="Core\IBibleRepository.cs" />
     <Compile Include="Hotkey.cs" />
-    <Compile Include="Is.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Core\XmlBible.cs" />
     <Compile Include="Core\BibleBook.cs" />
@@ -112,7 +111,10 @@
     <Compile Include="UI\Controls\dotnetrix.co.uk\RoundedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Controls\HighlightLineRenderer.cs" />
     <Compile Include="UI\Controls\Interval.cs" />
+    <Compile Include="UI\Controls\LineRenderer.cs" />
+    <Compile Include="UI\Controls\RegularLineRenderer.cs" />
     <Compile Include="UI\Controls\SplitButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -120,6 +122,9 @@
     <Compile Include="UI\Controls\UserRect.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
     <Compile Include="UI\ControlExtensions.cs" />
+    <Compile Include="UI\Controls\VerseViewColorTheme.cs" />
+    <Compile Include="UI\Controls\VerseViewPresenter.cs" />
+    <Compile Include="UI\Controls\Renderer.cs" />
     <Compile Include="UI\FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,7 +216,9 @@
     <EmbeddedResource Include="UI\FrmImportBibleQuote.resx">
       <DependentUpon>FrmImportBibleQuote.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -257,7 +264,10 @@
     <None Include="Resources\list_remove.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UI\Controls\hany-badrous\" />
+    <ProjectReference Include="..\VerseFlow.Common\VerseFlow.Common.csproj">
+      <Project>{03F752CC-13FF-4523-94B4-B11AE9108243}</Project>
+      <Name>VerseFlow.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

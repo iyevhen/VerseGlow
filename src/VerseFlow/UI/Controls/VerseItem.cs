@@ -1,71 +1,119 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using VerseFlow.Core;
 
 namespace VerseFlow.UI.Controls
 {
-	internal class VerseItem
+	public class VerseItem
 	{
+		private const int interval = 2;
 		private readonly List<Line> lines = new List<Line>();
+		private readonly BibleVerse bverse;
+		private Point textPosition;
+		private Point position;
+		private Size size;
 
-		private readonly string text;
-		private int height;
-		private int y;
-
-		public VerseItem(string text)
+		public VerseItem(BibleVerse bverse)
 		{
-			this.text = text;
-		}
+			if (bverse == null)
+				throw new ArgumentNullException("bverse");
 
-		public string Text
-		{
-			get { return text; }
-		}
-
-		public bool IsSelected { get; set; }
-
-		public int Height
-		{
-			get { return height; }
-		}
-
-		public int Y
-		{
-			get { return y; }
-			set { y = value; }
-		}
-
-		public bool IsInside(Point point)
-		{
-			return y <= point.Y && y + height >= point.Y;
-		}
-
-		public void NewLine(int fromIndex, int lineLength, int lineHeight)
-		{
-			if (fromIndex == 0 && lineLength == 0)
-				return;
-
-			lines.Add(new Line(fromIndex, lineLength));
-			height += lineHeight;
+			this.bverse = bverse;
 		}
 
 		public IEnumerable<string> Lines()
 		{
 			for (int i = 0; i < lines.Count; i++)
 			{
-				yield return text.Substring(lines[i].index, lines[i].len);
+				yield return bverse.Text.Substring(lines[i].index, lines[i].len);
 			}
 		}
 
-		public void DropLines()
+		public Rectangle Rect()
 		{
-			lines.Clear();
-			height = 0;
+			return new Rectangle(position, size);
 		}
 
-		public Rectangle Rect(int width)
+		public void Refresh(Graphics graphics, int width, Renderer renderer, Point position)
 		{
-			return new Rectangle(0, y, width, height);
+			lines.Clear();
+
+			this.position = position;
+			textPosition = new Point(position.X + interval, position.Y + interval);
+
+			const char space = ' ';
+			int lineLimit = width - interval - interval;
+			int start = 0;
+			int lineWidth = 0;
+			int spaceIdx = 0;
+			int end = bverse.Text.Length;
+			int height = interval;
+			int j;
+
+			for (j = 0; j < end; j++)
+			{
+				char c = bverse.Text[j];
+				int cwidth = renderer.MeasureSymbolWidth(graphics, c);
+
+				if (c == space)
+					spaceIdx = j;
+
+				lineWidth += cwidth;
+
+				if (lineWidth >= lineLimit)
+				{
+					if (spaceIdx == 0)
+					{
+						lines.Add(new Line(start, j - start));
+						start = j;
+					}
+					else
+					{
+						lines.Add(new Line(start, spaceIdx - start));
+						j = spaceIdx;
+						spaceIdx++; // NOT SURE WHY this needed
+						start = spaceIdx;
+					}
+
+					spaceIdx = 0;
+					lineWidth = 0;
+					height += renderer.LineHeight;
+				}
+			}
+
+			if (lineWidth > 0)
+			{
+				lines.Add(new Line(start, j - start));
+				height += renderer.LineHeight;
+			}
+
+			height += interval;
+			size = new Size(width, height);
 		}
+
+		public bool IsSelected
+		{
+			get;
+			set;
+		}
+
+		public Size Size
+		{
+			get { return size; }
+		}
+
+		public Point Position
+		{
+			get { return position; }
+		}
+
+		public Point TextPosition
+		{
+			get { return textPosition; }
+		}
+
+		#region Nested type: Line
 
 		private struct Line
 		{
@@ -78,5 +126,7 @@ namespace VerseFlow.UI.Controls
 				this.len = len;
 			}
 		}
+
+		#endregion
 	}
 }

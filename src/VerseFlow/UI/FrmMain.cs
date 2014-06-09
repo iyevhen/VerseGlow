@@ -177,7 +177,6 @@ namespace VerseFlow.UI
 
 		private void miBibleQuote_Click(object sender, EventArgs e)
 		{
-			string bqtini = null;
 			using (var ofd = new OpenFileDialog())
 			{
 				ofd.Title = Resources.SelectBibleQuoteIniFile;
@@ -188,19 +187,18 @@ namespace VerseFlow.UI
 
 				if (DialogResult.OK == ofd.ShowDialog(this))
 				{
-					bqtini = ofd.FileName;
-					//browseDir = Path.GetDirectoryName(ofd.FileName);
-				}
-			}
+					string bqtini = ofd.FileName;
 
-			using (var f = new FrmImportBibleQuote(bqtini) { Icon = Icon })
-			{
-				if (DialogResult.OK == f.ShowDialog(this))
-				{
-					IBible imported = f.ImportedBible;
+					using (var f = new FrmImportBibleQuote(bqtini) { Icon = Icon })
+					{
+						if (DialogResult.OK == f.ShowDialog(this))
+						{
+							IBible imported = f.ImportedBible;
 
-					if (imported != null)
-						tsBibles.DropDownItems.Add(new ToolStripMenuItem(imported.Name) { Tag = imported });
+							if (imported != null)
+								tsBibles.DropDownItems.Add(new ToolStripMenuItem(imported.Name) { Tag = imported });
+						}
+					}
 				}
 			}
 		}

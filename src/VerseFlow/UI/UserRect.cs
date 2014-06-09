@@ -1,15 +1,10 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace VerseFlow.UI
 {
-
-
-	//	rect = new UserRect(new Rectangle(10, 10, 100, 100));
-	//			rect.SetControl(body.Panel2);
-
-
 	public class UserRect
 	{
 		private Control control;
@@ -67,10 +62,10 @@ namespace VerseFlow.UI
 		public void SetControl(Control p)
 		{
 			this.control = p;
-			control.MouseDown += new MouseEventHandler(mPictureBox_MouseDown);
-			control.MouseUp += new MouseEventHandler(mPictureBox_MouseUp);
-			control.MouseMove += new MouseEventHandler(mPictureBox_MouseMove);
-			control.Paint += new PaintEventHandler(mPictureBox_Paint);
+			control.MouseDown += mPictureBox_MouseDown;
+			control.MouseUp += mPictureBox_MouseUp;
+			control.MouseMove += mPictureBox_MouseMove;
+			control.Paint += mPictureBox_Paint;
 		}
 
 		private void mPictureBox_Paint(object sender, PaintEventArgs e)
@@ -82,7 +77,7 @@ namespace VerseFlow.UI
 			}
 			catch (Exception exp)
 			{
-				System.Console.WriteLine(exp.Message);
+				Debug.WriteLine(exp);
 			}
 
 		}

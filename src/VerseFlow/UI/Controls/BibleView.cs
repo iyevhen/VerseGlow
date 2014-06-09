@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
+using VerseFlow.Common;
 using VerseFlow.Core;
 using VerseFlow.Properties;
+using VerseFlow.UI.Controls;
 
 namespace VerseFlow.UI.Controls
 {
@@ -172,7 +174,7 @@ namespace VerseFlow.UI.Controls
 						: chapter.ToString(CultureInfo.InvariantCulture);
 
 					var opened = bible.OpenChapter(book, chap);
-					verseView.Fill(opened.ConvertAll(v => v.Text));
+					verseView.Fill(opened.ConvertAll(v => new VerseItem(v)));
 
 					tsLblChapter.Text = chap;
 
@@ -190,7 +192,7 @@ namespace VerseFlow.UI.Controls
 				? new List<BibleVerse>()
 				: bible.FindVerses(searchfor);
 
-			verseView.Fill(found.ConvertAll(v => v.Text));
+			verseView.Fill(found.ConvertAll(v => new VerseItem(v)));
 			verseView.HighlightText = searchfor;
 			tsLblChapter.Text = string.Format("Found {0} verses", found.Count);
 		}
@@ -233,26 +235,26 @@ namespace VerseFlow.UI.Controls
 			}
 		}
 
-		private void cmbChapter_TextChanged(object sender, EventArgs e)
-		{
-			var combo = sender as ComboBox;
-
-			if (combo == null)
-				return;
-
-			int chap = combo.Text.TryGetInt32();
-
-			if (chap == 0)
-			{
-				//				tsPrev.Enabled = false;
-				//				tsNext.Enabled = false;
-			}
-			else
-			{
-				//				tsPrev.Enabled = true;
-				//				tsNext.Enabled = true;
-			}
-		}
+//		private void cmbChapter_TextChanged(object sender, EventArgs e)
+//		{
+//			var combo = sender as ComboBox;
+//
+//			if (combo == null)
+//				return;
+//
+//			int chap = combo.Text.TryGetInt32();
+//
+//			if (chap == 0)
+//			{
+//				//				tsPrev.Enabled = false;
+//				//				tsNext.Enabled = false;
+//			}
+//			else
+//			{
+//				//				tsPrev.Enabled = true;
+//				//				tsNext.Enabled = true;
+//			}
+//		}
 
 		private void btnClose_Click(object sender, EventArgs e)
 		{
@@ -262,21 +264,6 @@ namespace VerseFlow.UI.Controls
 		private void tsFind_Click(object sender, EventArgs e)
 		{
 			cmbNavigate.Visible = tsFind.Checked;
-		}
-	}
-
-	public static class Extensions
-	{
-		public static TValue Find<TKey, TValue>(this Dictionary<TKey, TValue> target, TKey key)
-		{
-			TValue value;
-			return target.TryGetValue(key, out value) ? value : default(TValue);
-		}
-
-		public static Int32 TryGetInt32(this string text)
-		{
-			Int32 number;
-			return Int32.TryParse(text, out number) ? number : 0;
 		}
 	}
 }
