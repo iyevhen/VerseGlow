@@ -17,24 +17,24 @@
 		private void InitializeComponent()
 		{
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.lblOptions = new System.Windows.Forms.Label();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.lblDispName = new System.Windows.Forms.Label();
+			this.preview = new VerseFlow.UI.Controls.DisplayControl();
 			this.toolStripMain = new System.Windows.Forms.ToolStrip();
 			this.tsGoLive = new System.Windows.Forms.ToolStripButton();
 			this.tsPause = new System.Windows.Forms.ToolStripButton();
 			this.tsStop = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripButtonFillBlack = new System.Windows.Forms.ToolStripButton();
-			this.preview = new VerseFlow.UI.Controls.DisplayControl();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.lblDispName = new System.Windows.Forms.Label();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.lblOptions = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
-			this.panel1.SuspendLayout();
-			this.panel2.SuspendLayout();
 			this.toolStripMain.SuspendLayout();
+			this.panel2.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
@@ -57,54 +57,16 @@
 			this.splitContainer1.SplitterDistance = 223;
 			this.splitContainer1.TabIndex = 7;
 			// 
-			// panel1
+			// preview
 			// 
-			this.panel1.AutoSize = true;
-			this.panel1.BackColor = System.Drawing.Color.SeaGreen;
-			this.panel1.Controls.Add(this.lblOptions);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel1.Location = new System.Drawing.Point(0, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Padding = new System.Windows.Forms.Padding(2);
-			this.panel1.Size = new System.Drawing.Size(285, 17);
-			this.panel1.TabIndex = 1;
-			// 
-			// lblOptions
-			// 
-			this.lblOptions.AutoSize = true;
-			this.lblOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lblOptions.ForeColor = System.Drawing.Color.White;
-			this.lblOptions.Location = new System.Drawing.Point(2, 2);
-			this.lblOptions.Name = "lblOptions";
-			this.lblOptions.Size = new System.Drawing.Size(43, 13);
-			this.lblOptions.TabIndex = 0;
-			this.lblOptions.Text = "Options";
-			// 
-			// panel2
-			// 
-			this.panel2.AutoSize = true;
-			this.panel2.BackColor = System.Drawing.Color.SeaGreen;
-			this.panel2.Controls.Add(this.lblDispName);
-			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel2.Location = new System.Drawing.Point(0, 0);
-			this.panel2.Margin = new System.Windows.Forms.Padding(0);
-			this.panel2.Name = "panel2";
-			this.panel2.Padding = new System.Windows.Forms.Padding(2);
-			this.panel2.Size = new System.Drawing.Size(285, 17);
-			this.panel2.TabIndex = 2;
-			// 
-			// lblDispName
-			// 
-			this.lblDispName.AutoSize = true;
-			this.lblDispName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lblDispName.ForeColor = System.Drawing.Color.White;
-			this.lblDispName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.lblDispName.Location = new System.Drawing.Point(2, 2);
-			this.lblDispName.Name = "lblDispName";
-			this.lblDispName.Size = new System.Drawing.Size(72, 13);
-			this.lblDispName.TabIndex = 0;
-			this.lblDispName.Text = "Display Name";
-			this.lblDispName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.preview.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.preview.Location = new System.Drawing.Point(0, 42);
+			this.preview.Margin = new System.Windows.Forms.Padding(0);
+			this.preview.Name = "preview";
+			this.preview.ProportionSize = new System.Drawing.Size(4, 3);
+			this.preview.Size = new System.Drawing.Size(285, 181);
+			this.preview.TabIndex = 0;
+			this.preview.Text = "displaySmall";
 			// 
 			// toolStripMain
 			// 
@@ -169,16 +131,54 @@
 			this.toolStripButtonFillBlack.Size = new System.Drawing.Size(73, 22);
 			this.toolStripButtonFillBlack.Text = "Fill Black";
 			// 
-			// preview
+			// panel2
 			// 
-			this.preview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.preview.Location = new System.Drawing.Point(0, 42);
-			this.preview.Margin = new System.Windows.Forms.Padding(0);
-			this.preview.Name = "preview";
-			this.preview.ProportionSize = new System.Drawing.Size(4, 3);
-			this.preview.Size = new System.Drawing.Size(285, 181);
-			this.preview.TabIndex = 0;
-			this.preview.Text = "displaySmall";
+			this.panel2.AutoSize = true;
+			this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.panel2.Controls.Add(this.lblDispName);
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel2.Location = new System.Drawing.Point(0, 0);
+			this.panel2.Margin = new System.Windows.Forms.Padding(0);
+			this.panel2.Name = "panel2";
+			this.panel2.Padding = new System.Windows.Forms.Padding(2);
+			this.panel2.Size = new System.Drawing.Size(285, 17);
+			this.panel2.TabIndex = 2;
+			// 
+			// lblDispName
+			// 
+			this.lblDispName.AutoSize = true;
+			this.lblDispName.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lblDispName.ForeColor = System.Drawing.Color.White;
+			this.lblDispName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.lblDispName.Location = new System.Drawing.Point(2, 2);
+			this.lblDispName.Name = "lblDispName";
+			this.lblDispName.Size = new System.Drawing.Size(72, 13);
+			this.lblDispName.TabIndex = 0;
+			this.lblDispName.Text = "Display Name";
+			this.lblDispName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// panel1
+			// 
+			this.panel1.AutoSize = true;
+			this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.panel1.Controls.Add(this.lblOptions);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel1.Location = new System.Drawing.Point(0, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Padding = new System.Windows.Forms.Padding(2);
+			this.panel1.Size = new System.Drawing.Size(285, 17);
+			this.panel1.TabIndex = 1;
+			// 
+			// lblOptions
+			// 
+			this.lblOptions.AutoSize = true;
+			this.lblOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lblOptions.ForeColor = System.Drawing.Color.White;
+			this.lblOptions.Location = new System.Drawing.Point(2, 2);
+			this.lblOptions.Name = "lblOptions";
+			this.lblOptions.Size = new System.Drawing.Size(43, 13);
+			this.lblOptions.TabIndex = 0;
+			this.lblOptions.Text = "Options";
 			// 
 			// DisplayView
 			// 
@@ -194,12 +194,12 @@
 			this.splitContainer1.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
-			this.panel1.ResumeLayout(false);
-			this.panel1.PerformLayout();
-			this.panel2.ResumeLayout(false);
-			this.panel2.PerformLayout();
 			this.toolStripMain.ResumeLayout(false);
 			this.toolStripMain.PerformLayout();
+			this.panel2.ResumeLayout(false);
+			this.panel2.PerformLayout();
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
 
 		}

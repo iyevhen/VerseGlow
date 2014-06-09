@@ -231,6 +231,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\logo_big_rus.png" />
+    <None Include="Resources\logo_big.png" />
     <None Include="Resources\1402078190_plus.png" />
     <None Include="Resources\1402077846_inbox-download.png" />
     <None Include="Resources\book-open-previous.png" />

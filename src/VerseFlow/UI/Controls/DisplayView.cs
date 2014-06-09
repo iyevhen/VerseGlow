@@ -30,7 +30,9 @@ namespace VerseFlow.UI.Controls
 					((Form)live).Icon = parent.Icon;
 			};
 		}
-	
+
+
+
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && (components != null))
@@ -84,18 +86,22 @@ namespace VerseFlow.UI.Controls
 			get { return live.FullScreen; }
 			set { live.FullScreen = value; }
 		}
+
 		public bool IsActive { get; private set; }
+
 		public bool IsPlaying { get; private set; }
+
 		public bool IsPaused { get; private set; }
+
 		public bool IsStoped { get; private set; }
 
-		public string DisplayName
-		{
-			get { return lblDispName.Text; } 
-			set { lblDispName.Text = value; }
-		}
-
 		public event EventHandler ActivationChanged;
+
+		public void SetDevice(Screen screen, string deviceName)
+		{
+			lblDispName.Text = deviceName;
+			preview.ProportionSize = screen.WorkingArea.Size;
+		}
 
 		public void Activate()
 		{
@@ -106,7 +112,7 @@ namespace VerseFlow.UI.Controls
 		public void Deactivate()
 		{
 			live.Deactivate();
-			
+
 		}
 	}
 }

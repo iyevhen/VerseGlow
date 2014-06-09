@@ -42,26 +42,34 @@ namespace VerseFlow.UI
 
 			openedBibles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-			//Dispays
-			tsDisplay.DropDownItems.Clear();
-			foreach (Screen screen in Screen.AllScreens)
-			{
-				var dd = new DISPLAY_DEVICE();
-				dd.cb = Marshal.SizeOf(dd);
-				string monitorName = screen.DeviceName;
-
-				if (EnumDisplayDevices(screen.DeviceName, 0, ref dd, 0))
-				{
-					string[] splits = dd.DeviceString.Split(',');
-					monitorName = splits.Length > 0 ? splits[0] : dd.DeviceString;
-				}
-
-				tsDisplay.DropDownItems.Add(monitorName).Tag = screen;
-				displayView.DisplayName = monitorName;
-			}
-
 			if (bibles.Length > 0)
 				OpenBible(bibles[0]);
+
+			//Dispays
+			tsDisplay.DropDownItems.Clear();
+			Screen[] screens = Screen.AllScreens;
+			string[] screensNames = new string[screens.Length];
+			int secondary = 0;
+
+			for (int i = 0; i < screens.Length; i++)
+			{
+				Screen screen = screens[i];
+				var dd = new DISPLAY_DEVICE();
+				dd.cb = Marshal.SizeOf(dd);
+
+				screensNames[i] = screen.DeviceName;
+
+				if (EnumDisplayDevices(screen.DeviceName, 0, ref dd, 0))
+					screensNames[i] = dd.DeviceString.Split(',')[0];
+
+				tsDisplay.DropDownItems.Add(screensNames[i]).Tag = screen;
+
+				if (!screen.Primary)
+					secondary = i;
+			}
+
+			displayView.SetDevice(screens[secondary], screensNames[secondary]);
+			
 		}
 
 		private void tsAbout_Click(object sender, EventArgs e)
@@ -217,6 +225,10 @@ namespace VerseFlow.UI
 			ModesPruned = 0x8000000,
 			Remote = 0x4000000,
 			Disconnect = 0x2000000
+		}
+
+		private void tsDisplay_DropDownOpening(object sender, EventArgs e)
+		{
 		}
 	}
 }

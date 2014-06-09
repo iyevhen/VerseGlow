@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using VerseFlow.Properties;
 
 namespace VerseFlow.UI.Controls
 {
@@ -33,8 +34,8 @@ namespace VerseFlow.UI.Controls
 			get { return proportionSize; }
 			set
 			{
-				proportionSize = value == default(Size) 
-					? defaultSize 
+				proportionSize = value == default(Size)
+					? defaultSize
 					: value;
 				Invalidate();
 			}
@@ -58,17 +59,25 @@ namespace VerseFlow.UI.Controls
 
 			if (myHeight > h)
 				myHeight = h;
-			
+
 			float y = 0f;
 			float x = (w - myWidth) / 2.0f;
 
 			var drawRect = new RectangleF(x, y, myWidth, myHeight);
 
 			e.Graphics.FillRectangle(Brushes.Black, drawRect);
-			var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+//			var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
-			using (var font = new Font(FontFamily.GenericSansSerif, Font.Size))
-				e.Graphics.DrawString("No slide", font, Brushes.White, drawRect, format);
+			Bitmap logo = Resources.logo_big_rus;
+
+			Size ls = logo.Size;
+			e.Graphics.DrawImage(logo, 
+				drawRect.Left + (drawRect.Width - ls.Width) / 2, 
+				drawRect.Top + (drawRect.Height - ls.Height) / 2, 
+				ls.Width, ls.Height);
+
+			//			using (var font = new Font(FontFamily.GenericSansSerif, Font.Size))
+			//				e.Graphics.DrawString("No slide", font, Brushes.White, drawRect, format);
 
 			base.OnPaint(e);
 

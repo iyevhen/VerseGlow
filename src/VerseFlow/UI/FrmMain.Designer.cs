@@ -39,9 +39,9 @@ namespace VerseFlow.UI
 			this.tblBibles = new System.Windows.Forms.TableLayoutPanel();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.tblDisplay = new System.Windows.Forms.TableLayoutPanel();
+			this.displayView = new VerseFlow.UI.Controls.DisplayView();
 			this.toolStripMain = new System.Windows.Forms.ToolStrip();
 			this.tsDisplay = new System.Windows.Forms.ToolStripDropDownButton();
-			this.displayView = new VerseFlow.UI.Controls.DisplayView();
 			this.toolStripBibles.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -108,7 +108,7 @@ namespace VerseFlow.UI
 			// 
 			this.tblBibles.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
 			this.tblBibles.ColumnCount = 1;
-			this.tblBibles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 752F));
+			this.tblBibles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 754F));
 			this.tblBibles.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tblBibles.Location = new System.Drawing.Point(0, 25);
 			this.tblBibles.Margin = new System.Windows.Forms.Padding(0);
@@ -157,6 +157,18 @@ namespace VerseFlow.UI
 			this.tblDisplay.Size = new System.Drawing.Size(387, 537);
 			this.tblDisplay.TabIndex = 4;
 			// 
+			// displayView
+			// 
+			this.displayView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.displayView.FullScreen = false;
+			this.displayView.Location = new System.Drawing.Point(2, 2);
+			this.displayView.Margin = new System.Windows.Forms.Padding(0);
+			this.displayView.Name = "displayView";
+			this.displayView.Size = new System.Drawing.Size(383, 533);
+			this.displayView.TabIndex = 2;
+			// 
 			// toolStripMain
 			// 
 			this.toolStripMain.GripMargin = new System.Windows.Forms.Padding(0);
@@ -178,19 +190,7 @@ namespace VerseFlow.UI
 			this.tsDisplay.Name = "tsDisplay";
 			this.tsDisplay.Size = new System.Drawing.Size(74, 22);
 			this.tsDisplay.Text = "Display";
-			// 
-			// displayView
-			// 
-			this.displayView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.displayView.DisplayName = "Display Name";
-			this.displayView.FullScreen = false;
-			this.displayView.Location = new System.Drawing.Point(2, 2);
-			this.displayView.Margin = new System.Windows.Forms.Padding(0);
-			this.displayView.Name = "displayView";
-			this.displayView.Size = new System.Drawing.Size(383, 533);
-			this.displayView.TabIndex = 2;
+			this.tsDisplay.DropDownOpening += new System.EventHandler(this.tsDisplay_DropDownOpening);
 			// 
 			// FrmMain
 			// 
