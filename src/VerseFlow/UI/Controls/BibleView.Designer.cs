@@ -46,9 +46,9 @@
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.tblCombos = new System.Windows.Forms.TableLayoutPanel();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnClose = new VerseFlow.UI.Controls.dotnetrix.co.uk.Button();
 			this.lblTitle = new System.Windows.Forms.Label();
 			this.verseView = new VerseFlow.UI.Controls.VerseView();
-			this.btnClose = new VerseFlow.UI.Controls.dotnetrix.co.uk.Button();
 			this.toolStripMain.SuspendLayout();
 			this.tblCombos.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -222,6 +222,18 @@
 			this.panel1.Size = new System.Drawing.Size(347, 18);
 			this.panel1.TabIndex = 0;
 			// 
+			// btnClose
+			// 
+			this.btnClose.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.btnClose.Dock = System.Windows.Forms.DockStyle.Right;
+			this.btnClose.ImageIndex = 2;
+			this.btnClose.ImageList = this.imageList1;
+			this.btnClose.Location = new System.Drawing.Point(331, 2);
+			this.btnClose.Name = "btnClose";
+			this.btnClose.Size = new System.Drawing.Size(14, 14);
+			this.btnClose.TabIndex = 1;
+			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+			// 
 			// lblTitle
 			// 
 			this.lblTitle.AutoSize = true;
@@ -236,7 +248,7 @@
 			// verseView
 			// 
 			this.verseView.AutoScroll = true;
-			this.verseView.AutoScrollMinSize = new System.Drawing.Size(341, 0);
+			this.verseView.AutoScrollMinSize = new System.Drawing.Size(341, 10);
 			this.verseView.AutoScrollOffset = new System.Drawing.Point(500, 500);
 			this.verseView.BackColor = global::VerseFlow.Properties.Settings.Default.BibleBackColor;
 			this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -250,18 +262,6 @@
 			this.verseView.ReadOnly = false;
 			this.verseView.Size = new System.Drawing.Size(347, 355);
 			this.verseView.TabIndex = 1;
-			// 
-			// btnClose
-			// 
-			this.btnClose.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.btnClose.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnClose.ImageIndex = 2;
-			this.btnClose.ImageList = this.imageList1;
-			this.btnClose.Location = new System.Drawing.Point(331, 2);
-			this.btnClose.Name = "btnClose";
-			this.btnClose.Size = new System.Drawing.Size(14, 14);
-			this.btnClose.TabIndex = 1;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
 			// BibleView
 			// 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using VerseFlow.Core;
@@ -15,7 +13,7 @@ namespace VerseFlow.UI
 	{
 		private string appNameAndVersion;
 		private IBible bible;
-		private IDisplay display;
+
 		private HashSet<string> opened;
 
 		public FrmMain()
@@ -38,9 +36,6 @@ namespace VerseFlow.UI
 
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
-			display = new FrmDisplay { Icon = Icon };
-			display.SizeChanged += DisplayOnSizeChanged;
-
 			appNameAndVersion = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
 			Text = appNameAndVersion;
 
@@ -49,6 +44,7 @@ namespace VerseFlow.UI
 
 			opened = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+			//Dispays
 			tsDisplay.DropDownItems.Clear();
 			foreach (Screen screen in Screen.AllScreens)
 			{
@@ -96,6 +92,7 @@ namespace VerseFlow.UI
 					};
 
 					bibleView.CloseRequested += bibleView_CloseRequested;
+					bibleView.SelectedVerseChanged += v => displayView.DisplayVerse(v);
 
 					AddView(bibleView);
 
@@ -149,30 +146,19 @@ namespace VerseFlow.UI
 
 		private void tsGoLive_Click(object sender, EventArgs e)
 		{
-			if (tsGoLive.Checked)
+			var btn = sender as ToolStripButton;
+
+			if (btn == null)
+				return;
+
+			if (btn.Checked)
 			{
-				display.Activate();
-				SetDisplayProportions(display);
+				displayView.Activate();
 			}
 			else
 			{
-				display.Deactivate();
+				displayView.Deactivate();
 			}
-		}
-
-		private void DisplayOnSizeChanged(object sender, EventArgs eventArgs)
-		{
-			var disp = sender as IDisplay;
-
-			if (disp != null)
-			{
-				SetDisplayProportions(disp);
-			}
-		}
-
-		private void SetDisplayProportions(IDisplay disp)
-		{
-			displayView1.LiveDisplaySize = disp.Size;
 		}
 
 		private void miBibleQuote_Click(object sender, EventArgs e)
@@ -201,18 +187,6 @@ namespace VerseFlow.UI
 					}
 				}
 			}
-		}
-
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-
-			display.Dispose();
-
-			base.Dispose(disposing);
 		}
 
 		[DllImport("user32.dll")]
@@ -254,8 +228,5 @@ namespace VerseFlow.UI
 			Remote = 0x4000000,
 			Disconnect = 0x2000000
 		}
-
 	}
-
-
 }

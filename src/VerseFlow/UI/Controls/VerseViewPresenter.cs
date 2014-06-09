@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using VerseFlow.Core;
 
 namespace VerseFlow.UI.Controls
 {
@@ -17,6 +18,7 @@ namespace VerseFlow.UI.Controls
 		private Size size;
 		private string highlightText;
 		private LineRenderer lineRenderer;
+		private int selectedIndex = -1;
 
 		public VerseViewPresenter(VerseViewColorTheme colorTheme, Font font)
 		{
@@ -86,7 +88,35 @@ namespace VerseFlow.UI.Controls
 		public int FocusedIndex
 		{
 			get { return focusedIndex; }
-			set { focusedIndex = value; }
+			set
+			{
+				if (value < 0 || value >= verses.Count)
+					focusedIndex = -1;
+				else
+					focusedIndex = value;
+			}
+		}
+
+		public int SelectedIndex
+		{
+			get { return selectedIndex; }
+			set
+			{
+				if (value == selectedIndex || value < 0 || value >= verses.Count)
+					selectedIndex = -1;
+				else
+					selectedIndex = value;
+			}
+		}
+
+		public BibleVerse SelectedVerse
+		{
+			get
+			{
+				return selectedIndex == -1
+					? null
+					: verses[selectedIndex].Bverse;
+			}
 		}
 
 		public void DoPaint(Graphics graphics, Rectangle rect, Point scrollPosition)
@@ -119,7 +149,7 @@ namespace VerseFlow.UI.Controls
 					break;
 				}
 
-				if (vi.IsSelected)
+				if (i == selectedIndex)
 				{
 					using (var brush = colorTheme.NewHighlightBrush(vrect))
 						graphics.FillRectangle(brush, vrect);

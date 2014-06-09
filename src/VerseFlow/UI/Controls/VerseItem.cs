@@ -22,6 +22,11 @@ namespace VerseFlow.UI.Controls
 			this.bverse = bverse;
 		}
 
+		public BibleVerse Bverse
+		{
+			get { return bverse; }
+		}
+
 		public IEnumerable<string> Lines()
 		{
 			for (int i = 0; i < lines.Count; i++)
@@ -90,12 +95,6 @@ namespace VerseFlow.UI.Controls
 
 			height += interval;
 			size = new Size(width, height);
-		}
-
-		public bool IsSelected
-		{
-			get;
-			set;
 		}
 
 		public Size Size

@@ -90,7 +90,7 @@
     <Compile Include="UI\Controls\cyotek.com\GroupBox\GroupBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\Display.cs">
+    <Compile Include="UI\Controls\FakeDisplay.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\DisplayView.cs">
@@ -179,8 +179,6 @@
     <Compile Include="UI\ImageUtilities.cs" />
     <Compile Include="UI\WindowsAPI.cs" />
     <Compile Include="UI\StringWrap.cs" />
-    <Compile Include="UI\TextCursor.cs" />
-    <Compile Include="UI\UserRect.cs" />
     <Compile Include="Core\XmlBibleRepository.cs" />
     <EmbeddedResource Include="UI\Controls\BibleView.resx">
       <DependentUpon>BibleView.cs</DependentUpon>

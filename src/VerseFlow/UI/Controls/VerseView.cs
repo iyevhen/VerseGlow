@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using VerseFlow.Core;
 
 namespace VerseFlow.UI.Controls
 {
@@ -12,13 +13,14 @@ namespace VerseFlow.UI.Controls
 		//Buffer2: Verses and Selected Verses 
 		//Buffer3: Verses and Selected Verses and Highlighted words 
 		//Buffer4: Verses and Selected Verses and Highlighted words and MouseOver words
-		
+
 		private readonly List<VerseItem> allverses = new List<VerseItem>();
 		private int prevWidth;
 		private int focusedItem = -1;
 		private bool readOnly;
-		private readonly VerseViewPresenter viewPresenter;
+		private readonly VerseViewPresenter presenter;
 		private readonly VerseViewColorTheme colorTheme;
+		public event Action<BibleVerse> SelectedVerseChanged;
 
 		public VerseView()
 		{
@@ -40,15 +42,21 @@ namespace VerseFlow.UI.Controls
 			VerticalScroll.Visible = true;
 
 			colorTheme = new VerseViewColorTheme();
-			viewPresenter = new VerseViewPresenter(colorTheme, Font);
+			presenter = new VerseViewPresenter(colorTheme, Font);
+		}
+
+		private void OnSelectedVerseChanged(BibleVerse obj)
+		{
+			Action<BibleVerse> handler = SelectedVerseChanged;
+			if (handler != null) handler(obj);
 		}
 
 		public string HighlightText
 		{
-			get { return viewPresenter.HighlightText; }
+			get { return presenter.HighlightText; }
 			set
 			{
-				viewPresenter.HighlightText = value;
+				presenter.HighlightText = value;
 				Invalidate();
 			}
 		}
@@ -59,28 +67,12 @@ namespace VerseFlow.UI.Controls
 			set { readOnly = value; }
 		}
 
-		public void SelectItem(int index)
-		{
-			if (index > -1 && index < allverses.Count)
-			{
-				viewPresenter[index].IsSelected = !viewPresenter[index].IsSelected;
-			}
-		}
-
-		public void SetFocusedItem(int index)
-		{
-			if (index > -1 && index < allverses.Count)
-			{
-				viewPresenter.FocusedIndex = index;
-			}
-		}
-
 		public void Fill(List<VerseItem> items)
 		{
 			if (items == null)
 				throw new ArgumentNullException("items");
 
-			viewPresenter.Fill(items);
+			presenter.Fill(items);
 
 			//			allverses = strings.ConvertAll(s => new VerseItem(s));
 			prevWidth = -1;
@@ -132,7 +124,7 @@ namespace VerseFlow.UI.Controls
 			{
 				if (focusedItem > -1)
 				{
-					allverses[focusedItem].IsSelected = !allverses[focusedItem].IsSelected;
+					presenter.SelectedIndex = focusedItem;
 					Invalidate();
 				}
 			}
@@ -165,11 +157,11 @@ namespace VerseFlow.UI.Controls
 				prevWidth = rect.Width;
 				Debug.WriteLine("Recalculating verses width=" + Width);
 
-				viewPresenter.SetBounds(e.Graphics, rect, Padding);
-				AutoScrollMinSize = viewPresenter.Size;
+				presenter.SetBounds(e.Graphics, rect, Padding);
+				AutoScrollMinSize = presenter.Size;
 			}
 
-			viewPresenter.DoPaint(e.Graphics, rect, AutoScrollPosition);
+			presenter.DoPaint(e.Graphics, rect, AutoScrollPosition);
 
 			base.OnPaint(e);
 
@@ -185,14 +177,14 @@ namespace VerseFlow.UI.Controls
 			base.OnFontChanged(e);
 
 			prevWidth = -1;
-			viewPresenter.Font = Font;
+			presenter.Font = Font;
 		}
 
 		protected override void OnGotFocus(EventArgs e)
 		{
 			base.OnGotFocus(e);
 
-			viewPresenter.Focused = true;
+			presenter.Focused = true;
 			Invalidate();
 		}
 
@@ -200,7 +192,7 @@ namespace VerseFlow.UI.Controls
 		{
 			base.OnLostFocus(e);
 
-			viewPresenter.Focused = false;
+			presenter.Focused = false;
 			Invalidate();
 		}
 
@@ -230,14 +222,16 @@ namespace VerseFlow.UI.Controls
 				Point location = e.Location;
 				location.Offset(0, -AutoScrollPosition.Y);
 
-				int index = viewPresenter.FindIndex(location);
-
-				if (index > -1)
-				{
-					viewPresenter[index].IsSelected = !viewPresenter[index].IsSelected;
-					Invalidate();
-				}
+				int index = presenter.FindIndex(location);
+				SelectedIndex(index);
 			}
+		}
+
+		public void SelectedIndex(int index)
+		{
+			presenter.SelectedIndex = index;
+			OnSelectedVerseChanged(presenter.SelectedVerse);
+			Invalidate();
 		}
 	}
 }

@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 namespace VerseFlow.UI.Controls
 {
-	public class Display : Control
+	public class FakeDisplay : Control
 	{
 		private readonly Size size43 = new Size(4, 3);
-		private Size etalon = new Size(4, 3);
+		private Size proportionSize = new Size(4, 3);
 
-		public Display()
+		public FakeDisplay()
 		{
 			SetStyle(ControlStyles.OptimizedDoubleBuffer
 					 | ControlStyles.ResizeRedraw
@@ -18,20 +18,19 @@ namespace VerseFlow.UI.Controls
 					 | ControlStyles.UserMouse
 					 | ControlStyles.Opaque // will not call OnPaintBackground
 					 | ControlStyles.StandardClick
-					 | ControlStyles.StandardDoubleClick
-					 , true);
+					 | ControlStyles.StandardDoubleClick, true);
 		}
 
 		protected override void OnPaintBackground(PaintEventArgs e)
 		{
 		}
 
-		public Size Etalon
+		public Size ProportionSize
 		{
-			get { return etalon; }
+			get { return proportionSize; }
 			set
 			{
-				etalon = value == default(Size) ? size43 : value;
+				proportionSize = value == default(Size) ? size43 : value;
 				Invalidate();
 			}
 		}
@@ -49,8 +48,8 @@ namespace VerseFlow.UI.Controls
 			int w = rect.Width;
 			int h = rect.Height;
 
-			float myWidth = 1.0f * h * etalon.Width / etalon.Height;
-			float myHeight = 1.0f * w * etalon.Height / etalon.Width;
+			float myWidth = 1.0f * h * proportionSize.Width / proportionSize.Height;
+			float myHeight = 1.0f * w * proportionSize.Height / proportionSize.Width;
 
 			if (myHeight > h)
 				myHeight = h;
@@ -58,13 +57,13 @@ namespace VerseFlow.UI.Controls
 			float y = 0f;
 			float x = (w - myWidth) / 2.0f;
 
-			var myRect = new RectangleF(x, y, myWidth, myHeight);
+			var drawRect = new RectangleF(x, y, myWidth, myHeight);
 
-			e.Graphics.FillRectangle(Brushes.Black, myRect);
+			e.Graphics.FillRectangle(Brushes.Black, drawRect);
 			var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
 			using (var font = new Font(FontFamily.GenericSansSerif, Font.Size))
-				e.Graphics.DrawString("No slide", font, Brushes.White, myRect, format);
+				e.Graphics.DrawString("No slide", font, Brushes.White, drawRect, format);
 
 			base.OnPaint(e);
 

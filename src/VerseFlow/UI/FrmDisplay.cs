@@ -42,30 +42,30 @@ namespace VerseFlow.UI
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			var cr = ClientRectangle;
+			var clientRect = ClientRectangle;
 
 			if (BackgroundImage == null)
 			{
 				using (var brush = new SolidBrush(BackColor))
-					e.Graphics.FillRectangle(brush, cr);
+					e.Graphics.FillRectangle(brush, clientRect);
 			}
 			else
 			{
-				e.Graphics.DrawImage(BackgroundImage, cr);
+				e.Graphics.DrawImage(BackgroundImage, clientRect);
 			}
 
 			if (!String.IsNullOrEmpty(currentText))
 			{
 				e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 				e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-				string s = wrap.PerformWrap(currentText, 0.5f, 1);
+				string wrapped = wrap.PerformWrap(currentText, 0.5f, 1);
 
-				using (GraphicsPath path = wrap.GeneratePath(s, cr))
+				using (GraphicsPath path = wrap.GeneratePath(wrapped, clientRect))
 				{
 					var bounds = path.GetBounds();
 
-					var x = (int)((cr.Width - bounds.Width) / 2);
-					var y = (int)((cr.Height - bounds.Height) / 2);
+					var x = (int) ((clientRect.Width - bounds.Width)/2);
+					var y = (int) ((clientRect.Height - bounds.Height)/2);
 
 					var r = new RectangleF(new PointF(x, y), bounds.Size);
 
@@ -77,12 +77,8 @@ namespace VerseFlow.UI
 					};
 
 					e.Graphics.Transform = new Matrix(bounds, target_pts);
-
-					using (var brush = new SolidBrush(Color.White))
-					{
-						e.Graphics.FillPath(brush, path);
-						e.Graphics.DrawPath(Pens.Black, path);
-					}
+					
+					e.Graphics.FillPath(Brushes.White, path);
 
 					e.Graphics.ResetTransform();
 				}

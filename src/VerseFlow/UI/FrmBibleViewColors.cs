@@ -25,7 +25,7 @@ namespace VerseFlow.UI
 
 //			List<VerseItem> items = new List<VerseItem> { new VerseItem()};
 //			verseView1.Fill(items);
-//			verseView1.SelectItem(0);
+//			verseView1.SelectedIndex(0);
 //			verseView1.SetFocusedItem(1);
 //			verseView1.HighlightText = "ipsum";
 		}

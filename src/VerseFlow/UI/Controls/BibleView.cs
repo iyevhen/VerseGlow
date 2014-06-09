@@ -15,12 +15,23 @@ namespace VerseFlow.UI.Controls
 	{
 		private IBible bible;
 		private Dictionary<string, BibleBook> bookMap;
+		public event EventHandler CloseRequested;
+		public event Action<BibleVerse> SelectedVerseChanged;
 
 		public BibleView()
 		{
 			InitializeComponent();
 
 			cmbNavigate.SetCue("Type search text and press Enter...");
+			verseView.SelectedVerseChanged += verseView_SelectedVerseChanged;
+		}
+
+		void verseView_SelectedVerseChanged(BibleVerse obj)
+		{
+			Action<BibleVerse> handler = SelectedVerseChanged;
+
+			if (handler != null)
+				handler(obj);
 		}
 
 		public IBible Bible
@@ -71,6 +82,8 @@ namespace VerseFlow.UI.Controls
 					{
 						cmbNavigate.EndUpdate();
 					}
+
+					cmbNavigate.SelectedIndex = 0;
 				}
 				else
 				{
@@ -88,8 +101,6 @@ namespace VerseFlow.UI.Controls
 			tsLblChapter.Enabled = false;
 			btnClose.Enabled = false;
 		}
-
-		public event EventHandler CloseRequested;
 
 		protected virtual void OnCloseRequested()
 		{
@@ -124,6 +135,8 @@ namespace VerseFlow.UI.Controls
 
 			if (combo.SelectedIndex == -1)
 				return;
+
+			combo.Text += " 1";
 
 			GoTo(combo.Text.Trim());
 		}
@@ -177,9 +190,7 @@ namespace VerseFlow.UI.Controls
 					verseView.Fill(opened.ConvertAll(v => new VerseItem(v)));
 
 					tsLblChapter.Text = chap;
-
-					if (verse > 0)
-						verseView.SelectItem(verse - 1);
+					verseView.SelectedIndex(verse - 1);
 
 					return;
 				}

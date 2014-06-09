@@ -36,12 +36,12 @@ namespace VerseFlow.UI
 		public GraphicsPath GeneratePath(string text, RectangleF dest)
 		{
 			// draw a default path of a given size 
-			var p = new GraphicsPath();
-			p.AddString(text, FontFamily.GenericSansSerif, (int)FontStyle.Regular, 24.0f, new Point(0, 0), format);
+			var graphicsPath = new GraphicsPath();
+			graphicsPath.AddString(text, FontFamily.GenericSansSerif, (int)FontStyle.Regular, 24.0f, new Point(0, 0), format);
 			//			p.AddString(text, FontFamily.GenericSansSerif, (int)FontStyle.Regular, 24.0f, dest, format);
 
 			// calculate best ratio for stretching
-			RectangleF bound = p.GetBounds();
+			RectangleF bound = graphicsPath.GetBounds();
 
 			float ratio = Math.Min((dest.Width / bound.Width) * 0.95f, (dest.Height / bound.Height) * 0.9f);
 
@@ -49,10 +49,10 @@ namespace VerseFlow.UI
 			var m = new Matrix();
 			m.Scale(ratio, ratio);
 			m.Translate(-bound.Left, -bound.Top);
-			p.Transform(m);
+			graphicsPath.Transform(m);
 			m.Reset();
 
-			return p;
+			return graphicsPath;
 		}
 
 		/// <summary>
