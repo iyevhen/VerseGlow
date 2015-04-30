@@ -90,7 +90,7 @@ namespace VerseFlow.UI.Controls
 				DisposeBackcolor();
 
 				backColorBrush = new SolidBrush(backColor);
-				backColorDarkerBrush = new SolidBrush(GraphicsTools.DarkenColor(backColor, 7));
+				backColorDarkerBrush = new SolidBrush(GraphicsTools.DarkenColor(backColor, 8));
 			}
 		}
 

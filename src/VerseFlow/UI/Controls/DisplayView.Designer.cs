@@ -17,17 +17,18 @@
 		private void InitializeComponent()
 		{
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.liveSpy = new VerseFlow.UI.Controls.DisplayControl();
 			this.toolStripMain = new System.Windows.Forms.ToolStrip();
-			this.tsGoLive = new System.Windows.Forms.ToolStripButton();
+			this.tsPlay = new System.Windows.Forms.ToolStripButton();
 			this.tsPause = new System.Windows.Forms.ToolStripButton();
 			this.tsStop = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripButtonFillBlack = new System.Windows.Forms.ToolStripButton();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.lblDispName = new System.Windows.Forms.Label();
+			this.previewSpy = new VerseFlow.UI.Controls.DisplayControl();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lblOptions = new System.Windows.Forms.Label();
-			this.preview = new VerseFlow.UI.Controls.DisplayControl();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -46,23 +47,35 @@
 			// 
 			// splitContainer1.Panel1
 			// 
-			this.splitContainer1.Panel1.Controls.Add(this.preview);
+			this.splitContainer1.Panel1.Controls.Add(this.liveSpy);
 			this.splitContainer1.Panel1.Controls.Add(this.toolStripMain);
 			this.splitContainer1.Panel1.Controls.Add(this.panel2);
 			// 
 			// splitContainer1.Panel2
 			// 
+			this.splitContainer1.Panel2.Controls.Add(this.previewSpy);
 			this.splitContainer1.Panel2.Controls.Add(this.panel1);
 			this.splitContainer1.Size = new System.Drawing.Size(468, 717);
-			this.splitContainer1.SplitterDistance = 386;
+			this.splitContainer1.SplitterDistance = 370;
 			this.splitContainer1.TabIndex = 7;
+			// 
+			// liveSpy
+			// 
+			this.liveSpy.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.liveSpy.Location = new System.Drawing.Point(0, 42);
+			this.liveSpy.Margin = new System.Windows.Forms.Padding(0);
+			this.liveSpy.Name = "liveSpy";
+			this.liveSpy.ProportionSize = new System.Drawing.Size(4, 3);
+			this.liveSpy.Size = new System.Drawing.Size(468, 328);
+			this.liveSpy.TabIndex = 0;
+			this.liveSpy.Text = "displaySmall";
 			// 
 			// toolStripMain
 			// 
 			this.toolStripMain.GripMargin = new System.Windows.Forms.Padding(0);
 			this.toolStripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsGoLive,
+            this.tsPlay,
             this.tsPause,
             this.tsStop,
             this.toolStripSeparator1,
@@ -75,22 +88,21 @@
 			this.toolStripMain.TabIndex = 8;
 			this.toolStripMain.Text = "toolStrip1";
 			// 
-			// tsGoLive
+			// tsPlay
 			// 
-			this.tsGoLive.CheckOnClick = true;
-			this.tsGoLive.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsGoLive.Image = global::VerseFlow.Properties.Resources.control;
-			this.tsGoLive.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsGoLive.Name = "tsGoLive";
-			this.tsGoLive.Size = new System.Drawing.Size(23, 22);
-			this.tsGoLive.Text = "Play";
-			this.tsGoLive.Click += new System.EventHandler(this.tsGoLive_Click);
+			this.tsPlay.CheckOnClick = true;
+			this.tsPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsPlay.Image = global::VerseFlow.Properties.Resources._1402417413_player_play;
+			this.tsPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsPlay.Name = "tsPlay";
+			this.tsPlay.Size = new System.Drawing.Size(23, 22);
+			this.tsPlay.Text = "Play";
+			this.tsPlay.Click += new System.EventHandler(this.tsPlay_Click);
 			// 
 			// tsPause
 			// 
 			this.tsPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsPause.Enabled = false;
-			this.tsPause.Image = global::VerseFlow.Properties.Resources.control_pause;
+			this.tsPause.Image = global::VerseFlow.Properties.Resources._1402417487_tool_pause;
 			this.tsPause.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsPause.Name = "tsPause";
 			this.tsPause.Size = new System.Drawing.Size(23, 22);
@@ -99,8 +111,7 @@
 			// tsStop
 			// 
 			this.tsStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsStop.Enabled = false;
-			this.tsStop.Image = global::VerseFlow.Properties.Resources.control_stop_square;
+			this.tsStop.Image = global::VerseFlow.Properties.Resources._1402417465_player_stop;
 			this.tsStop.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsStop.Name = "tsStop";
 			this.tsStop.Size = new System.Drawing.Size(23, 22);
@@ -113,11 +124,9 @@
 			// 
 			// toolStripButtonFillBlack
 			// 
-			this.toolStripButtonFillBlack.Enabled = false;
-			this.toolStripButtonFillBlack.Image = global::VerseFlow.Properties.Resources.paint_can;
 			this.toolStripButtonFillBlack.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripButtonFillBlack.Name = "toolStripButtonFillBlack";
-			this.toolStripButtonFillBlack.Size = new System.Drawing.Size(73, 22);
+			this.toolStripButtonFillBlack.Size = new System.Drawing.Size(57, 22);
 			this.toolStripButtonFillBlack.Text = "Fill Black";
 			// 
 			// panel2
@@ -146,6 +155,17 @@
 			this.lblDispName.Text = "Display Name";
 			this.lblDispName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// previewSpy
+			// 
+			this.previewSpy.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.previewSpy.Location = new System.Drawing.Point(0, 17);
+			this.previewSpy.Margin = new System.Windows.Forms.Padding(0);
+			this.previewSpy.Name = "previewSpy";
+			this.previewSpy.ProportionSize = new System.Drawing.Size(4, 3);
+			this.previewSpy.Size = new System.Drawing.Size(468, 326);
+			this.previewSpy.TabIndex = 2;
+			this.previewSpy.Text = "displaySmall";
+			// 
 			// panel1
 			// 
 			this.panel1.AutoSize = true;
@@ -165,20 +185,9 @@
 			this.lblOptions.ForeColor = System.Drawing.Color.White;
 			this.lblOptions.Location = new System.Drawing.Point(2, 2);
 			this.lblOptions.Name = "lblOptions";
-			this.lblOptions.Size = new System.Drawing.Size(43, 13);
+			this.lblOptions.Size = new System.Drawing.Size(45, 13);
 			this.lblOptions.TabIndex = 0;
-			this.lblOptions.Text = "Options";
-			// 
-			// preview
-			// 
-			this.preview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.preview.Location = new System.Drawing.Point(0, 42);
-			this.preview.Margin = new System.Windows.Forms.Padding(0);
-			this.preview.Name = "preview";
-			this.preview.ProportionSize = new System.Drawing.Size(4, 3);
-			this.preview.Size = new System.Drawing.Size(468, 344);
-			this.preview.TabIndex = 0;
-			this.preview.Text = "displaySmall";
+			this.lblOptions.Text = "Preview";
 			// 
 			// DisplayView
 			// 
@@ -207,17 +216,18 @@
 		#endregion
 
 		private System.Windows.Forms.SplitContainer splitContainer1;
-		private DisplayControl preview;
+		private DisplayControl liveSpy;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Label lblOptions;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Label lblDispName;
 		private System.Windows.Forms.ToolStrip toolStripMain;
-		private System.Windows.Forms.ToolStripButton tsGoLive;
+		private System.Windows.Forms.ToolStripButton tsPlay;
 		private System.Windows.Forms.ToolStripButton tsPause;
 		private System.Windows.Forms.ToolStripButton tsStop;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton toolStripButtonFillBlack;
+		private DisplayControl previewSpy;
 
 	}
 }

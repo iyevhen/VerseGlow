@@ -231,6 +231,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pid.ico" />
+    <None Include="Resources\1402419090_color_fill.png" />
+    <None Include="Resources\1402417465_player_stop.png" />
+    <None Include="Resources\1402417487_tool_pause.png" />
+    <None Include="Resources\1402417413_player_play.png" />
     <None Include="Resources\logo_big_rus.png" />
     <None Include="Resources\logo_big.png" />
     <None Include="Resources\1402078190_plus.png" />

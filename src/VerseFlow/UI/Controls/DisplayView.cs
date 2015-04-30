@@ -7,6 +7,8 @@ namespace VerseFlow.UI.Controls
 	public partial class DisplayView : UserControl, IDisplay
 	{
 		private readonly IDisplay live;
+		private bool isPlaying;
+		private bool isPaused;
 
 		public DisplayView()
 		{
@@ -19,7 +21,19 @@ namespace VerseFlow.UI.Controls
 				var disp = s as IDisplay;
 
 				if (disp != null)
-					preview.ProportionSize = disp.Size;
+					liveSpy.ProportionSize = disp.Size;
+			};
+
+			live.ActivationChanged += (s, args) =>
+			{
+				var disp = s as IDisplay;
+
+				if (disp != null)
+				{
+					tsPlay.Checked = disp.IsPlaying;
+					tsStop.Enabled = disp.IsPlaying || disp.IsPaused;
+					tsPause.Enabled = !disp.IsStoped && !disp.IsPaused;
+				}
 			};
 
 			Load += (s, args) =>
@@ -30,7 +44,6 @@ namespace VerseFlow.UI.Controls
 					((Form)live).Icon = parent.Icon;
 			};
 		}
-
 
 
 		protected override void Dispose(bool disposing)
@@ -46,7 +59,7 @@ namespace VerseFlow.UI.Controls
 			base.Dispose(disposing);
 		}
 
-		private void tsGoLive_Click(object sender, EventArgs e)
+		private void tsPlay_Click(object sender, EventArgs e)
 		{
 			var btn = sender as ToolStripButton;
 
@@ -55,14 +68,13 @@ namespace VerseFlow.UI.Controls
 
 			if (btn.Checked)
 			{
-				Activate();
+				Play();
 			}
 			else
 			{
-				Deactivate();
+				Stop();
 			}
 		}
-
 
 		public void DisplayVerse(BibleVerse bibleVerse)
 		{
@@ -87,32 +99,68 @@ namespace VerseFlow.UI.Controls
 			set { live.FullScreen = value; }
 		}
 
-		public bool IsActive { get; private set; }
+		public bool IsPlaying
+		{
+			get { return isPlaying; }
+			private set
+			{
+				isPlaying = value;
 
-		public bool IsPlaying { get; private set; }
+				if (value)
+					isPaused = false;
+			}
+		}
 
-		public bool IsPaused { get; private set; }
+		public bool IsPaused
+		{
+			get { return isPaused; }
+			private set
+			{
+				isPaused = value;
 
-		public bool IsStoped { get; private set; }
+				if (value)
+					isPlaying = false;
+			}
+		}
+
+		public bool IsStoped
+		{
+			get { return !isPlaying && !isPaused; }
+			private set
+			{
+				if (value)
+				{
+					IsPlaying = false;
+					IsPaused = false;
+				}
+			}
+		}
 
 		public event EventHandler ActivationChanged;
 
 		public void SetDevice(Screen screen, string deviceName)
 		{
 			lblDispName.Text = deviceName;
-			preview.ProportionSize = screen.WorkingArea.Size;
+			liveSpy.ProportionSize = screen.WorkingArea.Size;
 		}
 
-		public void Activate()
+		public void Play()
 		{
-			live.Activate();
-			preview.ProportionSize = live.Size;
+			live.Play();
+			IsPlaying = true;
+			liveSpy.ProportionSize = live.Size;
 		}
 
-		public void Deactivate()
+		public void Stop()
 		{
-			live.Deactivate();
+			live.Stop();
+			IsStoped = true;
+		}
 
+		public void Pause()
+		{
+			live.Pause();
+			IsPaused = true;
 		}
 	}
 }

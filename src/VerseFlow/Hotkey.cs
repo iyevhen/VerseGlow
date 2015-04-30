@@ -50,7 +50,6 @@ namespace VerseFlow
             Control = control;
             Alt = alt;
             Windows = windows;
-
             // Register us as a message filter
             Application.AddMessageFilter(this);
         }

@@ -46,9 +46,9 @@
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.tblCombos = new System.Windows.Forms.TableLayoutPanel();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnClose = new VerseFlow.UI.Controls.dotnetrix.co.uk.Button();
 			this.lblTitle = new System.Windows.Forms.Label();
 			this.verseView = new VerseFlow.UI.Controls.VerseView();
-			this.btnClose = new VerseFlow.UI.Controls.dotnetrix.co.uk.Button();
 			this.toolStripMain.SuspendLayout();
 			this.tblCombos.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -223,6 +223,19 @@
 			this.panel1.Size = new System.Drawing.Size(260, 17);
 			this.panel1.TabIndex = 0;
 			// 
+			// btnClose
+			// 
+			this.btnClose.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.btnClose.Dock = System.Windows.Forms.DockStyle.Right;
+			this.btnClose.ImageIndex = 2;
+			this.btnClose.ImageList = this.imageList1;
+			this.btnClose.Location = new System.Drawing.Point(248, 2);
+			this.btnClose.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+			this.btnClose.Name = "btnClose";
+			this.btnClose.Size = new System.Drawing.Size(10, 13);
+			this.btnClose.TabIndex = 1;
+			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+			// 
 			// lblTitle
 			// 
 			this.lblTitle.AutoSize = true;
@@ -254,19 +267,6 @@
 			this.verseView.ReadOnly = false;
 			this.verseView.Size = new System.Drawing.Size(260, 327);
 			this.verseView.TabIndex = 1;
-			// 
-			// btnClose
-			// 
-			this.btnClose.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.btnClose.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnClose.ImageIndex = 2;
-			this.btnClose.ImageList = this.imageList1;
-			this.btnClose.Location = new System.Drawing.Point(248, 2);
-			this.btnClose.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-			this.btnClose.Name = "btnClose";
-			this.btnClose.Size = new System.Drawing.Size(10, 13);
-			this.btnClose.TabIndex = 1;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
 			// BibleView
 			// 

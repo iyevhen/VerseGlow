@@ -16,10 +16,11 @@ namespace VerseFlow.UI
 		private Rectangle bounds;
 		private bool isPaused;
 		private Point location;
+		private bool isStoped;
 
 		public bool IsStoped
 		{
-			get { throw new NotImplementedException(); }
+			get { return isStoped; }
 		}
 
 		public event EventHandler ActivationChanged;
@@ -151,13 +152,18 @@ namespace VerseFlow.UI
 			get { return isPaused; }
 		}
 
-		void IDisplay.Deactivate()
+		void IDisplay.Stop()
 		{
 			Hide();
 			OnActivationChanged();
 		}
 
-		void IDisplay.Activate()
+		public void Pause()
+		{
+			isPaused = true;
+		}
+
+		void IDisplay.Play()
 		{
 			Show();
 			OnActivationChanged();
@@ -168,8 +174,7 @@ namespace VerseFlow.UI
 			if (e.CloseReason == CloseReason.UserClosing)
 			{
 				e.Cancel = true;
-				Hide();
-				OnActivationChanged();
+				((IDisplay)this).Stop();
 			}
 		}
 

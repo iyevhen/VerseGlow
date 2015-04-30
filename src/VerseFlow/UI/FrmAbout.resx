@@ -118,13 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="txtAbout.Text" xml:space="preserve">
-    <value>This is a free software. This application, along with any associated source code and files, is licensed under 
-GNU General Public License, version 3 (GPL-3.0)
-http://opensource.org/licenses/GPL-3.0
+    <value>This is a free software licensed under GNU General Public License (GPL), https://www.gnu.org/licenses/gpl.html
 
-Author: Yevhen Ihnatov
-Icons: http://p.yusukekamiyamane.com/
+Fugue Icons by Yusuke Kamiyamane 
+http://p.yusukekamiyamane.com/
 
-If you would like to suggest improvements or find a bug in this app, you can contact support via email verseflow@gmail.com</value>
+Nuvola Icons by David Vignoni
+http://www.icon-king.com/projects/nuvola/
+
+If you would like to suggest any improvements or found a bug in this app, you can contact support via email verseflow@gmail.com
+
+Yevhen Ihnatov
+http://www.linkedin.com/in/iyevhen</value>
   </data>
 </root>

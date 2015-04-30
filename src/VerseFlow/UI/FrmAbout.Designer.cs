@@ -37,7 +37,7 @@
 			// 
 			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnOK.Location = new System.Drawing.Point(320, 176);
+			this.btnOK.Location = new System.Drawing.Point(362, 231);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(87, 25);
 			this.btnOK.TabIndex = 1;
@@ -56,7 +56,7 @@
 			this.txtAbout.Name = "txtAbout";
 			this.txtAbout.ReadOnly = true;
 			this.txtAbout.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtAbout.Size = new System.Drawing.Size(392, 152);
+			this.txtAbout.Size = new System.Drawing.Size(434, 207);
 			this.txtAbout.TabIndex = 3;
 			this.txtAbout.Text = resources.GetString("txtAbout.Text");
 			// 
@@ -65,7 +65,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnOK;
-			this.ClientSize = new System.Drawing.Size(421, 213);
+			this.ClientSize = new System.Drawing.Size(463, 268);
 			this.Controls.Add(this.txtAbout);
 			this.Controls.Add(this.btnOK);
 			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));

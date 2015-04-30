@@ -66,18 +66,18 @@ namespace VerseFlow.UI.Controls
 			var drawRect = new RectangleF(x, y, myWidth, myHeight);
 
 			e.Graphics.FillRectangle(Brushes.Black, drawRect);
-//			var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+			var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
-			Bitmap logo = Resources.logo_big_rus;
+			//			Bitmap logo = Resources.logo_big_rus;
 
-			Size ls = logo.Size;
-			e.Graphics.DrawImage(logo, 
-				drawRect.Left + (drawRect.Width - ls.Width) / 2, 
-				drawRect.Top + (drawRect.Height - ls.Height) / 2, 
-				ls.Width, ls.Height);
+			//			Size ls = logo.Size;
+			//			e.Graphics.DrawImage(logo, 
+			//				drawRect.Left + (drawRect.Width - ls.Width) / 2, 
+			//				drawRect.Top + (drawRect.Height - ls.Height) / 2, 
+			//				ls.Width, ls.Height);
 
-			//			using (var font = new Font(FontFamily.GenericSansSerif, Font.Size))
-			//				e.Graphics.DrawString("No slide", font, Brushes.White, drawRect, format);
+			using (var font = new Font(FontFamily.GenericSansSerif, Font.Size))
+				e.Graphics.DrawString("No slide", font, Brushes.White, drawRect, format);
 
 			base.OnPaint(e);
 

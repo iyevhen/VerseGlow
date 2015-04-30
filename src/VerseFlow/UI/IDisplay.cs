@@ -12,7 +12,7 @@ namespace VerseFlow.UI
 		Image BackgroundImage { get; set; }
 
 		bool FullScreen { get; set; }
-		bool IsActive { get; }
+
 		bool IsPlaying { get; }
     	bool IsPaused { get; }
     	bool IsStoped { get; }
@@ -22,7 +22,8 @@ namespace VerseFlow.UI
 
 		Size Size { get; }
 
-	    void Activate();
-        void Deactivate();
+	    void Play();
+        void Stop();
+        void Pause();
     }
 }
