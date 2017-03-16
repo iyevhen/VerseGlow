@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerseGlow", "VerseFlow\VerseGlow.csproj", "{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerseGlow", "VerseGlow\VerseGlow.csproj", "{3D9DEB1C-4855-466D-BB22-4A3DC051A7F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerseGlow.Test", "VerseFlow.Test\VerseGlow.Test.csproj", "{D5426443-B199-4390-B6E0-EF35865A2365}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerseGlow.Test", "VerseGlow.Test\VerseGlow.Test.csproj", "{D5426443-B199-4390-B6E0-EF35865A2365}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
