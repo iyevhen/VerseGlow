@@ -1,3 +1,11 @@
+#ignore
+
 **/.vs/
-**/obj/
-**/bin/
+**/[oO]bj/
+**/[bB]in/
+**/*.dll
+**/*.pdb
+**/*.exe
+
+#except
+!/lib/**
