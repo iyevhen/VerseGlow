@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using VerseFlow.Core;
+using VerseFlow.UI.Controls.LineRenderers;
 
 namespace VerseFlow.UI.Controls
 {
@@ -17,7 +18,7 @@ namespace VerseFlow.UI.Controls
         private bool focused;
         private Size size;
         private string highlightText;
-        private LineRenderer lineRenderer;
+        private RowRenderer rowRenderer;
         private int selectedIndex = -1;
 
         public VerseViewPresenter(VerseViewColorTheme colorTheme, Font font)
@@ -29,7 +30,7 @@ namespace VerseFlow.UI.Controls
                 throw new ArgumentNullException("colorTheme");
 
             this.colorTheme = colorTheme;
-            lineRenderer = new RegularLineRenderer(new Renderer(font), new VerseViewColorTheme());
+            rowRenderer = new RegularRowRenderer(new Renderer(font), new VerseViewColorTheme());
             Font = font;
         }
 
@@ -56,7 +57,7 @@ namespace VerseFlow.UI.Controls
 
                 font = value;
                 renderer = new Renderer(value);
-                lineRenderer.Renderer = renderer;
+                rowRenderer.Renderer = renderer;
             }
         }
 
@@ -73,9 +74,9 @@ namespace VerseFlow.UI.Controls
                 highlightText = value;
 
                 if (value == null)
-                    lineRenderer = new RegularLineRenderer(renderer, colorTheme);
+                    rowRenderer = new RegularRowRenderer(renderer, colorTheme);
                 else
-                    lineRenderer = new HighlightLineRenderer(renderer, colorTheme, value);
+                    rowRenderer = new HighlightRowRenderer(renderer, colorTheme, value);
             }
         }
 
@@ -152,27 +153,28 @@ namespace VerseFlow.UI.Controls
                 if (i == selectedIndex)
                 {
                     using (var brush = colorTheme.NewHighlightBrush(vrect))
+                    {
                         graphics.FillRectangle(brush, vrect);
+                    }
 
                     var edge = vrect;
                     edge.Offset(-1, -1);
                     graphics.DrawRectangle(colorTheme.HighlightColorPen, edge);
                 }
-                else
-                    if (i % 2 == 0)
-                    {
-                        graphics.FillRectangle(colorTheme.BackColorDarkerBrush, vrect);
-                    }
+                else if (i % 2 == 0)
+                {
+                    graphics.FillRectangle(colorTheme.BackColorDarkerBrush, vrect);
+                }
 
                 int linesHeight = 0;
 
-                foreach (string line in vi.Lines())
+                foreach (string line in vi.Rows())
                 {
                     Point point = vi.TextPosition;
                     point.Offset(0, offset + linesHeight);
 
-                    lineRenderer.DrawLine(graphics, line, point);
-                    linesHeight += renderer.LineHeight;
+                    rowRenderer.DrawLine(graphics, line, point);
+                    linesHeight += renderer.RowHeight;
                 }
 
                 if (focusedIndex == i && focused)

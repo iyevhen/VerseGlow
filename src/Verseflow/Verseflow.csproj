@@ -60,6 +60,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DisposableObject.cs" />
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\IDisposableEx.cs" />
+    <Compile Include="Common\Is.cs" />
     <Compile Include="Core\IBible.cs" />
     <Compile Include="Core\Import\IBibleWriter.cs" />
     <Compile Include="Core\Import\IBibleImportAdapter.cs" />
@@ -110,14 +114,13 @@
     <Compile Include="UI\Controls\dotnetrix.co.uk\RoundedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\HighlightLineRenderer.cs" />
+    <Compile Include="UI\Controls\LineRenderers\HighlightRowRenderer.cs" />
     <Compile Include="UI\Controls\Interval.cs" />
-    <Compile Include="UI\Controls\LineRenderer.cs" />
-    <Compile Include="UI\Controls\RegularLineRenderer.cs" />
+    <Compile Include="UI\Controls\LineRenderers\RowRenderer.cs" />
+    <Compile Include="UI\Controls\LineRenderers\RegularRowRenderer.cs" />
     <Compile Include="UI\Controls\SplitButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\TextCursor.cs" />
     <Compile Include="UI\Controls\UserRect.cs" />
     <Compile Include="UI\Controls\VerseItem.cs" />
     <Compile Include="UI\ControlExtensions.cs" />
@@ -274,12 +277,6 @@
     <None Include="Resources\book.png" />
     <None Include="Resources\ajax-loader1.gif" />
     <None Include="Resources\list_remove.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VerseFlow.Common\VerseFlow.Common.csproj">
-      <Project>{03F752CC-13FF-4523-94B4-B11AE9108243}</Project>
-      <Name>VerseFlow.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

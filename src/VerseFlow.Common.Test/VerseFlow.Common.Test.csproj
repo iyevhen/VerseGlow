@@ -47,12 +47,6 @@
     <Compile Include="IsFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VerseFlow.Common\VerseFlow.Common.csproj">
-      <Project>{03f752cc-13ff-4523-94b4-b11ae9108243}</Project>
-      <Name>VerseFlow.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

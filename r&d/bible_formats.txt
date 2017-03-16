@@ -1,0 +1,17 @@
+https://crosswire.org/wiki/File_Formats
+https://github.com/digitalbiblesociety/browserbible
+
+
+http://www.bibletechnologies.net/
+https://github.com/matt-cook/bible
+
+OSIS - Open Scripture Information Standard
+TEI  - Text Encoding Initiative
+VPL  - Verse Per Line
+USFM - Unified Standard Format Markers
+USFX - Unified Scripture Format XML
+
+
+USFM-USFX-USX
+OSIS
+OXES

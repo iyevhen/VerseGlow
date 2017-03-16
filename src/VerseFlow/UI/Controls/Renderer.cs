@@ -10,7 +10,7 @@ namespace VerseFlow.UI.Controls
 	{
 		private readonly Font font;
 		private readonly Dictionary<char, int> symbols = new Dictionary<char, int>();
-		private int lineHeight = -1;
+		private int rowHeight = -1;
 		private const TextFormatFlags textFormat = TextFormatFlags.NoClipping | TextFormatFlags.NoFullWidthCharacterBreak | TextFormatFlags.NoPadding | TextFormatFlags.NoPrefix;
 
 		public Renderer(Font font)
@@ -18,9 +18,9 @@ namespace VerseFlow.UI.Controls
 			this.font = font;
 		}
 
-		public int LineHeight
+		public int RowHeight
 		{
-			get { return lineHeight; }
+			get { return rowHeight; }
 		}
 
 		public void DrawText(IDeviceContext device, string text, Point position, Color foreColor)
@@ -49,8 +49,8 @@ namespace VerseFlow.UI.Controls
 			Size measured = TextRenderer.MeasureText(device, new string(symbol, 1), font, new Size(), textFormat);
 			symbols[symbol] = measured.Width;
 
-			if (lineHeight == -1)
-				lineHeight = measured.Height;
+			if (rowHeight == -1)
+				rowHeight = measured.Height;
 
 			return measured.Width;
 		}
