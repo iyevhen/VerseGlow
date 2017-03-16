@@ -1,6 +1,6 @@
 using System;
 
-namespace VerseFlow.Common
+namespace VerseGlow.Common
 {
 	/// <summary>
 	/// A disposable object.

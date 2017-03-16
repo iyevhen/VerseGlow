@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using VerseFlow.CrashReport;
-using VerseFlow.UI;
 
-namespace VerseFlow
+using VerseGlow.CrashReport;
+using VerseGlow.UI;
+
+namespace VerseGlow
 {
     static class Program
     {

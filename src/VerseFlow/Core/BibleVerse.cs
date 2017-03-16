@@ -1,4 +1,4 @@
-﻿namespace VerseFlow.Core
+﻿namespace VerseGlow.Core
 {
 	public class BibleVerse
 	{

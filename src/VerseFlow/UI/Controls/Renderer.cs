@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace VerseFlow.UI.Controls
+namespace VerseGlow.UI.Controls
 {
 	public class Renderer
 	{

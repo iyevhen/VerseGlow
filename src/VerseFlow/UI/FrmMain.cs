@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
-using VerseFlow.Core;
-using VerseFlow.Core.Import.BibleQuote;
-using VerseFlow.Properties;
-using VerseFlow.UI.Controls;
-using Application = Microsoft.Office.Interop.PowerPoint.Application;
-using Shape = Microsoft.Office.Interop.PowerPoint.Shape;
 
-namespace VerseFlow.UI
+using VerseGlow.Core;
+using VerseGlow.Core.Import.BibleQuote;
+using VerseGlow.Properties;
+using VerseGlow.UI.Controls;
+
+namespace VerseGlow.UI
 {
     public partial class FrmMain : Form
     {
@@ -165,7 +160,7 @@ namespace VerseFlow.UI
                 ofd.CheckFileExists = true;
                 ofd.Multiselect = false;
                 //ofd.InitialDirectory = browseDir;
-                ofd.Filter = string.Format("BibleQuote INI File|{0}", BqtIni.INI);
+                ofd.Filter = $"BibleQuote INI File|{BqtIni.INI}";
 
                 if (DialogResult.OK == ofd.ShowDialog(this))
                 {

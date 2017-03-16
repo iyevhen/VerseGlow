@@ -1,6 +1,6 @@
-﻿using VerseFlow.Core.Import;
+﻿using VerseGlow.Core.Import;
 
-namespace VerseFlow.Core
+namespace VerseGlow.Core
 {
 	public interface IBibleRepository
 	{

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace VerseFlow
+namespace VerseGlow
 {
     //http://bloggablea.wordpress.com/2007/05/01/global-hotkeys-with-net/
     //http://blogs.msdn.com/b/toub/archive/2006/05/03/589423.aspx

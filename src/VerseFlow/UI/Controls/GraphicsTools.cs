@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 
-namespace VerseFlow.UI.Controls
+namespace VerseGlow.UI.Controls
 {
 	static class GraphicsTools
 	{

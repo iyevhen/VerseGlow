@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VerseFlow.Core.Import
+namespace VerseGlow.Core.Import
 {
 	public interface IBibleWriter : IDisposable
 	{

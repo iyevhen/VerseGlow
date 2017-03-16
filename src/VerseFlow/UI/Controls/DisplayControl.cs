@@ -1,15 +1,16 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using VerseFlow.Properties;
 
-namespace VerseFlow.UI.Controls
+using VerseGlow.Properties;
+
+namespace VerseGlow.UI.Controls
 {
     public class DisplayControl : Control
     {
         private readonly Size defaultSize;
         private Size proportionSize;
-        private IDrawTheme defaultTheme = new LogoOnly();
+        private readonly IDrawTheme defaultTheme = new LogoOnly();
 
         private StringFormat centeredString = new StringFormat
         {

@@ -2,9 +2,8 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
 
-namespace VerseFlow.UI.Controls.dotnetrix.co.uk
+namespace VerseGlow.UI.Controls.dotnetrix.co.uk
 {
 	/// <summary>
 	/// Summary description for RoundedPanel.

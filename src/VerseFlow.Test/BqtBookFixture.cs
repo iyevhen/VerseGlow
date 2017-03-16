@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace VerseFlow.Test
+namespace VerseGlow.Test
 {
 	[TestFixture]
 	public class BqtBookFixture

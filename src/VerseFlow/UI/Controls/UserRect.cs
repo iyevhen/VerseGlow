@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace VerseFlow.UI.Controls
+namespace VerseGlow.UI.Controls
 {
 	public class UserRect
 	{

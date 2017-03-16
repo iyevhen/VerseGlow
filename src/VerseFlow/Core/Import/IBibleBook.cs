@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VerseFlow.Core.Import
+namespace VerseGlow.Core.Import
 {
 	public interface IBibleBook
 	{

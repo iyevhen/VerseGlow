@@ -1,4 +1,4 @@
-﻿namespace VerseFlow.Core.Import
+﻿namespace VerseGlow.Core.Import
 {
 	public interface IBibleVerse
 	{

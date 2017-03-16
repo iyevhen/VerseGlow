@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VerseFlow.CrashReport
+namespace VerseGlow.CrashReport
 {
     public interface ICrashReportSender
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VerseFlow.UI.Controls
+namespace VerseGlow.UI.Controls
 {
 	[Flags]
 	public enum Corners

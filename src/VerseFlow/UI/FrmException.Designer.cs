@@ -1,4 +1,4 @@
-﻿namespace VerseFlow.UI
+﻿namespace VerseGlow.UI
 {
     partial class FrmException
     {
@@ -38,7 +38,7 @@
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Image = global::VerseFlow.Properties.Resources.list_remove;
+			this.pictureBox1.Image = global::VerseGlow.Properties.Resources.list_remove;
 			this.pictureBox1.Location = new System.Drawing.Point(14, 13);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(32, 32);
@@ -108,8 +108,8 @@
 			this.Controls.Add(this.lblMessage);
 			this.Controls.Add(this.textException);
 			this.Controls.Add(this.pictureBox1);
-			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.Font = global::VerseFlow.Properties.Settings.Default.ApplicationFont;
+			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseGlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.Font = global::VerseGlow.Properties.Settings.Default.ApplicationFont;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "FrmException";

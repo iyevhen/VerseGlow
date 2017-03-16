@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using System.Web;
 
-namespace VerseFlow.Core.Import.BibleQuote
+namespace VerseGlow.Core.Import.BibleQuote
 {
     /// <summary>
     /// http://bqt.ru/OpisanieFormataModulejj?v=xqh

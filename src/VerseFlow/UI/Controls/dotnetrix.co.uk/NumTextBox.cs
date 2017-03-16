@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace VerseFlow.UI.Controls.dotnetrix.co.uk
+namespace VerseGlow.UI.Controls.dotnetrix.co.uk
 {
 	[ToolboxItem(true)]
 	[ToolboxBitmap(typeof(System.Windows.Forms.TextBox))]

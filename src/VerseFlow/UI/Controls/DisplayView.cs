@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using VerseFlow.Core;
 
-namespace VerseFlow.UI.Controls
+using VerseGlow.Core;
+
+namespace VerseGlow.UI.Controls
 {
 	public partial class DisplayView : UserControl, IDisplay
 	{
@@ -48,15 +49,14 @@ namespace VerseFlow.UI.Controls
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && (components != null))
+			if (disposing)
 			{
-				components.Dispose();
+				components?.Dispose();
 			}
 
-			if (live != null)
-				live.Dispose();
+		    live?.Dispose();
 
-			base.Dispose(disposing);
+		    base.Dispose(disposing);
 		}
 
 		private void tsPlay_Click(object sender, EventArgs e)

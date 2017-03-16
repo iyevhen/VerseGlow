@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace VerseFlow.Core.Import.BibleQuote
+namespace VerseGlow.Core.Import.BibleQuote
 {
 	public class BqtBibleAdapter : IBibleImportAdapter
 	{

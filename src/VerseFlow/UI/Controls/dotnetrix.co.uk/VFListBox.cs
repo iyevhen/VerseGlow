@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace VerseFlow.UI.Controls.dotnetrix.co.uk
+namespace VerseGlow.UI.Controls.dotnetrix.co.uk
 {
 	class VFListBox : System.Windows.Forms.ListBox
 	{

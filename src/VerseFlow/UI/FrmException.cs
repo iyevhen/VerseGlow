@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Text;
 using System.Windows.Forms;
-using VerseFlow.CrashReport;
 
-namespace VerseFlow.UI
+using VerseGlow.CrashReport;
+
+namespace VerseGlow.UI
 {
     public partial class FrmException : Form
     {

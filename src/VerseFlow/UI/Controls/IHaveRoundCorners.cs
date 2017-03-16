@@ -1,4 +1,4 @@
-﻿namespace VerseFlow.UI.Controls
+﻿namespace VerseGlow.UI.Controls
 {
 	public interface IHaveRoundCorners
 	{

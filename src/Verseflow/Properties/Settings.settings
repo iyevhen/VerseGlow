@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VerseFlow.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VerseGlow.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="AppFolder" Type="System.String" Scope="User">
@@ -16,6 +16,9 @@
     </Setting>
     <Setting Name="ApplicationFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Microsoft Sans Serif, 8.25pt</Value>
+    </Setting>
+    <Setting Name="test" Type="System.String" Scope="User">
+      <Value Profile="(Default)">test</Value>
     </Setting>
   </Settings>
 </SettingsFile>

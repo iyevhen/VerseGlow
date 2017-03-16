@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VerseFlow.Core.Import.CSV
+namespace VerseGlow.Core.Import.CSV
 {
 	public abstract class FlatFileLine
 	{

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace VerseFlow.UI
+namespace VerseGlow.UI
 {
 	/// <summary>
 	/// Class that can automatically wrap a given string.

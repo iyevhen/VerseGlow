@@ -1,7 +1,10 @@
 ﻿using System;
+
 using NUnit.Framework;
 
-namespace VerseFlow.Common.Test
+using Is = VerseGlow.Common.Is;
+
+namespace VerseGlow.Test
 {
 	[TestFixture]
 	public class IsFixture

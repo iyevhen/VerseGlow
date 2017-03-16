@@ -2,12 +2,14 @@
 using System.Diagnostics;
 using System.Text;
 using System.Windows.Forms;
+
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.PowerPoint;
+
 using Application = Microsoft.Office.Interop.PowerPoint.Application;
 using Shape = Microsoft.Office.Interop.PowerPoint.Shape;
 
-namespace VerseFlow.UI
+namespace VerseGlow.UI
 {
     public partial class FrmImportPowerPoint : Form
     {

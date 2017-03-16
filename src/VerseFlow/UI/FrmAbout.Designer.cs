@@ -1,4 +1,4 @@
-﻿namespace VerseFlow.UI
+﻿namespace VerseGlow.UI
 {
 	partial class FrmAbout
 	{
@@ -68,8 +68,8 @@
 			this.ClientSize = new System.Drawing.Size(463, 268);
 			this.Controls.Add(this.txtAbout);
 			this.Controls.Add(this.btnOK);
-			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.Font = global::VerseFlow.Properties.Settings.Default.ApplicationFont;
+			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseGlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.Font = global::VerseGlow.Properties.Settings.Default.ApplicationFont;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;

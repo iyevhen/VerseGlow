@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
-using VerseFlow.Common;
-using VerseFlow.Core;
-using VerseFlow.Properties;
-using VerseFlow.UI.Controls;
 
-namespace VerseFlow.UI.Controls
+using VerseGlow.Common;
+using VerseGlow.Core;
+using VerseGlow.Properties;
+
+namespace VerseGlow.UI.Controls
 {
 	public partial class BibleView : UserControl
 	{

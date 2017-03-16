@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using VerseFlow.Core;
-using VerseFlow.Properties;
 
-namespace VerseFlow
+using VerseGlow.Core;
+using VerseGlow.Properties;
+
+namespace VerseGlow
 {
 	public static class Options
 	{

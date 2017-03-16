@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace VerseFlow.Core.Import.BibleQuote
+namespace VerseGlow.Core.Import.BibleQuote
 {
     [DebuggerDisplay("{Name}, {ChaptersCount}")]
     public class BqtBook : IBibleBook
@@ -120,7 +120,7 @@ namespace VerseFlow.Core.Import.BibleQuote
             {
                 int count;
                 if (!int.TryParse(value, out count))
-                    throw new BqtImportException(string.Format("Cannot parse [{0}] from [{1}]", iniChapterQty, value));
+                    throw new BqtImportException($"Cannot parse [{iniChapterQty}] from [{value}]");
 
                 chaptersCount = count;
                 return true;

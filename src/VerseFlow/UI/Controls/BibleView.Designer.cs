@@ -1,4 +1,6 @@
-﻿namespace VerseFlow.UI.Controls
+﻿using VerseGlow.UI.Controls.dotnetrix.co.uk;
+
+namespace VerseGlow.UI.Controls
 {
 	partial class BibleView
 	{
@@ -46,9 +48,9 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tblCombos = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnClose = new VerseFlow.UI.Controls.dotnetrix.co.uk.Button();
+            this.btnClose = new Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.verseView = new VerseFlow.UI.Controls.VerseView();
+            this.verseView = new VerseView();
             this.toolStripMain.SuspendLayout();
             this.tblCombos.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -57,8 +59,8 @@
             // cmbNavigate
             // 
             this.cmbNavigate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbNavigate.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbNavigate.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
+            this.cmbNavigate.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseGlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbNavigate.Font = global::VerseGlow.Properties.Settings.Default.BibleFont;
             this.cmbNavigate.FormattingEnabled = true;
             this.cmbNavigate.Location = new System.Drawing.Point(0, 0);
             this.cmbNavigate.Margin = new System.Windows.Forms.Padding(0);
@@ -95,7 +97,7 @@
             // tsBook
             // 
             this.tsBook.CheckOnClick = true;
-            this.tsBook.Image = global::VerseFlow.Properties.Resources.book_open;
+            this.tsBook.Image = global::VerseGlow.Properties.Resources.book_open;
             this.tsBook.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBook.Name = "tsBook";
             this.tsBook.Size = new System.Drawing.Size(70, 22);
@@ -115,7 +117,7 @@
             // tsPrevChapter
             // 
             this.tsPrevChapter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsPrevChapter.Image = global::VerseFlow.Properties.Resources._1402049221_arrow_180_medium;
+            this.tsPrevChapter.Image = global::VerseGlow.Properties.Resources._1402049221_arrow_180_medium;
             this.tsPrevChapter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsPrevChapter.Name = "tsPrevChapter";
             this.tsPrevChapter.Size = new System.Drawing.Size(23, 22);
@@ -124,7 +126,7 @@
             // tsNextChapter
             // 
             this.tsNextChapter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsNextChapter.Image = global::VerseFlow.Properties.Resources._1402049392_arrow_000_medium;
+            this.tsNextChapter.Image = global::VerseGlow.Properties.Resources._1402049392_arrow_000_medium;
             this.tsNextChapter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsNextChapter.Name = "tsNextChapter";
             this.tsNextChapter.Size = new System.Drawing.Size(23, 22);
@@ -138,7 +140,7 @@
             // tsPrevBook
             // 
             this.tsPrevBook.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsPrevBook.Image = global::VerseFlow.Properties.Resources.book_open_previous;
+            this.tsPrevBook.Image = global::VerseGlow.Properties.Resources.book_open_previous;
             this.tsPrevBook.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsPrevBook.Name = "tsPrevBook";
             this.tsPrevBook.Size = new System.Drawing.Size(23, 22);
@@ -147,7 +149,7 @@
             // tsNextBook
             // 
             this.tsNextBook.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsNextBook.Image = global::VerseFlow.Properties.Resources.book_open_next;
+            this.tsNextBook.Image = global::VerseGlow.Properties.Resources.book_open_next;
             this.tsNextBook.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsNextBook.Name = "tsNextBook";
             this.tsNextBook.Size = new System.Drawing.Size(23, 22);
@@ -164,7 +166,7 @@
             this.tsFind.CheckOnClick = true;
             this.tsFind.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsFind.Image = global::VerseFlow.Properties.Resources.binocular;
+            this.tsFind.Image = global::VerseGlow.Properties.Resources.binocular;
             this.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsFind.Name = "tsFind";
             this.tsFind.Size = new System.Drawing.Size(23, 22);
@@ -174,7 +176,7 @@
             // tsFont
             // 
             this.tsFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsFont.Image = global::VerseFlow.Properties.Resources.edit;
+            this.tsFont.Image = global::VerseGlow.Properties.Resources.edit;
             this.tsFont.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsFont.Name = "tsFont";
             this.tsFont.Size = new System.Drawing.Size(23, 22);
@@ -255,11 +257,11 @@
             this.verseView.AutoScroll = true;
             this.verseView.AutoScrollMinSize = new System.Drawing.Size(256, 10);
             this.verseView.AutoScrollOffset = new System.Drawing.Point(500, 500);
-            this.verseView.BackColor = global::VerseFlow.Properties.Settings.Default.BibleBackColor;
-            this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.verseView.BackColor = global::VerseGlow.Properties.Settings.Default.BibleBackColor;
+            this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseGlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.verseView.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseGlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.verseView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.verseView.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
+            this.verseView.Font = global::VerseGlow.Properties.Settings.Default.BibleFont;
             this.verseView.ForeColor = System.Drawing.SystemColors.ControlText;
             this.verseView.HighlightText = null;
             this.verseView.Location = new System.Drawing.Point(0, 66);
@@ -279,8 +281,8 @@
             this.Controls.Add(this.tblCombos);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.panel1);
-            this.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseFlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.ForeColor = global::VerseFlow.Properties.Settings.Default.BibleForeColor;
+            this.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseGlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ForeColor = global::VerseGlow.Properties.Settings.Default.BibleForeColor;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "BibleView";
             this.Size = new System.Drawing.Size(260, 390);

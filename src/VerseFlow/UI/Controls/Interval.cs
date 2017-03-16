@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace VerseFlow.UI.Controls
+namespace VerseGlow.UI.Controls
 {
 	/// <summary>
 	///     Обобщенный класс для работы с интервалами.

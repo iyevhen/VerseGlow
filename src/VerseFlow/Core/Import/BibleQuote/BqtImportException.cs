@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VerseFlow.Core.Import.BibleQuote
+namespace VerseGlow.Core.Import.BibleQuote
 {
 	public class BqtImportException : Exception
 	{

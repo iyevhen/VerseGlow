@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace VerseFlow.UI
+namespace VerseGlow.UI
 {
 	public static class WindowsAPI
 	{

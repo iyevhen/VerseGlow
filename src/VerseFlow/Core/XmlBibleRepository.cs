@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using VerseFlow.Core.Import;
 
-namespace VerseFlow.Core
+using VerseGlow.Core.Import;
+
+namespace VerseGlow.Core
 {
 	class XmlBibleRepository : IBibleRepository
 	{

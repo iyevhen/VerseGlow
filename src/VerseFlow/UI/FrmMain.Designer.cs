@@ -1,6 +1,6 @@
-﻿using VerseFlow.UI.Controls;
+﻿using VerseGlow.UI.Controls;
 
-namespace VerseFlow.UI
+namespace VerseGlow.UI
 {
 	partial class FrmMain
 	{
@@ -39,7 +39,7 @@ namespace VerseFlow.UI
             this.tblBibles = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tblDisplay = new System.Windows.Forms.TableLayoutPanel();
-            this.displayView = new VerseFlow.UI.Controls.DisplayView();
+            this.displayView = new VerseGlow.UI.Controls.DisplayView();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.tsDisplay = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -64,7 +64,7 @@ namespace VerseFlow.UI
             this.toolStripBibles.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.toolStripBibles.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStripBibles.ShowItemToolTips = false;
-            this.toolStripBibles.Size = new System.Drawing.Size(439, 25);
+            this.toolStripBibles.Size = new System.Drawing.Size(421, 25);
             this.toolStripBibles.TabIndex = 0;
             this.toolStripBibles.Text = "toolStrip2";
             // 
@@ -73,7 +73,7 @@ namespace VerseFlow.UI
             this.tsBibles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.tsBibleQuote});
-            this.tsBibles.Image = global::VerseFlow.Properties.Resources.book;
+            this.tsBibles.Image = global::VerseGlow.Properties.Resources.book;
             this.tsBibles.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBibles.Name = "tsBibles";
             this.tsBibles.Size = new System.Drawing.Size(67, 22);
@@ -87,7 +87,7 @@ namespace VerseFlow.UI
             // 
             // tsBibleQuote
             // 
-            this.tsBibleQuote.Image = global::VerseFlow.Properties.Resources._1402077846_inbox_download;
+            this.tsBibleQuote.Image = global::VerseGlow.Properties.Resources._1402077846_inbox_download;
             this.tsBibleQuote.Name = "tsBibleQuote";
             this.tsBibleQuote.Size = new System.Drawing.Size(133, 22);
             this.tsBibleQuote.Text = "BibleQuote";
@@ -97,7 +97,7 @@ namespace VerseFlow.UI
             // 
             this.tsAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsAbout.Image = global::VerseFlow.Properties.Resources.information;
+            this.tsAbout.Image = global::VerseGlow.Properties.Resources.information;
             this.tsAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsAbout.Name = "tsAbout";
             this.tsAbout.Size = new System.Drawing.Size(23, 22);
@@ -108,14 +108,14 @@ namespace VerseFlow.UI
             // 
             this.tblBibles.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tblBibles.ColumnCount = 1;
-            this.tblBibles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 657F));
+            this.tblBibles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 659F));
             this.tblBibles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblBibles.Location = new System.Drawing.Point(0, 25);
             this.tblBibles.Margin = new System.Windows.Forms.Padding(0);
             this.tblBibles.Name = "tblBibles";
             this.tblBibles.RowCount = 1;
             this.tblBibles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblBibles.Size = new System.Drawing.Size(439, 497);
+            this.tblBibles.Size = new System.Drawing.Size(421, 600);
             this.tblBibles.TabIndex = 1;
             // 
             // splitContainer1
@@ -135,8 +135,8 @@ namespace VerseFlow.UI
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tblBibles);
             this.splitContainer1.Panel2.Controls.Add(this.toolStripBibles);
-            this.splitContainer1.Size = new System.Drawing.Size(780, 526);
-            this.splitContainer1.SplitterDistance = 335;
+            this.splitContainer1.Size = new System.Drawing.Size(859, 629);
+            this.splitContainer1.SplitterDistance = 432;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 3;
             // 
@@ -154,7 +154,7 @@ namespace VerseFlow.UI
             this.tblDisplay.Name = "tblDisplay";
             this.tblDisplay.RowCount = 1;
             this.tblDisplay.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblDisplay.Size = new System.Drawing.Size(331, 497);
+            this.tblDisplay.Size = new System.Drawing.Size(428, 600);
             this.tblDisplay.TabIndex = 4;
             // 
             // displayView
@@ -166,7 +166,7 @@ namespace VerseFlow.UI
             this.displayView.Location = new System.Drawing.Point(2, 2);
             this.displayView.Margin = new System.Windows.Forms.Padding(0);
             this.displayView.Name = "displayView";
-            this.displayView.Size = new System.Drawing.Size(327, 493);
+            this.displayView.Size = new System.Drawing.Size(424, 596);
             this.displayView.TabIndex = 2;
             // 
             // toolStripMain
@@ -180,13 +180,13 @@ namespace VerseFlow.UI
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.toolStripMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStripMain.Size = new System.Drawing.Size(331, 25);
+            this.toolStripMain.Size = new System.Drawing.Size(428, 25);
             this.toolStripMain.TabIndex = 7;
             this.toolStripMain.Text = "toolStrip1";
             // 
             // tsDisplay
             // 
-            this.tsDisplay.Image = global::VerseFlow.Properties.Resources.monitor;
+            this.tsDisplay.Image = global::VerseGlow.Properties.Resources.monitor;
             this.tsDisplay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsDisplay.Name = "tsDisplay";
             this.tsDisplay.Size = new System.Drawing.Size(74, 22);
@@ -207,10 +207,10 @@ namespace VerseFlow.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(780, 526);
+            this.ClientSize = new System.Drawing.Size(859, 629);
             this.Controls.Add(this.splitContainer1);
-            this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Font = global::VerseFlow.Properties.Settings.Default.ApplicationFont;
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseGlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Font = global::VerseGlow.Properties.Settings.Default.ApplicationFont;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -1,4 +1,4 @@
-﻿namespace VerseFlow.UI
+﻿namespace VerseGlow.UI
 {
 	partial class FrmImportBibleQuote
 	{
@@ -114,8 +114,8 @@
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.gbEnc);
 			this.Controls.Add(this.btnOpen);
-			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.Font = global::VerseFlow.Properties.Settings.Default.ApplicationFont;
+			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseGlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.Font = global::VerseGlow.Properties.Settings.Default.ApplicationFont;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "FrmImportBibleQuote";

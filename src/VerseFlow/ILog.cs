@@ -1,6 +1,6 @@
 using System;
 
-namespace VerseFlow
+namespace VerseGlow
 {
 	public interface ILog
 	{

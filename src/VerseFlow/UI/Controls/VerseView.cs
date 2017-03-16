@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using VerseFlow.Core;
 
-namespace VerseFlow.UI.Controls
+using VerseGlow.Core;
+
+namespace VerseGlow.UI.Controls
 {
     public class VerseView : ScrollableControl
     {

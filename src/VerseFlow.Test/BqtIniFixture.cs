@@ -1,10 +1,11 @@
 ﻿using System;
-using System.IO;
 using System.Text;
-using NUnit.Framework;
-using VerseFlow.Core.Import.BibleQuote;
 
-namespace VerseFlow.Test
+using NUnit.Framework;
+
+using VerseGlow.Core.Import.BibleQuote;
+
+namespace VerseGlow.Test
 {
     [TestFixture]
     public class BqtIniFixture

@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace VerseFlow.Common
+namespace VerseGlow.Common
 {
 	/// <summary>
 	/// Helper class for guard statements, that allow prettier code for guard clauses

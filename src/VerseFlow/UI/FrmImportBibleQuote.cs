@@ -2,12 +2,13 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using VerseFlow.Common;
-using VerseFlow.Core;
-using VerseFlow.Core.Import;
-using VerseFlow.Core.Import.BibleQuote;
 
-namespace VerseFlow.UI
+using VerseGlow.Common;
+using VerseGlow.Core;
+using VerseGlow.Core.Import;
+using VerseGlow.Core.Import.BibleQuote;
+
+namespace VerseGlow.UI
 {
 	public partial class FrmImportBibleQuote : Form
 	{

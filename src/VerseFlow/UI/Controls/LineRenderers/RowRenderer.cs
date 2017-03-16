@@ -1,9 +1,9 @@
 using System;
 using System.Drawing;
 
-using VerseFlow.Common;
+using VerseGlow.Common;
 
-namespace VerseFlow.UI.Controls.LineRenderers
+namespace VerseGlow.UI.Controls.LineRenderers
 {
 	internal abstract class RowRenderer
 	{

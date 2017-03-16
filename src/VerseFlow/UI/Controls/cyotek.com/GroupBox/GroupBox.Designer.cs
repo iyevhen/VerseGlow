@@ -1,4 +1,4 @@
-﻿namespace VerseFlow.UI.Controls.cyotek.com.GroupBox
+﻿namespace VerseGlow.UI.Controls.cyotek.com.GroupBox
 {
   partial class GroupBox
   {

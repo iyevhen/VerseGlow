@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace FreePresenter.UI
+namespace VerseGlow.UI
 {
 	/// <summary>
 	/// Provides various image untilities, such as high quality resizing and the ability to save a JPEG.

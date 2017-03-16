@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace VerseFlow.UI.Controls.LineRenderers
+namespace VerseGlow.UI.Controls.LineRenderers
 {
 	internal class RegularRowRenderer : RowRenderer
 	{

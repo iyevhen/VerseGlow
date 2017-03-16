@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace VerseFlow.UI
+namespace VerseGlow.UI
 {
 	public partial class FrmDisplay : Form, IDisplay
 	{

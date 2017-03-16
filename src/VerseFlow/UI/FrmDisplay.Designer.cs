@@ -1,4 +1,4 @@
-﻿namespace VerseFlow.UI
+﻿namespace VerseGlow.UI
 {
 	partial class FrmDisplay
 	{

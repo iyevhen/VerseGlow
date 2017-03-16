@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace VerseFlow.Core.Import.CSV
+namespace VerseGlow.Core.Import.CSV
 {
 	public class FlatFile<T> : IEnumerable<T>
 		where T : FlatFileLine, new()

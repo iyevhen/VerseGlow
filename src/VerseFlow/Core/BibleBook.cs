@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace VerseFlow.Core
+namespace VerseGlow.Core
 {
 	public class BibleBook
 	{

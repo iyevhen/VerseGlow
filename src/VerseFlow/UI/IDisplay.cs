@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace VerseFlow.UI
+namespace VerseGlow.UI
 {
     public interface IDisplay : IDisposable
     {

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
-using VerseFlow.UI.Controls;
 
-namespace VerseFlow.UI
+namespace VerseGlow.UI
 {
 	public partial class FrmBibleViewColors : Form
 	{

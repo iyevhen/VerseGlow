@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace VerseFlow.Core.Import.CSV
+namespace VerseGlow.Core.Import.CSV
 {
 	public class FlatBibleLine : FlatFileLine
 	{

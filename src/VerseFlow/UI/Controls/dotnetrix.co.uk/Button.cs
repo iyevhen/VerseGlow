@@ -8,7 +8,7 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-namespace VerseFlow.UI.Controls.dotnetrix.co.uk
+namespace VerseGlow.UI.Controls.dotnetrix.co.uk
 {
 	[Flags]
 	public enum Corners

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VerseFlow.Common
+namespace VerseGlow.Common
 {
 	public static class Extensions
 	{

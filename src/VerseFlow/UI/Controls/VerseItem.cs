@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using VerseFlow.Core;
 
-namespace VerseFlow.UI.Controls
+using VerseGlow.Core;
+
+namespace VerseGlow.UI.Controls
 {
     public class VerseItem
     {
@@ -97,20 +98,11 @@ namespace VerseFlow.UI.Controls
             size = new Size(width, height);
         }
 
-        public Size Size
-        {
-            get { return size; }
-        }
+        public Size Size => size;
 
-        public Point Position
-        {
-            get { return position; }
-        }
+        public Point Position => position;
 
-        public Point TextPosition
-        {
-            get { return textPosition; }
-        }
+        public Point TextPosition => textPosition;
 
         #region Nested type
 

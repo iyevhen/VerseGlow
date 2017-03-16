@@ -1,6 +1,6 @@
 using System;
 
-namespace VerseFlow.Common
+namespace VerseGlow.Common
 {
 	/// <summary>
 	/// An abstract object that is disposable. Used for proper implementation of the Disposal pattern.

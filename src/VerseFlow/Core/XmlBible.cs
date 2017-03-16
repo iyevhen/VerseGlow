@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Text;
-using System.Threading;
 using System.Xml;
 using System.Xml.Schema;
-using VerseFlow.Core.Import;
 
-namespace VerseFlow.Core
+using VerseGlow.Core.Import;
+
+namespace VerseGlow.Core
 {
 	public class XmlBible : IBible
 	{

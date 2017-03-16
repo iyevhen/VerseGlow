@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace VerseFlow.UI
+namespace VerseGlow.UI
 {
 	public partial class FrmAbout : Form
 	{

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using VerseFlow.Core;
-using VerseFlow.UI.Controls.LineRenderers;
 
-namespace VerseFlow.UI.Controls
+using VerseGlow.Core;
+using VerseGlow.UI.Controls.LineRenderers;
+
+namespace VerseGlow.UI.Controls
 {
     class VerseViewPresenter
     {

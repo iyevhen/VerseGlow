@@ -1,4 +1,6 @@
-﻿namespace VerseFlow.UI
+﻿using VerseGlow.UI.Controls;
+
+namespace VerseGlow.UI
 {
 	partial class FrmBibleViewColors
 	{
@@ -28,7 +30,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.verseView1 = new VerseFlow.UI.Controls.VerseView();
+			this.verseView1 = new VerseView();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnOK = new System.Windows.Forms.Button();
@@ -39,13 +41,13 @@
 			// 
 			this.verseView1.AutoScroll = true;
 			this.verseView1.AutoScrollMinSize = new System.Drawing.Size(449, 0);
-			this.verseView1.BackColor = global::VerseFlow.Properties.Settings.Default.BibleBackColor;
-			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseFlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseFlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseView1.BackColor = global::VerseGlow.Properties.Settings.Default.BibleBackColor;
+			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseGlow.Properties.Settings.Default, "BibleFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::VerseGlow.Properties.Settings.Default, "BibleBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.verseView1.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::VerseGlow.Properties.Settings.Default, "BibleForeColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.verseView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.verseView1.Font = global::VerseFlow.Properties.Settings.Default.BibleFont;
-			this.verseView1.ForeColor = global::VerseFlow.Properties.Settings.Default.BibleForeColor;
+			this.verseView1.Font = global::VerseGlow.Properties.Settings.Default.BibleFont;
+			this.verseView1.ForeColor = global::VerseGlow.Properties.Settings.Default.BibleForeColor;
 			this.verseView1.HighlightText = null;
 			this.verseView1.Location = new System.Drawing.Point(5, 5);
 			this.verseView1.Name = "verseView1";
@@ -95,8 +97,8 @@
 			this.ClientSize = new System.Drawing.Size(459, 326);
 			this.Controls.Add(this.verseView1);
 			this.Controls.Add(this.panel1);
-			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseFlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.Font = global::VerseFlow.Properties.Settings.Default.ApplicationFont;
+			this.DataBindings.Add(new System.Windows.Forms.Binding("Font", global::VerseGlow.Properties.Settings.Default, "ApplicationFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.Font = global::VerseGlow.Properties.Settings.Default.ApplicationFont;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "FrmBibleViewColors";

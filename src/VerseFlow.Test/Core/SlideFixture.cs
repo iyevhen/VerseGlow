@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
+
 using NUnit.Framework;
 
-namespace VerseFlow.Test.Core
+namespace VerseGlow.Test.Core
 {
 	[TestFixture]
 	public class SlideFixture

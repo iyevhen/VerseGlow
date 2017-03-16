@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
-namespace VerseFlow.UI.Controls
+namespace VerseGlow.UI.Controls
 {
 	public class SplitButton : Button
 	{
