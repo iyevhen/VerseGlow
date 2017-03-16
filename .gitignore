@@ -3,9 +3,14 @@
 **/.vs/
 **/[oO]bj/
 **/[bB]in/
+**/[bB]uild/
 **/*.dll
+**/*.suo
 **/*.pdb
+**/*.user
 **/*.exe
+**/*.DotSettings
+**/packages/
 
 #except
 !/lib/**
