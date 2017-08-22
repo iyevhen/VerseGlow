@@ -15,10 +15,8 @@ namespace VerseGlow.UI.Controls
         //Buffer3: Verses and Selected Verses and Highlighted words 
         //Buffer4: Verses and Selected Verses and Highlighted words and MouseOver words
 
-        private readonly List<VerseItem> allverses = new List<VerseItem>();
+        //private readonly List<VerseItem> allverses = new List<VerseItem>();
         private int prevWidth;
-        private int focusedItem = -1;
-        private bool readOnly;
         private readonly VerseViewPresenter presenter;
         private readonly VerseViewColorTheme colorTheme;
         public event Action<BibleVerse> SelectedVerseChanged;
@@ -49,12 +47,12 @@ namespace VerseGlow.UI.Controls
         private void OnSelectedVerseChanged(BibleVerse obj)
         {
             Action<BibleVerse> handler = SelectedVerseChanged;
-            if (handler != null) handler(obj);
+            handler?.Invoke(obj);
         }
 
         public string HighlightText
         {
-            get { return presenter.HighlightText; }
+            get => presenter.HighlightText;
             set
             {
                 presenter.HighlightText = value;
@@ -62,11 +60,7 @@ namespace VerseGlow.UI.Controls
             }
         }
 
-        public bool ReadOnly
-        {
-            get { return readOnly; }
-            set { readOnly = value; }
-        }
+        public bool ReadOnly { get; set; }
 
         public void Fill(List<VerseItem> items)
         {
@@ -100,44 +94,42 @@ namespace VerseGlow.UI.Controls
         {
             //			base.OnPreviewKeyDown(e);
 
-            if (readOnly)
+
+            if (ReadOnly)
+            {
                 return;
-
-            if (e.KeyCode == Keys.Down)
-            {
-                if (e.Modifiers == Keys.Control)
-                    AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y - VerticalScroll.SmallChange));
-                else if (focusedItem + 1 < allverses.Count)
-                    focusedItem++;
-
-                Invalidate();
             }
-            else if (e.KeyCode == Keys.Up)
-            {
-                if (e.Modifiers == Keys.Control)
-                    AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y + VerticalScroll.SmallChange));
-                else if (focusedItem - 1 > -1)
-                    focusedItem--;
 
-                Invalidate();
-            }
-            else if (e.KeyData == Keys.Space)
+            switch (e.KeyData)
             {
-                if (focusedItem > -1)
-                {
-                    presenter.SelectedIndex = focusedItem;
+                case Keys.Down:
+                    presenter.FocusedIndex += 1;
                     Invalidate();
-                }
-            }
-            else if (e.KeyData == Keys.End)
-            {
-                AutoScrollPosition = new Point(0, AutoScrollMinSize.Height);
-                Invalidate();
-            }
-            else if (e.KeyData == Keys.Home)
-            {
-                AutoScrollPosition = new Point(0, 0);
-                Invalidate();
+                    break;
+                case Keys.Up:
+                    presenter.FocusedIndex -= 1;
+                    Invalidate();
+                    break;
+                case Keys.Down | Keys.Control:
+                    AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y - VerticalScroll.SmallChange));
+                    Invalidate();
+                    break;
+                case Keys.Up | Keys.Control:
+                    AutoScrollPosition = new Point(0, -(AutoScrollPosition.Y + VerticalScroll.SmallChange));
+                    Invalidate();
+                    break;
+                case Keys.Space:
+                    presenter.SelectedIndex = presenter.FocusedIndex;
+                    Invalidate();
+                    break;
+                case Keys.End:
+                    AutoScrollPosition = new Point(0, AutoScrollMinSize.Height);
+                    Invalidate();
+                    break;
+                case Keys.Home:
+                    AutoScrollPosition = new Point(0, 0);
+                    Invalidate();
+                    break;
             }
         }
 
@@ -158,6 +150,7 @@ namespace VerseGlow.UI.Controls
                 prevWidth = rect.Width;
                 Debug.WriteLine("Recalculating verses width=" + Width);
 
+                //todo: do this in TPL task while drawing (calculating)
                 presenter.SetBounds(e.Graphics, rect, Padding);
                 AutoScrollMinSize = presenter.Size;
             }
@@ -207,15 +200,14 @@ namespace VerseGlow.UI.Controls
         {
             base.Dispose(disposing);
 
-            if (colorTheme != null)
-                colorTheme.Dispose();
+            colorTheme?.Dispose();
         }
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
 
-            if (readOnly)
+            if (ReadOnly)
                 return;
 
             if (e.Button == MouseButtons.Left)
@@ -223,7 +215,7 @@ namespace VerseGlow.UI.Controls
                 Point location = e.Location;
                 location.Offset(0, -AutoScrollPosition.Y);
 
-                int index = presenter.FindIndex(location);
+                int index = presenter.FindVerseIndex(location);
                 SelectedIndex(index);
             }
         }

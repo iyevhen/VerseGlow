@@ -25,7 +25,21 @@ namespace VerseGlow.UI.Controls
 			verseView.SelectedVerseChanged += verseView_SelectedVerseChanged;
 		}
 
-		void verseView_SelectedVerseChanged(BibleVerse obj)
+	    protected override void OnGotFocus(EventArgs e)
+	    {
+	        Caret.CreateCaret(this.Handle, IntPtr.Zero, 2, this.Height - 2);
+	        Caret.SetCaretPos(2, 1);
+	        Caret.ShowCaret(this.Handle);
+            base.OnGotFocus(e);
+	    }
+
+	    protected override void OnLostFocus(EventArgs e)
+	    {
+	        Caret.DestroyCaret();
+            base.OnLostFocus(e);
+	    }
+
+	    void verseView_SelectedVerseChanged(BibleVerse obj)
 		{
 			Action<BibleVerse> handler = SelectedVerseChanged;
 
@@ -35,8 +49,8 @@ namespace VerseGlow.UI.Controls
 
 		public IBible Bible
 		{
-			get { return bible; }
-			set
+			get => bible;
+		    set
 			{
 				bible = value;
 
@@ -104,9 +118,7 @@ namespace VerseGlow.UI.Controls
 		protected virtual void OnCloseRequested()
 		{
 			EventHandler handler = CloseRequested;
-
-			if (handler != null)
-				handler(this, EventArgs.Empty);
+		    handler?.Invoke(this, EventArgs.Empty);
 		}
 
 		private void cmbNavigate_KeyDown(object sender, KeyEventArgs e)

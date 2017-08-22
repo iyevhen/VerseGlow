@@ -119,5 +119,10 @@ namespace VerseGlow.UI.Controls
         }
 
         #endregion
+
+        public bool IsVisible(int height, int offsetY)
+        {
+            return (position.Y + offsetY) < height;
+        }
     }
 }

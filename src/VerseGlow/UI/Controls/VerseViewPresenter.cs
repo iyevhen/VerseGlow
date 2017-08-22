@@ -16,60 +16,48 @@ namespace VerseGlow.UI.Controls
         private List<VerseItem> verses = new List<VerseItem>();
         private Font font;
         private int focusedIndex;
-        private bool focused;
         private Size size;
         private string highlightText;
         private RowRenderer rowRenderer;
         private int selectedIndex = -1;
+        private int visibleStartIdx;
+        private int visibleEndIdx;
 
         public VerseViewPresenter(VerseViewColorTheme colorTheme, Font font)
         {
-            if (colorTheme == null)
-                throw new ArgumentNullException("colorTheme");
-
             if (font == null)
-                throw new ArgumentNullException("colorTheme");
+                throw new ArgumentNullException(nameof(font));
 
-            this.colorTheme = colorTheme;
-            rowRenderer = new RegularRowRenderer(new Renderer(font), new VerseViewColorTheme());
-            Font = font;
+            this.colorTheme = colorTheme ?? throw new ArgumentNullException(nameof(colorTheme));
+            this.rowRenderer = new RegularRowRenderer(new Renderer(font), new VerseViewColorTheme());
+            this.Font = font;
         }
 
         public void Fill(List<VerseItem> items)
         {
-            if (items == null)
-                throw new ArgumentNullException("items");
-
-            verses = items;
+            verses = items ?? throw new ArgumentNullException(nameof(items));
         }
 
-        public VerseItem this[int index]
-        {
-            get { return verses[index]; }
-        }
+        public VerseItem this[int index] => verses[index];
+
+        public int VerseCount => verses.Count;
 
         public Font Font
         {
-            get { return font; }
+            get => font;
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-
-                font = value;
+                font = value ?? throw new ArgumentNullException(nameof(value));
                 renderer = new Renderer(value);
                 rowRenderer.Renderer = renderer;
             }
         }
 
-        public Size Size
-        {
-            get { return size; }
-        }
+        public Size Size => size;
 
         public string HighlightText
         {
-            get { return highlightText; }
+            get => highlightText;
             set
             {
                 highlightText = value;
@@ -81,27 +69,21 @@ namespace VerseGlow.UI.Controls
             }
         }
 
-        public bool Focused
-        {
-            get { return focused; }
-            set { focused = value; }
-        }
+        public bool Focused { get; set; }
 
         public int FocusedIndex
         {
-            get { return focusedIndex; }
+            get => focusedIndex;
             set
             {
-                if (value < 0 || value >= verses.Count)
-                    focusedIndex = -1;
-                else
-                    focusedIndex = value;
+                var v = value >= VerseCount ? VerseCount - 1 : value;
+                focusedIndex = v < 0 ? 0 : v;
             }
         }
 
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get => selectedIndex;
             set
             {
                 if (value == selectedIndex || value < 0 || value >= verses.Count)
@@ -111,15 +93,9 @@ namespace VerseGlow.UI.Controls
             }
         }
 
-        public BibleVerse SelectedVerse
-        {
-            get
-            {
-                return selectedIndex == -1
-                    ? null
-                    : verses[selectedIndex].Bverse;
-            }
-        }
+        public BibleVerse SelectedVerse => selectedIndex == -1
+            ? null
+            : verses[selectedIndex].Bverse;
 
         public void DoPaint(Graphics graphics, Rectangle rect, Point scrollPosition)
         {
@@ -127,29 +103,35 @@ namespace VerseGlow.UI.Controls
 
             graphics.FillRectangle(colorTheme.BackColorBrush, rect);
 
-            int offset = scrollPosition.Y;
+            int offsetY = scrollPosition.Y;
+            int i = FindVerseIndex(new Point(0, -scrollPosition.Y));
 
-            for (int i = 0; i < verses.Count; i++)
+            if (i < 0)
             {
+                i = 0;
+            }
+
+            visibleStartIdx = i;
+
+            for (; i < verses.Count; i++)
+            {
+                visibleEndIdx = i;
                 VerseItem vi = verses[i];
 
-                if ((offset + vi.Position.Y + vi.Size.Height) < 0)
+                if (!vi.IsVisible(rect.Height, offsetY))
                 {
-                    continue;
-                }
-
-                if (focusedIndex == -1)
-                {
-                    focusedIndex = i;
+                    visibleEndIdx--;
+                    break;
                 }
 
                 Rectangle vrect = vi.Rect();
-                vrect.Offset(0, offset);
+                vrect.Offset(0, offsetY);
 
-                if (vrect.Y > rect.Height)
-                {
-                    break;
-                }
+//                if (vrect.Y > rect.Height)
+//                {
+//                    visibleEndIdx--;
+//                    break;
+//                }
 
                 if (i == selectedIndex)
                 {
@@ -172,13 +154,13 @@ namespace VerseGlow.UI.Controls
                 foreach (string line in vi.Rows())
                 {
                     Point point = vi.TextPosition;
-                    point.Offset(0, offset + linesHeight);
+                    point.Offset(0, offsetY + linesHeight);
 
                     rowRenderer.DrawLine(graphics, line, point);
                     linesHeight += renderer.RowHeight;
                 }
 
-                if (focusedIndex == i && focused)
+                if (focusedIndex == i && Focused)
                 {
                     renderer.DrawFocusRectangle(graphics, vrect);
                 }
@@ -203,7 +185,7 @@ namespace VerseGlow.UI.Controls
             size = new Size(width, y);
         }
 
-        internal int FindIndex(Point point)
+        internal int FindVerseIndex(Point point)
         {
             int begin = 0;
             int end = verses.Count - 1;
