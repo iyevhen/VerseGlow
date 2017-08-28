@@ -14,6 +14,12 @@ namespace VerseGlow.UI
     {
         private HashSet<string> openedBibles;
 
+        TableLayoutRowStyleCollection rowStyles;
+        TableLayoutColumnStyleCollection columnStyles;
+        int colindex = -1;
+        int rowindex = -1;
+        bool resizing = false;
+
         public FrmMain()
         {
             InitializeComponent();
@@ -34,7 +40,7 @@ namespace VerseGlow.UI
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            Text = string.Format("{0} - v{1}", Options.AppName, Options.AppVersion.ToString(3));
+            Text = $"{Options.AppName} - v{Options.AppVersion.ToString(3)}";
 
             IBible[] bibles = Options.BibleRepository.OpenAll();
 
@@ -69,6 +75,9 @@ namespace VerseGlow.UI
             }
 
             displayView.SetDevice(screens[secondary], screensNames[secondary]);
+
+            rowStyles = tblBibles.RowStyles;
+            columnStyles = tblBibles.ColumnStyles;
         }
 
         private void tsAbout_Click(object sender, EventArgs e)
@@ -117,7 +126,7 @@ namespace VerseGlow.UI
                              AnchorStyles.Left |
                              AnchorStyles.Top |
                              AnchorStyles.Right;
-            control.Margin = new Padding(0);
+            control.Margin = new Padding(2);
             tblBibles.Controls.Add(control, idx, 0);
             tblBibles.ResumeLayout();
         }
@@ -235,6 +244,102 @@ namespace VerseGlow.UI
             using (var f = new FrmImportPowerPoint())
             {
                 f.ShowDialog(this);
+            }
+        }
+
+        private void tblBibles_MouseDown(object sender, MouseEventArgs e)
+        {
+            var tbl = sender as TableLayoutPanel;
+
+            if (tbl != null && e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                resizing = true;
+            }
+        }
+
+        private void tblBibles_MouseUp(object sender, MouseEventArgs e)
+        {
+            var tbl = sender as TableLayoutPanel;
+
+            if (tbl != null)
+            {
+                if (!resizing)
+                {
+                    float width = 0;
+                    float height = 0;
+                    //for rows
+                    for (int i = 0; i < rowStyles.Count; i++)
+                    {
+                        height += rowStyles[i].Height;
+                        if (e.Y > height - 3 && e.Y < height + 3)
+                        {
+                            rowindex = i;
+                            tbl.Cursor = Cursors.HSplit;
+                            break;
+                        }
+                        else
+                        {
+                            rowindex = -1;
+                            tbl.Cursor = Cursors.Default;
+                        }
+                    }
+                    //for columns
+                    for (int i = 0; i < columnStyles.Count; i++)
+                    {
+                        width += columnStyles[i].Width;
+                        if (e.X > width - 3 && e.X < width + 3)
+                        {
+                            colindex = i;
+                            if (rowindex > -1)
+                                tbl.Cursor = Cursors.Cross;
+                            else
+                                tbl.Cursor = Cursors.VSplit;
+                            break;
+                        }
+                        else
+                        {
+                            colindex = -1;
+                            if (rowindex == -1)
+                                tbl.Cursor = Cursors.Default;
+                        }
+                    }
+                }
+
+                if (resizing && (colindex > -1 || rowindex > -1))
+                {
+                    float width = e.X;
+                    float height = e.Y;
+                    if (colindex > -1)
+                    {
+                        for (int i = 0; i < colindex; i++)
+                        {
+                            width -= columnStyles[i].Width;
+                        }
+                        columnStyles[colindex].SizeType = SizeType.Absolute;
+                        columnStyles[colindex].Width = width;
+                    }
+                    if (rowindex > -1)
+                    {
+                        for (int i = 0; i < rowindex; i++)
+                        {
+                            height -= rowStyles[i].Height;
+                        }
+
+                        rowStyles[rowindex].SizeType = SizeType.Absolute;
+                        rowStyles[rowindex].Height = height;
+                    }
+                }
+            }
+        }
+
+        private void tblBibles_MouseMove(object sender, MouseEventArgs e)
+        {
+            var tbl = sender as TableLayoutPanel;
+            
+            if (tbl != null && e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                resizing = false;
+                tbl.Cursor = Cursors.Default;
             }
         }
     }

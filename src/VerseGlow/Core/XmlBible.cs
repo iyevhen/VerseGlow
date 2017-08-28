@@ -128,7 +128,7 @@ namespace VerseGlow.Core
 									{
 										ushort id;
 										if (!ushort.TryParse(reader[attributeId], out id))
-											throw new XmlSchemaException(string.Format("'{0}' attribute expected to be of type UInt16", attributeId));
+											throw new XmlSchemaException($"'{attributeId}' attribute expected to be of type UInt16");
 
 										if (reader.Read())
 											result.Add(new BibleVerse(id, reader.Value));

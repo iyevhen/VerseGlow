@@ -9,7 +9,7 @@ namespace VerseGlow.UI.Controls
     public class VerseItem
     {
         private const int interval = 2;
-        private readonly List<Slice> rows = new List<Slice>();
+        private readonly List<Slice> rows = new List<Slice>(8);
         private readonly BibleVerse bverse;
         private Point textPosition;
         private Point position;
@@ -17,16 +17,10 @@ namespace VerseGlow.UI.Controls
 
         public VerseItem(BibleVerse bverse)
         {
-            if (bverse == null)
-                throw new ArgumentNullException("bverse");
-
-            this.bverse = bverse;
+            this.bverse = bverse ?? throw new ArgumentNullException(nameof(bverse));
         }
 
-        public BibleVerse Bverse
-        {
-            get { return bverse; }
-        }
+        public BibleVerse Bverse => bverse;
 
         public IEnumerable<string> Rows()
         {

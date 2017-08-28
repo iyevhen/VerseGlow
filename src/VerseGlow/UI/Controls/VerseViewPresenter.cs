@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using VerseGlow.Core;
@@ -167,7 +169,7 @@ namespace VerseGlow.UI.Controls
             }
         }
 
-        public void SetBounds(Graphics graphics, Rectangle rect, Padding padding)
+        public Size MeasureSize(Graphics graphics, Rectangle rect, Padding padding, CancellationToken token = default(CancellationToken))
         {
             int width = rect.Width - padding.Right - padding.Left;
 
@@ -176,6 +178,8 @@ namespace VerseGlow.UI.Controls
 
             for (int i = 0; i < verses.Count; i++)
             {
+                token.ThrowIfCancellationRequested();
+
                 VerseItem vi = verses[i];
                 vi.Refresh(graphics, width, renderer, new Point(x, y));
                 y += vi.Size.Height;
@@ -183,6 +187,7 @@ namespace VerseGlow.UI.Controls
 
             y += padding.Bottom;
             size = new Size(width, y);
+            return size;
         }
 
         internal int FindVerseIndex(Point point)

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using VerseGlow.Core;
@@ -15,7 +17,6 @@ namespace VerseGlow.UI.Controls
         //Buffer3: Verses and Selected Verses and Highlighted words 
         //Buffer4: Verses and Selected Verses and Highlighted words and MouseOver words
 
-        //private readonly List<VerseItem> allverses = new List<VerseItem>();
         private int prevWidth;
         private readonly VerseViewPresenter presenter;
         private readonly VerseViewColorTheme colorTheme;
@@ -69,7 +70,6 @@ namespace VerseGlow.UI.Controls
 
             presenter.Fill(items);
 
-            //			allverses = strings.ConvertAll(s => new VerseItem(s));
             prevWidth = -1;
             AutoScrollPosition = new Point(0, 0);
             Invalidate();
@@ -137,6 +137,13 @@ namespace VerseGlow.UI.Controls
         {
         }
 
+        CancellationTokenSource cts = null;
+        readonly StringFormat fmt = new StringFormat(StringFormatFlags.NoWrap)
+        {
+            Alignment = StringAlignment.Center,
+            LineAlignment = StringAlignment.Center
+        };
+
         protected override void OnPaint(PaintEventArgs e)
         {
 
@@ -150,12 +157,41 @@ namespace VerseGlow.UI.Controls
                 prevWidth = rect.Width;
                 Debug.WriteLine("Recalculating verses width=" + Width);
 
-                //todo: do this in TPL task while drawing (calculating)
-                presenter.SetBounds(e.Graphics, rect, Padding);
-                AutoScrollMinSize = presenter.Size;
+                cts?.Cancel();
+                cts = new CancellationTokenSource();
+
+                var task = Task.Factory
+                    .StartNew(() =>
+                    {
+                        using (var b = new Bitmap(1, 1))
+                        {
+                            using (var g = Graphics.FromImage(b))
+                            {
+                                return presenter.MeasureSize(g, rect, Padding, cts.Token);
+                            }
+                        }
+                    }, cts.Token);
+                task.ContinueWith(t =>
+                {
+                    Debug.WriteLine($"MeasureSize : {t.Status}");
+                }, TaskContinuationOptions.OnlyOnCanceled);
+                task.ContinueWith(t =>
+                    {
+                        cts = null;
+                        AutoScrollMinSize = t.Result;
+                        Invalidate();
+                    }, cts.Token, TaskContinuationOptions.NotOnCanceled, TaskScheduler.FromCurrentSynchronizationContext());
             }
 
-            presenter.DoPaint(e.Graphics, rect, AutoScrollPosition);
+            if (cts != null)
+            {
+                e.Graphics.FillRectangle(SystemBrushes.Control, rect);
+                e.Graphics.DrawString("Calculating...", Font, SystemBrushes.ControlText, rect, fmt);
+            }
+            else
+            {
+                presenter.DoPaint(e.Graphics, rect, AutoScrollPosition);
+            }
 
             base.OnPaint(e);
 

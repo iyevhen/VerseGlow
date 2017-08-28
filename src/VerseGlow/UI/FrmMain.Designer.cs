@@ -64,7 +64,7 @@ namespace VerseGlow.UI
             this.toolStripBibles.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.toolStripBibles.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStripBibles.ShowItemToolTips = false;
-            this.toolStripBibles.Size = new System.Drawing.Size(421, 25);
+            this.toolStripBibles.Size = new System.Drawing.Size(595, 25);
             this.toolStripBibles.TabIndex = 0;
             this.toolStripBibles.Text = "toolStrip2";
             // 
@@ -108,15 +108,18 @@ namespace VerseGlow.UI
             // 
             this.tblBibles.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tblBibles.ColumnCount = 1;
-            this.tblBibles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 659F));
+            this.tblBibles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 663F));
             this.tblBibles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblBibles.Location = new System.Drawing.Point(0, 25);
             this.tblBibles.Margin = new System.Windows.Forms.Padding(0);
             this.tblBibles.Name = "tblBibles";
             this.tblBibles.RowCount = 1;
             this.tblBibles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblBibles.Size = new System.Drawing.Size(421, 600);
+            this.tblBibles.Size = new System.Drawing.Size(595, 600);
             this.tblBibles.TabIndex = 1;
+            this.tblBibles.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tblBibles_MouseDown);
+            this.tblBibles.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tblBibles_MouseMove);
+            this.tblBibles.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tblBibles_MouseUp);
             // 
             // splitContainer1
             // 
@@ -136,7 +139,7 @@ namespace VerseGlow.UI
             this.splitContainer1.Panel2.Controls.Add(this.tblBibles);
             this.splitContainer1.Panel2.Controls.Add(this.toolStripBibles);
             this.splitContainer1.Size = new System.Drawing.Size(859, 629);
-            this.splitContainer1.SplitterDistance = 432;
+            this.splitContainer1.SplitterDistance = 258;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 3;
             // 
@@ -154,7 +157,7 @@ namespace VerseGlow.UI
             this.tblDisplay.Name = "tblDisplay";
             this.tblDisplay.RowCount = 1;
             this.tblDisplay.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblDisplay.Size = new System.Drawing.Size(428, 600);
+            this.tblDisplay.Size = new System.Drawing.Size(254, 600);
             this.tblDisplay.TabIndex = 4;
             // 
             // displayView
@@ -166,7 +169,7 @@ namespace VerseGlow.UI
             this.displayView.Location = new System.Drawing.Point(2, 2);
             this.displayView.Margin = new System.Windows.Forms.Padding(0);
             this.displayView.Name = "displayView";
-            this.displayView.Size = new System.Drawing.Size(424, 596);
+            this.displayView.Size = new System.Drawing.Size(250, 596);
             this.displayView.TabIndex = 2;
             // 
             // toolStripMain
@@ -180,7 +183,7 @@ namespace VerseGlow.UI
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.toolStripMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStripMain.Size = new System.Drawing.Size(428, 25);
+            this.toolStripMain.Size = new System.Drawing.Size(254, 25);
             this.toolStripMain.TabIndex = 7;
             this.toolStripMain.Text = "toolStrip1";
             // 
