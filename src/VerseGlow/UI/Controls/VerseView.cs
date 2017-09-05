@@ -171,22 +171,21 @@ namespace VerseGlow.UI.Controls
                             }
                         }
                     }, cts.Token);
-                task.ContinueWith(t =>
-                {
-                    Debug.WriteLine($"MeasureSize : {t.Status}");
-                }, TaskContinuationOptions.OnlyOnCanceled);
+                task.ContinueWith(t => Debug.WriteLine($"MeasureSize : {t.Status}"), TaskContinuationOptions.OnlyOnCanceled);
+                task.ContinueWith(t => Debug.WriteLine($"{t.Exception}", TaskContinuationOptions.OnlyOnFaulted));
                 task.ContinueWith(t =>
                     {
                         cts = null;
                         AutoScrollMinSize = t.Result;
                         Invalidate();
                     }, cts.Token, TaskContinuationOptions.NotOnCanceled, TaskScheduler.FromCurrentSynchronizationContext());
+
             }
 
             if (cts != null)
             {
                 e.Graphics.FillRectangle(SystemBrushes.Control, rect);
-                e.Graphics.DrawString("Calculating...", Font, SystemBrushes.ControlText, rect, fmt);
+                e.Graphics.DrawString("Rendering...", Font, SystemBrushes.ControlText, rect, fmt);
             }
             else
             {

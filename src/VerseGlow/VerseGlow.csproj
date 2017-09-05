@@ -68,9 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\DisposableObject.cs" />
     <Compile Include="Common\Extensions.cs" />
-    <Compile Include="Common\IDisposableEx.cs" />
     <Compile Include="Common\Is.cs" />
     <Compile Include="Core\IBible.cs" />
     <Compile Include="Core\Import\IBibleWriter.cs" />
@@ -171,7 +169,6 @@
     </Compile>
     <Compile Include="UI\Controls\IHaveRoundCorners.cs" />
     <Compile Include="UI\Controls\GraphicsTools.cs" />
-    <Compile Include="ILog.cs" />
     <Compile Include="Core\Import\CSV\FlatBibleLine.cs" />
     <Compile Include="Core\Import\CSV\FlatFile.cs" />
     <Compile Include="Core\Import\CSV\FlatFileImporter.cs" />
